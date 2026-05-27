@@ -183,19 +183,19 @@ class TotemController extends BaseController
                 'label' => 'VOLVER',
                 'href' => $backHref ?? base_url('menu'),
                 'icon' => '←',
-                'class' => 'pill-button',
+                'class' => 'pill-button pill-button--back',
             ],
             [
                 'label' => 'ESP',
                 'href' => base_url('language' . ($currentUri ? '?from=' . urlencode($currentUri) : '')),
                 'icon' => '◌',
-                'class' => 'pill-button',
+                'class' => 'pill-button pill-button--lang',
             ],
             [
                 'label' => 'INICIO',
                 'href' => base_url('/'),
                 'icon' => '⌂',
-                'class' => 'pill-button',
+                'class' => 'pill-button pill-button--home',
             ],
         ];
     }

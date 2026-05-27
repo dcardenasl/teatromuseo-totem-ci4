@@ -25,7 +25,7 @@
 <script>
 function setLanguage(lang) {
     localStorage.setItem('totem_lang', lang);
-    window.location.href = '<?= !empty($from) ? base_url(esc($from, 'js')) : base_url('menu') ?>';
+    window.location.href = '<?= !empty($from) ? esc(base_url($from), 'js') : esc(base_url('menu'), 'js') ?>';
 }
 </script>
 <?= $this->endSection() ?>
