@@ -1,0 +1,252 @@
+}
+
+@media (max-width: 920px) {
+    .totem-header {
+        position: static;
+        grid-template-columns: auto auto;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .totem-header__actions {
+        width: auto;
+        justify-content: flex-start;
+    }
+
+    .content-grid,
+    .detail-layout,
+    .event-card,
+    .course-list {
+        grid-template-columns: 1fr;
+    }
+
+    .hero__ornaments {
+        height: 270px;
+    }
+
+    .hero__ornament--left {
+        width: 120px;
+        height: 120px;
+    }
+
+    .hero__ornament--right {
+        width: 136px;
+        height: 136px;
+    }
+
+    .screen__panel {
+        border-radius: 30px;
+    }
+}
+
+@media (max-width: 640px) {
+    /* --- Cabecera y Navegación (Una Sola Línea) --- */
+    .totem-header {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 16px;
+        padding: 8px 6px 0;
+        position: static;
+        width: 100%;
+    }
+
+    .totem-brand {
+        flex: 0 0 auto;
+    }
+
+    .totem-brand__mark {
+        width: 44px;
+        height: 44px;
+        border-width: 2px;
+        box-shadow: 0 4px 10px rgba(52, 34, 14, 0.12);
+    }
+
+    .totem-header__actions {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 6px;
+        margin: 0;
+        width: auto;
+        flex: 0 1 auto;
+        overflow: visible;
+    }
+
+    .pill-button {
+        min-height: 38px;
+        padding: 0 10px;
+        font-size: 0.75rem;
+        gap: 5px;
+        border-radius: 20px;
+    }
+
+    .pill-button__icon {
+        font-size: 0.95rem;
+    }
+
+    /* --- Tipografías Fluidas (Límites en Móviles) --- */
+    .splash-eyebrow {
+        font-size: clamp(1.1rem, 4cqi, 1.5rem);
+    }
+
+    .splash-title {
+        font-size: clamp(1.7rem, 9cqi, 3.0rem);
+    }
+
+    .splash-cta {
+        min-height: 64px;
+        padding: 0 24px;
+        font-size: clamp(1.2rem, 4cqi, 1.6rem);
+        border-radius: 32px;
+        box-shadow: 0 4px 0 #b94805;
+    }
+
+    .splash-copy {
+        margin-top: clamp(40px, 8vh, 80px);
+        gap: 14px;
+        z-index: 5;
+    }
+
+    /* --- Ilustraciones de Cielo y Fondo (Splash) --- */
+    .splash-sky {
+        z-index: 1;
+    }
+
+    .splash-bird--top {
+        top: 20px;
+        right: 4%;
+        transform: rotate(18deg) scale(0.6) !important;
+    }
+
+    .splash-bird--mid {
+        top: 40px;
+        right: 12%;
+        transform: rotate(16deg) scale(0.45) !important;
+    }
+
+    .splash-bird--low {
+        display: none !important;
+    }
+
+    .splash-flower--left {
+        transform: scale(0.5);
+        transform-origin: bottom left;
+        left: -10px;
+    }
+
+    .splash-flower--right {
+        transform: scale(0.5);
+        transform-origin: bottom right;
+        right: -10px;
+    }
+
+    .menu-title__heading {
+        font-size: clamp(2.0rem, 7cqi, 3.4rem);
+    }
+
+    .menu-title__heading--compact {
+        font-size: clamp(1.8rem, 6cqi, 2.8rem);
+    }
+
+    .hero__title {
+        font-size: clamp(1.8rem, 7cqi, 3.0rem);
+    }
+
+    .section-hero__title {
+        font-size: clamp(1.6rem, 6cqi, 2.6rem);
+    }
+
+    .content-panel__title {
+        font-size: clamp(1.4rem, 5cqi, 2.0rem);
+    }
+
+    /* --- Rejilla de Idiomas --- */
+    .language-grid,
+    .language-grid--spacious {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 0 10px;
+    }
+
+    .pill-button--language {
+        min-height: 56px;
+        font-size: 1.15rem;
+    }
+
+    .language-card__title--spacious {
+        margin-bottom: 24px;
+        font-size: 2.0rem;
+    }
+
+    /* --- Rejilla de Menú y Tarjetas --- */
+    .menu-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 30px 24px;
+        padding: 8px 24px 0;
+    }
+
+    .menu-card__title {
+        font-size: clamp(0.95rem, 2.2cqi, 1.15rem);
+    }
+
+    .section-hero__visual,
+    .detail-hero__image {
+        min-height: 0;
+    }
+
+    .section-hero__visual {
+        aspect-ratio: 16 / 10;
+    }
+
+    .detail-hero__image {
+        aspect-ratio: 3 / 4;
+    }
+
+    .hero__ornament--stage {
+        width: 100%;
+    }
+
+    /* --- Tarjetas de Cursos (Teatro Escuela) --- */
+    .course-card {
+        grid-template-columns: 64px 1fr;
+        gap: 12px;
+        padding: 12px;
+        border-radius: 20px;
+        align-items: center;
+    }
+
+    .course-card__thumb {
+        min-height: 64px;
+        height: 64px;
+        width: 64px;
+        border-radius: 12px;
+    }
+
+    .course-card__qr {
+        display: none;
+    }
+
+    /* --- Ilustraciones Decorativas y Elementos redundantes --- */
+    .splash-collage {
+        display: block !important;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 720px;
+        min-height: 370px;
+        margin-left: -360px;
+        transform: scale(0.48);
+        transform-origin: bottom center;
+        pointer-events: none;
+        z-index: 2;
+    }
+
+    .footer-ornament {
+        display: none;
+    }
+}

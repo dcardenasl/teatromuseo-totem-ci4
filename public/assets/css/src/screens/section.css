@@ -1,0 +1,195 @@
+
+.section-layout {
+    display: grid;
+    gap: 28px;
+    padding-bottom: 50px;
+    width: 100%;
+    min-height: 100dvh;
+}
+
+.section-hero {
+    display: grid;
+    gap: 18px;
+    justify-items: center;
+    text-align: center;
+    padding: 18px 10px 4px;
+}
+
+.section-hero__title {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 0.94;
+    font-size: clamp(2.8rem, 7cqi, 5.6rem);
+}
+
+.section-hero__copy {
+    margin: 0;
+    max-width: 46rem;
+    color: var(--muted);
+    line-height: 1.65;
+}
+
+.content-grid--section {
+    gap: 18px;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    align-items: stretch;
+    min-height: 0;
+}
+
+.content-panel--soft {
+    padding: 18px 20px;
+    background: rgba(255, 250, 241, 0.78);
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+}
+
+.stat-grid--compact {
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.section-hero__visual {
+    min-height: 0;
+    height: 100%;
+    border-radius: 28px;
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    box-shadow: var(--shadow);
+    background:
+        radial-gradient(circle at 24% 30%, rgba(216, 93, 16, 0.16), transparent 30%),
+        radial-gradient(circle at 74% 20%, rgba(112, 165, 175, 0.18), transparent 26%),
+        linear-gradient(180deg, rgba(255, 250, 241, 0.92), rgba(242, 232, 215, 0.92));
+}
+
+.section-hero__visual--museum {
+    background:
+        radial-gradient(circle at 36% 42%, rgba(111, 74, 35, 0.22), transparent 18%),
+        radial-gradient(circle at 64% 60%, rgba(215, 111, 94, 0.24), transparent 18%),
+        linear-gradient(180deg, rgba(255, 250, 241, 0.96), rgba(234, 218, 188, 0.9));
+}
+
+.section-hero__visual--history {
+    background:
+        radial-gradient(circle at 52% 48%, rgba(123, 110, 90, 0.28), transparent 18%),
+        linear-gradient(180deg, rgba(255, 250, 241, 0.96), rgba(220, 209, 188, 0.9));
+}
+
+.section-hero__visual--school {
+    background:
+        radial-gradient(circle at 52% 18%, rgba(245, 224, 170, 0.85), transparent 16%),
+        linear-gradient(180deg, rgba(255, 247, 223, 0.98), rgba(218, 179, 102, 0.9));
+}
+
+.section-hero__visual--visits {
+    background:
+        radial-gradient(circle at 32% 35%, rgba(216, 173, 111, 0.26), transparent 18%),
+        radial-gradient(circle at 70% 66%, rgba(167, 131, 72, 0.2), transparent 18%),
+        linear-gradient(180deg, rgba(255, 250, 241, 0.96), rgba(229, 205, 160, 0.9));
+}
+
+.section-hero__visual--friends {
+    background:
+        radial-gradient(circle at 50% 18%, rgba(238, 209, 169, 0.9), transparent 18%),
+        linear-gradient(180deg, rgba(255, 250, 241, 0.96), rgba(232, 216, 183, 0.9));
+}
+
+.school-layout {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 12px;
+    min-height: 0;
+}
+
+.section-hero__visual--school-compact {
+    min-height: 160px;
+}
+
+.course-list {
+    display: grid;
+    gap: 10px;
+    min-height: 0;
+    overflow: visible;
+}
+
+.course-card {
+    display: grid;
+    grid-template-columns: 88px minmax(0, 1fr) 72px;
+    gap: 12px;
+    align-items: start;
+    padding: 12px;
+    border-radius: 24px;
+    background: rgba(255, 250, 241, 0.78);
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    box-shadow: var(--shadow);
+}
+
+.course-card__thumb,
+.course-card__qr-box {
+    border-radius: 18px;
+    background:
+        radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.85), transparent 20%),
+        linear-gradient(180deg, rgba(219, 100, 8, 0.7), rgba(180, 72, 43, 0.9));
+}
+
+.course-card__thumb {
+    min-height: 100px;
+}
+
+.course-card__body {
+    display: grid;
+    gap: 5px;
+    min-width: 0;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(216, 93, 16, 0.12);
+    color: var(--accent-strong);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.course-card__title {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    line-height: 1.06;
+}
+
+.course-card__date {
+    margin: 0;
+    color: var(--accent-strong);
+    font-weight: 800;
+    font-size: 0.9rem;
+}
+
+.course-card__copy {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.4;
+    font-size: 0.92rem;
+}
+
+.course-card__qr {
+    display: grid;
+    justify-items: center;
+    gap: 6px;
+    align-content: start;
+    text-align: center;
+}
+
+.course-card__qr-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}

@@ -1,0 +1,53 @@
+
+.screen {
+    position: relative;
+    width: 100%;
+    min-height: 100dvh;
+    height: auto;
+}
+
+.screen__panel {
+    background: rgba(255, 250, 241, 0.68);
+    border: 1px solid rgba(104, 79, 46, 0.12);
+    border-radius: 40px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.screen__panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 18% 24%, rgba(219, 100, 8, 0.06), transparent 24%),
+        radial-gradient(circle at 82% 18%, rgba(112, 165, 175, 0.08), transparent 22%),
+        radial-gradient(circle at 20% 80%, rgba(202, 149, 128, 0.06), transparent 26%);
+    pointer-events: none;
+}
+
+.screen__content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    min-height: 100dvh;
+    height: auto;
+}
+
+.screen-page {
+    width: 100%;
+    min-height: 100dvh;
+    height: auto;
+    display: grid;
+    grid-template-rows: auto auto auto auto;
+    gap: 14px;
+    padding: 18px 16px 14px;
+    overflow: visible;
+}
+
+.screen-page__body {
+    min-height: 0;
+    overflow: visible;
+    display: block;
+}

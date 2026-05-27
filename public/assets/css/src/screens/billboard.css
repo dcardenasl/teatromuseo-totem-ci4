@@ -1,0 +1,107 @@
+
+.billboard-months {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+}
+
+.event-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    min-height: 0;
+}
+
+.month-group {
+    display: grid;
+    gap: 8px;
+    justify-items: center;
+}
+
+.month-group__title {
+    font-size: 0.92rem;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.month-group__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.date-chip {
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 800;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.date-chip--active {
+    background: var(--accent);
+    box-shadow: 0 0 0 4px #fff, 0 0 0 6px var(--accent);
+}
+
+.event-card {
+    display: grid;
+    grid-template-columns: 88px minmax(0, 1fr);
+    gap: 14px;
+    padding: 12px;
+    border-radius: 22px;
+    background: rgba(255, 250, 241, 0.78);
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    box-shadow: var(--shadow);
+    align-items: start;
+}
+
+.event-card__media {
+    aspect-ratio: 1;
+    min-height: 0;
+    border-radius: 18px;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 32%, rgba(255, 255, 255, 0.8), transparent 18%),
+        linear-gradient(180deg, rgba(216, 93, 16, 0.7), rgba(168, 83, 23, 0.9));
+}
+
+.event-card__body {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+}
+
+.event-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.event-card__title {
+    margin: 0;
+    font-family: Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--ink);
+    text-transform: uppercase;
+}
+
+.event-card__copy {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.4;
+    font-size: 0.92rem;
+}

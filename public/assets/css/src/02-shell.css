@@ -1,0 +1,58 @@
+
+.kiosk-shell {
+    width: 100%;
+    max-width: var(--kiosk-width);
+    margin-inline: auto;
+    min-height: 100dvh;
+    height: auto;
+    display: grid;
+    place-items: stretch;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+    container-type: inline-size;
+    container-name: kiosk;
+}
+
+.container {
+    width: 100%;
+    min-height: 100dvh;
+    position: relative;
+}
+
+.totem-stage {
+    width: 100%;
+    min-height: 100dvh;
+    height: auto;
+    display: block;
+    overflow: visible;
+}
+
+.totem-page {
+    width: 100%;
+    min-height: 100dvh;
+    height: auto;
+    padding: 0;
+    display: grid;
+    overflow: visible;
+}
+
+.totem-page--center {
+    place-items: center;
+}
+
+.totem-page > * {
+    width: 100%;
+}
+
+.screen {
+    width: 100%;
+    min-height: 100dvh;
+    height: auto;
+}
+
+.screen__content {
+    width: 100%;
+    min-height: 100dvh;
+    height: auto;
+}

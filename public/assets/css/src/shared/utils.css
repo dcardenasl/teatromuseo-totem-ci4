@@ -1,0 +1,34 @@
+
+.footer-logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+}
+
+.logo-badge {
+    border: 0;
+    background: transparent;
+    padding: 0;
+}
+
+.rule {
+    width: min(100%, 720px);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(92, 70, 43, 0.2), transparent);
+    border: 0;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}

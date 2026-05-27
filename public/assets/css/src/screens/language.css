@@ -1,0 +1,101 @@
+
+.language-layout {
+    display: grid;
+    place-items: center;
+    min-height: 100dvh;
+    padding: 18px 16px 14px;
+}
+
+.language-card {
+    width: 100%;
+    padding: 42px 34px 36px;
+    border-radius: 36px;
+    background: rgba(255, 250, 241, 0.74);
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    box-shadow: var(--shadow);
+}
+
+.language-card--bare {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+.language-card__title {
+    margin: 0 0 10px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2.4rem, 5cqi, 4.5rem);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-align: center;
+}
+
+.language-card__title--spacious {
+    margin-bottom: 40px;
+    font-size: 3rem;
+}
+
+.language-card__copy {
+    margin: 0 auto 28px;
+    max-width: 34rem;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.6;
+}
+
+.language-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.language-grid--spacious {
+    gap: 20px;
+}
+
+.language-card__button {
+    width: 100%;
+    min-height: 96px;
+    padding: 18px 20px;
+    background: linear-gradient(180deg, #fffdf8, #f2e8d7);
+    border: 1px solid rgba(92, 70, 43, 0.14);
+    box-shadow: 0 10px 20px rgba(64, 41, 17, 0.06);
+    display: grid;
+    gap: 6px;
+    align-content: center;
+    justify-items: start;
+    text-align: left;
+}
+
+.language-card__button--centered {
+    justify-items: center;
+    text-align: center;
+    min-height: 80px;
+    padding: 0 28px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 1.4rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.language-card__button:hover,
+.language-card__button:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 28px rgba(64, 41, 17, 0.1);
+}
+
+.language-card__label {
+    display: block;
+    font-size: 1.18rem;
+    font-weight: 800;
+    color: var(--ink);
+}
+
+.language-card__hint {
+    display: block;
+    font-size: 0.88rem;
+    color: var(--muted);
+}

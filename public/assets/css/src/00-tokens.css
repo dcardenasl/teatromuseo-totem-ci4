@@ -1,0 +1,19 @@
+:root {
+    --paper: #f1ede1;
+    --paper-soft: #f8f5eb;
+    --ink: #332b25;
+    --muted: rgba(51, 43, 37, 0.65);
+    --line: rgba(77, 62, 48, 0.12);
+    --accent: #d85d10;
+    --accent-strong: #bf510c;
+    --accent-soft: rgba(216, 93, 16, 0.1);
+    --shadow: 0 12px 32px rgba(61, 44, 28, 0.08);
+    --shadow-strong: 0 16px 40px rgba(61, 44, 28, 0.12);
+    --radius-xl: 40px;
+    --radius-lg: 30px;
+    --radius-md: 20px;
+    --radius-sm: 10px;
+    --kiosk-width: 1440px;
+    --kiosk-gutter: 20px;
+    --kiosk-aspect: 9 / 16;
+}
