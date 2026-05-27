@@ -67,8 +67,8 @@ body::after {
     grid-template-columns: auto auto;
     align-items: center;
     gap: 16px;
-    margin-bottom: 28px;
-    padding: 8px 6px 0;
+    margin-bottom: 16px;
+    padding: 8px 6px 12px;
     position: relative;
     z-index: 10;
     background: transparent;
@@ -122,6 +122,10 @@ body::after {
     min-width: 0;
     overflow-x: auto;
     scrollbar-width: none;
+    padding-top: 6px;
+    padding-bottom: 12px;
+    margin-top: -6px;
+    margin-bottom: -12px;
 }
 
 .totem-header__actions::-webkit-scrollbar {
