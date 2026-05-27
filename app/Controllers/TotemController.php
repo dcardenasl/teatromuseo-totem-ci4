@@ -11,7 +11,11 @@ class TotemController extends BaseController
 
     public function language()
     {
-        return view('totem/language', $this->pageMeta('Selecciona tu idioma'));
+        $from = $this->request->getGet('from');
+        return view('totem/language', array_merge(
+            $this->pageMeta('Selecciona tu idioma'),
+            ['from' => $from]
+        ));
     }
 
     public function mainMenu()
@@ -173,6 +177,7 @@ class TotemController extends BaseController
 
     private function shellNav(?string $backHref = null): array
     {
+        $currentUri = uri_string();
         return [
             [
                 'label' => 'VOLVER',
@@ -182,7 +187,7 @@ class TotemController extends BaseController
             ],
             [
                 'label' => 'ESP',
-                'href' => base_url('language'),
+                'href' => base_url('language' . ($currentUri ? '?from=' . urlencode($currentUri) : '')),
                 'icon' => '◌',
                 'class' => 'pill-button',
             ],
