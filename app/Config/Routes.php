@@ -9,6 +9,9 @@ $routes->get('/', 'TotemController::index');
 $routes->get('language', 'TotemController::language');
 $routes->get('menu', 'TotemController::mainMenu');
 
+// Museo - Menu
+$routes->get('museo', 'TotemController::museum');
+
 // Museo - Coleccion
 $routes->get('museo/coleccion', 'TotemController::collectionMain');
 $routes->get('museo/coleccion/titeres', 'TotemController::collectionTechniques');
