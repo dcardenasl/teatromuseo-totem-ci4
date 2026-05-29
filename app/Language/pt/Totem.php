@@ -46,4 +46,8 @@ return [
         'rotate_title' => 'Gire o seu dispositivo',
         'rotate_text' => 'Esta experiência foi concebida para ser visualizada em modo retrato.',
     ],
-    ];
+    'idle' => [
+        'msg' => 'Ainda está aqui? A tela voltará ao início em',
+        'continue' => 'Continuar',
+    ],
+];

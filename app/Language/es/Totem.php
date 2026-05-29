@@ -46,4 +46,8 @@ return [
         'rotate_title' => 'Gira tu dispositivo',
         'rotate_text' => 'Esta experiencia está diseñada para verse en vertical.',
     ],
+    'idle' => [
+        'msg' => '¿Sigues ahí? La pantalla volverá al inicio en',
+        'continue' => 'Continuar',
+    ],
 ];

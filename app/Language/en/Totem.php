@@ -46,4 +46,8 @@ return [
         'rotate_title' => 'Rotate your device',
         'rotate_text' => 'This experience is designed to be viewed in portrait mode.',
     ],
+    'idle' => [
+        'msg' => 'Still there? The screen will return to start in',
+        'continue' => 'Continue',
+    ],
 ];

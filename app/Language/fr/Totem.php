@@ -46,4 +46,8 @@ return [
         'rotate_title' => 'Faites pivoter votre appareil',
         'rotate_text' => 'Cette expérience est conçue pour être vue en mode portrait.',
     ],
+    'idle' => [
+        'msg' => 'Toujours là ? L\'écran reviendra au début dans',
+        'continue' => 'Continuer',
+    ],
 ];
