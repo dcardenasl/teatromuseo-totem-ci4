@@ -68,7 +68,21 @@ class TotemController extends BaseController
 
     public function collectionTechniques()
     {
-        return view('totem/collection_techniques', array_merge($this->pageMeta('Técnicas'), ['nav' => $this->shellNav(base_url('museo/coleccion'))]));
+        // Mock data for techniques
+        $techniques = [
+            ['title' => 'Títere de Guante', 'slug' => 'guante'],
+            ['title' => 'Marioneta de Hilos', 'slug' => 'hilos'],
+            ['title' => 'Títere de Mesa', 'slug' => 'mesa'],
+            ['title' => 'Sombras Chinas', 'slug' => 'sombras'],
+        ];
+
+        return view('totem/collection_techniques', array_merge(
+            $this->pageMeta('Técnicas'),
+            [
+                'nav' => $this->shellNav(base_url('museo/coleccion')),
+                'techniques' => $techniques
+            ]
+        ));
     }
 
     public function collectionTechnique($slug)
@@ -81,20 +95,38 @@ class TotemController extends BaseController
         return view('totem/collection_masks', array_merge($this->pageMeta('Máscaras'), ['nav' => $this->shellNav(base_url('museo/coleccion'))]));
     }
 
-    public function collectionMaskTradition($slug)
+    public function collectionMasks()
     {
-        return view('totem/collection_mask_tradition_detail', array_merge($this->pageMeta('Tradición - ' . $slug), ['nav' => $this->shellNav(base_url('museo/coleccion/mascaras'))]));
+        $traditions = [
+            ['title' => 'Comedia del Arte', 'slug' => 'comedia-arte'],
+            ['title' => 'Comedia del Andes', 'slug' => 'comedia-andes'],
+        ];
+
+        return view('totem/collection_masks', array_merge(
+            $this->pageMeta('Máscaras'),
+            [
+                'nav' => $this->shellNav(base_url('museo/coleccion')),
+                'traditions' => $traditions
+            ]
+        ));
     }
 
     public function collectionClowns()
     {
-        return view('totem/collection_clowns', array_merge($this->pageMeta('Payasos'), ['nav' => $this->shellNav(base_url('museo/coleccion'))]));
+        return view('totem/collection_clowns', array_merge(
+            $this->pageMeta('Payasos'),
+            ['nav' => $this->shellNav(base_url('museo/coleccion'))]
+        ));
     }
 
     public function collectionItem($id)
     {
-        return view('totem/collection_item_detail', array_merge($this->pageMeta('Ficha - ' . $id), ['nav' => $this->shellNav(base_url('museo/coleccion'))]));
+        return view('totem/collection_item_detail', array_merge(
+            $this->pageMeta('Ficha - ' . $id),
+            ['nav' => $this->shellNav(base_url('museo/coleccion')), 'id' => $id]
+        ));
     }
+
 
     public function museumComicHistoryMain()
     {
