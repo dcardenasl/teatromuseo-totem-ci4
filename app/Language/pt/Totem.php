@@ -1,0 +1,47 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'splash' => [
+        'discover' => 'Descubra',
+        'touch_start' => 'Toque para começar',
+    ],
+    'menu' => [
+        'select_language' => 'Selecione o seu idioma',
+        'museum' => 'O Museu',
+        'museum_copy' => 'Sobre o Espaço',
+        'history' => 'História',
+        'history_copy' => 'Memória e Origem',
+        'school' => 'Escola de Teatro',
+        'school_copy' => 'Formação e Mediação',
+        'programming' => 'Programação',
+        'programming_copy' => 'Programação',
+        'visits' => 'Visitas Guiadas',
+        'visits_copy' => 'Roteiros e Mediação',
+        'friends' => 'Amigos do Teatro-Museu',
+        'friends_copy' => 'Comunidade e Apoio',
+        'explore_museum' => 'Explorar o museu',
+        'collection' => 'Coleção',
+        'collection_copy' => 'Percorrer a coleção viva',
+        'comic_history' => 'História Cômica',
+        'comic_history_copy' => 'Memória do Circo e Clown',
+        'el_museo' => 'O Museu',
+        'el_museo_copy' => 'Sobre o Espaço',
+        'how_it_works' => 'Como funciona',
+        'how_it_works_copy' => 'Blocos curtos, cartões por tipo de roteiro e chamada para reserva para navegação imediata na tela sensível ao toque.',
+        'visits_brief' => 'Uma versão mais curta do módulo do museu, útil para grupos e reservas. Serve para recuperar o estilo ornamental do projeto com uma ação clara.',
+        'reservations' => 'Reservas',
+        'in_advance' => 'Com antecedência',
+        'audience' => 'Público',
+        'audience_copy' => 'Escolar & geral',
+        'format' => 'Formato',
+        'in_person' => 'Presencial',
+        'billboard_detail' => 'Detalhe da programação',
+    ],
+    'nav' => [
+        'back' => 'VOLTAR',
+        'home' => 'INÍCIO',
+        'lang' => 'POR',
+    ],
+];

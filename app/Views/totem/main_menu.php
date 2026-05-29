@@ -7,8 +7,13 @@
 
         <section class="menu-title">
             <h1 class="menu-title__heading" id="menu-title">
-                <span class="menu-title__line">Menú</span>
-                <span class="menu-title__line">Principal</span>
+                <?php if (service('request')->getLocale() === 'en'): ?>
+                    <span class="menu-title__line">Main</span>
+                    <span class="menu-title__line">Menu</span>
+                <?php else: ?>
+                    <span class="menu-title__line">Menú</span>
+                    <span class="menu-title__line">Principal</span>
+                <?php endif; ?>
             </h1>
         </section>
 
@@ -34,22 +39,4 @@
         </div>
     </div>
 </div>
-
-<script>
-(() => {
-    const lang = localStorage.getItem('totem_lang') || 'es';
-    const titles = {
-        es: ['Menú', 'Principal'],
-        en: ['Main', 'Menu'],
-        fr: ['Menu', 'Principal'],
-        pt: ['Menu', 'Principal']
-    };
-
-    const label = document.getElementById('menu-title');
-    if (label) {
-        const lines = titles[lang] || titles.es;
-        label.innerHTML = lines.map((line) => `<span class="menu-title__line">${line}</span>`).join('');
-    }
-})();
-</script>
 <?= $this->endSection() ?>

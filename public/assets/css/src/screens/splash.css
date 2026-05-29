@@ -51,6 +51,15 @@
     letter-spacing: 0.02em;
     text-transform: uppercase;
     font-weight: 400;
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    display: inline-block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.splash-eyebrow--hidden {
+    opacity: 0;
+    transform: translateY(-8px);
 }
 
 .splash-title {
@@ -64,14 +73,27 @@
 }
 
 .splash-cta {
-    min-width: min(100%, 660px);
+    width: min(100%, 660px);
     min-height: 122px;
-    padding: 0 52px;
-    font-size: clamp(1.9rem, 3.9cqi, 2.55rem);
+    padding: 0 36px;
+    font-size: clamp(1.6rem, 3.2cqi, 2.2rem);
     border-radius: 62px;
     letter-spacing: 0.04em;
     box-shadow: 0 8px 0 #b94805;
     animation: splashCtaPulse 2s infinite ease-in-out;
+}
+
+.splash-cta__text {
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    display: inline-block;
+    white-space: nowrap;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.splash-cta__text--hidden {
+    opacity: 0;
+    transform: translateY(8px);
 }
 
 @keyframes splashCtaPulse {

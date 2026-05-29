@@ -474,6 +474,15 @@ body::before {
     letter-spacing: 0.02em;
     text-transform: uppercase;
     font-weight: 400;
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    display: inline-block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.splash-eyebrow--hidden {
+    opacity: 0;
+    transform: translateY(-8px);
 }
 
 .splash-title {
@@ -487,14 +496,27 @@ body::before {
 }
 
 .splash-cta {
-    min-width: min(100%, 660px);
+    width: min(100%, 660px);
     min-height: 122px;
-    padding: 0 52px;
-    font-size: clamp(1.9rem, 3.9cqi, 2.55rem);
+    padding: 0 36px;
+    font-size: clamp(1.6rem, 3.2cqi, 2.2rem);
     border-radius: 62px;
     letter-spacing: 0.04em;
     box-shadow: 0 8px 0 #b94805;
     animation: splashCtaPulse 2s infinite ease-in-out;
+}
+
+.splash-cta__text {
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    display: inline-block;
+    white-space: nowrap;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.splash-cta__text--hidden {
+    opacity: 0;
+    transform: translateY(8px);
 }
 
 @keyframes splashCtaPulse {
@@ -839,6 +861,71 @@ body::before {
 .language-card__title--spacious {
     margin-bottom: 40px;
     font-size: 3rem;
+}
+
+.language-instructions-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 50px;
+    width: 100%;
+}
+
+.language-instruction {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.lang-instruction--es { animation-delay: 0.1s; }
+.lang-instruction--en { animation-delay: 0.2s; }
+.lang-instruction--fr { animation-delay: 0.3s; }
+.lang-instruction--pt { animation-delay: 0.4s; }
+
+.language-instruction__text {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.8rem, 4.5cqi, 2.8rem);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    text-align: center;
+    line-height: 1.2;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.language-instruction__decorator {
+    flex: 0 0 auto;
+    width: 10px;
+    height: 10px;
+    background-color: var(--accent);
+    transform: rotate(45deg);
+    opacity: 0.6;
+    transition: transform 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.language-instruction.is-highlighted .language-instruction__text {
+    color: var(--accent);
+    text-shadow: 0 0 1px rgba(222, 89, 40, 0.2);
+}
+
+.language-instruction.is-highlighted .language-instruction__decorator {
+    background-color: var(--brand-gold);
+    transform: rotate(45deg) scale(1.3);
+    opacity: 1;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .language-card__copy {
@@ -2071,6 +2158,25 @@ body::before {
     .language-card__title--spacious {
         margin-bottom: 24px;
         font-size: 2.0rem;
+    }
+
+    .language-instructions-container {
+        margin-bottom: 28px;
+        gap: 8px;
+    }
+
+    .language-instruction {
+        gap: 10px;
+    }
+
+    .language-instruction__text {
+        font-size: clamp(1.1rem, 3.8cqi, 1.45rem);
+        letter-spacing: 0.04em;
+    }
+
+    .language-instruction__decorator {
+        width: 7px;
+        height: 7px;
     }
 
     /* --- Rejilla de Menú y Tarjetas --- */

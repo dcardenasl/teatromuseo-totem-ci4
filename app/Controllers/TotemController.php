@@ -21,16 +21,16 @@ class TotemController extends BaseController
     public function mainMenu()
     {
         return view('totem/main_menu', array_merge(
-            $this->pageMeta('Menú principal'),
+            $this->pageMeta(lang('Totem.menu.main_menu') ?: 'Menú principal'),
             [
                 'nav' => $this->shellNav(base_url('/')),
                 'items' => [
-                    $this->menuItem('Museo', 'museo', 'Colección y piezas', 'menu-card--museum'),
-                    $this->menuItem('Historia', 'historia', 'Origen y memoria', 'menu-card--history'),
-                    $this->menuItem('Teatro escuela', 'teatro-escuela', 'Cursos y formación', 'menu-card--school'),
-                    $this->menuItem('Programación', 'cartelera', 'Temporada y funciones', 'menu-card--programming'),
-                    $this->menuItem('Visitas guiadas', 'visitas-guiadas', 'Recorridos para grupos', 'menu-card--visits'),
-                    $this->menuItem('Amigos de Teatromuseo', 'amigos-de-teatromuseo', 'Colabora con la casa', 'menu-card--friends'),
+                    $this->menuItem(lang('Totem.menu.museum'), 'museo', lang('Totem.menu.museum_copy'), 'menu-card--museum'),
+                    $this->menuItem(lang('Totem.menu.history'), 'historia', lang('Totem.menu.history_copy'), 'menu-card--history'),
+                    $this->menuItem(lang('Totem.menu.school'), 'teatro-escuela', lang('Totem.menu.school_copy'), 'menu-card--school'),
+                    $this->menuItem(lang('Totem.menu.programming'), 'cartelera', lang('Totem.menu.programming_copy'), 'menu-card--programming'),
+                    $this->menuItem(lang('Totem.menu.visits'), 'visitas-guiadas', lang('Totem.menu.visits_copy'), 'menu-card--visits'),
+                    $this->menuItem(lang('Totem.menu.friends'), 'amigos-de-teatromuseo', lang('Totem.menu.friends_copy'), 'menu-card--friends'),
                 ],
             ]
         ));
@@ -38,14 +38,14 @@ class TotemController extends BaseController
     public function museum()
     {
         return view('totem/museum_menu', array_merge(
-            $this->pageMeta('Explora el museo'),
+            $this->pageMeta(lang('Totem.menu.explore_museum') ?: 'Explora el museo'),
             [
                 'nav' => $this->shellNav(base_url('menu')),
                 'items' => [
-                    $this->menuItem('Colección', 'museo/coleccion', 'Títeres, máscaras e historia', 'menu-card--museum'),
-                    $this->menuItem('Historia Cómica', 'museo/historia-comica', 'Línea de tiempo del circo', 'menu-card--history'),
-                    $this->menuItem('El Museo', 'museo/el-museo', 'Nuestra historia y edificio', 'menu-card--school'),
-                    $this->menuItem('Planea tu Visita', 'visitas-guiadas', 'Horarios y cómo llegar', 'menu-card--visits'),
+                    $this->menuItem(lang('Totem.menu.collection'), 'museo/coleccion', lang('Totem.menu.collection_copy'), 'menu-card--museum'),
+                    $this->menuItem(lang('Totem.menu.comic_history'), 'museo/historia-comica', lang('Totem.menu.comic_history_copy'), 'menu-card--history'),
+                    $this->menuItem(lang('Totem.menu.el_museo'), 'museo/el-museo', lang('Totem.menu.el_museo_copy'), 'menu-card--school'),
+                    $this->menuItem(lang('Totem.menu.visits'), 'visitas-guiadas', lang('Totem.menu.visits_copy'), 'menu-card--visits'),
                 ],
             ]
         ));
@@ -180,19 +180,19 @@ class TotemController extends BaseController
         $currentUri = uri_string();
         return [
             [
-                'label' => 'VOLVER',
+                'label' => lang('Totem.nav.back') ?: 'VOLVER',
                 'href' => $backHref ?? base_url('menu'),
                 'icon' => '←',
                 'class' => 'pill-button pill-button--back',
             ],
             [
-                'label' => 'ESP',
+                'label' => lang('Totem.nav.lang') ?: 'ESP',
                 'href' => base_url('language' . ($currentUri ? '?from=' . urlencode($currentUri) : '')),
                 'icon' => '◌',
                 'class' => 'pill-button pill-button--lang',
             ],
             [
-                'label' => 'INICIO',
+                'label' => lang('Totem.nav.home') ?: 'INICIO',
                 'href' => base_url('/'),
                 'icon' => '⌂',
                 'class' => 'pill-button pill-button--home',

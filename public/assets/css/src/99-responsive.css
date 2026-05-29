@@ -181,6 +181,25 @@
         font-size: 2.0rem;
     }
 
+    .language-instructions-container {
+        margin-bottom: 28px;
+        gap: 8px;
+    }
+
+    .language-instruction {
+        gap: 10px;
+    }
+
+    .language-instruction__text {
+        font-size: clamp(1.1rem, 3.8cqi, 1.45rem);
+        letter-spacing: 0.04em;
+    }
+
+    .language-instruction__decorator {
+        width: 7px;
+        height: 7px;
+    }
+
     /* --- Rejilla de Menú y Tarjetas --- */
     .menu-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
