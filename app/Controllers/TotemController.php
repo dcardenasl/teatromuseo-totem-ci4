@@ -4,6 +4,16 @@ namespace App\Controllers;
 
 class TotemController extends BaseController
 {
+    private ?\App\Services\TotemApiService $apiService = null;
+
+    private function api(): \App\Services\TotemApiService
+    {
+        if ($this->apiService === null) {
+            $this->apiService = new \App\Services\TotemApiService();
+        }
+        return $this->apiService;
+    }
+
     public function index()
     {
         return view('totem/splash', $this->pageMeta('Bienvenido'));
@@ -21,7 +31,7 @@ class TotemController extends BaseController
     public function mainMenu()
     {
         return view('totem/main_menu', array_merge(
-            $this->pageMeta(lang('Totem.menu.main_menu') ?: 'Menú principal'),
+            $this->pageMeta(lang('Totem.menu.main_menu')),
             [
                 'nav' => $this->shellNav(base_url('/')),
                 'items' => [
@@ -38,7 +48,7 @@ class TotemController extends BaseController
     public function museum()
     {
         return view('totem/museum_menu', array_merge(
-            $this->pageMeta(lang('Totem.menu.explore_museum') ?: 'Explora el museo'),
+            $this->pageMeta(lang('Totem.menu.explore_museum')),
             [
                 'nav' => $this->shellNav(base_url('menu')),
                 'items' => [
@@ -180,19 +190,19 @@ class TotemController extends BaseController
         $currentUri = uri_string();
         return [
             [
-                'label' => lang('Totem.nav.back') ?: 'VOLVER',
+                'label' => lang('Totem.nav.back'),
                 'href' => $backHref ?? base_url('menu'),
                 'icon' => '←',
                 'class' => 'pill-button pill-button--back',
             ],
             [
-                'label' => lang('Totem.nav.lang') ?: 'ESP',
+                'label' => lang('Totem.nav.lang'),
                 'href' => base_url('language' . ($currentUri ? '?from=' . urlencode($currentUri) : '')),
                 'icon' => '◌',
                 'class' => 'pill-button pill-button--lang',
             ],
             [
-                'label' => lang('Totem.nav.home') ?: 'INICIO',
+                'label' => lang('Totem.nav.home'),
                 'href' => base_url('/'),
                 'icon' => '⌂',
                 'class' => 'pill-button pill-button--home',
@@ -240,24 +250,65 @@ class TotemController extends BaseController
         ];
     }
 
+    private static function getMonthName(int $monthNum, string $locale): string
+    {
+        $months = [
+            'es' => [1 => 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            'en' => [1 => 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            'fr' => [1 => 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            'pt' => [1 => 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        ];
+        return $months[$locale][$monthNum] ?? $months['es'][$monthNum] ?? '';
+    }
+
     private function schoolSection(): array
     {
-        return [
-            'nav' => $this->shellNav(),
-            'section' => [
-                'eyebrow' => 'Formación y mediación',
-                'title' => 'Teatro escuela',
-                'copy' => 'Diseñado como una página viva con cursos, fechas, categorías y contacto. La prioridad es que la información larga se entienda sin esfuerzo y conserve el clima editorial de la propuesta.',
-                'visualClass' => 'section-hero__visual section-hero__visual--school',
-                'detailsTitle' => 'Próximos cursos',
-                'detailsCopy' => 'Cada ficha debe sostenerse con una etiqueta, una fecha de inicio y un resumen corto. Si el contenido crece, la estructura sigue siendo legible en scroll.',
-                'stats' => [
-                    ['label' => 'Escuela', 'value' => 'Talleres y formación'],
-                    ['label' => 'Duración', 'value' => 'Ciclos cortos'],
-                    ['label' => 'Contacto', 'value' => 'teatroescuela@teatromuseo.cl'],
-                ],
-            ],
-            'courses' => [
+        $apiCourses = $this->api()->courses();
+        $courses = [];
+
+        if (!empty($apiCourses)) {
+            $locale = $this->request->getLocale();
+            foreach ($apiCourses as $course) {
+                $tag = 'Formación';
+                if (isset($course['school_category_id'])) {
+                    $catId = (int)$course['school_category_id'];
+                    if ($catId === 1) {
+                        $tag = $locale === 'en' ? 'Workshop' : ($locale === 'fr' ? 'Atelier' : ($locale === 'pt' ? 'Oficina' : 'Taller'));
+                    } elseif ($catId === 2) {
+                        $tag = $locale === 'en' ? 'School Plays' : ($locale === 'fr' ? 'Pièces' : ($locale === 'pt' ? 'Peças' : 'Obras'));
+                    } elseif ($catId === 3) {
+                        $tag = $locale === 'en' ? 'Education' : ($locale === 'fr' ? 'Formation' : ($locale === 'pt' ? 'Formação' : 'Formación'));
+                    }
+                }
+                
+                $startText = '';
+                if (!empty($course['start_date'])) {
+                    $time = strtotime($course['start_date']);
+                    $day = date('d', $time);
+                    $monthName = self::getMonthName((int)date('n', $time), $locale);
+                    $year = date('Y', $time);
+                    
+                    if ($locale === 'en') {
+                        $startText = 'Starts: ' . $monthName . ' ' . $day . ', ' . $year;
+                    } elseif ($locale === 'fr') {
+                        $startText = 'Début: ' . $day . ' ' . $monthName . ' ' . $year;
+                    } elseif ($locale === 'pt') {
+                        $startText = 'Início: ' . $day . ' de ' . $monthName . ' de ' . $year;
+                    } else {
+                        $startText = 'Inicio: ' . $day . ' de ' . $monthName . ' de ' . $year;
+                    }
+                }
+
+                $courses[] = [
+                    'tag'   => $tag,
+                    'title' => $course['title'] ?? '',
+                    'start' => $startText,
+                    'copy'  => $course['description'] ?? '',
+                ];
+            }
+        } else {
+            // Mocks de contingencia
+            $courses = [
                 [
                     'tag' => 'Nacional',
                     'title' => 'La Escuela de los Nuevos Comediantes',
@@ -276,19 +327,87 @@ class TotemController extends BaseController
                     'start' => 'Inicio: 20 de abril de 2026',
                     'copy' => 'Práctica de presencia y construcción corporal con énfasis en ritualidad y máscara.',
                 ],
+            ];
+        }
+
+        return [
+            'nav' => $this->shellNav(),
+            'section' => [
+                'eyebrow' => 'Formación y mediación',
+                'title' => 'Teatro escuela',
+                'copy' => 'Diseñado como una página viva con cursos, fechas, categorías y contacto. La prioridad es que la información larga se entienda sin esfuerzo y conserve el clima editorial de la propuesta.',
+                'visualClass' => 'section-hero__visual section-hero__visual--school',
+                'detailsTitle' => 'Próximos cursos',
+                'detailsCopy' => 'Cada ficha debe sostenerse con una etiqueta, una fecha de inicio y un resumen corto. Si el contenido crece, la estructura sigue siendo legible en scroll.',
+                'stats' => [
+                    ['label' => 'Escuela', 'value' => 'Talleres y formación'],
+                    ['label' => 'Duración', 'value' => 'Ciclos cortos'],
+                    ['label' => 'Contacto', 'value' => 'teatroescuela@teatromuseo.cl'],
+                ],
             ],
+            'courses' => $courses,
         ];
     }
 
     private function billboardSection(): array
     {
-        return [
-            'nav' => $this->shellNav(),
-            'months' => [
+        $apiShows = $this->api()->shows();
+        $months = [];
+        $events = [];
+        $locale = $this->request->getLocale();
+
+        if (!empty($apiShows)) {
+            $monthsMap = [];
+            foreach ($apiShows as $show) {
+                if (!empty($show['start_date'])) {
+                    $time = strtotime($show['start_date']);
+                    $monthName = self::getMonthName((int)date('n', $time), $locale);
+                    $day = date('j', $time);
+                    $monthsMap[$monthName][] = $day;
+                }
+
+                $tag = 'Familiar';
+                if (isset($show['audience_id'])) {
+                    $audId = (int)$show['audience_id'];
+                    if ($audId === 1) {
+                        $tag = $locale === 'en' ? 'National' : 'Nacional';
+                    } elseif ($audId === 2) {
+                        $tag = $locale === 'en' ? 'International' : 'Internacional';
+                    } elseif ($audId === 3) {
+                        $tag = $locale === 'en' ? 'For Kids' : ($locale === 'fr' ? 'Pour Enfants' : ($locale === 'pt' ? 'Para Crianças' : 'Para Niños'));
+                    } elseif ($audId === 4) {
+                        $tag = $locale === 'en' ? 'General' : 'General';
+                    }
+                }
+
+                // Determinar clase de tarjeta por la audiencia
+                $class = 'event-card--family';
+                if ($tag === 'Adultos') {
+                    $class = 'event-card--adult';
+                }
+
+                $events[] = [
+                    'tag'   => $tag,
+                    'type'  => 'Teatro', // Valor por defecto en la estructura
+                    'title' => $show['title'] ?? '',
+                    'copy'  => $show['description'] ?? '',
+                    'class' => $class,
+                ];
+            }
+
+            foreach ($monthsMap as $title => $days) {
+                $months[] = [
+                    'title' => $title,
+                    'days'  => array_unique($days),
+                ];
+            }
+        } else {
+            // Mocks de contingencia
+            $months = [
                 ['title' => 'Mayo', 'days' => ['10', '17', '24', '30']],
                 ['title' => 'Junio', 'days' => ['2', '9', '16', '23']],
-            ],
-            'events' => [
+            ];
+            $events = [
                 [
                     'tag' => 'Familiar',
                     'type' => 'Títeres',
@@ -317,7 +436,13 @@ class TotemController extends BaseController
                     'copy' => 'Una programación nocturna con energía de escena en vivo y lenguaje de concierto.',
                     'class' => 'event-card--music',
                 ],
-            ],
+            ];
+        }
+
+        return [
+            'nav' => $this->shellNav(),
+            'months' => $months,
+            'events' => $events,
         ];
     }
 
