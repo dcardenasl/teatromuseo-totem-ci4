@@ -61,19 +61,74 @@ class TotemController extends BaseController
         ));
     }
 
-    public function museumCollection()
+    public function collectionMain()
     {
-        return view('totem/section', array_merge($this->pageMeta('Colección'), $this->collectionSection()));
+        return view('totem/collection_main', array_merge($this->pageMeta('Colección'), ['nav' => $this->shellNav(base_url('museo'))]));
     }
 
-    public function museumComicHistory()
+    public function collectionTechniques()
     {
-        return view('totem/section', array_merge($this->pageMeta('Historia Cómica'), $this->comicHistorySection()));
+        return view('totem/collection_techniques', array_merge($this->pageMeta('Técnicas'), ['nav' => $this->shellNav(base_url('museo/coleccion'))]));
     }
 
-    public function museumInfo()
+    public function collectionTechnique($slug)
     {
-        return view('totem/section', array_merge($this->pageMeta('El Museo'), $this->museumInfoSection()));
+        return view('totem/collection_technique_detail', array_merge($this->pageMeta('Técnica - ' . $slug), ['nav' => $this->shellNav(base_url('museo/coleccion/titeres'))]));
+    }
+
+    public function collectionMasks()
+    {
+        return view('totem/collection_masks', array_merge($this->pageMeta('Máscaras'), ['nav' => $this->shellNav(base_url('museo/coleccion'))]));
+    }
+
+    public function collectionMaskTradition($slug)
+    {
+        return view('totem/collection_mask_tradition_detail', array_merge($this->pageMeta('Tradición - ' . $slug), ['nav' => $this->shellNav(base_url('museo/coleccion/mascaras'))]));
+    }
+
+    public function collectionClowns()
+    {
+        return view('totem/collection_clowns', array_merge($this->pageMeta('Payasos'), ['nav' => $this->shellNav(base_url('museo/coleccion'))]));
+    }
+
+    public function collectionItem($id)
+    {
+        return view('totem/collection_item_detail', array_merge($this->pageMeta('Ficha - ' . $id), ['nav' => $this->shellNav(base_url('museo/coleccion'))]));
+    }
+
+    public function museumComicHistoryMain()
+    {
+        return view('totem/comic_history_main', array_merge($this->pageMeta('Historia Cómica'), ['nav' => $this->shellNav(base_url('museo'))]));
+    }
+
+    public function museumHistoryPost($slug)
+    {
+        return view('totem/comic_history_post', array_merge($this->pageMeta('Post - ' . $slug), ['nav' => $this->shellNav(base_url('museo/historia-comica'))]));
+    }
+
+    public function museumInfoMain()
+    {
+        return view('totem/museum_info_main', array_merge($this->pageMeta('El Museo'), ['nav' => $this->shellNav(base_url('museo'))]));
+    }
+
+    public function museumBuilding()
+    {
+        return view('totem/museum_building', array_merge($this->pageMeta('Edificio'), ['nav' => $this->shellNav(base_url('museo/el-museo'))]));
+    }
+
+    public function museumInstitution()
+    {
+        return view('totem/museum_institution', array_merge($this->pageMeta('Institución'), ['nav' => $this->shellNav(base_url('museo/el-museo'))]));
+    }
+
+    public function museumToday()
+    {
+        return view('totem/museum_today', array_merge($this->pageMeta('Actualidad'), ['nav' => $this->shellNav(base_url('museo/el-museo'))]));
+    }
+
+    public function extensionContact()
+    {
+        return view('totem/extension_contact', array_merge($this->pageMeta('Contacto'), ['nav' => $this->shellNav(base_url('menu'))]));
     }
 
     private function collectionSection(): array
