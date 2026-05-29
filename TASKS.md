@@ -86,7 +86,7 @@ Para cualquier desarrollo en este módulo, guíate por este mapa de archivos cla
 > **Objetivo:** Desarrollar todas las nuevas pantallas y vistas de navegación profunda detalladas en el plano de la v1.0, incorporando los assets definitivos de diseño y las decisiones del equipo.
 
 ### 1. Bloque A: Colección del Museo (Estructura de Navegación)
-- [ ] **Rutas dinámicas en CodeIgniter 4**
+- [x] **Rutas dinámicas en CodeIgniter 4**
   *   **Ruta de Implementación:** Modificar [app/Config/Routes.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Config/Routes.php)
   *   **Instrucciones:** Registrar las nuevas rutas dinámicas para fichas, técnicas y colecciones:
       ```php
@@ -97,44 +97,44 @@ Para cualquier desarrollo en este módulo, guíate por este mapa de archivos cla
       $routes->get('museo/coleccion/payasos', 'TotemController::collectionClowns');
       $routes->get('museo/coleccion/fichas/(:num)', 'TotemController::collectionItem/$1');
       ```
-- [ ] **A1 — Vista Principal de Colección** (`/museo/coleccion`)
+- [x] **A1 — Vista Principal de Colección** (`/museo/coleccion`)
   *   **Ruta de Implementación:** Crear [app/Views/totem/collection_main.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_main.php)
   *   **Instrucciones:** Diseñar una vista limpia con 3 tarjetas táctiles de grandes dimensiones (Títeres, Máscaras, Payasos) usando las clases de CSS correspondientes.
-- [ ] **A2 — Pantalla de Técnicas de Títeres** (`/museo/coleccion/titeres`)
+- [x] **A2 — Pantalla de Técnicas de Títeres** (`/museo/coleccion/titeres`)
   *   **Ruta de Implementación:** Crear [app/Views/totem/collection_techniques.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_techniques.php)
   *   **Instrucciones:** Consumir el endpoint `GET /api/v1/totem/techniques` a través de `TotemApiService` y pintar el listado en un grid.
-- [ ] **A3 — Pantalla de Técnica Individual** (`/museo/coleccion/titeres/{slug}`)
+- [x] **A3 — Pantalla de Técnica Individual** (`/museo/coleccion/titeres/{slug}`)
   *   **Ruta de Implementación:** Crear [app/Views/totem/collection_technique_detail.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_technique_detail.php)
   *   **Instrucciones:** Consumir el endpoint `GET /api/v1/totem/technique/{id}`. Mostrar cabecera editorial y grid de 3 columnas para las fichas de objetos que pertenezcan a esa técnica.
-- [ ] **A4 — Ficha Individual de Objeto (Títere / Máscara)** (`/museo/coleccion/fichas/{id}`)
+- [x] **A4 — Ficha Individual de Objeto (Títere / Máscara)** (`/museo/coleccion/fichas/{id}`)
   *   **Ruta de Implementación:** Crear [app/Views/totem/collection_item_detail.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_item_detail.php)
   *   **Instrucciones:**
       1. Consumir `GET /api/v1/totem/collection/{id}`.
       2. Diseñar layout de 2 columnas: izquierda para carrusel táctil de fotos, derecha para metadatos (Origen, Período, Técnica) y descripción editorial.
       3. Asegurar que no se procese ni muestre el campo pesado `contenido`.
-- [ ] **A5 — Pantalla Máscaras: Tradiciones** (`/museo/coleccion/mascaras`)
+- [x] **A5 — Pantalla Máscaras: Tradiciones** (`/museo/coleccion/mascaras`)
   *   **Ruta de Implementación:** Crear [app/Views/totem/collection_masks.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_masks.php)
   *   **Instrucciones:** Navegación pura con 2 grandes accesos: Comedia del Arte / Comedia del Andes.
-- [ ] **A6 — Tradición Individual (Máscaras)** (`/museo/coleccion/mascaras/{slug}`)
+- [x] **A6 — Tradición Individual (Máscaras)** (`/museo/coleccion/mascaras/{slug}`)
   *   **Ruta de Implementación:** Crear [app/Views/totem/collection_mask_tradition_detail.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_mask_tradition_detail.php)
   *   **Instrucciones:** Consumir `GET /api/v1/totem/collection?category=mascaras&tradition={slug}` y renderizar el catálogo de máscaras de dicha tradición.
-- [ ] **A7 — Pantalla Payasos** (`/museo/coleccion/payasos`)
+- [x] **A7 — Pantalla Payasos** (`/museo/coleccion/payasos`)
   *   **Ruta de Implementación:** Crear [app/Views/totem/collection_clowns.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_clowns.php)
   *   **Instrucciones:** Diseñar una vista enriquecida de lectura y enlazar de forma directa a hitos de la línea de tiempo de Historia Cómica.
 
 ### 2. Bloque B: Historia Cómica
-- [ ] **Rutas dinámicas en CodeIgniter 4**
+- [x] **Rutas dinámicas en CodeIgniter 4**
   *   **Ruta de Implementación:** Modificar [app/Config/Routes.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Config/Routes.php)
   *   **Instrucciones:** Añadir: `$routes->get('museo/historia-comica/(:segment)', 'TotemController::museumHistoryPost/$1');`
-- [ ] **B1 — Pantalla Principal de Historia Cómica (Timeline)** (`/museo/historia-comica`)
+- [x] **B1 — Pantalla Principal de Historia Cómica (Timeline)** (`/museo/historia-comica`)
   *   **Ruta de Implementación:** Crear [app/Views/totem/comic_history_main.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/comic_history_main.php)
   *   **Instrucciones:** Consumir `GET /api/v1/totem/museum-history/historia-comica`. Crear un layout interactivo de línea de tiempo vertical. Habilitar scroll exclusivamente en el contenedor del timeline.
-- [ ] **B2 — Post Editorial Individual** (`/museo/historia-comica/{slug}`)
+- [x] **B2 — Post Editorial Individual** (`/museo/historia-comica/{slug}`)
   *   **Ruta de Implementación:** Crear [app/Views/totem/comic_history_post.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/comic_history_post.php)
   *   **Instrucciones:** Consumir `GET /api/v1/totem/museum-history/{slug}` y pintar la información/fotos de manera elegante y legible.
 
 ### 3. Bloque C: Explora el Museo
-- [ ] **Rutas estáticas en CodeIgniter 4**
+- [x] **Rutas estáticas en CodeIgniter 4**
   *   **Ruta de Implementación:** Modificar [app/Config/Routes.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Config/Routes.php)
   *   **Instrucciones:** Registrar las siguientes subpáginas:
       ```php
@@ -142,16 +142,16 @@ Para cualquier desarrollo en este módulo, guíate por este mapa de archivos cla
       $routes->get('museo/el-museo/institucion', 'TotemController::museumInstitution');
       $routes->get('museo/el-museo/actualidad', 'TotemController::museumToday');
       ```
-- [ ] **C1 — Sub-menú Explora el Museo** (`/museo/el-museo`)
+- [x] **C1 — Sub-menú Explora el Museo** (`/museo/el-museo`)
   *   **Ruta de Implementación:** Crear [app/Views/totem/museum_info_main.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/museum_info_main.php)
   *   **Instrucciones:** Menu de 3 grandes opciones táctiles (Edificio, Institución, Actualidad) de acuerdo con los diseños recibidos el 2/6.
-- [ ] **C2 — Historia del Edificio** (`/museo/el-museo/edificio`)
+- [x] **C2 — Historia del Edificio** (`/museo/el-museo/edificio`)
   *   **Ruta de Implementación:** Crear [app/Views/totem/museum_building.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/museum_building.php)
   *   **Instrucciones:** Consumir `GET /api/v1/totem/museum`. Filtrar los datos de la Iglesia San Judas Tadeo y pintar el texto e imágenes.
-- [ ] **C3 — Historia de la Institución** (`/museo/el-museo/institucion`)
+- [x] **C3 — Historia de la Institución** (`/museo/el-museo/institucion`)
   *   **Ruta de Implementación:** Crear [app/Views/totem/museum_institution.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/museum_institution.php)
   *   **Instrucciones:** Consumir `GET /api/v1/totem/museum` y renderizar misión, visión y estructura interna del teatro.
-- [ ] **C4 — Historia en la Actualidad** (`/museo/el-museo/actualidad`)
+- [x] **C4 — Historia en la Actualidad** (`/museo/el-museo/actualidad`)
   *   **Ruta de Implementación:** Crear [app/Views/totem/museum_today.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/museum_today.php)
   *   **Instrucciones:** Consumir `GET /api/v1/totem/museum` y mostrar logros más representativos (e.g. FMIM 2024).
 
