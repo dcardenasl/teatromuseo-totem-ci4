@@ -44,4 +44,4 @@ return [
         'home' => 'INÍCIO',
         'lang' => 'POR',
     ],
-];
+    ];

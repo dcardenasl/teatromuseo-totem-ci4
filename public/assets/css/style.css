@@ -34,7 +34,7 @@
     --radius-sm: 10px;
 
     /* Layout */
-    --kiosk-width: 1440px;
+    --kiosk-width: min(100vw, 56.25vh);
 }
 @font-face {
     font-family: 'Lato';
@@ -74,9 +74,9 @@ html, body {
 body {
     margin: 0;
     color: var(--ink);
-    background-color: var(--paper);
+    background-color: #d8d3c5; /* Un tono más oscuro del papel para los pilares */
     background-image: 
-        radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px),
+        radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px),
         var(--paper-texture);
     background-size: 24px 24px, 400px 400px;
     font-family: "Lato", "Trebuchet MS", "Segoe UI", sans-serif;
@@ -92,7 +92,7 @@ body::before {
     position: fixed;
     inset: 0;
     pointer-events: none;
-    background: radial-gradient(circle at center, transparent, rgba(0,0,0,0.02));
+    background: radial-gradient(circle at center, transparent, rgba(0,0,0,0.15));
     z-index: 0;
 }
 
@@ -1774,6 +1774,23 @@ body::before {
     z-index: 1;
     container-type: inline-size;
     container-name: kiosk;
+    
+    /* Efecto Pillarbox */
+    background-color: var(--paper);
+    background-image: 
+        radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px),
+        var(--paper-texture);
+    background-size: 24px 24px, 400px 400px;
+    box-shadow: 0 0 60px rgba(0,0,0,0.25);
+    border-inline: 1px solid var(--line);
+}
+
+/* Optimización para cuando ya estamos en vertical (Totem real) */
+@media (orientation: portrait) {
+    .kiosk-shell {
+        box-shadow: none;
+        border-inline: none;
+    }
 }
 
 .container {

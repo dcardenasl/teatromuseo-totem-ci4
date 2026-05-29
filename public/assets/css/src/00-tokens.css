@@ -34,5 +34,5 @@
     --radius-sm: 10px;
 
     /* Layout */
-    --kiosk-width: 1440px;
+    --kiosk-width: min(100vw, 56.25vh);
 }
