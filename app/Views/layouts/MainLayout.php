@@ -20,6 +20,17 @@ $jsVersion = file_exists($jsPath) ? filemtime($jsPath) : '1.0.0';
     <?= $this->renderSection('styles') ?>
 </head>
 <body class="<?= esc($bodyClass ?? 'totem-app') ?>">
+    <div class="orientation-warning">
+        <div class="orientation-warning__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                <line x1="12" y1="18" x2="12.01" y2="18"/>
+            </svg>
+        </div>
+        <div class="orientation-warning__title"><?= lang('Totem.nav.rotate_title') ?></div>
+        <div class="orientation-warning__text"><?= lang('Totem.nav.rotate_text') ?></div>
+    </div>
+
     <div class="kiosk-shell">
         <main class="totem-stage">
             <?= $this->renderSection('content') ?>

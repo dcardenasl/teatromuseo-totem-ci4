@@ -43,5 +43,7 @@ return [
         'back' => 'BACK',
         'home' => 'HOME',
         'lang' => 'ENG',
+        'rotate_title' => 'Rotate your device',
+        'rotate_text' => 'This experience is designed to be viewed in portrait mode.',
     ],
 ];

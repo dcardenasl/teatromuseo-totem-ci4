@@ -1760,6 +1760,71 @@ body::before {
     white-space: nowrap;
     border: 0;
 }
+/* Orientation Warning Overlay */
+.orientation-warning {
+    display: none; /* Oculto por defecto siempre */
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background-color: #d8d3c5;
+    background-image: 
+        radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px),
+        var(--paper-texture);
+    background-size: 24px 24px, 400px 400px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px;
+    color: var(--ink);
+}
+
+.orientation-warning__icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 24px;
+    color: var(--accent);
+    animation: rotate-device 2s ease-in-out infinite;
+}
+
+.orientation-warning__title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.orientation-warning__text {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    max-width: 300px;
+    line-height: 1.4;
+}
+
+@keyframes rotate-device {
+    0% { transform: rotate(0deg); }
+    30% { transform: rotate(-90deg); }
+    70% { transform: rotate(-90deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* 
+   REGLA DE ACTIVACIÓN:
+   Solo en móviles (pointer: coarse) cuando están en horizontal (landscape)
+   y la pantalla es realmente pequeña (altura < 500px).
+*/
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
+    .orientation-warning {
+        display: flex;
+    }
+    
+    body {
+        overflow: hidden;
+    }
+
+    .kiosk-shell {
+        display: none !important;
+    }
+}
 
 .kiosk-shell {
     width: 100%;
