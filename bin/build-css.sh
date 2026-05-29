@@ -21,6 +21,7 @@ FILES=(
     "$SRC/shared/hero.css"
     "$SRC/screens/splash.css"
     "$SRC/screens/language.css"
+    "$SRC/screens/idle.css"
     "$SRC/screens/menu.css"
     "$SRC/screens/section.css"
     "$SRC/screens/section-extras.css"

@@ -36,6 +36,16 @@ $jsVersion = file_exists($jsPath) ? filemtime($jsPath) : '1.0.0';
             <?= $this->renderSection('content') ?>
         </main>
     </div>
+
+    <!-- Overlay de Advertencia por Inactividad (Idle Warning) -->
+    <div id="idle-overlay" class="idle-overlay idle-overlay--hidden">
+        <div class="idle-overlay__card">
+            <p class="idle-overlay__msg"><?= lang('Totem.idle.msg') ?></p>
+            <span class="idle-overlay__count" id="idle-count">15</span>
+            <button type="button" class="pill-button" onclick="resetTimer()"><?= lang('Totem.idle.continue') ?></button>
+        </div>
+    </div>
+
     <script src="<?= base_url('assets/js/app.js') ?>?v=<?= $jsVersion ?>"></script>
     <?= $this->renderSection('scripts') ?>
 </body>

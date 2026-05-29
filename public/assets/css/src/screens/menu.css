@@ -1,8 +1,8 @@
 
 .menu-layout {
     display: grid;
-    gap: 20px;
-    padding: 18px 16px 22px;
+    gap: 12px;
+    padding: 10px 16px 14px;
     width: 100%;
     min-height: 100dvh;
 }
@@ -57,13 +57,13 @@
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 46px 34px;
-    padding: 8px 6px 0;
+    gap: 16px 20px;
+    padding: 4px 6px 0;
 }
 
 .menu-card {
     display: grid;
-    gap: 14px;
+    gap: 8px;
     padding: 0;
     border-radius: 0;
     background: transparent;
@@ -241,7 +241,7 @@
 .menu-card__title {
     margin: 0;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(1.25rem, 2.2cqi, 1.95rem);
+    font-size: clamp(1.1rem, 2cqi, 1.55rem);
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.05em;

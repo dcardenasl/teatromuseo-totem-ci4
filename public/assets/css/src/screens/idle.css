@@ -1,0 +1,72 @@
+/* Estilos del Overlay de Advertencia por Inactividad (Idle Warning) */
+
+.idle-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(36, 32, 28, 0.85);
+    backdrop-filter: blur(8px);
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    padding: 24px;
+}
+
+.idle-overlay--hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.idle-overlay__card {
+    background-color: var(--paper);
+    border: 4px solid var(--ink);
+    border-radius: var(--radius-lg);
+    padding: 48px 32px;
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+}
+
+.idle-overlay--hidden .idle-overlay__card {
+    transform: scale(0.95);
+}
+
+.idle-overlay__msg {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.8rem;
+    color: var(--ink);
+    line-height: 1.35;
+}
+
+.idle-overlay__count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: var(--accent);
+    border: 4px solid var(--ink);
+    color: var(--on-accent);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 3.8rem;
+    font-weight: bold;
+    box-shadow: 0 6px 0 var(--pressed-shadow);
+}
+
+.idle-overlay__card button.pill-button {
+    font-size: 1.3rem;
+    padding: 16px 36px;
+    min-height: 52px;
+    cursor: pointer;
+}
