@@ -1,69 +1,97 @@
-# CodeIgniter 4 Application Starter
+# Teatro Museo — Interactive Kiosk Totem
 
-## What is CodeIgniter?
+This repository contains the interactive kiosk totem frontend application for **Teatromuseo del Títere y el Payaso** built on **CodeIgniter 4**.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## Architecture & Layout Overview
+- **Device Port:** Runs locally on port `8086`.
+- **Target Resolution:** Designed specifically for a high-definition vertical touch display (`1080x1920` / viewport ratio `9:16`).
+- **Layout Model:** Uses fluid typography (`cqi` units), container query context (`@container kiosk`), and safe touch zones (≥44px min-height targets).
+- **Offline & Hardcoded Data Resilience:** Contains a private local data repository inside the controller so the kiosk can run completely autonomous without external APIs or in offline environments.
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+---
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## Design System & Tokens
+All style tokens are structured under CSS Custom Properties in `public/assets/css/src/00-tokens.css`:
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+- **Official Color Palette:**
+  - Background (Paper): `#f8f5ec` (`--paper`)
+  - Typography / Details (Ink): `#353430` (`--ink`)
+  - Accent / Actions (Orange): `#de5928` (`--accent`)
+  - Secondary Grids (Vibrant):
+    - Light Blue: `#8fa6f0` (`--grid-blue`)
+    - Dark Purple: `#693592` (`--grid-purple`)
+    - Crimson Wine: `#880b2e` (`--grid-wine`)
+- **Interactive States:** Uses tactile `:active` scale transformation feedback and clear accessibility outlines for `:focus-visible`.
 
-## Installation & updates
+---
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
-
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
-
-## Setup
-
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
-
-## Important Change with index.php
-
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
-
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
-
-**Please** read the user guide for a better explanation of how CI4 works!
-
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Server Requirements
-
-PHP version 8.2 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+## Styling Architecture
+We use a modular stylesheet pattern where separate files in `public/assets/css/src/` are compiled into the production output `public/assets/css/style.css`. 
 
 > [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
+> Do NOT edit `public/assets/css/style.css` directly! It is overwritten upon every compilation. Always edit partials in `public/assets/css/src/` instead.
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+### Build CSS Command
+Whenever you modify files under `public/assets/css/src/`, recompile using:
+```bash
+composer build:css
+# or directly:
+bash bin/build-css.sh
+```
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+---
+
+## Local Development & Setup
+
+### Requirements
+- PHP 8.2 or higher
+- Composer
+
+### Installation
+1. Install dependencies:
+   ```bash
+   composer install
+   ```
+2. Copy environmental variables:
+   ```bash
+   cp env .env
+   ```
+3. Start the server:
+   ```bash
+   php spark serve --port 8086
+   ```
+4. Access in your browser: `http://localhost:8086`
+
+---
+
+## Folder Structure
+```
+├── app/
+│   ├── Controllers/
+│   │   └── TotemController.php      # Main controller with views and offline data
+│   └── Views/
+│       ├── layouts/
+│       │   └── MainLayout.php       # Shell layouts, HTML heads, asset loaders
+│       └── totem/
+│           ├── splash.php           # Landing touch to begin screen
+│           ├── language.php         # Multi-language selector page
+│           ├── main_menu.php        # Primary content modules selection
+│           └── section.php          # Dynamic section views (Museum, History, etc.)
+├── bin/
+│   └── build-css.sh                 # High performance CSS build/concat pipeline
+└── public/
+    └── assets/
+        ├── css/
+        │   ├── src/                 # Development CSS partial modules
+        │   └── style.css            # Compiled production style sheet
+        ├── fonts/                   # Lato Typographic families
+        └── js/
+            └── app.js               # Multi-language switcher dictionary client
+```
+
+---
+
+## Secure Deployment Exclusions
+Deployment scripts in `.deploy/` exclude local sensitive configurations:
+- Excludes `.env`, `composer.json`, `composer.lock`, `.deploy/` and macOS metadata files.
+- Minimizes package sizes to optimize totem sync speeds in 1 second.
