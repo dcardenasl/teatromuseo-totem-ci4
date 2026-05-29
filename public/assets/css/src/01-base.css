@@ -1,3 +1,23 @@
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
 
 * {
     box-sizing: border-box;
@@ -21,13 +41,12 @@ body {
         radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px),
         var(--paper-texture);
     background-size: 24px 24px, 400px 400px;
-    font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+    font-family: "Lato", "Trebuchet MS", "Segoe UI", sans-serif;
     user-select: none;
     -webkit-user-select: none;
     display: block;
     overflow-x: hidden;
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
 }
 
 body::before {
@@ -37,8 +56,4 @@ body::before {
     pointer-events: none;
     background: radial-gradient(circle at center, transparent, rgba(0,0,0,0.02));
     z-index: 0;
-}
-
-body::after {
-    display: none;
 }

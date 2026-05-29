@@ -41,9 +41,9 @@
 
 .content-panel--soft {
     padding: 18px 20px;
-    background: rgba(255, 250, 241, 0.78);
-    border: 1px solid rgba(92, 70, 43, 0.12);
-    border-radius: 28px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--radius-lg);
     box-shadow: var(--shadow);
 }
 
@@ -53,28 +53,50 @@
 }
 
 .section-hero__visual {
+    width: 100%;
     min-height: 0;
     height: 100%;
-    border-radius: 28px;
-    border: 1px solid rgba(92, 70, 43, 0.12);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--panel-border);
     box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
     background:
-        radial-gradient(circle at 24% 30%, rgba(216, 93, 16, 0.16), transparent 30%),
+        radial-gradient(circle at 24% 30%, rgba(222, 89, 40, 0.16), transparent 30%),
         radial-gradient(circle at 74% 20%, rgba(112, 165, 175, 0.18), transparent 26%),
-        linear-gradient(180deg, rgba(255, 250, 241, 0.92), rgba(242, 232, 215, 0.92));
+        linear-gradient(180deg, var(--panel-bg), rgba(242, 232, 215, 0.92));
+}
+
+.section-hero__visual::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 0;
+    border-image: none;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(92, 70, 43, 0.08);
+    z-index: 0;
+}
+
+.section-hero__visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    position: relative;
 }
 
 .section-hero__visual--museum {
     background:
         radial-gradient(circle at 36% 42%, rgba(111, 74, 35, 0.22), transparent 18%),
         radial-gradient(circle at 64% 60%, rgba(215, 111, 94, 0.24), transparent 18%),
-        linear-gradient(180deg, rgba(255, 250, 241, 0.96), rgba(234, 218, 188, 0.9));
+        linear-gradient(180deg, var(--panel-bg), rgba(234, 218, 188, 0.9));
 }
 
 .section-hero__visual--history {
     background:
         radial-gradient(circle at 52% 48%, rgba(123, 110, 90, 0.28), transparent 18%),
-        linear-gradient(180deg, rgba(255, 250, 241, 0.96), rgba(220, 209, 188, 0.9));
+        linear-gradient(180deg, var(--panel-bg), rgba(220, 209, 188, 0.9));
 }
 
 .section-hero__visual--school {
@@ -87,13 +109,13 @@
     background:
         radial-gradient(circle at 32% 35%, rgba(216, 173, 111, 0.26), transparent 18%),
         radial-gradient(circle at 70% 66%, rgba(167, 131, 72, 0.2), transparent 18%),
-        linear-gradient(180deg, rgba(255, 250, 241, 0.96), rgba(229, 205, 160, 0.9));
+        linear-gradient(180deg, var(--panel-bg), rgba(229, 205, 160, 0.9));
 }
 
 .section-hero__visual--friends {
     background:
         radial-gradient(circle at 50% 18%, rgba(238, 209, 169, 0.9), transparent 18%),
-        linear-gradient(180deg, rgba(255, 250, 241, 0.96), rgba(232, 216, 183, 0.9));
+        linear-gradient(180deg, var(--panel-bg), rgba(232, 216, 183, 0.9));
 }
 
 .school-layout {

@@ -71,6 +71,32 @@
     border-radius: 62px;
     letter-spacing: 0.04em;
     box-shadow: 0 8px 0 #b94805;
+    animation: splashCtaPulse 2s infinite ease-in-out;
+}
+
+@keyframes splashCtaPulse {
+    0% {
+        transform: scale(1);
+        filter: brightness(1);
+        box-shadow: 0 8px 0 #b94805, 0 4px 15px rgba(185, 72, 5, 0.2);
+    }
+    50% {
+        transform: scale(1.03);
+        filter: brightness(1.08);
+        box-shadow: 0 10px 0 #b94805, 0 8px 25px rgba(185, 72, 5, 0.45);
+    }
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+        box-shadow: 0 8px 0 #b94805, 0 4px 15px rgba(185, 72, 5, 0.2);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .splash-cta {
+        animation: none;
+        transform: none;
+    }
 }
 
 .splash-collage {

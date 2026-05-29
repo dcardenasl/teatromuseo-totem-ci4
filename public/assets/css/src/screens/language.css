@@ -9,9 +9,9 @@
 .language-card {
     width: 100%;
     padding: 42px 34px 36px;
-    border-radius: 36px;
-    background: rgba(255, 250, 241, 0.74);
-    border: 1px solid rgba(92, 70, 43, 0.12);
+    border-radius: var(--radius-xl);
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
     box-shadow: var(--shadow);
 }
 
@@ -59,7 +59,7 @@
     min-height: 96px;
     padding: 18px 20px;
     background: linear-gradient(180deg, #fffdf8, #f2e8d7);
-    border: 1px solid rgba(92, 70, 43, 0.14);
+    border: 1px solid var(--panel-border);
     box-shadow: 0 10px 20px rgba(64, 41, 17, 0.06);
     display: grid;
     gap: 6px;
@@ -73,9 +73,9 @@
     text-align: center;
     min-height: 80px;
     padding: 0 28px;
-    border-radius: 999px;
+    border-radius: var(--radius-xl);
     background: var(--accent);
-    color: #fff;
+    color: var(--on-accent);
     font-size: 1.4rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -85,6 +85,11 @@
 .language-card__button:focus-visible {
     transform: translateY(-2px);
     box-shadow: 0 16px 28px rgba(64, 41, 17, 0.1);
+}
+
+.language-card__button:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
 }
 
 .language-card__label {

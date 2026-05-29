@@ -1,6 +1,4 @@
-}
-
-@media (max-width: 920px) {
+@container kiosk (max-width: 920px) {
     .totem-header {
         position: static;
         grid-template-columns: auto auto;
@@ -39,7 +37,7 @@
     }
 }
 
-@media (max-width: 640px) {
+@container kiosk (max-width: 640px) {
     /* --- Cabecera y Navegación (Una Sola Línea) --- */
     .totem-header {
         display: flex;
@@ -78,11 +76,11 @@
     }
 
     .pill-button {
-        min-height: 38px;
-        padding: 0 10px;
+        min-height: 44px;
+        padding: 0 12px;
         font-size: 0.75rem;
         gap: 5px;
-        border-radius: 20px;
+        border-radius: 22px;
     }
 
     .pill-button__icon {
@@ -117,20 +115,20 @@
         z-index: 1;
     }
 
-    .splash-bird--top {
+    .splash-scene .splash-bird--top {
         top: 20px;
         right: 4%;
-        transform: rotate(18deg) scale(0.6) !important;
+        transform: rotate(18deg) scale(0.6);
     }
 
-    .splash-bird--mid {
+    .splash-scene .splash-bird--mid {
         top: 40px;
         right: 12%;
-        transform: rotate(16deg) scale(0.45) !important;
+        transform: rotate(16deg) scale(0.45);
     }
 
-    .splash-bird--low {
-        display: none !important;
+    .splash-scene .splash-bird--low {
+        display: none;
     }
 
     .splash-flower--left {
@@ -232,8 +230,8 @@
     }
 
     /* --- Ilustraciones Decorativas y Elementos redundantes --- */
-    .splash-collage {
-        display: block !important;
+    .splash-scene .splash-collage {
+        display: block;
         position: absolute;
         bottom: 0;
         left: 50%;

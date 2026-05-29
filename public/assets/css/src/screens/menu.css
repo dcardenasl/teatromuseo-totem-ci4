@@ -81,6 +81,12 @@
     transform: scale(1.02);
 }
 
+.menu-card:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 6px;
+    border-radius: var(--radius-md);
+}
+
 .menu-card__art {
     position: relative;
     aspect-ratio: 1;
@@ -89,7 +95,7 @@
     border: 0;
     box-shadow: none;
     overflow: visible;
-    background: transparent !important;
+    background: transparent;
     display: grid;
     place-items: center;
 }
