@@ -41,10 +41,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (homeBtn) homeBtn.textContent = trans.home;
 
     if (lang === 'es') return; // Default page text is Spanish, skip dictionary mapping
-
     // 2. Translate Page Content (Dictionary based on Spanish text)
     const dictionary = {
         en: {
+            'Descubre': 'Discover',
+            'Toca para comenzar': 'Tap to start',
+            'Selecciona tu idioma': 'Select your language',
             'Visitas guiadas': 'Guided Visits',
             'Recorridos y mediación': 'Tours and Mediation',
             'Una variante más breve del módulo de museo, útil para grupos y reservas. Sirve para recuperar el lenguaje ornamental de la propuesta con una acción clara.': 'A shorter version of the museum module, useful for groups and reservations. It serves to recover the ornamental style of the design with a clear call to action.',
@@ -74,6 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
             'Detalle de cartelera': 'Billboard Detail'
         },
         fr: {
+            'Descubre': 'Découvrir',
+            'Toca para comenzar': 'Appuyez pour commencer',
+            'Selecciona tu idioma': 'Sélectionnez votre langue',
             'Visitas guiadas': 'Visites Guidées',
             'Recorridos y mediación': 'Visites et Médiation',
             'Una variante más breve del módulo de museo, útil para grupos y reservas. Sirve para recuperar el lenguaje ornamental de la propuesta con una acción clara.': 'Une version plus courte du module musée, utile pour les groupes et les réservations. Elle sert à retrouver le style ornemental du projet avec une action claire.',
@@ -103,6 +108,9 @@ document.addEventListener("DOMContentLoaded", () => {
             'Detalle de cartelera': 'Détail de l\'affiche'
         },
         pt: {
+            'Descubre': 'Descubra',
+            'Toca para comenzar': 'Toque para começar',
+            'Selecciona tu idioma': 'Selecione o seu idioma',
             'Visitas guiadas': 'Visitas Guiadas',
             'Recorridos y mediación': 'Roteiros e Mediação',
             'Una variante más breve del módulo de museo, útil para grupos y reservas. Sirve para recuperar el lenguaje ornamental de la propuesta con una acción clara.': 'Uma versão mais curta do módulo do museu, útil para grupos e reservas. Serve para recuperar o estilo ornamental do projeto com uma ação clara.',
@@ -135,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const dict = dictionary[lang];
     if (dict) {
-        const selector = '.menu-title__eyebrow, .menu-title__heading, .menu-title__copy, .content-panel__title, .content-panel__text, .stat-card__label, .stat-card__value, .menu-card__title, .month-group__title, .chip';
+        const selector = '.menu-title__eyebrow, .menu-title__heading, .menu-title__copy, .content-panel__title, .content-panel__text, .stat-card__label, .stat-card__value, .menu-card__title, .month-group__title, .chip, .splash-eyebrow, .splash-cta, .language-card__title';
         const elementsToTranslate = document.querySelectorAll(selector);
         elementsToTranslate.forEach(el => {
             const originalText = el.textContent.trim();
