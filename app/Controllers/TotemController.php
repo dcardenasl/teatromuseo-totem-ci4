@@ -36,7 +36,6 @@ class TotemController extends BaseController
                 'nav' => $this->shellNav(base_url('/')),
                 'items' => [
                     $this->menuItem(lang('Totem.menu.museum'), 'museo', lang('Totem.menu.museum_copy'), 'menu-card--museum'),
-                    $this->menuItem(lang('Totem.menu.history'), 'historia', lang('Totem.menu.history_copy'), 'menu-card--history'),
                     $this->menuItem(lang('Totem.menu.school'), 'teatro-escuela', lang('Totem.menu.school_copy'), 'menu-card--school'),
                     $this->menuItem(lang('Totem.menu.programming'), 'cartelera', lang('Totem.menu.programming_copy'), 'menu-card--programming'),
                     $this->menuItem(lang('Totem.menu.visits'), 'visitas-guiadas', lang('Totem.menu.visits_copy'), 'menu-card--visits'),
@@ -68,31 +67,37 @@ class TotemController extends BaseController
 
     public function collectionTechniques()
     {
-        // Mock data for techniques
-        $techniques = [
-            ['title' => 'Títere de Guante', 'slug' => 'guante'],
-            ['title' => 'Marioneta de Hilos', 'slug' => 'hilos'],
-            ['title' => 'Títere de Mesa', 'slug' => 'mesa'],
-            ['title' => 'Sombras Chinas', 'slug' => 'sombras'],
-        ];
-
         return view('totem/collection_techniques', array_merge(
             $this->pageMeta('Técnicas'),
             [
                 'nav' => $this->shellNav(base_url('museo/coleccion')),
-                'techniques' => $techniques
+                'techniques' => $this->api()->techniques()
             ]
         ));
     }
 
     public function collectionTechnique($slug)
     {
-        return view('totem/collection_technique_detail', array_merge($this->pageMeta('Técnica - ' . $slug), ['nav' => $this->shellNav(base_url('museo/coleccion/titeres'))]));
-    }
+        $techniques = $this->api()->techniques();
+        $technique = null;
+        foreach ($techniques as $t) {
+            if (isset($t['slug']) && $t['slug'] === $slug) {
+                $technique = $this->api()->technique((int)$t['id']);
+                break;
+            }
+        }
+        
+        if (!$technique) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
 
-    public function collectionMasks()
-    {
-        return view('totem/collection_masks', array_merge($this->pageMeta('Máscaras'), ['nav' => $this->shellNav(base_url('museo/coleccion'))]));
+        return view('totem/collection_technique_detail', array_merge(
+            $this->pageMeta('Técnica - ' . $technique['title']),
+            [
+                'nav' => $this->shellNav(base_url('museo/coleccion/titeres')),
+                'technique' => $technique
+            ]
+        ));
     }
 
     public function collectionMasks()
@@ -130,12 +135,24 @@ class TotemController extends BaseController
 
     public function museumComicHistoryMain()
     {
-        return view('totem/comic_history_main', array_merge($this->pageMeta('Historia Cómica'), ['nav' => $this->shellNav(base_url('museo'))]));
+        return view('totem/comic_history_main', array_merge(
+            $this->pageMeta('Historia Cómica'),
+            [
+                'nav' => $this->shellNav(base_url('museo')),
+                'posts' => $this->api()->collection(['category' => 'historia-comica']) // Ajustar según endpoint real de historia
+            ]
+        ));
     }
 
     public function museumHistoryPost($slug)
     {
-        return view('totem/comic_history_post', array_merge($this->pageMeta('Post - ' . $slug), ['nav' => $this->shellNav(base_url('museo/historia-comica'))]));
+        return view('totem/comic_history_post', array_merge(
+            $this->pageMeta('Historia Cómica'),
+            [
+                'nav' => $this->shellNav(base_url('museo/historia-comica')),
+                'post' => $this->api()->museumHistory($slug)
+            ]
+        ));
     }
 
     public function museumInfoMain()
@@ -145,17 +162,35 @@ class TotemController extends BaseController
 
     public function museumBuilding()
     {
-        return view('totem/museum_building', array_merge($this->pageMeta('Edificio'), ['nav' => $this->shellNav(base_url('museo/el-museo'))]));
+        return view('totem/museum_building', array_merge(
+            $this->pageMeta('Edificio'),
+            [
+                'nav' => $this->shellNav(base_url('museo/el-museo')),
+                'data' => $this->api()->museum()
+            ]
+        ));
     }
 
     public function museumInstitution()
     {
-        return view('totem/museum_institution', array_merge($this->pageMeta('Institución'), ['nav' => $this->shellNav(base_url('museo/el-museo'))]));
+        return view('totem/museum_institution', array_merge(
+            $this->pageMeta('Institución'),
+            [
+                'nav' => $this->shellNav(base_url('museo/el-museo')),
+                'data' => $this->api()->museum()
+            ]
+        ));
     }
 
     public function museumToday()
     {
-        return view('totem/museum_today', array_merge($this->pageMeta('Actualidad'), ['nav' => $this->shellNav(base_url('museo/el-museo'))]));
+        return view('totem/museum_today', array_merge(
+            $this->pageMeta('Actualidad'),
+            [
+                'nav' => $this->shellNav(base_url('museo/el-museo')),
+                'data' => $this->api()->museum()
+            ]
+        ));
     }
 
     public function extensionContact()
