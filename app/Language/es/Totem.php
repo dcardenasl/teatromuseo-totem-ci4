@@ -39,6 +39,13 @@ return [
         'in_person' => 'Presencial',
         'billboard_detail' => 'Detalle de cartelera',
     ],
+    'collection' => [
+        'main_title' => 'Colección del Museo',
+        'puppets' => 'Títeres',
+        'masks' => 'Máscaras',
+        'clowns' => 'Payasos',
+        'techniques_title' => 'Técnicas de Títeres',
+    ],
     'nav' => [
         'back' => 'VOLVER',
         'home' => 'INICIO',

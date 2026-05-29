@@ -39,6 +39,13 @@ return [
         'in_person' => 'In person',
         'billboard_detail' => 'Billboard Detail',
     ],
+    'collection' => [
+        'main_title' => 'Museum Collection',
+        'puppets' => 'Puppets',
+        'masks' => 'Masks',
+        'clowns' => 'Clowns',
+        'techniques_title' => 'Puppet Techniques',
+    ],
     'nav' => [
         'back' => 'BACK',
         'home' => 'HOME',
