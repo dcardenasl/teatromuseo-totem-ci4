@@ -2,7 +2,7 @@
 /**
  * Componente Shell de Página Estándar
  *
- * @param string $title
+ * @param string $title (opcional)
  * @param array $nav (opcional)
  */
 
@@ -15,12 +15,12 @@ $pageTitle = $title ?? '';
 
     <?php if (!empty($pageTitle)): ?>
     <section class="menu-title">
-        <h1 class="menu-title__heading">
+        <h1 class="menu-title__heading" id="page-title">
             <?php 
-                $parts = explode(' ', $pageTitle, 2);
-                foreach ($parts as $part): ?>
-                <span class="menu-title__line"><?= esc($part) ?></span>
-            <?php endforeach; ?>
+                // Permitimos <br> pero escapamos el resto del contenido
+                $safeTitle = str_replace(['&lt;br&gt;', '&lt;br/&gt;', '&lt;br /&gt;'], '<br>', esc($pageTitle));
+                echo $safeTitle;
+            ?>
         </h1>
     </section>
     <?php endif; ?>
