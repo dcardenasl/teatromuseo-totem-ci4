@@ -25,7 +25,10 @@ function hideIdleWarning() {
     }
 }
 
-function resetTimer() {
+function resetTimer(event) {
+    if (warningShown && event && event.type === 'mousemove') {
+        return;
+    }
     idleTime = 0;
     hideIdleWarning();
 }
