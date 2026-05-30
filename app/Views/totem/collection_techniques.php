@@ -12,7 +12,7 @@
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => lang('Totem.collection.techniques_title'),
+        'title' => lang('Collection.techniques_title'),
         'content' => $content,
         'nav' => $nav ?? []
     ]) ?>

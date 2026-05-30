@@ -14,7 +14,7 @@
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => lang('Totem.collection.masks_title'),
+        'title' => lang('Collection.masks_title'),
         'content' => $content,
         'nav' => $nav ?? []
     ]) ?>

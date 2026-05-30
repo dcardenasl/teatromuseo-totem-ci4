@@ -6,7 +6,7 @@
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => lang('Totem.museum_info.today_title'),
+        'title' => lang('MuseumInfo.today_title'),
         'content' => $content,
         'nav' => $nav ?? []
     ]) ?>

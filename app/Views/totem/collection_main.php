@@ -4,17 +4,17 @@
     <?php ob_start(); ?>
         <div class="menu-grid">
             <?= view('totem/partials/card', [
-                'title' => lang('Totem.collection.puppets'),
+                'title' => lang('Collection.puppets'),
                 'href'  => base_url('museo/coleccion/titeres'),
                 'class' => ''
             ]) ?>
             <?= view('totem/partials/card', [
-                'title' => lang('Totem.collection.masks'),
+                'title' => lang('Collection.masks'),
                 'href'  => base_url('museo/coleccion/mascaras'),
                 'class' => ''
             ]) ?>
             <?= view('totem/partials/card', [
-                'title' => lang('Totem.collection.clowns'),
+                'title' => lang('Collection.clowns'),
                 'href'  => base_url('museo/coleccion/payasos'),
                 'class' => ''
             ]) ?>
@@ -22,7 +22,7 @@
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => lang('Totem.collection.main_title'),
+        'title' => lang('Collection.main_title'),
         'content' => $content,
         'nav' => $nav ?? []
     ]) ?>

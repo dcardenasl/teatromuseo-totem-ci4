@@ -14,22 +14,22 @@
             <div class="language-instructions-container" aria-label="Selecciona tu idioma / Select your language / Sélectionnez votre langue / Selecione o seu idioma">
                 <div class="language-instruction lang-instruction--es" data-lang="es">
                     <span class="language-instruction__decorator"></span>
-                    <span class="language-instruction__text"><?= lang('Totem.menu.select_language', [], 'es') ?></span>
+                    <span class="language-instruction__text"><?= lang('Menu.select_language', [], 'es') ?></span>
                     <span class="language-instruction__decorator"></span>
                 </div>
                 <div class="language-instruction lang-instruction--en" data-lang="en">
                     <span class="language-instruction__decorator"></span>
-                    <span class="language-instruction__text"><?= lang('Totem.menu.select_language', [], 'en') ?></span>
+                    <span class="language-instruction__text"><?= lang('Menu.select_language', [], 'en') ?></span>
                     <span class="language-instruction__decorator"></span>
                 </div>
                 <div class="language-instruction lang-instruction--fr" data-lang="fr">
                     <span class="language-instruction__decorator"></span>
-                    <span class="language-instruction__text"><?= lang('Totem.menu.select_language', [], 'fr') ?></span>
+                    <span class="language-instruction__text"><?= lang('Menu.select_language', [], 'fr') ?></span>
                     <span class="language-instruction__decorator"></span>
                 </div>
                 <div class="language-instruction lang-instruction--pt" data-lang="pt">
                     <span class="language-instruction__decorator"></span>
-                    <span class="language-instruction__text"><?= lang('Totem.menu.select_language', [], 'pt') ?></span>
+                    <span class="language-instruction__text"><?= lang('Menu.select_language', [], 'pt') ?></span>
                     <span class="language-instruction__decorator"></span>
                 </div>
             </div>
