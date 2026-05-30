@@ -1,15 +1,7 @@
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>
-<div class="totem-page">
-    <div class="screen-page screen-page--detail">
-        <?= $this->include('totem/partials/topbar') ?>
-
-        <header class="menu-title menu-title--compact">
-            <span class="menu-title__eyebrow">Cartelera</span>
-            <h1 class="menu-title__heading menu-title__heading--compact"><?= esc($detail['title']) ?></h1>
-        </header>
-
+    <?php ob_start(); ?>
         <div class="screen-page__body">
             <section class="detail-layout">
                 <article class="detail-main">
@@ -49,6 +41,11 @@
         </div>
 
         <?= $this->include('totem/partials/page_footer', ['variant' => 'detail']) ?>
-    </div>
-</div>
+    <?php $content = ob_get_clean(); ?>
+
+    <?= view('totem/partials/page_shell', [
+        'title' => esc($detail['title']),
+        'content' => $content,
+        'nav' => $nav ?? []
+    ]) ?>
 <?= $this->endSection() ?>

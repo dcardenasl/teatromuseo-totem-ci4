@@ -27,8 +27,8 @@ $jsVersion = file_exists($jsPath) ? filemtime($jsPath) : '1.0.0';
                 <line x1="12" y1="18" x2="12.01" y2="18"/>
             </svg>
         </div>
-        <div class="orientation-warning__title"><?= lang('Totem.nav.rotate_title') ?></div>
-        <div class="orientation-warning__text"><?= lang('Totem.nav.rotate_text') ?></div>
+        <div class="orientation-warning__title"><?= lang('Nav.rotate_title') ?></div>
+        <div class="orientation-warning__text"><?= lang('Nav.rotate_text') ?></div>
     </div>
 
     <div class="kiosk-shell">
@@ -40,9 +40,9 @@ $jsVersion = file_exists($jsPath) ? filemtime($jsPath) : '1.0.0';
     <!-- Overlay de Advertencia por Inactividad (Idle Warning) -->
     <div id="idle-overlay" class="idle-overlay idle-overlay--hidden">
         <div class="idle-overlay__card">
-            <p class="idle-overlay__msg"><?= lang('Totem.idle.msg') ?></p>
+            <p class="idle-overlay__msg"><?= lang('Idle.msg') ?></p>
             <span class="idle-overlay__count" id="idle-count">15</span>
-            <button type="button" class="pill-button" onclick="resetTimer()"><?= lang('Totem.idle.continue') ?></button>
+            <button type="button" class="pill-button" onclick="resetTimer()"><?= lang('Idle.continue') ?></button>
         </div>
     </div>
 

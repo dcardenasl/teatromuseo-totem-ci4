@@ -1,17 +1,21 @@
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>
-<div class="totem-shell">
-    <?= view('totem/partials/topbar', ['nav' => $nav]) ?>
-    <main class="content-area">
-        <h1><?= lang('Totem.collection.masks_title') ?></h1>
+    <?php ob_start(); ?>
         <div class="menu-grid">
             <?php foreach ($traditions as $tradition): ?>
-                <a href="<?= base_url('museo/coleccion/mascaras/' . $tradition['slug']) ?>" class="menu-card">
-                    <h2><?= $tradition['title'] ?></h2>
-                </a>
+                <?= view('totem/partials/card', [
+                    'title' => $tradition['title'],
+                    'href'  => base_url('museo/coleccion/mascaras/' . $tradition['slug']),
+                    'class' => ''
+                ]) ?>
             <?php endforeach; ?>
         </div>
-    </main>
-</div>
+    <?php $content = ob_get_clean(); ?>
+
+    <?= view('totem/partials/page_shell', [
+        'title' => lang('Totem.collection.masks_title'),
+        'content' => $content,
+        'nav' => $nav ?? []
+    ]) ?>
 <?= $this->endSection() ?>

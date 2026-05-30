@@ -1,11 +1,13 @@
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>
-<div class="totem-shell">
-    <?= view('totem/partials/topbar', ['nav' => $nav]) ?>
-    <main class="content-area">
-        <h1><?= lang('Totem.comic_history.post_title') ?></h1>
+    <?php ob_start(); ?>
         <p>Post de historia: <?= $slug ?> (mock).</p>
-    </main>
-</div>
+    <?php $content = ob_get_clean(); ?>
+
+    <?= view('totem/partials/page_shell', [
+        'title' => lang('Totem.comic_history.post_title'),
+        'content' => $content,
+        'nav' => $nav ?? []
+    ]) ?>
 <?= $this->endSection() ?>

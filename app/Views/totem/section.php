@@ -1,18 +1,7 @@
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>
-<div class="totem-page">
-    <div class="screen-page screen-page--section">
-        <?= $this->include('totem/partials/topbar') ?>
-
-        <header class="menu-title menu-title--compact">
-            <span class="menu-title__eyebrow"><?= esc($section['eyebrow'] ?? 'Sección') ?></span>
-            <h1 class="menu-title__heading menu-title__heading--compact"><?= esc($section['title']) ?></h1>
-            <?php if (!empty($section['copy'])): ?>
-                <p class="menu-title__copy"><?= esc($section['copy']) ?></p>
-            <?php endif; ?>
-        </header>
-
+    <?php ob_start(); ?>
         <div class="screen-page__body">
             <?php if (isset($courses)): ?>
                 <section class="school-layout" aria-label="Próximos cursos">
@@ -60,6 +49,11 @@
         </div>
 
         <?= $this->include('totem/partials/page_footer', ['variant' => isset($courses) ? 'school' : 'section']) ?>
-    </div>
-</div>
+    <?php $content = ob_get_clean(); ?>
+
+    <?= view('totem/partials/page_shell', [
+        'title' => esc($section['title']),
+        'content' => $content,
+        'nav' => $nav ?? []
+    ]) ?>
 <?= $this->endSection() ?>

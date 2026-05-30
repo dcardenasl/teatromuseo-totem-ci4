@@ -13,10 +13,10 @@
             </div>
 
             <div class="splash-copy">
-                <span class="splash-eyebrow"><?= lang('Totem.splash.discover') ?></span>
+                <span class="splash-eyebrow"><?= lang('Splash.discover') ?></span>
                 <h1 class="splash-title">Teatromuseo</h1>
                 <a class="hero__cta splash-cta" href="<?= base_url('language') ?>">
-                    <span class="splash-cta__text"><?= lang('Totem.splash.touch_start') ?></span>
+                    <span class="splash-cta__text"><?= lang('Splash.touch_start') ?></span>
                 </a>
             </div>
 
@@ -41,17 +41,17 @@ document.addEventListener("DOMContentLoaded", () => {
     
     if (eyebrowText && ctaText) {
         const eyebrows = [
-            "<?= esc(lang('Totem.splash.discover', [], 'es'), 'js') ?>",
-            "<?= esc(lang('Totem.splash.discover', [], 'en'), 'js') ?>",
-            "<?= esc(lang('Totem.splash.discover', [], 'fr'), 'js') ?>",
-            "<?= esc(lang('Totem.splash.discover', [], 'pt'), 'js') ?>"
+            "<?= esc(lang('Splash.discover', [], 'es'), 'js') ?>",
+            "<?= esc(lang('Splash.discover', [], 'en'), 'js') ?>",
+            "<?= esc(lang('Splash.discover', [], 'fr'), 'js') ?>",
+            "<?= esc(lang('Splash.discover', [], 'pt'), 'js') ?>"
         ];
         
         const ctas = [
-            "<?= esc(lang('Totem.splash.touch_start', [], 'es'), 'js') ?>",
-            "<?= esc(lang('Totem.splash.touch_start', [], 'en'), 'js') ?>",
-            "<?= esc(lang('Totem.splash.touch_start', [], 'fr'), 'js') ?>",
-            "<?= esc(lang('Totem.splash.touch_start', [], 'pt'), 'js') ?>"
+            "<?= esc(lang('Splash.touch_start', [], 'es'), 'js') ?>",
+            "<?= esc(lang('Splash.touch_start', [], 'en'), 'js') ?>",
+            "<?= esc(lang('Splash.touch_start', [], 'fr'), 'js') ?>",
+            "<?= esc(lang('Splash.touch_start', [], 'pt'), 'js') ?>"
         ];
         
         let currentIndex = 0;

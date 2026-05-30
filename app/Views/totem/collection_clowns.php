@@ -1,11 +1,21 @@
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>
-<div class="totem-shell">
-    <?= view('totem/partials/topbar', ['nav' => $nav]) ?>
-    <main class="content-area">
-        <h1><?= lang('Totem.collection.clowns_title') ?></h1>
-        <p>Catálogo de historia de payasos (mock).</p>
-    </main>
-</div>
+    <?php ob_start(); ?>
+        <div class="menu-grid">
+            <?php foreach (range(1, 4) as $i): ?>
+                <?= view('totem/partials/card', [
+                    'title' => "Payaso Histórico #$i",
+                    'href'  => '#',
+                    'class' => ''
+                ]) ?>
+            <?php endforeach; ?>
+        </div>
+    <?php $content = ob_get_clean(); ?>
+
+    <?= view('totem/partials/page_shell', [
+        'title' => lang('Totem.collection.clowns_title'),
+        'content' => $content,
+        'nav' => $nav ?? []
+    ]) ?>
 <?= $this->endSection() ?>

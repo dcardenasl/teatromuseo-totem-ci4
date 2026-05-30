@@ -31,15 +31,15 @@ class TotemController extends BaseController
     public function mainMenu()
     {
         return view('totem/main_menu', array_merge(
-            $this->pageMeta(lang('Totem.menu.main_menu')),
+            $this->pageMeta(lang('Menu.main_menu_l1') . ' ' . lang('Menu.main_menu_l2')),
             [
                 'nav' => $this->shellNav(base_url('/')),
                 'items' => [
-                    $this->menuItem(lang('Totem.menu.museum'), 'museo', lang('Totem.menu.museum_copy'), 'menu-card--museum'),
-                    $this->menuItem(lang('Totem.menu.school'), 'teatro-escuela', lang('Totem.menu.school_copy'), 'menu-card--school'),
-                    $this->menuItem(lang('Totem.menu.programming'), 'cartelera', lang('Totem.menu.programming_copy'), 'menu-card--programming'),
-                    $this->menuItem(lang('Totem.menu.visits'), 'visitas-guiadas', lang('Totem.menu.visits_copy'), 'menu-card--visits'),
-                    $this->menuItem(lang('Totem.menu.friends'), 'amigos-de-teatromuseo', lang('Totem.menu.friends_copy'), 'menu-card--friends'),
+                    $this->menuItem(lang('Menu.museum'), 'museo', lang('Menu.museum_copy'), 'menu-card--museum'),
+                    $this->menuItem(lang('Menu.school'), 'teatro-escuela', lang('Menu.school_copy'), 'menu-card--school'),
+                    $this->menuItem(lang('Menu.programming'), 'cartelera', lang('Menu.programming_copy'), 'menu-card--programming'),
+                    $this->menuItem(lang('Menu.visits'), 'visitas-guiadas', lang('Menu.visits_copy'), 'menu-card--visits'),
+                    $this->menuItem(lang('Menu.friends'), 'amigos-de-teatromuseo', lang('Menu.friends_copy'), 'menu-card--friends'),
                 ],
             ]
         ));
@@ -312,19 +312,19 @@ class TotemController extends BaseController
         $currentUri = uri_string();
         return [
             [
-                'label' => lang('Totem.nav.back'),
+                'label' => lang('Nav.back'),
                 'href' => $backHref ?? base_url('menu'),
                 'icon' => '←',
                 'class' => 'pill-button pill-button--back',
             ],
             [
-                'label' => lang('Totem.nav.lang'),
+                'label' => lang('Nav.lang'),
                 'href' => base_url('language' . ($currentUri ? '?from=' . urlencode($currentUri) : '')),
                 'icon' => '◌',
                 'class' => 'pill-button pill-button--lang',
             ],
             [
-                'label' => lang('Totem.nav.home'),
+                'label' => lang('Nav.home'),
                 'href' => base_url('/'),
                 'icon' => '⌂',
                 'class' => 'pill-button pill-button--home',

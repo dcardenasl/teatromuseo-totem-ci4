@@ -1,15 +1,29 @@
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>
-<div class="totem-shell">
-    <?= view('totem/partials/topbar', ['nav' => $nav]) ?>
-    <main class="content-area">
-        <h1><?= lang('Totem.collection.main_title') ?></h1>
+    <?php ob_start(); ?>
         <div class="menu-grid">
-            <a href="<?= base_url('museo/coleccion/titeres') ?>" class="menu-card"><?= lang('Totem.collection.puppets') ?></a>
-            <a href="<?= base_url('museo/coleccion/mascaras') ?>" class="menu-card"><?= lang('Totem.collection.masks') ?></a>
-            <a href="<?= base_url('museo/coleccion/payasos') ?>" class="menu-card"><?= lang('Totem.collection.clowns') ?></a>
+            <?= view('totem/partials/card', [
+                'title' => lang('Totem.collection.puppets'),
+                'href'  => base_url('museo/coleccion/titeres'),
+                'class' => ''
+            ]) ?>
+            <?= view('totem/partials/card', [
+                'title' => lang('Totem.collection.masks'),
+                'href'  => base_url('museo/coleccion/mascaras'),
+                'class' => ''
+            ]) ?>
+            <?= view('totem/partials/card', [
+                'title' => lang('Totem.collection.clowns'),
+                'href'  => base_url('museo/coleccion/payasos'),
+                'class' => ''
+            ]) ?>
         </div>
-    </main>
-</div>
+    <?php $content = ob_get_clean(); ?>
+
+    <?= view('totem/partials/page_shell', [
+        'title' => lang('Totem.collection.main_title'),
+        'content' => $content,
+        'nav' => $nav ?? []
+    ]) ?>
 <?= $this->endSection() ?>

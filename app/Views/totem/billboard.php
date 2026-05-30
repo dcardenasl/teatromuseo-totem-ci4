@@ -1,15 +1,7 @@
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>
-<div class="totem-page">
-    <div class="screen-page screen-page--billboard">
-        <?= $this->include('totem/partials/topbar') ?>
-
-        <header class="menu-title menu-title--compact">
-            <span class="menu-title__eyebrow">Programación</span>
-            <h1 class="menu-title__heading menu-title__heading--compact">Cartelera</h1>
-        </header>
-
+    <?php ob_start(); ?>
         <div class="screen-page__body">
             <section class="billboard-months" aria-label="Fechas disponibles">
                 <?php foreach ($months as $month): ?>
@@ -42,6 +34,11 @@
         </div>
 
         <?= $this->include('totem/partials/page_footer', ['variant' => 'billboard']) ?>
-    </div>
-</div>
+    <?php $content = ob_get_clean(); ?>
+
+    <?= view('totem/partials/page_shell', [
+        'title' => 'Cartelera',
+        'content' => $content,
+        'nav' => $nav ?? []
+    ]) ?>
 <?= $this->endSection() ?>

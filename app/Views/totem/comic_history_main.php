@@ -1,14 +1,21 @@
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>
-<div class="totem-shell">
-    <?= view('totem/partials/topbar', ['nav' => $nav]) ?>
-    <main class="content-area">
-        <h1><?= lang('Totem.comic_history.main_title') ?></h1>
-        <div class="timeline-container">
-            <!-- Placeholder for timeline -->
-            <p>Timeline principal en construcción</p>
+    <?php ob_start(); ?>
+        <div class="menu-grid">
+            <?php foreach (range(1, 3) as $i): ?>
+                <?= view('totem/partials/card', [
+                    'title' => "Capítulo Histórico #$i",
+                    'href'  => '#',
+                    'class' => ''
+                ]) ?>
+            <?php endforeach; ?>
         </div>
-    </main>
-</div>
+    <?php $content = ob_get_clean(); ?>
+
+    <?= view('totem/partials/page_shell', [
+        'title' => lang('Totem.comic_history.main_title'),
+        'content' => $content,
+        'nav' => $nav ?? []
+    ]) ?>
 <?= $this->endSection() ?>
