@@ -16,14 +16,14 @@ class TotemController extends BaseController
 
     public function index()
     {
-        return view('totem/splash', $this->pageMeta('Bienvenido'));
+        return view('totem/splash', $this->pageMeta(lang('Splash.welcome')));
     }
 
     public function language()
     {
         $from = $this->request->getGet('from');
         return view('totem/language', array_merge(
-            $this->pageMeta('Selecciona tu idioma'),
+            $this->pageMeta(lang('Menu.select_language')),
             ['from' => $from]
         ));
     }
@@ -31,7 +31,7 @@ class TotemController extends BaseController
     public function mainMenu()
     {
         return view('totem/main_menu', array_merge(
-            $this->pageMeta(lang('Menu.main_menu_l1') . ' ' . lang('Menu.main_menu_l2')),
+            $this->pageMeta(lang('Nav.main_menu')),
             [
                 'nav' => $this->shellNav(base_url('/')),
                 'items' => [
@@ -47,14 +47,15 @@ class TotemController extends BaseController
     public function museum()
     {
         return view('totem/museum_menu', array_merge(
-            $this->pageMeta(lang('Totem.menu.explore_museum')),
+            $this->pageMeta(lang('Menu.explore_museum')),
             [
                 'nav' => $this->shellNav(base_url('menu')),
+                'exploreLabel' => lang('Menu.explore_museum'),
                 'items' => [
-                    $this->menuItem(lang('Totem.menu.collection'), 'museo/coleccion', lang('Totem.menu.collection_copy'), 'menu-card--museum'),
-                    $this->menuItem(lang('Totem.menu.comic_history'), 'museo/historia-comica', lang('Totem.menu.comic_history_copy'), 'menu-card--history'),
-                    $this->menuItem(lang('Totem.menu.el_museo'), 'museo/el-museo', lang('Totem.menu.el_museo_copy'), 'menu-card--school'),
-                    $this->menuItem(lang('Totem.menu.visits'), 'visitas-guiadas', lang('Totem.menu.visits_copy'), 'menu-card--visits'),
+                    $this->menuItem(lang('Menu.collection'), 'museo/coleccion', lang('Menu.collection_copy'), 'menu-card--museum'),
+                    $this->menuItem(lang('Menu.comic_history'), 'museo/historia-comica', lang('Menu.comic_history_copy'), 'menu-card--history'),
+                    $this->menuItem(lang('Menu.el_museo'), 'museo/el-museo', lang('Menu.el_museo_copy'), 'menu-card--school'),
+                    $this->menuItem(lang('Menu.visits'), 'visitas-guiadas', lang('Menu.visits_copy'), 'menu-card--visits'),
                 ],
             ]
         ));
@@ -62,13 +63,13 @@ class TotemController extends BaseController
 
     public function collectionMain()
     {
-        return view('totem/collection_main', array_merge($this->pageMeta('Colección'), ['nav' => $this->shellNav(base_url('museo'))]));
+        return view('totem/collection_main', array_merge($this->pageMeta(lang('Collection.main_title')), ['nav' => $this->shellNav(base_url('museo'))]));
     }
 
     public function collectionTechniques()
     {
         return view('totem/collection_techniques', array_merge(
-            $this->pageMeta('Técnicas'),
+            $this->pageMeta(lang('Collection.techniques_title')),
             [
                 'nav' => $this->shellNav(base_url('museo/coleccion')),
                 'techniques' => $this->api()->techniques()
@@ -92,7 +93,7 @@ class TotemController extends BaseController
         }
 
         return view('totem/collection_technique_detail', array_merge(
-            $this->pageMeta('Técnica - ' . $technique['title']),
+            $this->pageMeta(lang('Collection.technique_prefix') . ' - ' . $technique['title']),
             [
                 'nav' => $this->shellNav(base_url('museo/coleccion/titeres')),
                 'technique' => $technique
@@ -108,7 +109,7 @@ class TotemController extends BaseController
         ];
 
         return view('totem/collection_masks', array_merge(
-            $this->pageMeta('Máscaras'),
+            $this->pageMeta(lang('Collection.masks_title')),
             [
                 'nav' => $this->shellNav(base_url('museo/coleccion')),
                 'traditions' => $traditions
@@ -119,7 +120,7 @@ class TotemController extends BaseController
     public function collectionClowns()
     {
         return view('totem/collection_clowns', array_merge(
-            $this->pageMeta('Payasos'),
+            $this->pageMeta(lang('Collection.clowns_title')),
             ['nav' => $this->shellNav(base_url('museo/coleccion'))]
         ));
     }
@@ -127,7 +128,7 @@ class TotemController extends BaseController
     public function collectionItem($id)
     {
         return view('totem/collection_item_detail', array_merge(
-            $this->pageMeta('Ficha - ' . $id),
+            $this->pageMeta(lang('Collection.item_title') . ' - ' . $id),
             ['nav' => $this->shellNav(base_url('museo/coleccion')), 'id' => $id]
         ));
     }
@@ -136,7 +137,7 @@ class TotemController extends BaseController
     public function museumComicHistoryMain()
     {
         return view('totem/comic_history_main', array_merge(
-            $this->pageMeta('Historia Cómica'),
+            $this->pageMeta(lang('ComicHistory.main_title')),
             [
                 'nav' => $this->shellNav(base_url('museo')),
                 'posts' => $this->api()->collection(['category' => 'historia-comica']) // Ajustar según endpoint real de historia
@@ -147,7 +148,7 @@ class TotemController extends BaseController
     public function museumHistoryPost($slug)
     {
         return view('totem/comic_history_post', array_merge(
-            $this->pageMeta('Historia Cómica'),
+            $this->pageMeta(lang('ComicHistory.main_title')),
             [
                 'nav' => $this->shellNav(base_url('museo/historia-comica')),
                 'post' => $this->api()->museumHistory($slug)
@@ -157,13 +158,13 @@ class TotemController extends BaseController
 
     public function museumInfoMain()
     {
-        return view('totem/museum_info_main', array_merge($this->pageMeta('El Museo'), ['nav' => $this->shellNav(base_url('museo'))]));
+        return view('totem/museum_info_main', array_merge($this->pageMeta(lang('Menu.museum')), ['nav' => $this->shellNav(base_url('museo'))]));
     }
 
     public function museumBuilding()
     {
         return view('totem/museum_building', array_merge(
-            $this->pageMeta('Edificio'),
+            $this->pageMeta(lang('MuseumInfo.building_title')),
             [
                 'nav' => $this->shellNav(base_url('museo/el-museo')),
                 'data' => $this->api()->museum()
@@ -174,7 +175,7 @@ class TotemController extends BaseController
     public function museumInstitution()
     {
         return view('totem/museum_institution', array_merge(
-            $this->pageMeta('Institución'),
+            $this->pageMeta(lang('MuseumInfo.institution_title')),
             [
                 'nav' => $this->shellNav(base_url('museo/el-museo')),
                 'data' => $this->api()->museum()
@@ -185,7 +186,7 @@ class TotemController extends BaseController
     public function museumToday()
     {
         return view('totem/museum_today', array_merge(
-            $this->pageMeta('Actualidad'),
+            $this->pageMeta(lang('MuseumInfo.today_title')),
             [
                 'nav' => $this->shellNav(base_url('museo/el-museo')),
                 'data' => $this->api()->museum()
@@ -195,7 +196,7 @@ class TotemController extends BaseController
 
     public function extensionContact()
     {
-        return view('totem/extension_contact', array_merge($this->pageMeta('Contacto'), ['nav' => $this->shellNav(base_url('menu'))]));
+        return view('totem/extension_contact', array_merge($this->pageMeta(lang('Extension.title')), ['nav' => $this->shellNav(base_url('menu'))]));
     }
 
     private function collectionSection(): array
@@ -203,7 +204,7 @@ class TotemController extends BaseController
         return [
             'nav' => $this->shellNav(base_url('museo')),
             'section' => [
-                'eyebrow' => 'Recorre la colección viva',
+                'eyebrow' => lang('Collection.main_title'),
                 'title' => 'Colección',
                 'copy' => 'Explora nuestro catálogo de títeres, marionetas, máscaras e historia cómica. Selecciona una categoría para ver los objetos en exhibición.',
                 'visualClass' => 'section-hero__visual section-hero__visual--museum',
@@ -260,32 +261,32 @@ class TotemController extends BaseController
 
     public function history()
     {
-        return view('totem/section', array_merge($this->pageMeta('Historia'), $this->historySection()));
+        return view('totem/section', array_merge($this->pageMeta(lang('Menu.history')), $this->historySection()));
     }
 
     public function theaterSchool()
     {
-        return view('totem/section', array_merge($this->pageMeta('Teatro escuela'), $this->schoolSection()));
+        return view('totem/section', array_merge($this->pageMeta(lang('Menu.school')), $this->schoolSection()));
     }
 
     public function billboard()
     {
-        return view('totem/billboard', array_merge($this->pageMeta('Cartelera'), $this->billboardSection()));
+        return view('totem/billboard', array_merge($this->pageMeta(lang('Menu.programming')), $this->billboardSection()));
     }
 
     public function billboardDetail()
     {
-        return view('totem/billboard_detail', array_merge($this->pageMeta('Detalle de cartelera'), $this->billboardDetailSection()));
+        return view('totem/billboard_detail', array_merge($this->pageMeta(lang('Menu.billboard_detail')), $this->billboardDetailSection()));
     }
 
     public function guidedVisits()
     {
-        return view('totem/section', array_merge($this->pageMeta('Visitas guiadas'), $this->visitsSection()));
+        return view('totem/section', array_merge($this->pageMeta(lang('Menu.visits')), $this->visitsSection()));
     }
 
     public function friends()
     {
-        return view('totem/section', array_merge($this->pageMeta('Amigos de Teatromuseo'), $this->friendsSection()));
+        return view('totem/section', array_merge($this->pageMeta(lang('Menu.friends')), $this->friendsSection()));
     }
 
     private function pageMeta(string $title): array
@@ -293,7 +294,7 @@ class TotemController extends BaseController
         return [
             'pageTitle' => 'Teatromuseo - ' . $title,
             'bodyClass' => 'totem-app',
-            'htmlLang' => 'es',
+            'htmlLang' => $this->request->getLocale(),
         ];
     }
 
@@ -337,8 +338,8 @@ class TotemController extends BaseController
         return [
             'nav' => $this->shellNav(),
             'section' => [
-                'eyebrow' => 'Recorre la colección viva',
-                'title' => 'Explora el museo',
+                'eyebrow' => lang('Collection.main_title'),
+                'title' => lang('Menu.explore_museum'),
                 'copy' => 'Una vitrina editorial para piezas, objetos y archivos del teatro patrimonial. La propuesta prioriza contraste, marcos ornamentales y lectura rápida para una experiencia táctil en tótem.',
                 'visualClass' => 'section-hero__visual section-hero__visual--museum',
                 'detailsTitle' => 'Capas de experiencia',
@@ -357,8 +358,8 @@ class TotemController extends BaseController
         return [
             'nav' => $this->shellNav(base_url('menu')),
             'section' => [
-                'eyebrow' => 'Memoria y origen',
-                'title' => 'Historia',
+                'eyebrow' => lang('Menu.history_copy'),
+                'title' => lang('Menu.history'),
                 'copy' => 'Un relato visual más calmado, con piezas enmarcadas y una lectura de archivo que conserva el carácter artesanal de la propuesta.',
                 'visualClass' => 'section-hero__visual section-hero__visual--history',
                 'detailsTitle' => 'Línea de tiempo',
@@ -389,17 +390,16 @@ class TotemController extends BaseController
         $courses = [];
 
         if (!empty($apiCourses)) {
-            $locale = $this->request->getLocale();
             foreach ($apiCourses as $course) {
-                $tag = 'Formación';
+                $tag = lang('Menu.school_category_education');
                 if (isset($course['school_category_id'])) {
                     $catId = (int)$course['school_category_id'];
                     if ($catId === 1) {
-                        $tag = $locale === 'en' ? 'Workshop' : ($locale === 'fr' ? 'Atelier' : ($locale === 'pt' ? 'Oficina' : 'Taller'));
+                        $tag = lang('Menu.school_category_workshop');
                     } elseif ($catId === 2) {
-                        $tag = $locale === 'en' ? 'School Plays' : ($locale === 'fr' ? 'Pièces' : ($locale === 'pt' ? 'Peças' : 'Obras'));
+                        $tag = lang('Menu.school_category_plays');
                     } elseif ($catId === 3) {
-                        $tag = $locale === 'en' ? 'Education' : ($locale === 'fr' ? 'Formation' : ($locale === 'pt' ? 'Formação' : 'Formación'));
+                        $tag = lang('Menu.school_category_education');
                     }
                 }
                 
@@ -407,9 +407,10 @@ class TotemController extends BaseController
                 if (!empty($course['start_date'])) {
                     $time = strtotime($course['start_date']);
                     $day = date('d', $time);
-                    $monthName = self::getMonthName((int)date('n', $time), $locale);
+                    $monthName = self::getMonthName((int)date('n', $time), $this->request->getLocale());
                     $year = date('Y', $time);
-                    
+                    $locale = $this->request->getLocale();
+
                     if ($locale === 'en') {
                         $startText = 'Starts: ' . $monthName . ' ' . $day . ', ' . $year;
                     } elseif ($locale === 'fr') {
@@ -455,8 +456,8 @@ class TotemController extends BaseController
         return [
             'nav' => $this->shellNav(),
             'section' => [
-                'eyebrow' => 'Formación y mediación',
-                'title' => 'Teatro escuela',
+                'eyebrow' => lang('Menu.school_copy'),
+                'title' => lang('Menu.school'),
                 'copy' => 'Diseñado como una página viva con cursos, fechas, categorías y contacto. La prioridad es que la información larga se entienda sin esfuerzo y conserve el clima editorial de la propuesta.',
                 'visualClass' => 'section-hero__visual section-hero__visual--school',
                 'detailsTitle' => 'Próximos cursos',
@@ -488,17 +489,17 @@ class TotemController extends BaseController
                     $monthsMap[$monthName][] = $day;
                 }
 
-                $tag = 'Familiar';
+                $tag = lang('Menu.audience_family');
                 if (isset($show['audience_id'])) {
                     $audId = (int)$show['audience_id'];
                     if ($audId === 1) {
-                        $tag = $locale === 'en' ? 'National' : 'Nacional';
+                        $tag = lang('Menu.audience_national');
                     } elseif ($audId === 2) {
-                        $tag = $locale === 'en' ? 'International' : 'Internacional';
+                        $tag = lang('Menu.audience_international');
                     } elseif ($audId === 3) {
-                        $tag = $locale === 'en' ? 'For Kids' : ($locale === 'fr' ? 'Pour Enfants' : ($locale === 'pt' ? 'Para Crianças' : 'Para Niños'));
+                        $tag = lang('Menu.audience_kids');
                     } elseif ($audId === 4) {
-                        $tag = $locale === 'en' ? 'General' : 'General';
+                        $tag = lang('Menu.audience_general');
                     }
                 }
 
@@ -591,8 +592,8 @@ class TotemController extends BaseController
         return [
             'nav' => $this->shellNav(),
             'section' => [
-                'eyebrow' => 'Recorridos y mediación',
-                'title' => 'Visitas guiadas',
+                'eyebrow' => lang('Menu.visits_copy'),
+                'title' => lang('Menu.visits'),
                 'copy' => 'Una variante más breve del módulo de museo, útil para grupos y reservas. Sirve para recuperar el lenguaje ornamental de la propuesta con una acción clara.',
                 'visualClass' => 'section-hero__visual section-hero__visual--visits',
                 'detailsTitle' => 'Cómo funciona',
@@ -611,8 +612,8 @@ class TotemController extends BaseController
         return [
             'nav' => $this->shellNav(),
             'section' => [
-                'eyebrow' => 'Comunidad y apoyo',
-                'title' => 'Amigos de Teatromuseo',
+                'eyebrow' => lang('Menu.friends_copy'),
+                'title' => lang('Menu.friends'),
                 'copy' => 'Un espacio para alianzas, aportes y pertenencia. En la interfaz conviene mantener una composición generosa, con pocos elementos y una invitación clara a participar.',
                 'visualClass' => 'section-hero__visual section-hero__visual--friends',
                 'detailsTitle' => 'Participa',

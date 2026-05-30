@@ -4,5 +4,6 @@ declare(strict_types=1);
 
 return [
     'discover' => 'Discover',
-    'touch_start' => 'Tap to start',
+    'touch_start' => 'Touch to start',
+    'welcome' => 'Welcome',
 ];

@@ -8,4 +8,8 @@ return [
     'masks' => 'Masks',
     'clowns' => 'Clowns',
     'techniques_title' => 'Puppet Techniques',
+    'clowns_title' => 'Clowns',
+    'item_title' => 'Item',
+    'masks_title' => 'Masks',
+    'technique_prefix' => 'Technique',
 ];

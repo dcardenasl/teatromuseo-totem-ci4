@@ -3,9 +3,13 @@
 declare(strict_types=1);
 
 return [
-    'main_title' => 'Coleção do<br>Museu',
+    'main_title' => 'Coleção do Museu',
     'puppets' => 'Títeres',
     'masks' => 'Máscaras',
-    'clowns' => 'Payasos',
+    'clowns' => 'Palhaços',
     'techniques_title' => 'Técnicas de Títeres',
+    'clowns_title' => 'Palhaços',
+    'item_title' => 'Ficha',
+    'masks_title' => 'Máscaras',
+    'technique_prefix' => 'Técnica',
 ];

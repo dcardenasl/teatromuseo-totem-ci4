@@ -6,8 +6,7 @@ return [
     'back' => 'BACK',
     'home' => 'HOME',
     'lang' => 'ENG',
-    'main_menu_l1' => 'Main',
-    'main_menu_l2' => 'Menu',
+    'main_menu' => 'Main Menu',
     'rotate_title' => 'Rotate your device',
     'rotate_text' => 'This experience is designed to be viewed in portrait mode.',
 ];

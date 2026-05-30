@@ -33,4 +33,12 @@ return [
     'format' => 'Format',
     'in_person' => 'In person',
     'billboard_detail' => 'Billboard Detail',
+    'school_category_workshop' => 'Workshop',
+    'school_category_plays' => 'School Plays',
+    'school_category_education' => 'Education',
+    'audience_national' => 'National',
+    'audience_international' => 'International',
+    'audience_kids' => 'For Kids',
+    'audience_general' => 'General',
+    'audience_family' => 'Family',
 ];

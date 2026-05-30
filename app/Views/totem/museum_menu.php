@@ -25,17 +25,9 @@
 
         <script>
         (() => {
-            const lang = localStorage.getItem('totem_lang') || 'es';
-            const titles = {
-                es: ['Explora el', 'Museo'],
-                en: ['Explore the', 'Museum'],
-                fr: ['Explorer le', 'Musée'],
-                pt: ['Explorar o', 'Museu']
-            };
-
             const label = document.getElementById('menu-title');
             if (label) {
-                const lines = titles[lang] || titles.es;
+                const lines = <?= json_encode(explode(' ', $exploreLabel)) ?>;
                 label.innerHTML = lines.map((line) => `<span class="menu-title__line">${line}</span>`).join('');
             }
         })();
@@ -43,7 +35,7 @@
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => 'Explora el Museo', // Need a fallback or dynamic title
+        'title' => lang('Menu.explore_museum'),
         'content' => $content,
         'nav' => $nav ?? []
     ]) ?>

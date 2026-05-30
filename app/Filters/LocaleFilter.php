@@ -15,9 +15,7 @@ class LocaleFilter implements FilterInterface
     {
         $config = config('App');
         $supported = $config->supportedLocales;
-        
-        // Detect from cookie (totem_lang) or session fallback
-        $locale = $request->getCookie('totem_lang') ?? session('locale');
+        $locale = $request->getCookie('totem_lang');
 
         if (is_string($locale) && in_array($locale, $supported, true)) {
             $this->applyLocale($locale);

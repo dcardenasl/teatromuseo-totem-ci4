@@ -8,4 +8,8 @@ return [
     'masks' => 'Máscaras',
     'clowns' => 'Payasos',
     'techniques_title' => 'Técnicas de Títeres',
+    'clowns_title' => 'Payasos',
+    'item_title' => 'Ficha',
+    'masks_title' => 'Máscaras',
+    'technique_prefix' => 'Técnica',
 ];

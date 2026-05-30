@@ -6,8 +6,7 @@ return [
     'back' => 'VOLTAR',
     'home' => 'INÍCIO',
     'lang' => 'POR',
-    'main_menu_l1' => 'Menu',
-    'main_menu_l2' => 'Principal',
+    'main_menu' => 'Menu Principal',
     'rotate_title' => 'Gire o seu dispositivo',
     'rotate_text' => 'Esta experiência foi concebida para ser visualizada em modo retrato.',
 ];

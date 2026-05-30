@@ -33,4 +33,12 @@ return [
     'format' => 'Modalidad',
     'in_person' => 'Presencial',
     'billboard_detail' => 'Detalle de cartelera',
+    'school_category_workshop' => 'Taller',
+    'school_category_plays' => 'Obras',
+    'school_category_education' => 'Formación',
+    'audience_national' => 'Nacional',
+    'audience_international' => 'Internacional',
+    'audience_kids' => 'Para Niños',
+    'audience_general' => 'General',
+    'audience_family' => 'Familiar',
 ];
