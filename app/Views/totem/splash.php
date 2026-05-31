@@ -13,10 +13,16 @@
             </div>
 
             <div class="splash-copy">
-                <span class="splash-eyebrow"><?= lang('Splash.discover') ?></span>
+                <span class="splash-copy__slot splash-copy__slot--eyebrow">
+                    <span class="splash-eyebrow splash-eyebrow--current"><?= lang('Splash.discover') ?></span>
+                    <span class="splash-eyebrow splash-eyebrow--next" aria-hidden="true"></span>
+                </span>
                 <h1 class="splash-title">Teatromuseo</h1>
                 <a class="hero__cta splash-cta" href="<?= base_url('language') ?>">
-                    <span class="splash-cta__text"><?= lang('Splash.touch_start') ?></span>
+                    <span class="splash-copy__slot splash-copy__slot--cta">
+                        <span class="splash-cta__text splash-cta__text--current"><?= lang('Splash.touch_start') ?></span>
+                        <span class="splash-cta__text splash-cta__text--next" aria-hidden="true"></span>
+                    </span>
                 </a>
             </div>
 
@@ -46,11 +52,29 @@
     ];
 
     const locales = ['es', 'en', 'fr', 'pt'];
+    const EXIT_DURATION = 700;
+    const GAP_DURATION = 60;
+    const ENTER_DURATION = 700;
 
     const clearSplashInterval = () => {
         if (window.totemSplashLanguageInterval) {
             clearInterval(window.totemSplashLanguageInterval);
             window.totemSplashLanguageInterval = null;
+        }
+
+        if (window.totemSplashLanguageExitTimeout) {
+            clearTimeout(window.totemSplashLanguageExitTimeout);
+            window.totemSplashLanguageExitTimeout = null;
+        }
+
+        if (window.totemSplashLanguageGapTimeout) {
+            clearTimeout(window.totemSplashLanguageGapTimeout);
+            window.totemSplashLanguageGapTimeout = null;
+        }
+
+        if (window.totemSplashLanguageEnterTimeout) {
+            clearTimeout(window.totemSplashLanguageEnterTimeout);
+            window.totemSplashLanguageEnterTimeout = null;
         }
     };
 
@@ -60,12 +84,16 @@
             return;
         }
 
-        const eyebrowText = document.querySelector('.splash-eyebrow');
-        const ctaText = document.querySelector('.splash-cta__text');
+        const eyebrowCurrent = document.querySelector('.splash-eyebrow--current');
+        const eyebrowNext = document.querySelector('.splash-eyebrow--next');
+        const eyebrowSlot = document.querySelector('.splash-copy__slot--eyebrow');
+        const ctaCurrent = document.querySelector('.splash-cta__text--current');
+        const ctaNext = document.querySelector('.splash-cta__text--next');
+        const ctaSlot = document.querySelector('.splash-copy__slot--cta');
 
         clearSplashInterval();
 
-        if (!eyebrowText || !ctaText) {
+        if (!eyebrowCurrent || !eyebrowNext || !eyebrowSlot || !ctaCurrent || !ctaNext || !ctaSlot) {
             return;
         }
 
@@ -75,21 +103,46 @@
             || 'es';
         let currentIndex = Math.max(locales.indexOf(activeLocale), 0);
 
+        const rotateCopy = () => {
+            const nextIndex = (currentIndex + 1) % eyebrowCopies.length;
+
+            eyebrowSlot.classList.remove('splash-copy__slot--entering');
+            ctaSlot.classList.remove('splash-copy__slot--entering');
+            eyebrowSlot.classList.add('splash-copy__slot--exiting');
+            ctaSlot.classList.add('splash-copy__slot--exiting');
+
+            window.totemSplashLanguageExitTimeout = setTimeout(() => {
+                eyebrowCurrent.textContent = eyebrowCopies[nextIndex];
+                ctaCurrent.textContent = ctaCopies[nextIndex];
+                eyebrowNext.textContent = '';
+                ctaNext.textContent = '';
+                eyebrowSlot.classList.remove('splash-copy__slot--exiting');
+                ctaSlot.classList.remove('splash-copy__slot--exiting');
+                eyebrowSlot.classList.add('splash-copy__slot--between');
+                ctaSlot.classList.add('splash-copy__slot--between');
+
+                window.totemSplashLanguageGapTimeout = setTimeout(() => {
+                    eyebrowSlot.classList.remove('splash-copy__slot--between');
+                    ctaSlot.classList.remove('splash-copy__slot--between');
+                    eyebrowSlot.classList.add('splash-copy__slot--entering');
+                    ctaSlot.classList.add('splash-copy__slot--entering');
+
+                    window.totemSplashLanguageEnterTimeout = setTimeout(() => {
+                        eyebrowSlot.classList.remove('splash-copy__slot--entering');
+                        ctaSlot.classList.remove('splash-copy__slot--entering');
+                        currentIndex = nextIndex;
+                        window.totemSplashLanguageExitTimeout = null;
+                        window.totemSplashLanguageGapTimeout = null;
+                        window.totemSplashLanguageEnterTimeout = null;
+                    }, ENTER_DURATION);
+                }, GAP_DURATION);
+            }, EXIT_DURATION);
+        };
+
         window.totemSplashLanguageInterval = setInterval(() => {
-            eyebrowText.classList.add('splash-eyebrow--hidden');
-            ctaText.classList.add('splash-cta__text--hidden');
-
-            setTimeout(() => {
-                currentIndex = (currentIndex + 1) % eyebrowCopies.length;
-
-                eyebrowText.textContent = eyebrowCopies[currentIndex];
-                ctaText.textContent = ctaCopies[currentIndex];
-
-                eyebrowText.classList.remove('splash-eyebrow--hidden');
-                ctaText.classList.remove('splash-cta__text--hidden');
-            }, 400);
-        }, 4000);
-    };
+            rotateCopy();
+            }, 5400);
+        };
 
     window.totemSplashCleanup = clearSplashInterval;
 

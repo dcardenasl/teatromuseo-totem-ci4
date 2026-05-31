@@ -195,7 +195,6 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: 0.04em;
     box-shadow: none;
     transition: transform 0.1s ease, box-shadow 0.1s ease;
-    cursor: pointer;
 }
 
 .pill-button:hover,
@@ -477,6 +476,27 @@ h1, h2, h3, h4, h5, h6 {
     align-self: center;
 }
 
+.splash-copy__slot {
+    position: relative;
+    display: inline-grid;
+    grid-template-areas: "stack";
+    justify-items: center;
+    overflow: hidden;
+}
+
+.splash-copy__slot > * {
+    grid-area: stack;
+}
+
+.splash-copy__slot--eyebrow {
+    min-height: 1em;
+}
+
+.splash-copy__slot--cta {
+    width: 100%;
+    min-height: 1.2em;
+}
+
 .splash-eyebrow {
     padding: 0;
     background: transparent;
@@ -488,15 +508,18 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: 0.02em;
     text-transform: uppercase;
     font-weight: 400;
-    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
     display: inline-block;
     opacity: 1;
     transform: translateY(0);
+    will-change: transform, opacity;
 }
 
-.splash-eyebrow--hidden {
-    opacity: 0;
-    transform: translateY(-8px);
+.splash-eyebrow--current {
+    opacity: 1;
+}
+
+.splash-eyebrow--next {
+    transform: translateY(-20px);
 }
 
 .splash-title {
@@ -524,22 +547,46 @@ body.totem-animations-disabled .splash-cta {
     animation: none;
 }
 
-body.totem-animations-disabled .splash-eyebrow,
-body.totem-animations-disabled .splash-cta__text {
-    transition: none;
-}
-
 .splash-cta__text {
-    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
     display: inline-block;
     white-space: nowrap;
     opacity: 1;
     transform: translateY(0);
+    will-change: transform, opacity;
 }
 
-.splash-cta__text--hidden {
-    opacity: 0;
-    transform: translateY(8px);
+.splash-cta__text--current {
+    opacity: 1;
+}
+
+.splash-cta__text--next {
+    transform: translateY(20px);
+}
+
+.splash-copy__slot--exiting .splash-eyebrow--current {
+    animation: splashEyebrowExit 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.splash-copy__slot--between .splash-eyebrow--current {
+    visibility: hidden;
+    transform: translateY(-20px);
+}
+
+.splash-copy__slot--entering .splash-eyebrow--current {
+    animation: splashEyebrowEnter 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.splash-copy__slot--exiting .splash-cta__text--current {
+    animation: splashCtaExit 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.splash-copy__slot--between .splash-cta__text--current {
+    visibility: hidden;
+    transform: translateY(20px);
+}
+
+.splash-copy__slot--entering .splash-cta__text--current {
+    animation: splashCtaEnter 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes splashCtaPulse {
@@ -564,6 +611,42 @@ body.totem-animations-disabled .splash-cta__text {
     .splash-cta {
         animation: none;
         transform: none;
+    }
+}
+
+@keyframes splashEyebrowExit {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes splashEyebrowEnter {
+    0% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes splashCtaExit {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(20px);
+    }
+}
+
+@keyframes splashCtaEnter {
+    0% {
+        transform: translateY(20px);
+    }
+    100% {
+        transform: translateY(0);
     }
 }
 
@@ -2140,7 +2223,6 @@ body.totem-transitions-disabled .totem-transition-overlay {
 .totem-transition-overlay__curtain-left,
 .totem-transition-overlay__curtain-right,
 .totem-transition-overlay__confetti-container,
-.totem-transition-overlay__language-drop,
 .totem-transition-overlay__glove-accordion,
 .totem-transition-overlay__glove,
 .totem-transition-overlay__glove-bam,
@@ -2156,8 +2238,6 @@ body.totem-transitions-disabled .totem-transition-overlay {
 .totem-transition--curtain .totem-transition-overlay__curtain-right { display: block; }
 
 .totem-transition--confetti .totem-transition-overlay__confetti-container { display: block; }
-
-.totem-transition--language-drop .totem-transition-overlay__language-drop { display: block; }
 
 .totem-transition--boxing-glove .totem-transition-overlay__glove-accordion,
 .totem-transition--boxing-glove .totem-transition-overlay__glove,
