@@ -1,0 +1,592 @@
+/**
+ * =========================================================================
+ * SISTEMA COMPLETO DE TRANSICIONES CÓMICAS Y LÚDICAS (TEATROMUSEO V5 - PUM!)
+ * =========================================================================
+ * Incluye las 4 transiciones definitivas y pulidas para el museo:
+ * 1. Telón de Teatro (Estructural)
+ * 2. Nariz de Payaso (cards/Detalles)
+ * 3. Explosión de Confeti Puro con acumulación y estallido sincronizado
+ * 4. Guante de Boxeo Slapstick con impacto de cómic ¡PUM!
+ * 5. Mueca Cómica de Payaso
+ */
+
+/* Contenedor General del Overlay */
+.totem-transition-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    pointer-events: none;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ocultar elementos inactivos por defecto para evitar pantallas negras o bloqueos */
+.totem-transition-overlay__nose,
+.totem-transition-overlay__curtain-left,
+.totem-transition-overlay__curtain-right,
+.totem-transition-overlay__confetti-container,
+.totem-transition-overlay__glove-accordion,
+.totem-transition-overlay__glove,
+.totem-transition-overlay__glove-bam,
+.totem-transition-overlay__grimace {
+    display: none;
+    pointer-events: none;
+}
+
+/* Mostrar únicamente los elementos del efecto activo */
+.totem-transition--clown-nose .totem-transition-overlay__nose { display: block; }
+
+.totem-transition--curtain .totem-transition-overlay__curtain-left,
+.totem-transition--curtain .totem-transition-overlay__curtain-right { display: block; }
+
+.totem-transition--confetti .totem-transition-overlay__confetti-container { display: block; }
+
+.totem-transition--boxing-glove .totem-transition-overlay__glove-accordion,
+.totem-transition--boxing-glove .totem-transition-overlay__glove,
+.totem-transition--boxing-glove .totem-transition-overlay__glove-bam { display: block; }
+
+.totem-transition--grimace .totem-transition-overlay__grimace { display: flex; }
+
+
+/* =========================================================================
+   EFECTO 1: LA NARIZ DE PAYASO (CLOWN NOSE POP & INFLATE)
+   ========================================================================= */
+.totem-transition-overlay__nose {
+    position: absolute;
+    top: var(--touch-y, 50%);
+    left: var(--touch-x, 50%);
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, 
+        #ffcaca 0%, 
+        #ff3b3b 25%, 
+        #d60000 60%, 
+        #8a0000 85%, 
+        #4d0000 100%
+    );
+    box-shadow: inset -12px -12px 24px rgba(0,0,0,0.6), 
+                0 10px 30px rgba(0,0,0,0.4),
+                inset 10px 10px 20px rgba(255,255,255,0.2);
+    transform: translate(-50%, -50%) scale(0);
+    transform-origin: center center;
+    will-change: transform;
+    opacity: 0;
+    z-index: 10;
+}
+
+.totem-transition-overlay__nose::after {
+    content: "";
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 32px;
+    height: 18px;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 80%);
+    transform: rotate(-25deg);
+    border-radius: 50%;
+}
+
+@keyframes clownNosePopAndInflate {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+    15% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+    30% { transform: translate(-50%, -50%) scale(0.9) skewX(-5deg); }
+    45% { transform: translate(-50%, -50%) scale(1.15) skewX(5deg); }
+    60% { transform: translate(-50%, -50%) scale(1.0); }
+    72% { transform: translate(-50%, -50%) scale(1.3); }
+    100% { transform: translate(-50%, -50%) scale(35); opacity: 1; }
+}
+
+@keyframes clownNoseDeflateAndPop {
+    0% { transform: translate(-50%, -50%) scale(35); opacity: 1; }
+    35% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+    50% { transform: translate(-50%, -50%) scale(0.9) skewY(4deg); }
+    65% { transform: translate(-50%, -50%) scale(1.05); }
+    80% { transform: translate(-50%, -50%) scale(1.0); }
+    100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+}
+
+.totem-transition-overlay--active.totem-transition--clown-nose .totem-transition-overlay__nose {
+    animation: clownNosePopAndInflate 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    pointer-events: auto;
+}
+.totem-transition-overlay--leaving.totem-transition--clown-nose .totem-transition-overlay__nose {
+    animation: clownNoseDeflateAndPop 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+
+/* =========================================================================
+   EFECTO 2: EL GRAN TELÓN DE TEATRO (THEATER CURTAIN)
+   ========================================================================= */
+.totem-transition-overlay__curtain-left,
+.totem-transition-overlay__curtain-right {
+    position: absolute;
+    top: 0;
+    width: 51%;
+    height: 100%;
+    background: linear-gradient(to right, 
+        #660000 0%, 
+        #8a0000 15%, 
+        #b30000 30%, 
+        #8a0000 45%, 
+        #660000 60%, 
+        #400000 75%, 
+        #660000 90%, 
+        #8a0000 100%
+    );
+    box-shadow: 0 0 50px rgba(0,0,0,0.85);
+    will-change: transform;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 2;
+}
+
+.totem-transition-overlay__curtain-left { left: 0; transform: translateX(-100%); }
+.totem-transition-overlay__curtain-right { right: 0; transform: translateX(100%); }
+
+.totem-transition-overlay--active.totem-transition--curtain .totem-transition-overlay__curtain-left,
+.totem-transition-overlay--active.totem-transition--curtain .totem-transition-overlay__curtain-right {
+    transform: translateX(0);
+    pointer-events: auto;
+}
+.totem-transition-overlay--leaving.totem-transition--curtain .totem-transition-overlay__curtain-left { transform: translateX(-100%); }
+.totem-transition-overlay--leaving.totem-transition--curtain .totem-transition-overlay__curtain-right { transform: translateX(100%); }
+
+
+/* =========================================================================
+   EFECTO 3: LA EXPLOSIÓN DE CONFETI CON FÍSICAS DE MOVIMIENTO REALES
+   ========================================================================= */
+.totem-transition-overlay__confetti-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+    background: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(0px);
+    will-change: background, backdrop-filter;
+    transition: background 0.4s cubic-bezier(0.25, 1, 0.5, 1), backdrop-filter 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.confetti-particle {
+    position: absolute;
+    top: var(--touch-y, 50%);
+    left: var(--touch-x, 50%);
+    width: 20px;
+    height: 20px;
+    transform: translate(-50%, -50%) scale(0);
+    will-change: transform, opacity;
+}
+
+@keyframes confettiShoot {
+    0% {
+        transform: translate(-50%, -50%) translate(0, 0) scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    15% {
+        transform: translate(-50%, -50%) translate(calc(var(--tx) * 0.05), calc(var(--ty) * 0.05)) scale(1.2) rotate(15deg);
+        opacity: 1;
+    }
+    25% {
+        transform: translate(-50%, -50%) translate(calc(var(--tx) * -0.02), calc(var(--ty) * -0.02)) scale(0.9) rotate(-15deg);
+        opacity: 1;
+    }
+    55% {
+        transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(1.3) rotate(var(--rot));
+        opacity: 1;
+    }
+    75% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translate(var(--tx), calc(var(--ty) + 120px)) scale(1) rotate(calc(var(--rot) * 1.5));
+    }
+    100% {
+        transform: translate(-50%, -50%) translate(var(--tx), calc(var(--ty) + 1200px)) scale(0.7) rotate(calc(var(--rot) * 2.8));
+        opacity: 0;
+    }
+}
+
+.totem-transition-overlay--active.totem-transition--confetti .totem-transition-overlay__confetti-container {
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(6px);
+    pointer-events: auto;
+    transition-delay: 0.35s;
+}
+
+.totem-transition-overlay--leaving.totem-transition--confetti .totem-transition-overlay__confetti-container {
+    background: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(0px);
+    transition: background 0.5s ease-out, backdrop-filter 0.5s ease-out;
+}
+
+
+/* =========================================================================
+   EFECTO 4: EL GUANTE DE BOXEO SLAPSTICK + ESTALLIDO ¡PUM! DE CÓMIC
+   ========================================================================= */
+.totem-transition-overlay__glove-accordion {
+    position: absolute;
+    top: var(--touch-y, 50%);
+    left: 0;
+    height: 60px;
+    width: var(--touch-x, 50%);
+    background: none;
+    transform: translateY(-50%) scaleX(0);
+    transform-origin: left center;
+    will-change: transform;
+    z-index: 8;
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.totem-transition-overlay__spring-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.totem-transition-overlay__glove {
+    position: absolute;
+    top: var(--touch-y, 50%);
+    left: var(--touch-x, 50%);
+    width: 160px;
+    height: 160px;
+    background: none;
+    box-shadow: none;
+    transform: translate(-140%, -50%) scale(0.9) rotate(-15deg);
+    transform-origin: center center;
+    will-change: transform;
+    z-index: 9;
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease;
+}
+
+.totem-transition-overlay__glove-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+}
+
+/* Estrella de Impacto de Cómic ¡PUM! */
+.totem-transition-overlay__glove-bam {
+    position: absolute;
+    top: var(--touch-y, 50%);
+    left: var(--touch-x, 50%);
+    width: 180px;
+    height: 180px;
+    background: none;
+    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    transform-origin: center center;
+    will-change: transform;
+    z-index: 11; /* En primer plano por encima del guante */
+    opacity: 0;
+}
+
+.totem-transition-overlay__bam-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* 
+   ANIMACIONES SLAPSTICK REDISEÑADAS:
+   1. El guante golpea y se queda vibrando con resorte.
+   2. Al golpear (250ms), explota la estrella ¡PUM! e infla la pantalla en AMARILLO.
+*/
+@keyframes gloveStrikesAndStays {
+    0% {
+        transform: translate(-120%, -50%) scale(0.9) rotate(-15deg);
+    }
+    50% {
+        /* Impacto seco */
+        transform: translate(-50%, -50%) scale(1.3) rotate(10deg);
+    }
+    70% {
+        transform: translate(-50%, -50%) scale(1.1) rotate(-8deg);
+    }
+    100% {
+        /* Se queda temblando y es cubierto por el BAM */
+        transform: translate(-50%, -50%) scale(1.2) rotate(2deg);
+    }
+}
+
+@keyframes gloveBamPopAndZoom {
+    0% {
+        transform: translate(-50%, -50%) scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    /* Estalla en el instante del impacto del guante (250ms tras el disparo) */
+    20% {
+        transform: translate(-50%, -50%) scale(1.4) rotate(-15deg);
+        opacity: 1;
+    }
+    40% {
+        transform: translate(-50%, -50%) scale(1.1) rotate(5deg);
+    }
+    60% {
+        transform: translate(-50%, -50%) scale(1.25) rotate(-5deg);
+    }
+    100% {
+        /* Zoom explosivo rellenando de color amarillo estrella (#ffe600) */
+        transform: translate(-50%, -50%) scale(32) rotate(25deg);
+        background: #ffe600; /* Fondo amarillo de cómic limpio */
+        opacity: 1;
+    }
+}
+
+@keyframes gloveBamZoomOut {
+    0% {
+        transform: translate(-50%, -50%) scale(32) rotate(25deg);
+        background: #ffe600;
+        opacity: 1;
+    }
+    35% {
+        transform: translate(-50%, -50%) scale(1.2) rotate(0deg);
+        background: transparent;
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(0) rotate(45deg);
+        opacity: 0;
+    }
+}
+
+/* Aplicación en los estados del overlay de resorte */
+.totem-transition-overlay--active.totem-transition--boxing-glove .totem-transition-overlay__glove-accordion {
+    transform: translateY(-50%) scaleX(1);
+    pointer-events: auto;
+}
+
+.totem-transition-overlay--active.totem-transition--boxing-glove .totem-transition-overlay__glove {
+    opacity: 1;
+    animation: gloveStrikesAndStays 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    pointer-events: auto;
+}
+
+.totem-transition-overlay--active.totem-transition--boxing-glove .totem-transition-overlay__glove-bam {
+    /* Espera 250ms al impacto para estallar */
+    animation: gloveBamPopAndZoom 0.55s 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    pointer-events: auto;
+}
+
+.totem-transition-overlay--leaving.totem-transition--boxing-glove .totem-transition-overlay__glove-accordion {
+    transform: translateY(-50%) scaleX(0);
+    transition: transform 0.4s ease-in;
+}
+
+.totem-transition-overlay--leaving.totem-transition--boxing-glove .totem-transition-overlay__glove {
+    transform: translate(-200vmax, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.5s ease-in, opacity 0.4s;
+}
+
+.totem-transition-overlay--leaving.totem-transition--boxing-glove .totem-transition-overlay__glove-bam {
+    animation: gloveBamZoomOut 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+
+/* =========================================================================
+   EFECTO 5: LA MUECA CÓMICA (ORGANIZADA Y COORDINADA POR PASOS)
+   ========================================================================= */
+.totem-transition-overlay__grimace {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    z-index: 10;
+}
+
+.totem-transition-overlay__grimace-eye {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background: #fff;
+    border: 4px solid #111;
+    border-radius: 50%;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+    transform: scale(0);
+    will-change: transform;
+}
+
+.totem-transition-overlay__grimace-eye::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: #000;
+    border-radius: 50%;
+    top: 30%;
+    left: 30%;
+    animation: eyeWiggle 0.5s infinite alternate ease-in-out;
+}
+
+.totem-transition-overlay__grimace-eye--left {
+    left: calc(50% - 105px);
+    top: calc(50% - 110px);
+}
+
+.totem-transition-overlay__grimace-eye--right {
+    left: calc(50% + 15px);
+    top: calc(50% - 110px);
+}
+
+.totem-transition-overlay__grimace-mouth {
+    position: absolute;
+    top: calc(50% + 15px);
+    width: 200px;
+    height: 100px;
+    background: #e60000;
+    border: 4px solid #111;
+    border-radius: 0 0 100px 100px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    transform: scale(0);
+    will-change: transform;
+}
+
+.totem-transition-overlay__grimace-mouth::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 25px;
+    right: 25px;
+    height: 22px;
+    background: #fff;
+    border-radius: 0 0 12px 12px;
+    border: 2px solid #111;
+    border-top: none;
+}
+
+@keyframes eyeWiggle {
+    0% { transform: translate(-4px, -3px); }
+    100% { transform: translate(7px, 6px); }
+}
+
+@keyframes eyeLeftAssembleAndZoom {
+    0% {
+        transform: translate(-300px, -200px) scale(0) rotate(-60deg);
+        opacity: 0;
+    }
+    35% {
+        transform: translate(0, 0) scale(1.1) rotate(5deg);
+        opacity: 1;
+    }
+    48% {
+        transform: scale(0.95) translateY(-5px);
+    }
+    60% {
+        transform: scale(1.0) translateY(0);
+    }
+    75% {
+        transform: scale(1.2) translateY(-10px);
+    }
+    100% {
+        transform: scale(38);
+        background: #0f0505;
+        border-color: #0f0505;
+        opacity: 1;
+    }
+}
+
+@keyframes eyeRightAssembleAndZoom {
+    0% {
+        transform: translate(300px, -200px) scale(0) rotate(60deg);
+        opacity: 0;
+    }
+    35% {
+        transform: translate(0, 0) scale(1.15) rotate(-5deg);
+        opacity: 1;
+    }
+    48% {
+        transform: scale(0.92) translateY(-5px);
+    }
+    60% {
+        transform: scale(1.0) translateY(0);
+    }
+    75% {
+        transform: scale(1.2) translateY(-10px);
+    }
+    100% {
+        transform: scale(38);
+        background: #0f0505;
+        border-color: #0f0505;
+        opacity: 1;
+    }
+}
+
+@keyframes mouthAssembleAndZoom {
+    0% {
+        transform: translateY(300px) scale(0) rotate(-20deg);
+        opacity: 0;
+    }
+    40% {
+        transform: translateY(0) scale(1.2) rotate(5deg);
+        opacity: 1;
+    }
+    52% {
+        transform: scale(0.9) rotate(-3deg);
+    }
+    65% {
+        transform: scale(1.0) rotate(0deg);
+    }
+    75% {
+        transform: scale(1.3) translateY(10px);
+    }
+    100% {
+        transform: scale(38);
+        background: #0f0505;
+        border-color: #0f0505;
+        opacity: 1;
+    }
+}
+
+@keyframes grimaceCleanDisperse {
+    0% {
+        transform: scale(38);
+        background: #0f0505;
+        opacity: 1;
+    }
+    40% {
+        transform: scale(1.1) rotate(0deg);
+        background: inherit;
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0) rotate(35deg) translateY(200px);
+        opacity: 0;
+    }
+}
+
+.totem-transition-overlay--active.totem-transition--grimace .totem-transition-overlay__grimace {
+    background: rgba(15, 5, 5, 0.45);
+    transition: background 0.4s ease;
+    pointer-events: auto;
+}
+
+.totem-transition-overlay--active.totem-transition--grimace .totem-transition-overlay__grimace-eye--left {
+    animation: eyeLeftAssembleAndZoom 0.9s 0.05s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.totem-transition-overlay--active.totem-transition--grimace .totem-transition-overlay__grimace-eye--right {
+    animation: eyeRightAssembleAndZoom 0.9s 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.totem-transition-overlay--active.totem-transition--grimace .totem-transition-overlay__grimace-mouth {
+    animation: mouthAssembleAndZoom 0.9s 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.totem-transition-overlay--leaving.totem-transition--grimace .totem-transition-overlay__grimace {
+    background: transparent;
+}
+
+.totem-transition-overlay--leaving.totem-transition--grimace .totem-transition-overlay__grimace-eye--left,
+.totem-transition-overlay--leaving.totem-transition--grimace .totem-transition-overlay__grimace-eye--right,
+.totem-transition-overlay--leaving.totem-transition--grimace .totem-transition-overlay__grimace-mouth {
+    animation: grimaceCleanDisperse 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}

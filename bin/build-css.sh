@@ -29,6 +29,7 @@ FILES=(
     "$SRC/screens/detail.css"
     "$SRC/shared/utils.css"
     "$SRC/shared/orientation-warning.css"
+    "$SRC/shared/transitions.css"
     "$SRC/02-shell.css"
     "$SRC/shared/footer-ornament.css"
     "$SRC/99-responsive.css"
