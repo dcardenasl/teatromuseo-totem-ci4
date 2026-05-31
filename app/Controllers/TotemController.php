@@ -35,11 +35,11 @@ class TotemController extends BaseController
             [
                 'nav' => $this->shellNav(base_url('/')),
                 'items' => [
-                    $this->menuItem(lang('Menu.museum'), 'museo', lang('Menu.museum_copy'), 'menu-card--museum'),
-                    $this->menuItem(lang('Menu.school'), 'teatro-escuela', lang('Menu.school_copy'), 'menu-card--school'),
-                    $this->menuItem(lang('Menu.programming'), 'cartelera', lang('Menu.programming_copy'), 'menu-card--programming'),
-                    $this->menuItem(lang('Menu.visits'), 'visitas-guiadas', lang('Menu.visits_copy'), 'menu-card--visits'),
-                    $this->menuItem(lang('Menu.friends'), 'amigos-de-teatromuseo', lang('Menu.friends_copy'), 'menu-card--friends'),
+                    $this->menuItem(lang('Menu.museum'), 'museo', lang('Menu.museum_copy'), 'menu-card--museum', 'menu/menu_museo.webp'),
+                    $this->menuItem(lang('Menu.school'), 'teatro-escuela', lang('Menu.school_copy'), 'menu-card--school', 'menu/menu_escuela.webp'),
+                    $this->menuItem(lang('Menu.programming'), 'cartelera', lang('Menu.programming_copy'), 'menu-card--programming', 'menu/menu_programacion.webp'),
+                    $this->menuItem(lang('Menu.visits'), 'visitas-guiadas', lang('Menu.visits_copy'), 'menu-card--visits', 'menu/menu_visitas.webp'),
+                    $this->menuItem(lang('Menu.friends'), 'amigos-de-teatromuseo', lang('Menu.friends_copy'), 'menu-card--friends', 'menu/menu_amigos.webp'),
                 ],
             ]
         ));
@@ -52,10 +52,10 @@ class TotemController extends BaseController
                 'nav' => $this->shellNav(base_url('menu')),
                 'exploreLabel' => lang('Menu.explore_museum'),
                 'items' => [
-                    $this->menuItem(lang('Menu.collection'), 'museo/coleccion', lang('Menu.collection_copy'), 'menu-card--museum'),
-                    $this->menuItem(lang('Menu.comic_history'), 'museo/historia-comica', lang('Menu.comic_history_copy'), 'menu-card--history'),
-                    $this->menuItem(lang('Menu.el_museo'), 'museo/el-museo', lang('Menu.el_museo_copy'), 'menu-card--school'),
-                    $this->menuItem(lang('Menu.visits'), 'visitas-guiadas', lang('Menu.visits_copy'), 'menu-card--visits'),
+                    $this->menuItem(lang('Menu.collection'), 'museo/coleccion', lang('Menu.collection_copy'), 'menu-card--museum', 'museum/cat_coleccion.webp'),
+                    $this->menuItem(lang('Menu.comic_history'), 'museo/historia-comica', lang('Menu.comic_history_copy'), 'menu-card--history', 'museum/cat_historia_comica.webp'),
+                    $this->menuItem(lang('Menu.el_museo'), 'museo/el-museo', lang('Menu.el_museo_copy'), 'menu-card--school', 'museum/cat_el_museo.webp'),
+                    $this->menuItem(lang('Menu.visits'), 'visitas-guiadas', lang('Menu.visits_copy'), 'menu-card--visits', 'museum/cat_visitas_guiadas.webp'),
                 ],
             ]
         ));
@@ -274,9 +274,9 @@ class TotemController extends BaseController
         return view('totem/billboard', array_merge($this->pageMeta(lang('Menu.programming')), $this->billboardSection()));
     }
 
-    public function billboardDetail()
+    public function billboardDetail($slug = null)
     {
-        return view('totem/billboard_detail', array_merge($this->pageMeta(lang('Menu.billboard_detail')), $this->billboardDetailSection()));
+        return view('totem/billboard_detail', array_merge($this->pageMeta(lang('Menu.billboard_detail')), $this->billboardDetailSection($slug)));
     }
 
     public function guidedVisits()
@@ -298,13 +298,14 @@ class TotemController extends BaseController
         ];
     }
 
-    private function menuItem(string $title, string $href, string $copy, string $class): array
+    private function menuItem(string $title, string $href, string $copy, string $class, string $img = ''): array
     {
         return [
             'title' => $title,
             'href' => base_url($href),
             'copy' => $copy,
             'class' => $class,
+            'img' => $img ? 'assets/img/' . $img : '',
         ];
     }
 
@@ -515,6 +516,7 @@ class TotemController extends BaseController
                     'title' => $show['title'] ?? '',
                     'copy'  => $show['description'] ?? '',
                     'class' => $class,
+                    'slug'  => $show['slug'] ?? ($show['id'] ?? '1'),
                 ];
             }
 
@@ -537,6 +539,7 @@ class TotemController extends BaseController
                     'title' => 'La Malattia di Nogasto',
                     'copy' => 'Una comedia física con clowns y malabares que apuesta por el asombro y el ritmo de la escena.',
                     'class' => 'event-card--family',
+                    'slug' => 'la-malattia-di-nogasto',
                 ],
                 [
                     'tag' => 'Adultos',
@@ -544,6 +547,7 @@ class TotemController extends BaseController
                     'title' => 'Muaki',
                     'copy' => 'Una propuesta de cuerpo, suspensión y juego con una visualidad frontal y directa.',
                     'class' => 'event-card--adult',
+                    'slug' => 'muaki',
                 ],
                 [
                     'tag' => 'Familiar',
@@ -551,6 +555,7 @@ class TotemController extends BaseController
                     'title' => 'Ayayai',
                     'copy' => 'Escena física con humor, música y objetos para público de todas las edades.',
                     'class' => 'event-card--family',
+                    'slug' => 'ayayai',
                 ],
                 [
                     'tag' => 'Adultos',
@@ -558,6 +563,7 @@ class TotemController extends BaseController
                     'title' => 'Rock festival',
                     'copy' => 'Una programación nocturna con energía de escena en vivo y lenguaje de concierto.',
                     'class' => 'event-card--music',
+                    'slug' => 'rock-festival',
                 ],
             ];
         }
@@ -569,20 +575,38 @@ class TotemController extends BaseController
         ];
     }
 
-    private function billboardDetailSection(): array
+    private function billboardDetailSection($slug = null): array
     {
+        $title = 'La Malattia di Nogasto';
+        $copy = 'Una comedia física y clownesca construida para el tótem: lectura inmediata, bloques de información bien separados y una imagen central protagonista. El texto largo debe convivir con fichas rápidas y una señal clara para obtener más información.';
+        $tags = ['Adultos', 'Máscaras'];
+        
+        if ($slug === 'muaki') {
+            $title = 'Muaki';
+            $copy = 'Una propuesta de cuerpo, suspensión y juego con una visualidad frontal y directa. Máscara cómica y comedia del arte se entrelazan de manera magistral.';
+            $tags = ['Adultos', 'Máscaras'];
+        } elseif ($slug === 'ayayai') {
+            $title = 'Ayayai';
+            $copy = 'Escena física con humor, música y objetos para público de todas las edades. Risas, música en vivo y juego gestual garantizados.';
+            $tags = ['Familiar', 'Payasos'];
+        } elseif ($slug === 'rock-festival') {
+            $title = 'Rock festival';
+            $copy = 'Una programación nocturna con energía de escena en vivo y lenguaje de concierto para jóvenes y adultos en Teatromuseo.';
+            $tags = ['Adultos', 'Música'];
+        }
+
         return [
             'nav' => $this->shellNav(base_url('cartelera')),
             'detail' => [
-                'tags' => ['Adultos', 'Máscaras'],
-                'title' => 'La Malattia di Nogasto',
+                'tags' => $tags,
+                'title' => $title,
                 'company' => 'Compañía Teatromuseo',
                 'direction' => 'Dirección: Víctor Quiroga',
                 'date' => 'Sábado 10 de mayo',
                 'time' => '19.00 h',
                 'duration' => '50 min aprox.',
                 'price' => 'General: $4.500',
-                'copy' => 'Una comedia física y clownesca construida para el tótem: lectura inmediata, bloques de información bien separados y una imagen central protagonista. El texto largo debe convivir con fichas rápidas y una señal clara para obtener más información.',
+                'copy' => $copy,
             ],
         ];
     }

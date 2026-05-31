@@ -85,3 +85,67 @@
     font-size: 0.85rem;
     line-height: 1.45;
 }
+
+/* --- Detalle Obras Slider & Iconos --- */
+.detail-slider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+}
+
+.detail-hero__image {
+    flex: 1;
+    min-height: 240px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.slider-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    max-height: 280px;
+}
+
+.slider-btn {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+    width: 48px;
+    height: 48px;
+    z-index: 10;
+}
+
+.slider-btn:active {
+    transform: scale(0.9);
+}
+
+.slider-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Sidebar Icons */
+.detail-stat__label-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.detail-stat__icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}

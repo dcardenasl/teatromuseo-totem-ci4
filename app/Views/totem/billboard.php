@@ -18,7 +18,7 @@
 
             <section class="event-list" aria-label="Eventos">
                 <?php foreach ($events as $event): ?>
-                    <a class="event-card <?= esc($event['class']) ?>" href="<?= base_url('cartelera/detalle') ?>">
+                    <a class="event-card <?= esc($event['class']) ?>" href="<?= base_url('cartelera/detalle/' . esc($event['slug'] ?? '1')) ?>">
                         <div class="event-card__media" aria-hidden="true"></div>
                         <div class="event-card__body">
                             <div class="event-card__meta">

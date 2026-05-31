@@ -16,7 +16,17 @@
                         <?= esc($detail['direction']) ?>
                     </p>
 
-                    <div class="detail-hero__image detail-hero__image--compact" aria-hidden="true"></div>
+                    <div class="detail-slider">
+                        <button type="button" class="slider-btn slider-btn--left" aria-label="Anterior">
+                            <img src="<?= base_url('assets/img/ui/slider_left.webp') ?>" alt="←">
+                        </button>
+                        <div class="detail-hero__image">
+                            <img src="<?= base_url('assets/img/menu/menu_programacion.webp') ?>" alt="Obra" class="slider-img">
+                        </div>
+                        <button type="button" class="slider-btn slider-btn--right" aria-label="Siguiente">
+                            <img src="<?= base_url('assets/img/ui/slider_right.webp') ?>" alt="→">
+                        </button>
+                    </div>
 
                     <p class="content-panel__text"><?= esc($detail['copy']) ?></p>
                 </article>
@@ -27,11 +37,17 @@
                         <span class="detail-stat__value"><?= esc($detail['time']) ?></span>
                     </div>
                     <div class="detail-stat">
-                        <span class="detail-stat__label">Duración aproximada</span>
+                        <span class="detail-stat__label-container">
+                            <img src="<?= base_url('assets/img/ui/icon_duration.webp') ?>" alt="Duración" class="detail-stat__icon">
+                            <span class="detail-stat__label">Duración aproximada</span>
+                        </span>
                         <span class="detail-stat__value"><?= esc($detail['duration']) ?></span>
                     </div>
                     <div class="detail-stat">
-                        <span class="detail-stat__label"><?= esc($detail['price']) ?></span>
+                        <span class="detail-stat__label-container">
+                            <img src="<?= base_url('assets/img/ui/icon_ticket.webp') ?>" alt="Entrada" class="detail-stat__icon">
+                            <span class="detail-stat__label"><?= esc($detail['price']) ?></span>
+                        </span>
                         <span class="detail-stat__value">Niños, estudiantes y 3 edad: $3.500</span>
                     </div>
 
