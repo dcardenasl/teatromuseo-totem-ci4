@@ -27,6 +27,11 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result = $this->get('/');
         $result->assertStatus(200);
         $result->assertSee('Toca para comenzar');
+        $result->assertSee('window.TOTEM_SYSTEM_MESSAGES');
+        $result->assertSee('Rotate your device');
+        $result->assertSee('Gira tu dispositivo');
+        $result->assertSee('Still there?');
+        $result->assertSee('¿Sigues ahí?');
     }
 
     public function testLanguageRoute(): void

@@ -3,6 +3,33 @@ $cssPath = FCPATH . 'assets/css/style.css';
 $cssVersion = file_exists($cssPath) ? filemtime($cssPath) : '1.0.0';
 $jsPath = FCPATH . 'assets/js/app.js';
 $jsVersion = file_exists($jsPath) ? filemtime($jsPath) : '1.0.0';
+
+$systemMessages = [
+    'es' => [
+        'rotateTitle' => lang('Nav.rotate_title', [], 'es'),
+        'rotateText' => lang('Nav.rotate_text', [], 'es'),
+        'idleMsg' => lang('Idle.msg', [], 'es'),
+        'idleContinue' => lang('Idle.continue', [], 'es'),
+    ],
+    'en' => [
+        'rotateTitle' => lang('Nav.rotate_title', [], 'en'),
+        'rotateText' => lang('Nav.rotate_text', [], 'en'),
+        'idleMsg' => lang('Idle.msg', [], 'en'),
+        'idleContinue' => lang('Idle.continue', [], 'en'),
+    ],
+    'fr' => [
+        'rotateTitle' => lang('Nav.rotate_title', [], 'fr'),
+        'rotateText' => lang('Nav.rotate_text', [], 'fr'),
+        'idleMsg' => lang('Idle.msg', [], 'fr'),
+        'idleContinue' => lang('Idle.continue', [], 'fr'),
+    ],
+    'pt' => [
+        'rotateTitle' => lang('Nav.rotate_title', [], 'pt'),
+        'rotateText' => lang('Nav.rotate_text', [], 'pt'),
+        'idleMsg' => lang('Idle.msg', [], 'pt'),
+        'idleContinue' => lang('Idle.continue', [], 'pt'),
+    ],
+];
 ?>
 <!DOCTYPE html>
 <html lang="<?= esc($htmlLang ?? 'es') ?>">
@@ -17,6 +44,12 @@ $jsVersion = file_exists($jsPath) ? filemtime($jsPath) : '1.0.0';
             --paper-texture: url('<?= base_url('assets/img/ui/texture.png') ?>');
         }
     </style>
+    <script>
+        window.TOTEM_SYSTEM_MESSAGES = <?= json_encode(
+            $systemMessages,
+            JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+        ) ?>;
+    </script>
     <?= $this->renderSection('styles') ?>
 </head>
 <body class="<?= esc($bodyClass ?? 'totem-app') ?>">

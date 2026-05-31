@@ -12,6 +12,7 @@ const WARN_AT = 105;    // Advertencia a los 105 segundos (15s antes del reset)
 let warningShown = false;
 let idleInterval = null;
 const IDLE_ACTIVITY_EVENTS = ['mousedown', 'touchstart', 'keypress', 'pointerdown', 'mousemove', 'scroll', 'focusin'];
+const SUPPORTED_LOCALES = ['es', 'en', 'fr', 'pt'];
 
 // Determinar dinámicamente si estamos en la pantalla de bienvenida (splash)
 function isSplashPage() {
@@ -25,6 +26,51 @@ function isSplashPage() {
 
 const idleOverlay = document.getElementById('idle-overlay');
 const idleCount = document.getElementById('idle-count');
+
+function getActiveTotemLocale() {
+    const cookieMatch = document.cookie.match(/(?:^|;\s*)totem_lang=([^;]+)/);
+    const cookieLocale = cookieMatch ? decodeURIComponent(cookieMatch[1]) : null;
+    const storedLocale = localStorage.getItem('totem_lang');
+    const documentLocale = document.documentElement.lang;
+    const candidate = cookieLocale || storedLocale || documentLocale || 'es';
+
+    return SUPPORTED_LOCALES.includes(candidate) ? candidate : 'es';
+}
+
+function getSystemMessages(locale) {
+    const messages = window.TOTEM_SYSTEM_MESSAGES || {};
+    return messages[locale] || messages.es || null;
+}
+
+function applyLocalizedSystemMessages(locale = getActiveTotemLocale()) {
+    const messages = getSystemMessages(locale);
+    if (!messages) {
+        return;
+    }
+
+    document.documentElement.lang = locale;
+
+    const orientationTitle = document.querySelector('.orientation-warning__title');
+    const orientationText = document.querySelector('.orientation-warning__text');
+    const idleMessage = document.querySelector('.idle-overlay__msg');
+    const idleButton = document.querySelector('.idle-overlay__card button.pill-button');
+
+    if (orientationTitle) {
+        orientationTitle.textContent = messages.rotateTitle;
+    }
+
+    if (orientationText) {
+        orientationText.textContent = messages.rotateText;
+    }
+
+    if (idleMessage) {
+        idleMessage.textContent = messages.idleMsg;
+    }
+
+    if (idleButton) {
+        idleButton.textContent = messages.idleContinue;
+    }
+}
 
 function showIdleWarning() {
     if (idleOverlay && !warningShown) {
@@ -102,10 +148,7 @@ function setupIdleTimer() {
 // Inicializar dinámicamente el idioma activo en la barra superior
 function updateActiveLanguageUI() {
     const langLabels = { es: 'ESP', en: 'ENG', fr: 'FRA', pt: 'POR' };
-    const cookieMatch = document.cookie.match(/totem_lang=([^;]+)/);
-    const activeLang = (cookieMatch ? cookieMatch[1] : null)
-        || localStorage.getItem('totem_lang')
-        || 'es';
+    const activeLang = getActiveTotemLocale();
 
     const langBtn = document.querySelector('.pill-button--lang span:last-child');
     if (langBtn) {
@@ -147,6 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     updateActiveLanguageUI();
+    applyLocalizedSystemMessages();
     setupIdleTimer();
 });
 
@@ -349,6 +393,7 @@ window.totemNavigateTo = function(url, event = null, isPopState = false) {
 
             // E) Re-inicializar componentes globales
             updateActiveLanguageUI();
+            applyLocalizedSystemMessages();
             setupIdleTimer();
 
             // F) Ejecutar animación de Entrada (Apertura)
