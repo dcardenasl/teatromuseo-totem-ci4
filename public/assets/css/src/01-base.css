@@ -1,4 +1,11 @@
 @font-face {
+    font-family: 'Corporate A';
+    src: url('../fonts/corporate-a/corporate-a.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'Lato';
     src: url('../fonts/Lato-Regular.ttf') format('truetype');
     font-weight: normal;
@@ -57,3 +64,9 @@ body::before {
     background: radial-gradient(circle at center, transparent, rgba(0,0,0,0.15));
     z-index: 0;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-weight: normal;
+}
+
