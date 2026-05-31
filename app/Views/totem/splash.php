@@ -21,12 +21,7 @@
             </div>
 
             <div class="splash-collage" aria-hidden="true">
-                <span class="splash-cloud splash-cloud--left"></span>
-                <span class="splash-cloud splash-cloud--right"></span>
-                <span class="splash-stage splash-stage--performer"></span>
-                <span class="splash-stage splash-stage--horn"></span>
-                <span class="splash-stage splash-stage--house"></span>
-                <span class="splash-stage splash-stage--tower"></span>
+                <img src="<?= base_url('assets/img/menu/collage_referencia.webp') ?>" alt="Teatromuseo Collage" class="splash-collage__img">
             </div>
         </div>
     </section>

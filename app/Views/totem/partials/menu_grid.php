@@ -4,7 +4,8 @@
             'title'    => $item['title'] ?? 'Sin título',
             'href'     => $item['href'] ?? '#',
             'class'    => $item['class'] ?? '',
-            'artClass' => ''
+            'artClass' => '',
+            'img'      => $item['img'] ?? ''
         ]) ?>
     <?php endforeach; ?>
 </div>

@@ -54,7 +54,12 @@
         function setLanguage(lang) {
             document.cookie = "totem_lang=" + lang + "; path=/; max-age=31536000";
             localStorage.setItem('totem_lang', lang);
-            window.location.href = '<?= !empty($from) ? esc(base_url($from), 'js') : esc(base_url('menu'), 'js') ?>';
+            const targetUrl = '<?= !empty($from) ? esc(base_url($from), 'js') : esc(base_url('menu'), 'js') ?>';
+            if (window.totemNavigateTo) {
+                window.totemNavigateTo(targetUrl);
+            } else {
+                window.location.href = targetUrl;
+            }
         }
 
         document.addEventListener("DOMContentLoaded", () => {
