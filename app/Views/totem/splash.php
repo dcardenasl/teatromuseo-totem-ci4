@@ -55,6 +55,11 @@
     };
 
     const startSplashLanguageCycle = () => {
+        if (!window.TOTEM_CONFIG || !window.TOTEM_CONFIG.enableAnimations) {
+            clearSplashInterval();
+            return;
+        }
+
         const eyebrowText = document.querySelector('.splash-eyebrow');
         const ctaText = document.querySelector('.splash-cta__text');
 

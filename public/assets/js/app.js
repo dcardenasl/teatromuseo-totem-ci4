@@ -1,9 +1,13 @@
 // Configuración Centralizada del Tótem
-const TOTEM_CONFIG = {
+const TOTEM_CONFIG = window.TOTEM_CONFIG || {
     // Cambia a 'false' para desactivar por completo todas las transiciones lúdicas y swaps de AJAX globales.
     // También se puede sobreescribir temporalmente en el navegador usando el parámetro '?transitions=0' en la URL
-    enableTransitions: (new URLSearchParams(window.location.search).get('transitions') !== '0') && true
+    enableTransitions: (new URLSearchParams(window.location.search).get('transitions') !== '0') && true,
+    // Control independiente para animaciones internas de pantalla (splash, language, warnings, etc.)
+    enableAnimations: (new URLSearchParams(window.location.search).get('animations') !== '0') && true
 };
+
+window.TOTEM_CONFIG = TOTEM_CONFIG;
 
 // Kiosk idle timer behavior and automatic reset to splash screen
 let idleTime = 0;
@@ -13,6 +17,93 @@ let warningShown = false;
 let idleInterval = null;
 const IDLE_ACTIVITY_EVENTS = ['mousedown', 'touchstart', 'keypress', 'pointerdown', 'mousemove', 'scroll', 'focusin'];
 const SUPPORTED_LOCALES = ['es', 'en', 'fr', 'pt'];
+
+function commitFetchedPage(htmlText, url, chosenTransition, x, y, isPopState) {
+    const parser = new DOMParser();
+    const newDoc = parser.parseFromString(htmlText, 'text/html');
+    const newStage = newDoc.querySelector('.totem-stage');
+
+    if (!newStage) {
+        window.location.href = url;
+        return false;
+    }
+
+    document.querySelector('.totem-stage').innerHTML = newStage.innerHTML;
+    document.title = newDoc.title;
+    document.body.className = newDoc.body.className;
+
+    if (!isPopState) {
+        history.pushState({ transition: chosenTransition, x, y }, '', url);
+    }
+
+    const newScripts = newDoc.querySelectorAll('script');
+    newScripts.forEach(oldScript => {
+        if (oldScript.src && oldScript.src.includes('app.js')) return;
+        const newScript = document.createElement('script');
+        Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+        newScript.textContent = oldScript.textContent;
+        document.body.appendChild(newScript);
+        newScript.remove();
+    });
+
+    updateActiveLanguageUI();
+    applyLocalizedSystemMessages();
+    setupIdleTimer();
+
+    return true;
+}
+
+function launchLanguageSelection(url) {
+    if (!TOTEM_CONFIG.enableAnimations || !TOTEM_CONFIG.enableTransitions) {
+        window.location.href = url;
+        return;
+    }
+
+    const stage = document.querySelector('.totem-stage');
+
+    if (stage) {
+        stage.classList.add('totem-stage--language-transition');
+        stage.classList.add('totem-stage--language-leaving');
+        stage.offsetHeight;
+    }
+
+    setTimeout(() => {
+        window.location.href = url;
+    }, 420);
+}
+
+function bindLanguageLaunchers() {
+    document.addEventListener('click', (event) => {
+        const splashLink = event.target.closest('a.splash-cta');
+        const topbarLink = event.target.closest('a.pill-button--lang');
+
+        if (topbarLink) {
+            const href = topbarLink.getAttribute('href');
+            if (!href || href.startsWith('javascript:') || href.startsWith('#')) {
+                return;
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+            window.location.href = href;
+            return;
+        }
+
+        const link = splashLink;
+        if (!link) {
+            return;
+        }
+
+        const href = link.getAttribute('href');
+        if (!href || href.startsWith('javascript:') || href.startsWith('#')) {
+            return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+        window.location.href = href;
+    }, true);
+}
 
 // Determinar dinámicamente si estamos en la pantalla de bienvenida (splash)
 function isSplashPage() {
@@ -159,39 +250,10 @@ function updateActiveLanguageUI() {
 // Inicializar comportamientos globales al cargar el DOM inicial
 document.addEventListener('DOMContentLoaded', () => {
     // 0. Transición de Entrada (Apertura) - Solo si están habilitadas
-    if (TOTEM_CONFIG.enableTransitions) {
-        const overlay = document.getElementById('totem-transition-overlay');
-        if (overlay) {
-            const savedTransition = sessionStorage.getItem('totem_active_transition');
-            const touchX = sessionStorage.getItem('totem_transition_x') || '50%';
-            const touchY = sessionStorage.getItem('totem_transition_y') || '50%';
-
-            if (savedTransition) {
-                overlay.classList.add(`totem-transition--${savedTransition}`);
-                overlay.style.setProperty('--touch-x', touchX);
-                overlay.style.setProperty('--touch-y', touchY);
-                overlay.classList.add('totem-transition-overlay--active');
-                
-                requestAnimationFrame(() => {
-                    overlay.classList.add('totem-transition-overlay--leaving');
-                    overlay.classList.remove('totem-transition-overlay--active');
-                    
-                    setTimeout(() => {
-                        overlay.className = 'totem-transition-overlay';
-                        overlay.style.removeProperty('--touch-x');
-                        overlay.style.removeProperty('--touch-y');
-                    }, 600);
-                });
-            }
-            sessionStorage.removeItem('totem_active_transition');
-            sessionStorage.removeItem('totem_transition_x');
-            sessionStorage.removeItem('totem_transition_y');
-        }
-    }
-
     updateActiveLanguageUI();
     applyLocalizedSystemMessages();
     setupIdleTimer();
+    bindLanguageLaunchers();
 });
 
 
@@ -357,46 +419,11 @@ window.totemNavigateTo = function(url, event = null, isPopState = false) {
     // 5. Esperar a que la animación y la carga de datos finalicen
     Promise.all([fetchPromise, animationPromise])
         .then(([htmlText]) => {
-            // Parsear el HTML descargado
-            const parser = new DOMParser();
-            const newDoc = parser.parseFromString(htmlText, 'text/html');
-            const newStage = newDoc.querySelector('.totem-stage');
-
-            if (!newStage) {
-                // Fallback clásico si la estructura no coincide
-                window.location.href = url;
+            if (!commitFetchedPage(htmlText, url, chosenTransition, x, y, isPopState)) {
                 return;
             }
 
-            // A) Reemplazar el contenedor escénico principal
-            document.querySelector('.totem-stage').innerHTML = newStage.innerHTML;
-
-            // B) Actualizar Metadatos del Documento
-            document.title = newDoc.title;
-            document.body.className = newDoc.body.className;
-
-            // C) Actualizar URL en el historial del navegador si no es un popstate
-            if (!isPopState) {
-                history.pushState({ transition: chosenTransition, x, y }, '', url);
-            }
-
-            // D) Re-escanear y ejecutar scripts específicos de la nueva página
-            const newScripts = newDoc.querySelectorAll('script');
-            newScripts.forEach(oldScript => {
-                if (oldScript.src && oldScript.src.includes('app.js')) return; // Evitar cargar este script nuevamente
-                const newScript = document.createElement('script');
-                Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-                newScript.textContent = oldScript.textContent;
-                document.body.appendChild(newScript);
-                newScript.remove(); // Limpiar el DOM tras ejecutarse
-            });
-
-            // E) Re-inicializar componentes globales
-            updateActiveLanguageUI();
-            applyLocalizedSystemMessages();
-            setupIdleTimer();
-
-            // F) Ejecutar animación de Entrada (Apertura)
+            // E) Ejecutar animación de Entrada (Apertura)
             overlay.classList.add('totem-transition-overlay--leaving');
             overlay.classList.remove('totem-transition-overlay--active');
 

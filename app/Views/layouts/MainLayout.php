@@ -3,6 +3,20 @@ $cssPath = FCPATH . 'assets/css/style.css';
 $cssVersion = file_exists($cssPath) ? filemtime($cssPath) : '1.0.0';
 $jsPath = FCPATH . 'assets/js/app.js';
 $jsVersion = file_exists($jsPath) ? filemtime($jsPath) : '1.0.0';
+$request = service('request');
+$transitionsEnabled = $request->getGet('transitions') !== '0';
+$animationsEnabled = $request->getGet('animations') !== '0';
+$extraClasses = [];
+
+if (! $transitionsEnabled) {
+    $extraClasses[] = 'totem-transitions-disabled';
+}
+
+if (! $animationsEnabled) {
+    $extraClasses[] = 'totem-animations-disabled';
+}
+
+$bodyClasses = trim(($bodyClass ?? 'totem-app') . ' ' . implode(' ', $extraClasses));
 
 $systemMessages = [
     'es' => [
@@ -49,10 +63,14 @@ $systemMessages = [
             $systemMessages,
             JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
         ) ?>;
+        window.TOTEM_CONFIG = {
+            enableTransitions: <?= $transitionsEnabled ? 'true' : 'false' ?>,
+            enableAnimations: <?= $animationsEnabled ? 'true' : 'false' ?>
+        };
     </script>
     <?= $this->renderSection('styles') ?>
 </head>
-<body class="<?= esc($bodyClass ?? 'totem-app') ?>">
+<body class="<?= esc($bodyClasses) ?>">
     <div class="orientation-warning">
         <div class="orientation-warning__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -81,8 +99,8 @@ $systemMessages = [
         
         <!-- 3. Confeti y Serpentinas (Partículas directas en primer plano) -->
         <div class="totem-transition-overlay__confetti-container"></div>
-        
-        <!-- 5. Guante de Boxeo con Resorte Slapstick (SVGs para máxima fidelidad) -->
+
+        <!-- 4. Guante de Boxeo con Resorte Slapstick (SVGs para máxima fidelidad) -->
         <div class="totem-transition-overlay__glove-accordion">
             <svg viewBox="0 0 300 60" preserveAspectRatio="none" class="totem-transition-overlay__spring-svg">
                 <path d="M0,30 L30,10 L60,50 L90,10 L120,50 L150,10 L180,50 L210,10 L240,50 L270,10 L300,30" fill="none" stroke="#ffe600" stroke-width="8" stroke-linejoin="round" stroke-linecap="round" />
@@ -112,7 +130,7 @@ $systemMessages = [
             </svg>
         </div>
         
-        <!-- 6. Mueca Cómica de Payaso -->
+        <!-- 5. Mueca Cómica de Payaso -->
         <div class="totem-transition-overlay__grimace">
             <div class="totem-transition-overlay__grimace-eye totem-transition-overlay__grimace-eye--left"></div>
             <div class="totem-transition-overlay__grimace-eye totem-transition-overlay__grimace-eye--right"></div>

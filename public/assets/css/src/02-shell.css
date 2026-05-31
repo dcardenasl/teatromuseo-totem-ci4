@@ -45,6 +45,22 @@
     overflow: visible;
 }
 
+.totem-stage--language-transition {
+    overflow: hidden;
+    will-change: transform, opacity;
+    transition:
+        transform 0.36s cubic-bezier(0.25, 1, 0.5, 1),
+        opacity 0.36s ease,
+        filter 0.36s ease;
+}
+
+.totem-stage--language-leaving {
+    transform: translateY(-22vh) scale(0.97);
+    opacity: 0;
+    filter: blur(4px);
+}
+
+
 .totem-page {
     width: 100%;
     min-height: 100dvh;

@@ -21,6 +21,36 @@
     box-shadow: none;
 }
 
+.language-card--panel {
+    transform-origin: top center;
+    animation: languagePanelDropIn 300ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+body.totem-animations-disabled .language-card--panel {
+    animation: none;
+    transform: none;
+    opacity: 1;
+    filter: none;
+}
+
+.language-card--panel .language-instructions-container {
+    animation: languageBlockRiseIn 220ms 60ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+body.totem-animations-disabled .language-card--panel .language-instructions-container,
+body.totem-animations-disabled .language-card--panel .language-grid,
+body.totem-animations-disabled .language-card--panel .pill-button--language,
+body.totem-animations-disabled .language-instruction {
+    animation: none;
+    transform: none;
+    opacity: 1;
+    filter: none;
+}
+
+.language-card--panel .language-grid {
+    animation: languageGridRiseIn 220ms 110ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 .language-card__title {
     margin: 0 0 10px;
     font-family: Georgia, "Times New Roman", serif;
@@ -34,6 +64,46 @@
 .language-card__title--spacious {
     margin-bottom: 40px;
     font-size: 3rem;
+}
+
+@keyframes languagePanelDropIn {
+    0% {
+        transform: translateY(-14vh) scale(0.99);
+        opacity: 0;
+        filter: blur(2px);
+    }
+    68% {
+        transform: translateY(0.8vh) scale(1.005);
+        opacity: 1;
+        filter: blur(0);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+@keyframes languageBlockRiseIn {
+    0% {
+        transform: translateY(-18px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes languageGridRiseIn {
+    0% {
+        transform: translateY(14px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .language-instructions-container {
@@ -119,6 +189,29 @@
     gap: 20px;
 }
 
+.language-card--panel .pill-button--language {
+    opacity: 0;
+    transform: translateY(10px) scale(0.99);
+    cursor: pointer;
+    animation: languageButtonRiseIn 190ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.language-card--panel .pill-button--language:nth-child(1) { animation-delay: 120ms; }
+.language-card--panel .pill-button--language:nth-child(2) { animation-delay: 160ms; }
+.language-card--panel .pill-button--language:nth-child(3) { animation-delay: 200ms; }
+.language-card--panel .pill-button--language:nth-child(4) { animation-delay: 240ms; }
+
+@keyframes languageButtonRiseIn {
+    0% {
+        transform: translateY(10px) scale(0.99);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
 .language-card__button {
     width: 100%;
     min-height: 96px;
@@ -131,6 +224,7 @@
     align-content: center;
     justify-items: start;
     text-align: left;
+    cursor: pointer;
 }
 
 .language-card__button--centered {

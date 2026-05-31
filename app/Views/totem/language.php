@@ -9,7 +9,7 @@
                 font-size: 1.2rem;
             }
         </style>
-        <section class="language-card language-card--bare">
+        <section class="language-card language-card--bare language-card--panel">
             <!-- Contenedor de instrucciones en todos los idiomas para el usuario nativo -->
             <div class="language-instructions-container" aria-label="Selecciona tu idioma / Select your language / Sélectionnez votre langue / Selecione o seu idioma">
                 <div class="language-instruction lang-instruction--es" data-lang="es">
@@ -56,8 +56,8 @@
                 document.cookie = "totem_lang=" + lang + "; path=/; max-age=31536000";
                 localStorage.setItem('totem_lang', lang);
                 const targetUrl = '<?= !empty($from) ? esc(base_url($from), 'js') : esc(base_url('menu'), 'js') ?>';
-                if (window.totemNavigateTo) {
-                    window.totemNavigateTo(targetUrl);
+                if (window.launchLanguageSelection) {
+                    window.launchLanguageSelection(targetUrl);
                 } else {
                     window.location.href = targetUrl;
                 }

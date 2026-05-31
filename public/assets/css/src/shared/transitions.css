@@ -24,6 +24,16 @@
     justify-content: center;
 }
 
+body.totem-transitions-disabled *,
+body.totem-transitions-disabled *::before,
+body.totem-transitions-disabled *::after {
+    transition: none !important;
+}
+
+body.totem-transitions-disabled .totem-transition-overlay {
+    display: none !important;
+}
+
 /* Ocultar elementos inactivos por defecto para evitar pantallas negras o bloqueos */
 .totem-transition-overlay__nose,
 .totem-transition-overlay__curtain-left,
@@ -590,3 +600,5 @@
 .totem-transition-overlay--leaving.totem-transition--grimace .totem-transition-overlay__grimace-mouth {
     animation: grimaceCleanDisperse 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
+
+

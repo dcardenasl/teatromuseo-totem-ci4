@@ -25,6 +25,10 @@
     animation: rotate-device 2s ease-in-out infinite;
 }
 
+body.totem-animations-disabled .orientation-warning__icon {
+    animation: none;
+}
+
 .orientation-warning__title {
     font-size: 1.5rem;
     font-weight: bold;
