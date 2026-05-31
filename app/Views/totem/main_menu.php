@@ -5,5 +5,4 @@
     'title' => lang('Nav.main_menu'),
     'content' => view('totem/partials/menu_grid', ['items' => $items])
 ]) ?>
-
 <?= $this->endSection() ?>
