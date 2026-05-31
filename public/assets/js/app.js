@@ -1,10 +1,8 @@
 // Configuración Centralizada del Tótem
 const TOTEM_CONFIG = window.TOTEM_CONFIG || {
-    // Cambia a 'false' para desactivar por completo todas las transiciones lúdicas y swaps de AJAX globales.
-    // También se puede sobreescribir temporalmente en el navegador usando el parámetro '?transitions=0' en la URL
-    enableTransitions: (new URLSearchParams(window.location.search).get('transitions') !== '0') && true,
-    // Control independiente para animaciones internas de pantalla (splash, language, warnings, etc.)
-    enableAnimations: (new URLSearchParams(window.location.search).get('animations') !== '0') && true
+    // Fallback mínimo para que el archivo siga funcionando si se carga aislado.
+    enableTransitions: false,
+    enableAnimations: true
 };
 
 window.TOTEM_CONFIG = TOTEM_CONFIG;

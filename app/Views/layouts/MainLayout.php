@@ -3,9 +3,9 @@ $cssPath = FCPATH . 'assets/css/style.css';
 $cssVersion = file_exists($cssPath) ? filemtime($cssPath) : '1.0.0';
 $jsPath = FCPATH . 'assets/js/app.js';
 $jsVersion = file_exists($jsPath) ? filemtime($jsPath) : '1.0.0';
-$request = service('request');
-$transitionsEnabled = $request->getGet('transitions') !== '0';
-$animationsEnabled = $request->getGet('animations') !== '0';
+$totemConfig = config('Totem');
+$transitionsEnabled = (bool) $totemConfig->enableTransitions;
+$animationsEnabled = (bool) $totemConfig->enableAnimations;
 $extraClasses = [];
 
 if (! $transitionsEnabled) {
