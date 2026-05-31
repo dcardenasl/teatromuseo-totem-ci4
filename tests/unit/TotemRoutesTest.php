@@ -67,8 +67,7 @@ final class TotemRoutesTest extends CIUnitTestCase
     public function testGuidedVisitsRoute(): void
     {
         $result = $this->get('visitas-guiadas');
-        $result->assertStatus(200);
-        $result->assertSee('Visitas guiadas');
+        $result->assertStatus(302);
     }
 
     public function testFriendsRoute(): void

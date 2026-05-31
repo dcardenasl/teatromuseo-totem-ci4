@@ -30,44 +30,69 @@
 
 <?= $this->section('scripts') ?>
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-    const eyebrowText = document.querySelector('.splash-eyebrow');
-    const ctaText = document.querySelector('.splash-cta__text');
-    
-    if (eyebrowText && ctaText) {
-        const eyebrows = [
-            "<?= esc(lang('Splash.discover', [], 'es'), 'js') ?>",
-            "<?= esc(lang('Splash.discover', [], 'en'), 'js') ?>",
-            "<?= esc(lang('Splash.discover', [], 'fr'), 'js') ?>",
-            "<?= esc(lang('Splash.discover', [], 'pt'), 'js') ?>"
-        ];
-        
-        const ctas = [
-            "<?= esc(lang('Splash.touch_start', [], 'es'), 'js') ?>",
-            "<?= esc(lang('Splash.touch_start', [], 'en'), 'js') ?>",
-            "<?= esc(lang('Splash.touch_start', [], 'fr'), 'js') ?>",
-            "<?= esc(lang('Splash.touch_start', [], 'pt'), 'js') ?>"
-        ];
-        
-        let currentIndex = 0;
+(() => {
+    const eyebrowCopies = [
+        "<?= esc(lang('Splash.discover', [], 'es'), 'js') ?>",
+        "<?= esc(lang('Splash.discover', [], 'en'), 'js') ?>",
+        "<?= esc(lang('Splash.discover', [], 'fr'), 'js') ?>",
+        "<?= esc(lang('Splash.discover', [], 'pt'), 'js') ?>"
+    ];
 
-        setInterval(() => {
-            // Fade out both eyebrow (shifts up) and button text (shifts down)
+    const ctaCopies = [
+        "<?= esc(lang('Splash.touch_start', [], 'es'), 'js') ?>",
+        "<?= esc(lang('Splash.touch_start', [], 'en'), 'js') ?>",
+        "<?= esc(lang('Splash.touch_start', [], 'fr'), 'js') ?>",
+        "<?= esc(lang('Splash.touch_start', [], 'pt'), 'js') ?>"
+    ];
+
+    const locales = ['es', 'en', 'fr', 'pt'];
+
+    const clearSplashInterval = () => {
+        if (window.totemSplashLanguageInterval) {
+            clearInterval(window.totemSplashLanguageInterval);
+            window.totemSplashLanguageInterval = null;
+        }
+    };
+
+    const startSplashLanguageCycle = () => {
+        const eyebrowText = document.querySelector('.splash-eyebrow');
+        const ctaText = document.querySelector('.splash-cta__text');
+
+        clearSplashInterval();
+
+        if (!eyebrowText || !ctaText) {
+            return;
+        }
+
+        const cookieMatch = document.cookie.match(/(?:^|;\s*)totem_lang=([^;]+)/);
+        const activeLocale = (cookieMatch ? decodeURIComponent(cookieMatch[1]) : null)
+            || localStorage.getItem('totem_lang')
+            || 'es';
+        let currentIndex = Math.max(locales.indexOf(activeLocale), 0);
+
+        window.totemSplashLanguageInterval = setInterval(() => {
             eyebrowText.classList.add('splash-eyebrow--hidden');
             ctaText.classList.add('splash-cta__text--hidden');
-            
-            // Wait for transition, then update content and fade-in/slide back
+
             setTimeout(() => {
-                currentIndex = (currentIndex + 1) % eyebrows.length;
-                
-                eyebrowText.textContent = eyebrows[currentIndex];
-                ctaText.textContent = ctas[currentIndex];
-                
+                currentIndex = (currentIndex + 1) % eyebrowCopies.length;
+
+                eyebrowText.textContent = eyebrowCopies[currentIndex];
+                ctaText.textContent = ctaCopies[currentIndex];
+
                 eyebrowText.classList.remove('splash-eyebrow--hidden');
                 ctaText.classList.remove('splash-cta__text--hidden');
             }, 400);
         }, 4000);
+    };
+
+    window.totemSplashCleanup = clearSplashInterval;
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', startSplashLanguageCycle, { once: true });
+    } else {
+        startSplashLanguageCycle();
     }
-});
+})();
 </script>
 <?= $this->endSection() ?>

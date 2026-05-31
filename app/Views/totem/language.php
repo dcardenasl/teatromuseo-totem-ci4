@@ -51,44 +51,54 @@
         </section>
 
         <script>
-        function setLanguage(lang) {
-            document.cookie = "totem_lang=" + lang + "; path=/; max-age=31536000";
-            localStorage.setItem('totem_lang', lang);
-            const targetUrl = '<?= !empty($from) ? esc(base_url($from), 'js') : esc(base_url('menu'), 'js') ?>';
-            if (window.totemNavigateTo) {
-                window.totemNavigateTo(targetUrl);
-            } else {
-                window.location.href = targetUrl;
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const buttons = document.querySelectorAll('.pill-button--language');
-            buttons.forEach(btn => {
-                const lang = btn.getAttribute('data-lang');
-                const instruction = document.querySelector(`.lang-instruction--${lang}`);
-                
-                if (instruction) {
-                    const highlight = () => {
-                        document.querySelectorAll('.language-instruction').forEach(el => {
-                            el.classList.remove('is-highlighted');
-                        });
-                        instruction.classList.add('is-highlighted');
-                    };
-                    
-                    const removeHighlight = () => {
-                        instruction.classList.remove('is-highlighted');
-                    };
-                    
-                    btn.addEventListener('mouseenter', highlight);
-                    btn.addEventListener('mouseleave', removeHighlight);
-                    btn.addEventListener('focus', highlight);
-                    btn.addEventListener('blur', removeHighlight);
-                    btn.addEventListener('touchstart', highlight);
-                    btn.addEventListener('touchend', removeHighlight);
+        (() => {
+            function setLanguage(lang) {
+                document.cookie = "totem_lang=" + lang + "; path=/; max-age=31536000";
+                localStorage.setItem('totem_lang', lang);
+                const targetUrl = '<?= !empty($from) ? esc(base_url($from), 'js') : esc(base_url('menu'), 'js') ?>';
+                if (window.totemNavigateTo) {
+                    window.totemNavigateTo(targetUrl);
+                } else {
+                    window.location.href = targetUrl;
                 }
-            });
-        });
+            }
+
+            window.setLanguage = setLanguage;
+
+            const initLanguageInteractions = () => {
+                const buttons = document.querySelectorAll('.pill-button--language');
+                buttons.forEach(btn => {
+                    const lang = btn.getAttribute('data-lang');
+                    const instruction = document.querySelector(`.lang-instruction--${lang}`);
+                    
+                    if (instruction) {
+                        const highlight = () => {
+                            document.querySelectorAll('.language-instruction').forEach(el => {
+                                el.classList.remove('is-highlighted');
+                            });
+                            instruction.classList.add('is-highlighted');
+                        };
+                        
+                        const removeHighlight = () => {
+                            instruction.classList.remove('is-highlighted');
+                        };
+                        
+                        btn.addEventListener('mouseenter', highlight);
+                        btn.addEventListener('mouseleave', removeHighlight);
+                        btn.addEventListener('focus', highlight);
+                        btn.addEventListener('blur', removeHighlight);
+                        btn.addEventListener('touchstart', highlight);
+                        btn.addEventListener('touchend', removeHighlight);
+                    }
+                });
+            };
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initLanguageInteractions, { once: true });
+            } else {
+                initLanguageInteractions();
+            }
+        })();
         </script>
     <?php $content = ob_get_clean(); ?>
 

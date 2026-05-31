@@ -11,6 +11,7 @@ const IDLE_LIMIT = 120; // 2 minutos en segundos
 const WARN_AT = 105;    // Advertencia a los 105 segundos (15s antes del reset)
 let warningShown = false;
 let idleInterval = null;
+const IDLE_ACTIVITY_EVENTS = ['mousedown', 'touchstart', 'keypress', 'pointerdown', 'mousemove', 'scroll', 'focusin'];
 
 // Determinar dinámicamente si estamos en la pantalla de bienvenida (splash)
 function isSplashPage() {
@@ -47,6 +48,19 @@ function resetTimer(event) {
     hideIdleWarning();
 }
 
+function bindIdleListeners() {
+    IDLE_ACTIVITY_EVENTS.forEach((eventName) => {
+        document.removeEventListener(eventName, resetTimer);
+        document.addEventListener(eventName, resetTimer, { passive: true });
+    });
+}
+
+function unbindIdleListeners() {
+    IDLE_ACTIVITY_EVENTS.forEach((eventName) => {
+        document.removeEventListener(eventName, resetTimer);
+    });
+}
+
 // Configurar o destruir dinámicamente el loop de inactividad
 function setupIdleTimer() {
     // Destruir intervalo anterior para evitar duplicaciones
@@ -56,11 +70,8 @@ function setupIdleTimer() {
     }
 
     if (!isSplashPage()) {
-        // Enlazar controladores de actividad
-        ['mousedown', 'touchstart', 'keypress', 'pointerdown', 'mousemove', 'scroll', 'focusin'].forEach((eventName) => {
-            document.removeEventListener(eventName, resetTimer);
-            document.addEventListener(eventName, resetTimer, { passive: true });
-        });
+        // Enlazar controladores de actividad solo fuera del splash
+        bindIdleListeners();
 
         idleTime = 0;
         idleInterval = setInterval(function() {
@@ -83,6 +94,7 @@ function setupIdleTimer() {
         }, 1000);
     } else {
         // Si es Splash, remover escuchas y ocultar advertencia si estuviese abierta
+        unbindIdleListeners();
         hideIdleWarning();
     }
 }
@@ -220,6 +232,11 @@ window.totemNavigateTo = function(url, event = null, isPopState = false) {
         window.location.href = url;
         isNavigating = false;
         return;
+    }
+
+    // Si estamos saliendo de la splash, cortar su rotador de idiomas antes de reemplazar la vista.
+    if (document.querySelector('.splash-screen') && typeof window.totemSplashCleanup === 'function') {
+        window.totemSplashCleanup();
     }
 
     // 1. Determinar el tipo de transición según el UX lúdico solicitado
