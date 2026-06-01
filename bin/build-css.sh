@@ -25,6 +25,7 @@ FILES=(
     "$SRC/screens/menu.css"
     "$SRC/screens/section.css"
     "$SRC/screens/section-extras.css"
+    "$SRC/screens/museum-today.css"
     "$SRC/screens/billboard.css"
     "$SRC/screens/detail.css"
     "$SRC/shared/utils.css"
