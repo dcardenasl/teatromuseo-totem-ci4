@@ -144,11 +144,11 @@
     }
 
     .menu-title__heading {
-        font-size: clamp(2.0rem, 7cqi, 3.4rem);
+        max-width: var(--page-title-max-width, 12ch);
     }
 
     .menu-title__heading--compact {
-        font-size: clamp(1.8rem, 6cqi, 2.8rem);
+        max-width: var(--page-title-max-width, 10ch);
     }
 
     .hero__title {
@@ -282,12 +282,21 @@
     }
 
     .menu-card {
-        padding: 12px 12px 14px;
-        border-radius: 24px;
+        padding: 0;
+        border-radius: 0;
+        background: transparent;
+    }
+
+    .menu-card__art {
+        aspect-ratio: 1.16;
     }
 
     .menu-card__copywrap {
-        min-height: 60px;
+        min-height: 0;
+    }
+
+    .menu-card__title {
+        font-size: clamp(1.65rem, 4.7cqi, 2.3rem);
     }
 
     .menu-card:nth-child(5) {
