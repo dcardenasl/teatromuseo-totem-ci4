@@ -52,11 +52,11 @@ Esta sección documenta la comparación real entre el tótem en `http://localhos
       4. El header debe conservar la misma lógica de navegación y tamaño de botones que el PDF.
 
 ### B. Colección del Museo
-- [ ] **B1 — Rediseñar `/museo/coleccion` con la composición editorial del PDF**
+- [x] **B1 — Rediseñar `/museo/coleccion` con la composición editorial del PDF**
   * **PDF de referencia:** `COLECCION.pdf`
   * **Ruta actual:** `/museo/coleccion`
   * **Archivos a tocar:** [app/Views/totem/collection_main.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_main.php), potencialmente [public/assets/css/src/screens/collection.css](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/public/assets/css/src/screens/collection.css)
-  * **Brecha visual:** La pantalla actual presenta solo el título y textos dispersos. El PDF, en cambio, construye una portada editorial con piezas grandes, ilustraciones protagonistas, botones visibles y una sensación de catálogo curado.
+  * **Brecha visual:** La pantalla actual presentaba solo el título y textos dispersos. La implementación ahora convierte la ruta en una portada editorial con piezas grandes, ilustraciones protagonistas, botones visibles y una sensación de catálogo curado.
   * **Criterio de aceptación:**
       1. Deben verse claramente los tres accesos principales: `Títeres`, `Payasos` y `Máscaras`.
       2. Cada acceso debe tener peso visual propio, no solo texto suelto.
