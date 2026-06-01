@@ -266,4 +266,35 @@
     .footer-ornament {
         display: none;
     }
+
+    .menu-layout {
+        gap: 14px;
+        padding: 0 0 8px;
+    }
+
+    .menu-title {
+        padding-inline: 10px;
+    }
+
+    .menu-grid {
+        gap: 12px;
+        padding-inline: 10px;
+    }
+
+    .menu-card {
+        padding: 12px 12px 14px;
+        border-radius: 24px;
+    }
+
+    .menu-card__copywrap {
+        min-height: 60px;
+    }
+
+    .menu-card:nth-child(5) {
+        width: 100%;
+    }
+
+    .menu-coda {
+        padding-inline: 10px;
+    }
 }

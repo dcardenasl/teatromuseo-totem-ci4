@@ -17,5 +17,10 @@
             <span class="menu-card__art-core <?= esc($artClass ?? '') ?>"></span>
         <?php endif; ?>
     </div>
-    <h2 class="menu-card__title"><?= esc($title ?? 'Sin título') ?></h2>
+    <div class="menu-card__copywrap">
+        <h2 class="menu-card__title"><?= esc($title ?? 'Sin título') ?></h2>
+        <?php if (!empty($copy)): ?>
+            <p class="menu-card__copy"><?= esc($copy) ?></p>
+        <?php endif; ?>
+    </div>
 </a>

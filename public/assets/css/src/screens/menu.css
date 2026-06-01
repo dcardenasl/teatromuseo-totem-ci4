@@ -1,8 +1,8 @@
 
 .menu-layout {
     display: grid;
-    gap: 12px;
-    padding: 10px 16px 14px;
+    gap: 18px;
+    padding: 2px 0 10px;
     width: 100%;
     min-height: 100dvh;
 }
@@ -10,9 +10,10 @@
 .menu-title {
     text-align: center;
     display: grid;
-    gap: 10px;
+    gap: 12px;
     justify-items: center;
-    margin-top: 2px;
+    margin-top: 0;
+    padding: 4px 12px 0;
 }
 
 .menu-title--compact {
@@ -35,7 +36,7 @@
     text-transform: uppercase;
     letter-spacing: 0.04em;
     line-height: 0.9;
-    font-size: clamp(3.8rem, 8.2cqi, 6.8rem);
+    font-size: clamp(3.5rem, 7.8cqi, 6.4rem);
 }
 
 .menu-title__heading--compact {
@@ -48,7 +49,7 @@
 
 .menu-title__copy {
     margin: 0;
-    max-width: 52rem;
+    max-width: 40rem;
     color: var(--muted);
     font-size: 1rem;
     line-height: 1.45;
@@ -57,28 +58,43 @@
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px 20px;
-    padding: 4px 6px 0;
+    gap: 16px 18px;
+    padding: 0 12px;
+    width: min(100%, 1040px);
+    margin: 0 auto;
 }
 
 .menu-card {
     display: grid;
-    gap: 8px;
-    padding: 0;
-    border-radius: 0;
-    background: transparent;
-    border: 0;
-    box-shadow: none;
-    transition: transform 0.2s ease;
+    gap: 12px;
+    padding: 14px 14px 16px;
+    border-radius: 30px;
+    background:
+        linear-gradient(180deg, rgba(255, 252, 244, 0.94) 0%, rgba(245, 237, 224, 0.88) 100%);
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    box-shadow: 0 16px 28px rgba(73, 50, 24, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     min-height: 100%;
     text-align: center;
     color: var(--ink);
     text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-card::before {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border-radius: 22px;
+    border: 1px solid rgba(92, 70, 43, 0.08);
+    pointer-events: none;
 }
 
 .menu-card:hover,
 .menu-card:focus-visible {
-    transform: scale(1.02);
+    transform: translateY(-3px);
+    box-shadow: 0 18px 34px rgba(73, 50, 24, 0.12);
 }
 
 .menu-card:focus-visible {
@@ -89,13 +105,15 @@
 
 .menu-card__art {
     position: relative;
-    aspect-ratio: 1;
+    aspect-ratio: 1.03;
     min-height: 0;
-    border-radius: 0;
-    border: 0;
-    box-shadow: none;
-    overflow: visible;
-    background: transparent;
+    border-radius: 24px;
+    border: 1px solid rgba(92, 70, 43, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 48%, rgba(255, 255, 255, 0.72) 0 30%, transparent 31%),
+        linear-gradient(180deg, rgba(236, 222, 198, 0.4), rgba(255, 255, 255, 0.4));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -108,12 +126,12 @@
 .menu-card__art img,
 .menu-card__img {
     position: absolute;
-    inset: 5%;
-    width: 90%;
-    height: 90%;
+    inset: 8%;
+    width: 84%;
+    height: 84%;
     object-fit: contain;
     z-index: 3;
-    border-radius: 0;
+    border-radius: 16px;
     background-color: transparent;
     border: 0;
     padding: 0;
@@ -128,8 +146,8 @@
 
 .menu-card__art-core {
     position: relative;
-    width: 74%;
-    height: 74%;
+    width: 76%;
+    height: 76%;
 }
 
 .menu-card__art-core::before,
@@ -247,17 +265,49 @@
 .menu-card__title {
     margin: 0;
     font-family: "Corporate A", Georgia, "Times New Roman", serif;
-    font-size: clamp(1.1rem, 2cqi, 1.55rem);
+    font-size: clamp(1.05rem, 1.9cqi, 1.45rem);
     font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     line-height: 1.12;
 }
 
+.menu-card__copywrap {
+    display: grid;
+    gap: 4px;
+    align-content: start;
+    min-height: 72px;
+}
+
 .menu-card__copy {
-    display: none;
+    margin: 0 auto;
+    max-width: 20ch;
+    color: rgba(53, 52, 48, 0.64);
+    font-size: 0.9rem;
+    line-height: 1.35;
 }
 
 .menu-card__hint {
     display: none;
+}
+
+.menu-card:nth-child(5) {
+    grid-column: 1 / -1;
+    width: min(52%, 24rem);
+    justify-self: center;
+}
+
+.menu-coda {
+    display: flex;
+    justify-content: center;
+    padding: 0 12px 12px;
+}
+
+.menu-coda .splash-collage {
+    width: min(100%, 960px);
+    margin-top: 0;
+}
+
+.menu-coda .splash-collage__img {
+    max-height: 320px;
 }

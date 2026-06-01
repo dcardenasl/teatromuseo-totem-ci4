@@ -2,7 +2,7 @@
 
 <?= $this->section('content') ?>
 <?= view('totem/partials/page_shell', [
-    'title' => lang('Nav.main_menu'),
+    'title' => 'Menú<br>Principal',
     'content' => view('totem/partials/menu_grid', ['items' => $items])
 ]) ?>
 <?= $this->endSection() ?>
