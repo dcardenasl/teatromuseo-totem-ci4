@@ -2,13 +2,16 @@
 
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
-        <div class="menu-grid">
-            <?php foreach ($techniques as $technique): ?>
-                <a href="<?= base_url('museo/coleccion/titeres/' . $technique['slug']) ?>" class="menu-card">
-                    <h2><?= $technique['title'] ?></h2>
-                </a>
-            <?php endforeach; ?>
-        </div>
+        <?= view('totem/partials/menu_grid', [
+            'items' => array_map(
+                static fn (array $technique): array => [
+                    'title' => $technique['title'],
+                    'href'  => base_url('museo/coleccion/titeres/' . $technique['slug']),
+                ],
+                $techniques
+            ),
+            'showCoda' => false,
+        ]) ?>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [

@@ -2,15 +2,16 @@
 
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
-        <div class="menu-grid">
-            <?php foreach ($traditions as $tradition): ?>
-                <?= view('totem/partials/card', [
+        <?= view('totem/partials/menu_grid', [
+            'items' => array_map(
+                static fn (array $tradition): array => [
                     'title' => $tradition['title'],
                     'href'  => base_url('museo/coleccion/mascaras/' . $tradition['slug']),
-                    'class' => ''
-                ]) ?>
-            <?php endforeach; ?>
-        </div>
+                ],
+                $traditions
+            ),
+            'showCoda' => false,
+        ]) ?>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [

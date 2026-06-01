@@ -2,15 +2,16 @@
 
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
-        <div class="menu-grid">
-            <?php foreach (range(1, 4) as $i): ?>
-                <?= view('totem/partials/card', [
+        <?= view('totem/partials/menu_grid', [
+            'items' => array_map(
+                fn (int $i) => [
                     'title' => "Payaso Histórico #$i",
-                    'href'  => '#',
-                    'class' => ''
-                ]) ?>
-            <?php endforeach; ?>
-        </div>
+                    'href' => '#',
+                ],
+                range(1, 4)
+            ),
+            'showCoda' => false,
+        ]) ?>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
