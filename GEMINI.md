@@ -6,17 +6,15 @@ All views in `app/Views/totem/` must follow a consistent structure:
 1.  **Layout:** All views must extend `layouts/MainLayout`.
 2.  **Top Navigation:** Include `totem/partials/topbar` at the top of the content.
 3.  **Page Title (Universal Component):**
-    All pages must use the following structure for their titles to ensure visual consistency while keeping language keys clean. The title is dynamically split at the first space to create the mandated two-line centered layout.
+    All pages must use the following structure for their titles to ensure visual consistency while keeping language keys clean. The title is rendered as a single string and may include `<br>` and `<strong>` when a screen needs a line break or emphasis inside the heading.
 
     ```html
     <section class="menu-title">
         <h1 class="menu-title__heading" id="page-title">
             <?php 
                 $title = lang('YOUR_LANG_KEY');
-                $parts = explode(' ', $title, 2);
-                foreach ($parts as $part): ?>
-                <span class="menu-title__line"><?= esc($part) ?></span>
-            <?php endforeach; ?>
+                echo $title;
+            ?>
         </h1>
     </section>
     ```
