@@ -47,6 +47,13 @@
 }
 
 @font-face {
+    font-family: 'Corporate A';
+    src: url('../fonts/corporate-a/Corporate A Light Regular.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'Lato';
     src: url('../fonts/Lato-Regular.ttf') format('truetype');
     font-weight: normal;
@@ -1324,7 +1331,7 @@ body.totem-animations-disabled .language-instruction {
 .menu-title__heading {
     margin: 0;
     font-family: "Corporate A", Georgia, "Times New Roman", serif;
-    font-weight: 400;
+    font-weight: 300;
     text-transform: uppercase;
     letter-spacing: var(--page-title-letter-spacing);
     line-height: var(--page-title-line-height);
@@ -1339,6 +1346,10 @@ body.totem-animations-disabled .language-instruction {
 
 .menu-title__line {
     display: block;
+}
+
+.menu-title__heading strong {
+    font-weight: 700;
 }
 
 .menu-title__copy {

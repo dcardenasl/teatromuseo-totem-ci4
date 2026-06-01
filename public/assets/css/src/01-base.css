@@ -6,6 +6,13 @@
 }
 
 @font-face {
+    font-family: 'Corporate A';
+    src: url('../fonts/corporate-a/Corporate A Light Regular.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'Lato';
     src: url('../fonts/Lato-Regular.ttf') format('truetype');
     font-weight: normal;

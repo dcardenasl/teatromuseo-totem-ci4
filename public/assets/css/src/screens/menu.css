@@ -33,7 +33,7 @@
 .menu-title__heading {
     margin: 0;
     font-family: "Corporate A", Georgia, "Times New Roman", serif;
-    font-weight: 400;
+    font-weight: 300;
     text-transform: uppercase;
     letter-spacing: var(--page-title-letter-spacing);
     line-height: var(--page-title-line-height);
@@ -48,6 +48,10 @@
 
 .menu-title__line {
     display: block;
+}
+
+.menu-title__heading strong {
+    font-weight: 700;
 }
 
 .menu-title__copy {
