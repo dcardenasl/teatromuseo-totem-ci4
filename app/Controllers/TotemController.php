@@ -185,11 +185,13 @@ class TotemController extends BaseController
 
     public function museumToday()
     {
+        $museum = $this->api()->museum();
+
         return view('totem/museum_today', array_merge(
-            $this->pageMeta(lang('MuseumInfo.today_title')),
+            $this->pageMeta(lang('MuseumInfo.main_title')),
             [
                 'nav' => $this->shellNav(base_url('museo/el-museo')),
-                'data' => $this->api()->museum()
+                'today' => $this->buildMuseumTodayContext($museum),
             ]
         ));
     }
@@ -257,6 +259,125 @@ class TotemController extends BaseController
                 ],
             ],
         ];
+    }
+
+    /**
+     * Build a resilient editorial context for the museum today screen.
+     *
+     * @param array<string, mixed> $museum
+     * @return array<string, mixed>
+     */
+    private function buildMuseumTodayContext(array $museum): array
+    {
+        $page = isset($museum['page']) && is_array($museum['page']) ? $museum['page'] : [];
+        $blocks = isset($museum['blocks']) && is_array($museum['blocks']) ? $this->normalizeMuseumTodayBlocks($museum['blocks']) : [];
+
+        if ($blocks === []) {
+            $blocks = [
+                [
+                    'index' => '01',
+                    'title' => lang('MuseumInfo.today_empty_title'),
+                    'copy' => lang('MuseumInfo.today_empty_copy'),
+                    'fallback' => true,
+                ],
+            ];
+        }
+
+        $sectionTitle = is_string($page['title'] ?? null) && trim((string) $page['title']) !== ''
+            ? trim((string) $page['title'])
+            : lang('MuseumInfo.main_title');
+
+        $primary = $blocks[0];
+        $secondary = array_slice($blocks, 1);
+
+        return [
+            'eyebrow' => lang('MuseumInfo.today_eyebrow'),
+            'intro' => lang('MuseumInfo.today_intro'),
+            'headline' => lang('MuseumInfo.today_title'),
+            'image' => 'assets/img/museum/cat_el_museo.webp',
+            'imageAlt' => lang('MuseumInfo.today_image_alt'),
+            'sectionTitle' => $sectionTitle,
+            'primary' => $primary,
+            'blocks' => $secondary,
+            'stats' => [
+                [
+                    'label' => lang('MuseumInfo.today_stat_blocks'),
+                    'value' => str_pad((string) count($blocks), 2, '0', STR_PAD_LEFT),
+                ],
+                [
+                    'label' => lang('MuseumInfo.today_stat_section'),
+                    'value' => $sectionTitle,
+                ],
+                [
+                    'label' => lang('MuseumInfo.today_stat_focus'),
+                    'value' => (string) ($primary['title'] ?? $sectionTitle),
+                ],
+            ],
+            'actions' => [
+                [
+                    'label' => lang('MuseumInfo.today_cta_building'),
+                    'href' => base_url('museo/el-museo/edificio'),
+                ],
+                [
+                    'label' => lang('MuseumInfo.today_cta_institution'),
+                    'href' => base_url('museo/el-museo/institucion'),
+                ],
+                [
+                    'label' => lang('MuseumInfo.today_cta_back'),
+                    'href' => base_url('museo/el-museo'),
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @param list<array<string, mixed>> $blocks
+     * @return list<array<string, mixed>>
+     */
+    private function normalizeMuseumTodayBlocks(array $blocks): array
+    {
+        $normalized = [];
+
+        foreach ($blocks as $index => $block) {
+            if (!is_array($block)) {
+                continue;
+            }
+
+            $title = trim((string) ($block['title'] ?? ''));
+            $copy = $this->excerptMuseumBlockContent((string) ($block['content'] ?? ''), 180);
+
+            if ($title === '' && $copy === '') {
+                continue;
+            }
+
+            $normalized[] = [
+                'index' => str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT),
+                'title' => $title !== '' ? $title : lang('MuseumInfo.today_blocks_heading'),
+                'copy' => $copy !== '' ? $copy : lang('MuseumInfo.today_intro'),
+                'fallback' => false,
+            ];
+        }
+
+        return array_slice($normalized, 0, 4);
+    }
+
+    private function excerptMuseumBlockContent(string $html, int $limit = 180): string
+    {
+        $plain = trim((string) preg_replace('/\s+/u', ' ', html_entity_decode(strip_tags($html), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
+
+        if ($plain === '') {
+            return '';
+        }
+
+        if (function_exists('mb_strlen') && mb_strlen($plain) > $limit) {
+            return rtrim((string) mb_substr($plain, 0, $limit - 1)) . '…';
+        }
+
+        if (strlen($plain) > $limit) {
+            return rtrim(substr($plain, 0, $limit - 1)) . '…';
+        }
+
+        return $plain;
     }
 
     public function history()
