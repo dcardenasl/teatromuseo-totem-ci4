@@ -55,6 +55,21 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result->assertSee('Explora el museo');
     }
 
+    public function testCollectionRoute(): void
+    {
+        $result = $this->get('museo/coleccion');
+        $result->assertStatus(200);
+        $result->assertSee('Colección');
+        $result->assertSee('Títeres');
+        $result->assertSee('Payasos');
+        $result->assertSee('Máscaras');
+        $result->assertSee('En exhibición');
+        $result->assertSee('Técnicas');
+        $result->assertSee('Historia');
+        $result->assertSee('Teatro de payasos');
+        $result->assertSee('Tradiciones');
+    }
+
     public function testTheaterSchoolRoute(): void
     {
         $result = $this->get('teatro-escuela');
