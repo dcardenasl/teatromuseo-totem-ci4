@@ -12,6 +12,7 @@
     z-index: 1;
     container-type: inline-size;
     container-name: kiosk;
+    touch-action: pan-y pinch-zoom;
     
     /* Efecto Pillarbox */
     background-color: var(--paper);
@@ -35,6 +36,7 @@
     width: 100%;
     min-height: 100dvh;
     position: relative;
+    touch-action: pan-y pinch-zoom;
 }
 
 .totem-stage {
@@ -43,6 +45,7 @@
     height: auto;
     display: block;
     overflow: visible;
+    touch-action: pan-y pinch-zoom;
 }
 
 .totem-stage--language-transition {
@@ -68,6 +71,7 @@
     padding: 0;
     display: grid;
     overflow: visible;
+    touch-action: pan-y pinch-zoom;
 }
 
 .totem-page--center {
@@ -82,10 +86,12 @@
     width: 100%;
     min-height: 100dvh;
     height: auto;
+    touch-action: pan-y pinch-zoom;
 }
 
 .screen__content {
     width: 100%;
     min-height: 100dvh;
     height: auto;
+    touch-action: pan-y pinch-zoom;
 }
