@@ -84,3 +84,23 @@ h1, h2, h3, h4, h5, h6 {
     font-family: "Corporate A", Georgia, "Times New Roman", serif;
     font-weight: normal;
 }
+
+/*
+ * Resiliencia de títulos: una palabra larga sin espacios (p. ej. el francés
+ * "Marionnettes") nunca debe desbordar su caja. overflow-wrap: break-word no
+ * afecta el texto que ya cabe; solo actúa cuando habría desborde.
+ */
+.section-hero__title,
+.collection-hero__title,
+.collection-heading__title,
+.collection-band__title,
+.collection-route__title,
+.course-card__title,
+.event-card__title,
+.month-group__title,
+.menu-card__title,
+.museum-today__title,
+.museum-today__feature-title,
+.museum-today__block-title {
+    overflow-wrap: break-word;
+}

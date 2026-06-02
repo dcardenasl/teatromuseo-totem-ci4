@@ -844,6 +844,8 @@
     line-height: 0.92;
     text-transform: uppercase;
     letter-spacing: 0.04em;
+    hyphens: auto;        /* aprovecha <html lang="fr"> ya presente */
+    text-wrap: balance;   /* equilibra las dos líneas (igual que .collection-heading__title) */
 }
 
 .collection-band__actions {
