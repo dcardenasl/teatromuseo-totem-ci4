@@ -266,6 +266,184 @@
         display: none;
     }
 
+    .school-page {
+        gap: 22px;
+        padding-bottom: 24px;
+    }
+
+    .school-page__hero-actions {
+        gap: 8px;
+    }
+
+    .school-page__title {
+        font-size: clamp(2.2rem, 8.6cqi, 3.3rem);
+    }
+
+    .school-video {
+        width: 100%;
+        aspect-ratio: 1.36 / 1;
+        border-radius: 0;
+    }
+
+    .school-page__intro {
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    .school-stats {
+        width: 100%;
+        gap: 10px;
+    }
+
+    .school-stat {
+        gap: 10px;
+    }
+
+    .school-stat__value {
+        font-size: clamp(2.6rem, 8.2cqi, 4rem);
+    }
+
+    .school-stat__divider {
+        height: 58px;
+    }
+
+    .school-teacher-grid {
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px 10px;
+    }
+
+    .teacher-card__name {
+        font-size: 0.78rem;
+    }
+
+    .teacher-card__role,
+    .teacher-card__country {
+        font-size: 0.7rem;
+    }
+
+    .school-course {
+        width: 100%;
+        grid-template-columns: 104px minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .school-course__qr {
+        display: grid;
+        justify-items: start;
+        gap: 6px;
+        margin-top: 8px;
+    }
+
+    .school-course__contact {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        align-items: start;
+    }
+
+    .school-course__contact-copy {
+        order: 1;
+    }
+
+    .school-course__qr {
+        order: 2;
+    }
+
+    .school-course__qr-box {
+        width: 64px;
+        height: 64px;
+    }
+
+    .school-closing__collage {
+        width: 100%;
+    }
+
+    .school-closing__logos {
+        gap: 14px;
+    }
+
+    .school-closing__logo--primary {
+        width: 78px;
+        height: 78px;
+    }
+
+    .school-closing__logo--secondary {
+        width: 88px;
+        height: 88px;
+    }
+
+    .school-dossier {
+        gap: 16px;
+        padding-bottom: 24px;
+    }
+
+    .school-dossier__hero,
+    .school-dossier__closing {
+        grid-template-columns: 1fr;
+    }
+
+    .school-dossier__media {
+        min-height: 0;
+        aspect-ratio: 4 / 3;
+        padding: 12px;
+        border-radius: 28px;
+    }
+
+    .school-dossier__badge {
+        top: 16px;
+        left: 16px;
+    }
+
+    .school-dossier__ribbon {
+        right: 16px;
+        bottom: 16px;
+    }
+
+    .school-dossier__intro,
+    .school-dossier__panel,
+    .school-dossier__closing {
+        padding: 18px;
+        border-radius: 28px;
+    }
+
+    .school-dossier__title {
+        font-size: clamp(2rem, 7cqi, 3rem);
+    }
+
+    .school-people {
+        grid-template-columns: 1fr;
+    }
+
+    .teacher-card {
+        padding: 16px;
+    }
+
+    .course-card--dossier {
+        grid-template-columns: 64px 1fr;
+        gap: 12px;
+        padding: 12px;
+        border-radius: 22px;
+        align-items: center;
+    }
+
+    .course-card--dossier .course-card__thumb {
+        min-height: 64px;
+        height: 64px;
+        width: 64px;
+    }
+
+    .course-card--dossier .course-card__qr {
+        display: none;
+    }
+
+    .school-dossier__closing {
+        gap: 14px;
+    }
+
+    .school-dossier__qr-box {
+        width: 132px;
+    }
+
     /* --- Ilustraciones Decorativas y Elementos redundantes --- */
     .splash-scene .splash-collage {
         display: block;
