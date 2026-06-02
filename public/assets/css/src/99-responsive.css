@@ -35,6 +35,35 @@
     .screen__panel {
         border-radius: 30px;
     }
+
+    .footer-brand {
+        max-width: 880px;
+        gap: 28px;
+        margin-top: 50px;
+        margin-bottom: 30px;
+    }
+
+    .footer-brand__logos {
+        gap: 20px 30px;
+    }
+
+    .footer-brand__logo--state {
+        width: 120px;
+        min-height: 120px;
+    }
+
+    .footer-brand__logo--brand {
+        min-width: 156px;
+    }
+
+    .footer-brand__mark {
+        width: 76px;
+        height: 76px;
+    }
+
+    .footer-brand__label {
+        font-size: 0.96rem;
+    }
 }
 
 @container kiosk (max-width: 640px) {
@@ -242,6 +271,27 @@
         aspect-ratio: 3 / 4;
     }
 
+    .billboard-detail__show-title {
+        font-size: clamp(1.8rem, 6.8cqi, 2.6rem);
+    }
+
+    .billboard-detail__meta {
+        font-size: 0.96rem;
+    }
+
+    .billboard-detail__lead {
+        font-size: 1rem;
+    }
+
+    .billboard-detail__nav-btn {
+        width: 48px;
+        height: 48px;
+    }
+
+    .billboard-detail__qr-image {
+        width: 100px;
+    }
+
     .hero__ornament--stage {
         width: 100%;
     }
@@ -354,24 +404,6 @@
         height: 64px;
     }
 
-    .school-closing__collage {
-        width: 100%;
-    }
-
-    .school-closing__logos {
-        gap: 14px;
-    }
-
-    .school-closing__logo--primary {
-        width: 78px;
-        height: 78px;
-    }
-
-    .school-closing__logo--secondary {
-        width: 88px;
-        height: 88px;
-    }
-
     .school-dossier {
         gap: 16px;
         padding-bottom: 24px;
@@ -444,6 +476,10 @@
         width: 132px;
     }
 
+    .billboard-detail__poster-frame {
+        aspect-ratio: 4 / 3;
+    }
+
     /* --- Ilustraciones Decorativas y Elementos redundantes --- */
     .splash-scene .splash-collage {
         display: block;
@@ -501,5 +537,69 @@
 
     .menu-coda {
         padding-inline: 10px;
+    }
+
+    .footer-brand {
+        gap: 18px;
+        margin-top: 36px;
+        margin-bottom: 24px;
+        padding-top: 8px;
+    }
+
+    .footer-brand__logos {
+        gap: 14px 18px;
+    }
+
+    .footer-brand__logo--state {
+        width: 96px;
+        min-height: 96px;
+    }
+
+    .footer-brand__logo--brand {
+        min-width: 124px;
+    }
+
+    .footer-brand__mark {
+        width: 60px;
+        height: 60px;
+    }
+
+    .footer-brand__label {
+        font-size: 0.8rem;
+        letter-spacing: 0.12em;
+    }
+}
+
+@container kiosk (max-width: 480px) {
+    .billboard-detail__body,
+    .billboard-detail__closing {
+        grid-template-columns: 1fr;
+    }
+
+    .billboard-detail__copy {
+        padding-left: 0;
+    }
+
+    .billboard-detail__sidebar {
+        padding-top: 0;
+    }
+
+    .billboard-detail__closing {
+        justify-items: center;
+    }
+
+    .billboard-detail__collage-image {
+        max-height: 240px;
+        object-position: center;
+    }
+
+    .billboard-detail__contact {
+        width: min(100%, 360px);
+        padding-top: 0;
+    }
+
+    .billboard-detail__logos {
+        flex-direction: column;
+        gap: 12px;
     }
 }
