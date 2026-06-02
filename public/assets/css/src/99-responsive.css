@@ -164,25 +164,34 @@
     }
 
     /* --- Rejilla de Idiomas --- */
+    .language-layout {
+        padding: 14px 12px 12px;
+    }
+
+    .language-card--floating {
+        width: 100%;
+        padding: 22px 18px 20px;
+        border-radius: 32px;
+    }
+
+    .language-card__chrome {
+        margin-bottom: 18px;
+    }
+
     .language-grid,
     .language-grid--spacious {
         grid-template-columns: 1fr;
         gap: 12px;
-        padding: 0 10px;
+        padding: 0;
     }
 
     .pill-button--language {
-        min-height: 56px;
-        font-size: 1.15rem;
-    }
-
-    .language-card__title--spacious {
-        margin-bottom: 24px;
-        font-size: 2.0rem;
+        min-height: 64px;
+        font-size: 1.05rem;
     }
 
     .language-instructions-container {
-        margin-bottom: 28px;
+        margin-bottom: 24px;
         gap: 8px;
     }
 
@@ -198,6 +207,15 @@
     .language-instruction__decorator {
         width: 7px;
         height: 7px;
+    }
+
+    .language-card__close {
+        width: 50px;
+        min-height: 50px;
+    }
+
+    .language-card__close .pill-button__icon {
+        font-size: 1.7rem;
     }
 
     /* --- Rejilla de Menú y Tarjetas --- */
