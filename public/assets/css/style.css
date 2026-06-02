@@ -527,11 +527,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .splash-copy__slot--eyebrow {
     min-height: 1em;
+    --splash-copy-shift: 1.35em;
 }
 
 .splash-copy__slot--cta {
     width: 100%;
     min-height: 1.2em;
+    --splash-copy-shift: 1.5em;
 }
 
 .splash-eyebrow {
@@ -556,7 +558,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .splash-eyebrow--next {
-    transform: translateY(-20px);
+    transform: translateY(calc(-1 * var(--splash-copy-shift, 1.35em)));
+    opacity: 0;
 }
 
 .splash-title {
@@ -597,7 +600,8 @@ body.totem-animations-disabled .splash-cta {
 }
 
 .splash-cta__text--next {
-    transform: translateY(20px);
+    transform: translateY(var(--splash-copy-shift, 1.5em));
+    opacity: 0;
 }
 
 .splash-copy__slot--exiting .splash-eyebrow--current {
@@ -654,36 +658,44 @@ body.totem-animations-disabled .splash-cta {
 @keyframes splashEyebrowExit {
     0% {
         transform: translateY(0);
+        opacity: 1;
     }
     100% {
-        transform: translateY(-20px);
+        transform: translateY(calc(-1 * var(--splash-copy-shift, 1.35em)));
+        opacity: 0;
     }
 }
 
 @keyframes splashEyebrowEnter {
     0% {
-        transform: translateY(-20px);
+        transform: translateY(calc(-1 * var(--splash-copy-shift, 1.35em)));
+        opacity: 0;
     }
     100% {
         transform: translateY(0);
+        opacity: 1;
     }
 }
 
 @keyframes splashCtaExit {
     0% {
         transform: translateY(0);
+        opacity: 1;
     }
     100% {
-        transform: translateY(20px);
+        transform: translateY(var(--splash-copy-shift, 1.5em));
+        opacity: 0;
     }
 }
 
 @keyframes splashCtaEnter {
     0% {
-        transform: translateY(20px);
+        transform: translateY(var(--splash-copy-shift, 1.5em));
+        opacity: 0;
     }
     100% {
         transform: translateY(0);
+        opacity: 1;
     }
 }
 
@@ -1485,9 +1497,9 @@ body.totem-animations-disabled .language-instruction {
     display: grid;
     align-content: start;
     gap: 18px;
-    padding: 2px 0 10px;
+    padding: 2px 0 0;
     width: 100%;
-    min-height: 100dvh;
+    min-height: 0;
 }
 
 .menu-title {
@@ -2431,43 +2443,6 @@ body.totem-animations-disabled .language-instruction {
 .school-course__qr-label {
     font-size: 0.68rem;
     color: rgba(53, 52, 48, 0.76);
-}
-
-.school-closing {
-    display: grid;
-    gap: 24px;
-    justify-items: center;
-    padding-top: 8px;
-}
-
-.school-closing__collage {
-    width: min(84%, 820px);
-    display: block;
-    margin-top: 6px;
-}
-
-.school-closing__logos {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 4px;
-}
-
-.school-closing__logo {
-    display: block;
-    object-fit: contain;
-}
-
-.school-closing__logo--primary {
-    width: 96px;
-    height: 96px;
-}
-
-.school-closing__logo--secondary {
-    width: 114px;
-    height: 114px;
-    border-radius: 50%;
 }
 
 .footer-ornament--school {
@@ -3920,6 +3895,310 @@ body.totem-animations-disabled .language-instruction {
     font-size: 0.92rem;
 }
 
+.billboard-detail {
+    display: grid;
+    gap: 26px;
+    width: 100%;
+    padding-bottom: 48px;
+}
+
+.billboard-detail__intro {
+    display: grid;
+    justify-items: start;
+    gap: 10px;
+    text-align: left;
+    padding: 6px 8px 0;
+}
+
+.billboard-detail__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.billboard-detail__tag {
+    border-color: rgba(53, 52, 48, 0.34);
+    background: transparent;
+    font-size: 0.76rem;
+    padding-inline: 12px;
+}
+
+.billboard-detail__show-title {
+    margin: 0;
+    color: var(--ink);
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-size: clamp(2.15rem, 4.7cqi, 3.15rem);
+    font-weight: 700;
+    line-height: 0.96;
+    letter-spacing: -0.01em;
+}
+
+.billboard-detail__meta {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.45;
+    font-size: 0.98rem;
+}
+
+.billboard-detail__meta strong {
+    color: var(--ink);
+    font-weight: 700;
+}
+
+.billboard-detail__media {
+    display: grid;
+    justify-items: center;
+    gap: 14px;
+}
+
+.billboard-detail__poster-frame {
+    margin: 0;
+    width: min(100%, 780px);
+    overflow: hidden;
+    border-radius: 0;
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+    aspect-ratio: 16 / 9;
+}
+
+.billboard-detail__poster {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.billboard-detail__nav {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 0;
+}
+
+.billboard-detail__nav-btn {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #34312d;
+    box-shadow: 0 6px 14px rgba(56, 44, 30, 0.16);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.billboard-detail__nav-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.billboard-detail__body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(176px, 0.36fr);
+    gap: 28px;
+    align-items: start;
+    margin-top: 6px;
+}
+
+.billboard-detail__copy {
+    min-width: 0;
+    padding-left: 8px;
+}
+
+.billboard-detail__lead {
+    margin: 0;
+    max-width: 33ch;
+    color: var(--ink);
+    font-size: 1rem;
+    line-height: 1.38;
+}
+
+.billboard-detail__sidebar {
+    display: grid;
+    gap: 18px;
+    align-content: start;
+    padding-top: 14px;
+}
+
+.billboard-detail__schedule {
+    display: grid;
+    gap: 2px;
+}
+
+.billboard-detail__date {
+    color: var(--ink);
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-size: clamp(1.75rem, 4cqi, 2.6rem);
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.billboard-detail__time {
+    color: var(--ink);
+    font-size: 1.12rem;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: 0.03em;
+}
+
+.billboard-detail__rule {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: rgba(53, 52, 48, 0.22);
+}
+
+.billboard-detail__metric {
+    display: grid;
+    gap: 14px;
+}
+
+.billboard-detail__metric-head {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--ink);
+    font-size: 1.02rem;
+    line-height: 1.15;
+}
+
+.billboard-detail__metric-head--strong {
+    font-weight: 700;
+}
+
+.billboard-detail__metric-head img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    flex: 0 0 auto;
+    margin-top: -1px;
+}
+
+.billboard-detail__metric-value {
+    color: var(--ink);
+    font-size: 1.02rem;
+    line-height: 1.4;
+}
+
+.billboard-detail__note {
+    margin: 0;
+    max-width: 14ch;
+    color: var(--ink);
+    font-size: 0.78rem;
+    line-height: 1.32;
+}
+
+.billboard-detail__closing {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(170px, 0.36fr);
+    gap: 24px 34px;
+    align-items: start;
+    padding-top: 12px;
+}
+
+.billboard-detail__collage {
+    min-width: 0;
+}
+
+.billboard-detail__collage-image {
+    display: block;
+    width: 100%;
+    max-height: 330px;
+    object-fit: contain;
+    object-position: left center;
+}
+
+.billboard-detail__contact {
+    display: grid;
+    justify-items: center;
+    gap: 14px;
+    text-align: center;
+    align-content: start;
+    padding-top: 40px;
+}
+
+.billboard-detail__qr-image {
+    display: block;
+    width: 120px;
+    height: auto;
+    image-rendering: auto;
+}
+
+.billboard-detail__contact-copy {
+    margin: 0;
+    max-width: 14ch;
+    color: var(--ink);
+    font-size: 1rem;
+    line-height: 1.34;
+}
+
+.billboard-detail__logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-column: 1 / -1;
+    gap: 26px;
+    align-self: end;
+    padding-top: 10px;
+}
+
+.billboard-detail__logo {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.billboard-detail__logo--ministry {
+    width: min(100%, 120px);
+}
+
+.billboard-detail__logo-mark {
+    width: min(100%, 122px);
+    border-radius: 0;
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+    object-fit: contain;
+}
+
+.billboard-detail__brand {
+    display: inline-grid;
+    justify-items: center;
+    gap: 8px;
+    min-width: 132px;
+    min-height: 76px;
+    padding: 8px 10px;
+}
+
+.billboard-detail__brand-mark {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: 3px solid var(--brand-gold);
+    background: url('../animations/logo.gif') no-repeat center center / cover;
+    box-shadow: 0 8px 18px rgba(74, 50, 24, 0.12);
+}
+
+.billboard-detail__brand-name {
+    color: var(--ink);
+    font-family: "Lato", "Trebuchet MS", "Segoe UI", sans-serif;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    line-height: 1.05;
+    text-transform: uppercase;
+    text-align: center;
+}
+
 .detail-layout {
     display: grid;
     grid-template-columns: minmax(0, 1.05fr) minmax(240px, 0.72fr);
@@ -4882,6 +5161,76 @@ body.totem-transitions-disabled .totem-transition-overlay {
     overflow: hidden;
 }
 
+.footer-brand {
+    display: grid;
+    gap: 26px;
+    justify-items: center;
+    width: 100%;
+    max-width: 760px;
+    margin-inline: auto;
+    margin-top: 56px;
+    margin-bottom: 32px;
+    padding-top: 12px;
+}
+
+.footer-brand__logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.footer-brand__logo {
+    display: grid;
+    place-items: center;
+    gap: 8px;
+}
+
+.footer-brand__logo--state {
+    width: 110px;
+    min-height: 110px;
+}
+
+.footer-brand__logo-image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.footer-brand__logo--brand {
+    min-width: 142px;
+}
+
+.footer-brand__mark {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: 3px solid var(--brand-gold);
+    background: url('../animations/logo.gif') no-repeat center center / cover;
+    box-shadow: 0 8px 18px rgba(74, 50, 24, 0.12);
+}
+
+.footer-brand__label {
+    color: var(--ink);
+    font-family: "Lato", "Trebuchet MS", "Segoe UI", sans-serif;
+    font-size: 0.86rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    line-height: 1.05;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.footer-brand--school {
+    max-width: 860px;
+}
+
+.footer-brand--school .footer-brand__logos {
+    gap: 20px 30px;
+}
+
 .footer-cloud,
 .footer-stage {
     position: absolute;
@@ -5069,6 +5418,35 @@ body.totem-transitions-disabled .totem-transition-overlay {
 
     .screen__panel {
         border-radius: 30px;
+    }
+
+    .footer-brand {
+        max-width: 880px;
+        gap: 28px;
+        margin-top: 50px;
+        margin-bottom: 30px;
+    }
+
+    .footer-brand__logos {
+        gap: 20px 30px;
+    }
+
+    .footer-brand__logo--state {
+        width: 120px;
+        min-height: 120px;
+    }
+
+    .footer-brand__logo--brand {
+        min-width: 156px;
+    }
+
+    .footer-brand__mark {
+        width: 76px;
+        height: 76px;
+    }
+
+    .footer-brand__label {
+        font-size: 0.96rem;
     }
 }
 
@@ -5277,6 +5655,27 @@ body.totem-transitions-disabled .totem-transition-overlay {
         aspect-ratio: 3 / 4;
     }
 
+    .billboard-detail__show-title {
+        font-size: clamp(1.8rem, 6.8cqi, 2.6rem);
+    }
+
+    .billboard-detail__meta {
+        font-size: 0.96rem;
+    }
+
+    .billboard-detail__lead {
+        font-size: 1rem;
+    }
+
+    .billboard-detail__nav-btn {
+        width: 48px;
+        height: 48px;
+    }
+
+    .billboard-detail__qr-image {
+        width: 100px;
+    }
+
     .hero__ornament--stage {
         width: 100%;
     }
@@ -5389,24 +5788,6 @@ body.totem-transitions-disabled .totem-transition-overlay {
         height: 64px;
     }
 
-    .school-closing__collage {
-        width: 100%;
-    }
-
-    .school-closing__logos {
-        gap: 14px;
-    }
-
-    .school-closing__logo--primary {
-        width: 78px;
-        height: 78px;
-    }
-
-    .school-closing__logo--secondary {
-        width: 88px;
-        height: 88px;
-    }
-
     .school-dossier {
         gap: 16px;
         padding-bottom: 24px;
@@ -5479,6 +5860,10 @@ body.totem-transitions-disabled .totem-transition-overlay {
         width: 132px;
     }
 
+    .billboard-detail__poster-frame {
+        aspect-ratio: 4 / 3;
+    }
+
     /* --- Ilustraciones Decorativas y Elementos redundantes --- */
     .splash-scene .splash-collage {
         display: block;
@@ -5536,5 +5921,69 @@ body.totem-transitions-disabled .totem-transition-overlay {
 
     .menu-coda {
         padding-inline: 10px;
+    }
+
+    .footer-brand {
+        gap: 18px;
+        margin-top: 36px;
+        margin-bottom: 24px;
+        padding-top: 8px;
+    }
+
+    .footer-brand__logos {
+        gap: 14px 18px;
+    }
+
+    .footer-brand__logo--state {
+        width: 96px;
+        min-height: 96px;
+    }
+
+    .footer-brand__logo--brand {
+        min-width: 124px;
+    }
+
+    .footer-brand__mark {
+        width: 60px;
+        height: 60px;
+    }
+
+    .footer-brand__label {
+        font-size: 0.8rem;
+        letter-spacing: 0.12em;
+    }
+}
+
+@container kiosk (max-width: 480px) {
+    .billboard-detail__body,
+    .billboard-detail__closing {
+        grid-template-columns: 1fr;
+    }
+
+    .billboard-detail__copy {
+        padding-left: 0;
+    }
+
+    .billboard-detail__sidebar {
+        padding-top: 0;
+    }
+
+    .billboard-detail__closing {
+        justify-items: center;
+    }
+
+    .billboard-detail__collage-image {
+        max-height: 240px;
+        object-position: center;
+    }
+
+    .billboard-detail__contact {
+        width: min(100%, 360px);
+        padding-top: 0;
+    }
+
+    .billboard-detail__logos {
+        flex-direction: column;
+        gap: 12px;
     }
 }
