@@ -575,22 +575,49 @@ class TotemController extends BaseController
             ];
         }
 
+        $courses = array_slice($courses, 0, 1);
+
+        $teachers = [
+            ['tone' => 'teacher-card--amber'],
+            ['tone' => 'teacher-card--navy'],
+            ['tone' => 'teacher-card--olive'],
+            ['tone' => 'teacher-card--sepia'],
+            ['tone' => 'teacher-card--rose'],
+            ['tone' => 'teacher-card--crimson'],
+            ['tone' => 'teacher-card--gold'],
+            ['tone' => 'teacher-card--ink'],
+        ];
+
         return [
             'nav' => $this->shellNav(),
             'section' => [
-                'eyebrow' => lang('Menu.school_copy'),
                 'title' => lang('Menu.school'),
-                'copy' => 'Diseñado como una página viva con cursos, fechas, categorías y contacto. La prioridad es que la información larga se entienda sin esfuerzo y conserve el clima editorial de la propuesta.',
-                'visualClass' => 'section-hero__visual section-hero__visual--school',
-                'detailsTitle' => 'Próximos cursos',
-                'detailsCopy' => 'Cada ficha debe sostenerse con una etiqueta, una fecha de inicio y un resumen corto. Si el contenido crece, la estructura sigue siendo legible en scroll.',
+                'heroImage' => 'assets/img/menu/menu_escuela.webp',
+                'heroAlt' => 'Escuela de teatro del Teatromuseo',
+                'introCopy' => 'TeatroEscuela es el área de la Fundación Teatromuseo del Títere y el Payaso que desarrolla y lleva a cabo los planes pedagógicos con los que la organización promueve, difunde y conserva los ancestrales oficios escénicos de la animación, la nariz roja y la máscara cómica.',
                 'stats' => [
-                    ['label' => 'Escuela', 'value' => 'Talleres y formación'],
-                    ['label' => 'Duración', 'value' => 'Ciclos cortos'],
-                    ['label' => 'Contacto', 'value' => 'teatroescuela@teatromuseo.cl'],
+                    ['label' => 'Cursos', 'value' => '50'],
+                    ['label' => 'Maestros', 'value' => '20'],
+                    ['label' => 'Alumnos', 'value' => '1000'],
                 ],
+                'teachersTitle' => 'Maestros',
+                'coursesTitle' => 'Cursos',
+                'courseImage' => 'assets/img/menu/menu_programacion.webp',
+                'courseTag' => 'Nacional',
+                'courseTitle' => 'La Escuela de los Nuevos Comediantes',
+                'courseStart' => 'Fecha de inicio: lunes 20 de abril de 2026',
+                'courseCopy' => 'Desde el año 2007, la Fundación Teatromuseo del Títere y el Payaso, ha fundado el programa, difundir y profesionalizar estas artes de la representación en nuestro país. A través de una escuela de formación nacional e internacional, un museo especializado en ambas disciplinas escénicas y una sala de teatro con una cartelera familiar permanente.',
+                'courseContactLabel' => 'Correo de contacto:',
+                'courseContact' => 'teatroescuela@teatromuseo.cl',
+                'courseQrLabel' => 'Más información',
+                'courseQrImage' => 'assets/img/school/teatroescuela-qr.png',
+                'courseQrUrl' => 'https://teatromuseo.cl/teatro-escuela?utm_source=totem',
+                'closingImage' => 'assets/img/school/school_collage.webp',
+                'logoPrimary' => 'assets/img/logos/ministerio_culturas_chile.png',
+                'logoSecondary' => 'assets/img/menu/menu_escuela.webp',
             ],
             'courses' => $courses,
+            'teachers' => $teachers,
         ];
     }
 
