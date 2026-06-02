@@ -726,16 +726,20 @@ class TotemController extends BaseController
     private function billboardDetailSection($slug = null): array
     {
         $title = 'La Malattia di Nogasto';
-        $copy = 'Una comedia física y clownesca construida para el tótem: lectura inmediata, bloques de información bien separados y una imagen central protagonista. El texto largo debe convivir con fichas rápidas y una señal clara para obtener más información.';
+        $copy = 'Una comedia para toda la familia, que los hará viajar por diferentes estados, donde la belleza del arte del malabar, se entremezcla con estos encantadores clown. El público es su mejor aliado, ya que los niños gozarán como nunca y los padres volverán a ser niños. Estos payasos embarcarán a su público en un vertiginoso viaje con números de magia sobre-humanos y malabares que desafiaban a la muerte cada instante, con un deseo incontrolable de despertar en el espectador la risa. Este espectáculo consta de diversas rutinas, los cuales a través de su música e instrumentos van hilando cada número. Se presentarán números clásicos de payasos, además de magia, malabares, música en campanitas, equilibrios y concursos con mucha interacción con el público. Está dirigido a toda la familia y tiene una duración de 50 min. Este espectáculo es adaptable para hacerlo en salas, teatros o al aire libre y su tiempo de duración es flexible para mayor comodidad del evento.';
         $tags = ['Adultos', 'Máscaras'];
+        $image = 'assets/img/billboard/la-malattia-di-nogasto-poster.webp';
+        $closingImage = 'assets/img/billboard/la-malattia-di-nogasto-collage.webp';
+        $qrImage = 'assets/img/school/teatroescuela-qr.png';
+        $closingNote = 'Síguenos en Instagram y entérate de más detalles';
         
         if ($slug === 'muaki') {
             $title = 'Muaki';
-            $copy = 'Una propuesta de cuerpo, suspensión y juego con una visualidad frontal y directa. Máscara cómica y comedia del arte se entrelazan de manera magistral.';
+            $copy = 'Una propuesta de cuerpo, suspensión y juego con una visualidad frontal y directa. La máscara cómica y la comedia del arte se cruzan en una pieza breve, intensa y muy táctil.';
             $tags = ['Adultos', 'Máscaras'];
         } elseif ($slug === 'ayayai') {
             $title = 'Ayayai';
-            $copy = 'Escena física con humor, música y objetos para público de todas las edades. Risas, música en vivo y juego gestual garantizados.';
+            $copy = 'Escena física con humor, música y objetos para público de todas las edades. El movimiento y el gesto sostienen una función clara, cálida y cercana.';
             $tags = ['Familiar', 'Payasos'];
         } elseif ($slug === 'rock-festival') {
             $title = 'Rock festival';
@@ -748,13 +752,17 @@ class TotemController extends BaseController
             'detail' => [
                 'tags' => $tags,
                 'title' => $title,
+                'image' => $image,
                 'company' => 'Compañía Teatromuseo',
                 'direction' => 'Dirección: Víctor Quiroga',
                 'date' => 'Sábado 10 de mayo',
                 'time' => '19.00 h',
-                'duration' => '50 min aprox.',
+                'duration' => '50 min',
                 'price' => 'General: $4.500',
                 'copy' => $copy,
+                'closingImage' => $closingImage,
+                'qrImage' => $qrImage,
+                'closingNote' => $closingNote,
             ],
         ];
     }
