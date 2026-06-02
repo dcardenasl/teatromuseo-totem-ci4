@@ -9,7 +9,7 @@ return [
     'triad_title' => 'Marionnettes, clowns et masques',
     'main_intro' => 'La collection rassemble pièces, récits et traditions sous la forme d’une petite exposition éditoriale. Choisissez un accès pour entrer dans chaque archive spécialisée.',
     'main_note' => 'Pensé pour la navigation tactile: trois entrées lisibles, un parcours court et une continuité visuelle entre l’archive et la visite.',
-    'puppets' => 'Marionnettes',
+    'puppets' => "Marion\u{00AD}nettes",
     'puppets_copy' => 'Techniques, matières et savoir-faire des figures animées.',
     'masks' => 'Masques',
     'masks_copy' => 'Traditions vivantes, symboles et visages de carnaval.',
