@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 return [
     'select_language' => 'Selecione o seu idioma',
+    'current_language' => 'Idioma atual',
+    'close_selector' => 'Fechar seletor de idiomas',
     'museum' => 'O Museu',
     'museum_copy' => 'Sobre o Espaço',
     'history' => 'História',

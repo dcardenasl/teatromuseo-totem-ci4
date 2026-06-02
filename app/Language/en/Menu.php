@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 return [
     'select_language' => 'Select your language',
+    'current_language' => 'Current language',
+    'close_selector' => 'Close language selector',
     'museum' => 'The Museum',
     'museum_copy' => 'About the Space',
     'history' => 'History',
