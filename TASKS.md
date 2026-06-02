@@ -26,7 +26,7 @@ Esta sección documenta la comparación real entre el tótem en `http://localhos
 | PDF de referencia | Ruta actual | Vista principal | Estado | Prioridad |
 |---|---|---|---|---|
 | `MENU PRINCIPAL.pdf` | `/menu` | [app/Views/totem/main_menu.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/main_menu.php) | Pulido aplicado | Media |
-| `COLECCION.pdf` | `/museo/coleccion` y subrutas | [app/Views/totem/collection_main.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_main.php) | Lejos del PDF | Alta |
+| `COLECCION.pdf` | `/museo/coleccion` (pantalla única con scroll — ver decisión arquitectura 1/6) | [app/Views/totem/collection_main.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_main.php) | Pendiente rediseño — bloqueado por assets de Coni | Alta |
 | `HISTORIA COMICA.pdf` | `/museo/historia-comica` | [app/Views/totem/comic_history_main.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/comic_history_main.php) | Lejos del PDF | Alta |
 | `CARTELERA DETALLE.pdf` | `/cartelera/detalle/{slug}` | [app/Views/totem/billboard_detail.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/billboard_detail.php) | Parcial | Alta |
 | `TEATROESCUELA.pdf` | `/teatro-escuela` | [app/Views/totem/section.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/section.php) | Lejos del PDF | Alta |
@@ -52,53 +52,28 @@ Esta sección documenta la comparación real entre el tótem en `http://localhos
       4. El header debe conservar la misma lógica de navegación y tamaño de botones que el PDF.
 
 ### B. Colección del Museo
-- [x] **B1 — Rediseñar `/museo/coleccion` con la composición editorial del PDF**
+> ⚠️ **Cambio de arquitectura (1/6):** La navegación se simplificó. `collection_main` es ahora la única pantalla de colección — muestra Títeres, Payasos y Máscaras con scroll, navegando directo a fichas. Las subrutas `/titeres`, `/mascaras`, `/payasos` y sus vistas quedan obsoletas y serán eliminadas.
+
+- [ ] **B1 — Rediseñar `collection_main` según diseño aprobado de Coni** (`/museo/coleccion`)
   * **PDF de referencia:** `COLECCION.pdf`
   * **Ruta actual:** `/museo/coleccion`
-  * **Archivos a tocar:** [app/Views/totem/collection_main.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_main.php), potencialmente [public/assets/css/src/screens/collection.css](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/public/assets/css/src/screens/collection.css)
-  * **Brecha visual:** La pantalla actual presentaba solo el título y textos dispersos. La implementación ahora convierte la ruta en una portada editorial con piezas grandes, ilustraciones protagonistas, botones visibles y una sensación de catálogo curado.
+  * **Archivos a tocar:** [app/Views/totem/collection_main.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_main.php)
+  * **Bloqueante:** ⏳ Assets de Coni pendientes (reunión 4/6).
   * **Criterio de aceptación:**
-      1. Deben verse claramente los tres accesos principales: `Títeres`, `Payasos` y `Máscaras`.
-      2. Cada acceso debe tener peso visual propio, no solo texto suelto.
-      3. Los CTA de cada bloque deben tener jerarquía y contraste similares al PDF.
-      4. El fondo y los ornamentos deben sostener el clima de museo/archivo.
-- [ ] **B2 — Rediseñar `/museo/coleccion/titeres` para mostrar técnicas con estética de referencia**
-  * **PDF de referencia:** `COLECCION.pdf`
-  * **Ruta actual:** `/museo/coleccion/titeres`
-  * **Archivos a tocar:** [app/Views/totem/collection_techniques.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_techniques.php)
-  * **Brecha visual:** Hoy se muestra un listado muy plano de enlaces. El PDF sugiere una pantalla con mayor cuerpo visual, más cercana a una pieza de catálogo que a un índice técnico.
-  * **Criterio de aceptación:**
-      1. El contenido no debe parecer una lista de texto sin tratamiento.
-      2. Cada técnica debe ser visualmente clickeable como tarjeta o bloque curado.
-      3. Debe existir una relación clara entre imágenes, título y navegación.
-- [ ] **B3 — Completar `/museo/coleccion/mascaras` con botones y bloques gráficos**
-  * **PDF de referencia:** `COLECCION.pdf`
-  * **Ruta actual:** `/museo/coleccion/mascaras`
-  * **Archivos a tocar:** [app/Views/totem/collection_masks.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_masks.php)
-  * **Brecha visual:** La navegación básica está resuelta, pero la página se siente demasiado vacía frente al estándar visual del PDF.
-  * **Criterio de aceptación:**
-      1. Debe sentirse como una pantalla de navegación central, no un simple índice.
-      2. Los accesos de tradición deben tener presencia suficiente en pantalla completa.
-      3. El layout debe mantener ritmo visual y no dejar huecos dominantes.
-- [ ] **B4 — Sustituir `collection_clowns.php` por una pantalla editorial real**
-  * **PDF de referencia:** `COLECCION.pdf`
-  * **Ruta actual:** `/museo/coleccion/payasos`
-  * **Archivos a tocar:** [app/Views/totem/collection_clowns.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_clowns.php)
-  * **Brecha visual:** Hoy la vista es un placeholder textual. La referencia pide un bloque editorial con peso gráfico y conexión narrativa con Historia Cómica.
-  * **Criterio de aceptación:**
-      1. No debe verse como un stub o demo interna.
-      2. Debe enlazar con una intención editorial clara.
-      3. Debe conservar la estética del resto de la colección.
-- [ ] **B5 — Convertir `/museo/coleccion/fichas/{id}` en ficha completa**
-  * **PDF de referencia:** `COLECCION.pdf`
+      1. Una sola pantalla con scroll muestra Títeres, Payasos y Máscaras como secciones.
+      2. Cada sección tiene ilustraciones decorativas de Coni (PNG placeholder → swap final).
+      3. Los links van directo a `/museo/coleccion/fichas/{id}`, sin pantalla intermedia.
+      4. Las rutas y vistas obsoletas están eliminadas.
+- [ ] **B2 — Implementar ficha individual de objeto** (`/museo/coleccion/fichas/{id}`)
+  * **PDF de referencia:** `COLECCION.pdf` (versión corregida — no recibida aún)
   * **Ruta actual:** `/museo/coleccion/fichas/{id}`
-  * **Archivos a tocar:** [app/Views/totem/collection_item_detail.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_item_detail.php), [app/Controllers/TotemController.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Controllers/TotemController.php)
-  * **Brecha visual:** El detalle actual no opera como ficha museográfica completa. Falta una composición con imagen dominante, metadatos y descripción de lectura cómoda.
+  * **Archivos a tocar:** [app/Views/totem/collection_item_detail.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_item_detail.php)
+  * **Bloqueante:** ⏳ Coni mostró diseño el 27/5 con corrección pendiente (layout muy espaciado). PDF corregido no recibido (reunión 4/6).
   * **Criterio de aceptación:**
       1. La imagen principal debe ser protagonista.
-      2. Los metadatos deben estar claramente separados del cuerpo editorial.
-      3. No deben mostrarse campos técnicos no deseados.
-      4. La ficha debe ser usable sin depender de scroll caótico.
+      2. Metadatos claramente separados del cuerpo editorial.
+      3. No mostrar el campo `contenido` (excluido de la API del tótem).
+      4. Usable sin scroll caótico.
 
 ### C. Historia Cómica
 - [ ] **C1 — Rediseñar `/museo/historia-comica` para que coincida con el PDF**
@@ -212,8 +187,8 @@ Esta tabla debe mantenerse actualizada cuando se cambie cualquier imagen, ilustr
 | Cartelera detalle - Icono ticket | `public/assets/img/ui/icon_ticket.webp` | `/cartelera/detalle/{slug}` | final | Coincide con el bloque de precio/entrada. |
 | Fondo / textura papel | `public/assets/img/ui/texture.png` | Todas las pantallas | final | Es la base visual del sistema. |
 | Portada de Historia Cómica | `ausente` | `/museo/historia-comica` | ausente | El PDF usa una composición editorial fuerte que hoy no tiene un asset equivalente explícito en `public/assets/img/`. |
-| Hero / escena principal de Teatro Escuela | `ausente` | `/teatro-escuela` | ausente | La referencia requiere una pieza principal mucho más elaborada que la actual. |
-| QR editorial del dossier de Escuela | `ausente` | `/teatro-escuela` | ausente | Falta el asset exacto o una composición equivalente exportada desde diseño. |
+| Hero / escena principal de Teatro Escuela | `public/assets/img/school/school_collage.webp` | `/teatro-escuela` | provisional | Ya sostiene el hero principal; todavía falta la composición más rica del PDF. |
+| QR editorial del dossier de Escuela | `public/assets/img/school/teatroescuela-qr.png` | `/teatro-escuela` | final | QR real generado para el enlace público de Teatro Escuela con `?utm_source=totem`. |
 | Afiche o foto principal de cartelera por obra | `ausente` | `/cartelera/detalle/{slug}` | ausente | Cada obra debería tener su propia imagen editorial y no reciclar un placeholder genérico. |
 | Ilustraciones secundarias de cierre en Escuela | `ausente` | `/teatro-escuela` | ausente | Faltan varios ornamentos finales del PDF para reproducir la misma densidad visual. |
 
@@ -362,11 +337,11 @@ Esta lista convierte la auditoría visual en pasos accionables. Si se quiere ret
 | Pantalla | Bloque principal a resolver | Archivo principal | Estado actual | Próxima acción concreta |
 |---|---|---|---|---|
 | `/menu` | Ajuste fino de composición | [app/Views/totem/main_menu.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/main_menu.php) | cercano | Revisar espaciado, escala y cierre inferior comparando captura contra PDF. |
-| `/museo/coleccion` | Portada editorial | [app/Views/totem/collection_main.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_main.php) | lejos | Rediseñar la jerarquía visual con Títeres, Payasos y Máscaras como bloques dominantes. |
-| `/museo/coleccion/titeres` | Técnicas de títeres | [app/Views/totem/collection_techniques.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_techniques.php) | lejos | Sustituir lista plana por tarjetas o bloques con presencia gráfica real. |
-| `/museo/coleccion/mascaras` | Tradiciones | [app/Views/totem/collection_masks.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_masks.php) | parcial | Reforzar CTA, ornamentación y respiración visual. |
-| `/museo/coleccion/payasos` | Narrativa editorial | [app/Views/totem/collection_clowns.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_clowns.php) | placeholder | Reemplazar stub por bloque editorial con vínculo claro a Historia Cómica. |
-| `/museo/coleccion/fichas/{id}` | Ficha de objeto | [app/Views/totem/collection_item_detail.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_item_detail.php) | parcial | Rehacer layout de 2 columnas y reemplazar contenido de prueba. |
+| `/museo/coleccion` | Pantalla única con scroll (Títeres + Payasos + Máscaras) | [app/Views/totem/collection_main.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_main.php) | Pendiente rediseño | ⏳ Bloqueado por assets de Coni. Al recibirlos: rediseñar, eliminar subrutas y vistas obsoletas. |
+| ~~`/museo/coleccion/titeres`~~ | ~~Técnicas~~ | ~~collection_techniques.php~~ | **OBSOLETA** | Eliminar ruta y vista al implementar rediseño de collection_main. |
+| ~~`/museo/coleccion/mascaras`~~ | ~~Tradiciones~~ | ~~collection_masks.php~~ | **OBSOLETA** | Eliminar ruta y vista al implementar rediseño de collection_main. |
+| ~~`/museo/coleccion/payasos`~~ | ~~Editorial payasos~~ | ~~collection_clowns.php~~ | **OBSOLETA** | Eliminar ruta y vista al implementar rediseño de collection_main. |
+| `/museo/coleccion/fichas/{id}` | Ficha individual de objeto | [app/Views/totem/collection_item_detail.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_item_detail.php) | Pendiente diseño | ⏳ Bloqueado por PDF corregido de Coni (reunión 4/6). |
 | `/museo/historia-comica` | Portada / línea de tiempo | [app/Views/totem/comic_history_main.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/comic_history_main.php) | lejos | Redibujar la pantalla como pieza editorial fuerte con composición central. |
 | `/museo/historia-comica/{slug}` | Detalle de capítulo | vista asociada a controlador | parcial | Alinear el detalle con una estructura de artículo real. |
 | `/cartelera/detalle/{slug}` | Afiche editorial | [app/Views/totem/billboard_detail.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/billboard_detail.php) | parcial | Separar claramente imagen, descripción y ficha lateral. |
@@ -389,7 +364,7 @@ Para cualquier desarrollo en este módulo, guíate por este mapa de archivos cla
 *   **Controlador Principal:** `app/Controllers/TotemController.php` (lógica de servidor y fetch de datos)
 *   **Vistas de Pantalla:** `app/Views/totem/` (layouts HTML)
 *   **Layout Base del Tótem:** `app/Views/layouts/MainLayout.php` (estructura global de HTML/CSS/JS)
-*   **Servicio Cliente API:** `app/Services/TotemApiService.php` *(Nuevo a implementar)*
+*   **Servicio Cliente API:** `app/Services/TotemApiService.php` ✅ Implementado
 *   **Estilos CSS compilados:** `public/assets/css/style.css` (generado compilando los parciales en `/src/`)
 *   **Hojas de Estilo Parciales:** `public/assets/css/src/` (modificar aquí, y luego correr `composer build:css`)
 *   **Lógica de Interacción JS:** `public/assets/js/app.js` (idle timer, cookies, handlers táctiles)
@@ -459,8 +434,11 @@ Para cualquier desarrollo en este módulo, guíate por este mapa de archivos cla
 
 ---
 
-## 🌊 OLEADA 2: Cobertura Completa de Contenidos (Semana 2/6 a 8/6)
+## 🌊 OLEADA 2: Cobertura Completa de Contenidos
+> **Estado:** Bloques A, B y C completados ✅ — Bloques D, E y F pendientes.
 > **Objetivo:** Desarrollar todas las nuevas pantallas y vistas de navegación profunda detalladas en el plano de la v1.0, incorporando los assets definitivos de diseño y las decisiones del equipo.
+>
+> ⚠️ **Decisión de arquitectura (1/6):** La navegación de Colección fue simplificada. El diseño de Coni unifica Títeres, Payasos y Máscaras en una sola pantalla con scroll (`/museo/coleccion`), desde donde se navega directo a fichas individuales. Las rutas intermedias `/coleccion/titeres`, `/coleccion/mascaras` y `/coleccion/payasos` quedan obsoletas. Las vistas `collection_techniques.php`, `collection_masks.php` y `collection_clowns.php` serán reemplazadas al implementar el rediseño de `collection_main.php`.
 
 ### 1. Bloque A: Colección del Museo (Estructura de Navegación)
 - [x] **Rutas dinámicas en CodeIgniter 4**
@@ -474,30 +452,26 @@ Para cualquier desarrollo en este módulo, guíate por este mapa de archivos cla
       $routes->get('museo/coleccion/payasos', 'TotemController::collectionClowns');
       $routes->get('museo/coleccion/fichas/(:num)', 'TotemController::collectionItem/$1');
       ```
-- [x] **A1 — Vista Principal de Colección** (`/museo/coleccion`)
-  *   **Ruta de Implementación:** Crear [app/Views/totem/collection_main.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_main.php)
-  *   **Instrucciones:** Diseñar una vista limpia con 3 tarjetas táctiles de grandes dimensiones (Títeres, Máscaras, Payasos) usando las clases de CSS correspondientes.
-- [x] **A2 — Pantalla de Técnicas de Títeres** (`/museo/coleccion/titeres`)
-  *   **Ruta de Implementación:** Crear [app/Views/totem/collection_techniques.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_techniques.php)
-  *   **Instrucciones:** Consumir el endpoint `GET /api/v1/totem/techniques` a través de `TotemApiService` y pintar el listado en un grid.
-- [x] **A3 — Pantalla de Técnica Individual** (`/museo/coleccion/titeres/{slug}`)
-  *   **Ruta de Implementación:** Crear [app/Views/totem/collection_technique_detail.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_technique_detail.php)
-  *   **Instrucciones:** Consumir el endpoint `GET /api/v1/totem/technique/{id}`. Mostrar cabecera editorial y grid de 3 columnas para las fichas de objetos que pertenezcan a esa técnica.
-- [x] **A4 — Ficha Individual de Objeto (Títere / Máscara)** (`/museo/coleccion/fichas/{id}`)
-  *   **Ruta de Implementación:** Crear [app/Views/totem/collection_item_detail.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_item_detail.php)
+- [x] **A1 — Vista Principal de Colección creada** (`/museo/coleccion`) ✅
+  *   **Ruta de Implementación:** [app/Views/totem/collection_main.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_main.php)
+  *   **Estado:** Vista estructurada y funcional. Pendiente de rediseño final con assets de Coni (ver A3).
+- [x] **A2 — Rutas y vistas intermedias por tipo creadas** ~~(`/museo/coleccion/titeres`, `/mascaras`, `/payasos`)~~ ⚠️ OBSOLETAS
+  *   **Nota:** Estas vistas (`collection_techniques.php`, `collection_masks.php`, `collection_clowns.php`) y sus rutas fueron creadas pero quedan obsoletas por el cambio de arquitectura del 1/6. Serán eliminadas al implementar A3.
+- [ ] **A3 — Rediseño de `collection_main` según diseño aprobado de Coni** (`/museo/coleccion`)
+  *   **Ruta de Implementación:** [app/Views/totem/collection_main.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_main.php)
+  *   **Bloqueante:** ⏳ Requiere assets PNG de Coni (ilustraciones decorativas por sección). Pendiente reunión 4/6.
   *   **Instrucciones:**
+      1. Rediseñar `collection_main` como pantalla única con scroll: sección Títeres → sección Payasos → sección Máscaras.
+      2. Cada sección enlaza directo a `/museo/coleccion/fichas/{id}`.
+      3. Eliminar rutas `/coleccion/titeres`, `/coleccion/mascaras`, `/coleccion/payasos` de `Routes.php`.
+      4. Eliminar vistas `collection_techniques.php`, `collection_masks.php`, `collection_clowns.php`.
+- [ ] **A4 — Ficha Individual de Objeto** (`/museo/coleccion/fichas/{id}`)
+  *   **Ruta de Implementación:** [app/Views/totem/collection_item_detail.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_item_detail.php)
+  *   **Bloqueante:** ⏳ Coni mostró diseño el 27/5 con corrección pendiente (layout muy espaciado). PDF corregido no recibido. Pendiente reunión 4/6.
+  *   **Instrucciones cuando llegue el diseño:**
       1. Consumir `GET /api/v1/totem/collection/{id}`.
-      2. Diseñar layout de 2 columnas: izquierda para carrusel táctil de fotos, derecha para metadatos (Origen, Período, Técnica) y descripción editorial.
-      3. Asegurar que no se procese ni muestre el campo pesado `contenido`.
-- [x] **A5 — Pantalla Máscaras: Tradiciones** (`/museo/coleccion/mascaras`)
-  *   **Ruta de Implementación:** Crear [app/Views/totem/collection_masks.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_masks.php)
-  *   **Instrucciones:** Navegación pura con 2 grandes accesos: Comedia del Arte / Comedia del Andes.
-- [x] **A6 — Tradición Individual (Máscaras)** (`/museo/coleccion/mascaras/{slug}`)
-  *   **Ruta de Implementación:** Crear [app/Views/totem/collection_mask_tradition_detail.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_mask_tradition_detail.php)
-  *   **Instrucciones:** Consumir `GET /api/v1/totem/collection?category=mascaras&tradition={slug}` y renderizar el catálogo de máscaras de dicha tradición.
-- [x] **A7 — Pantalla Payasos** (`/museo/coleccion/payasos`)
-  *   **Ruta de Implementación:** Crear [app/Views/totem/collection_clowns.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_clowns.php)
-  *   **Instrucciones:** Diseñar una vista enriquecida de lectura y enlazar de forma directa a hitos de la línea de tiempo de Historia Cómica.
+      2. Implementar layout según PDF corregido de Coni.
+      3. No mostrar el campo `contenido` (excluido de la respuesta del tótem).
 
 ### 2. Bloque B: Historia Cómica
 - [x] **Rutas dinámicas en CodeIgniter 4**
@@ -533,7 +507,7 @@ Para cualquier desarrollo en este módulo, guíate por este mapa de archivos cla
   *   **Instrucciones:** Consumir `GET /api/v1/totem/museum` y mostrar logros más representativos (e.g. FMIM 2024).
 
 ### 4. Bloque D: Teatro Escuela (Rediseño a Dossier)
-- [ ] **D1 — Rediseño del Layout del Teatro Escuela** (`/teatro-escuela`)
+- [x] **D1 — Rediseño del Layout del Teatro Escuela** (`/teatro-escuela`)
   *   **Ruta de Implementación:** Modificar [app/Views/totem/section.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/section.php) (o crear una vista dedicada `theater_school_dossier.php`)
   *   **Instrucciones:**
       1. Integrar sección superior para embed de YouTube (silenciado e interactivo).
@@ -543,12 +517,11 @@ Para cualquier desarrollo en este módulo, guíate por este mapa de archivos cla
 
 ### 5. Bloque E: Extensión & Formulario de Contacto
 - [ ] **E1 — Teclado Táctil e Integración de QR Dinámico** (`/extension`)
-  *   **Ruta de Implementación:**
-      *   Modificar [app/Config/Routes.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Config/Routes.php) (Registrar `/extension` y configurar redirect 301/302 de `/visitas-guiadas` a `/extension`)
-      *   Crear [app/Views/totem/extension_contact.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/extension_contact.php)
+  *   **Estado:** La ruta `/extension`, el redirect desde `/visitas-guiadas` y la vista `extension_contact.php` ya existen ✅. Lo pendiente es el teclado táctil y el QR dinámico.
+  *   **Ruta de Implementación:** [app/Views/totem/extension_contact.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/extension_contact.php)
   *   **Instrucciones:**
-      1. Cargar e inicializar la librería `simple-keyboard` en la pantalla. Desplegar teclado virtual en la zona inferior cuando un input de texto o email obtenga el foco táctil.
-      2. Integrar `qrcode.js` para generar de manera dinámica un código QR que sirva como alternativa si el WiFi falla. La URL debe apuntar a la sección de contacto del sitio web agregando `?utm_source=totem`.
+      1. Cargar e inicializar la librería `simple-keyboard`. Desplegar teclado virtual en la zona inferior cuando un input obtenga el foco táctil.
+      2. Integrar `qrcode.js` para generar un QR dinámico que apunte a la sección de contacto del sitio web con `?utm_source=totem`.
 
 ### 6. Bloque F: Lógicas e Interactividades de UX
 - [ ] **F1 — Carrusel Táctil en Detalle de Obra**
@@ -564,9 +537,8 @@ Para cualquier desarrollo en este módulo, guíate por este mapa de archivos cla
 - [ ] **F3 — Preparación de Contenedores de Ilustraciones**
   *   **Ruta de Implementación:** Modificar parciales CSS en [public/assets/css/src/screens/](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/public/assets/css/src/screens/)
   *   **Instrucciones:** Asegurar que los contenedores CSS con IDs como `#il-payaso` tengan altura y anchura explícitas para evitar saltos bruscos en el layout (*CLS*) cuando se intercambien las imágenes PNG por GIFs o Lotties animados finales.
-- [ ] **F4 — Solución a la Ambigüedad del Enlace `/historia`**
-  *   **Ruta de Implementación:** Modificar [app/Controllers/TotemController.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Controllers/TotemController.php)
-  *   **Instrucciones:** Tras la reunión del 1/6 con Paulina, aplicar la resolución (e.g. eliminar o configurar redirect 302 hacia `/museo/el-museo`).
+- [x] **F4 — Ambigüedad del enlace `/historia`** ✅ Resuelta implícitamente
+  *   **Estado:** La ruta `/historia` nunca llegó a existir en `Routes.php`. El acceso a Historia está bajo `/museo/historia-comica`. No requiere acción.
 
 ---
 
