@@ -45,7 +45,7 @@ final class TotemRoutesTest extends CIUnitTestCase
     {
         $result = $this->get('menu');
         $result->assertStatus(200);
-        $result->assertSee('Principal');
+        $result->assertSee('Menú');
     }
 
     public function testMuseumRoute(): void
