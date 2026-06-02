@@ -75,8 +75,6 @@
                 </div>
             </section>
         </div>
-
-        <?= $this->include('totem/partials/page_footer', ['variant' => 'section']) ?>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [

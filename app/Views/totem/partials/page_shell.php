@@ -5,6 +5,7 @@
  * @param string $title (opcional)
  * @param array $nav (opcional)
  * @param bool $chromeHidden (opcional)
+ * @param string $footerVariant (opcional)
  * @param string $titleWidth (opcional)
  * @param string $titleClass (opcional)
  */
@@ -40,4 +41,8 @@ $titleClass = trim((string)($titleClass ?? ''));
     <main class="page-content">
         <?= $content ?? '' ?>
     </main>
+
+    <?php if (!$chromeHidden): ?>
+        <?= view('totem/partials/page_footer', ['variant' => $footerVariant ?? 'section']) ?>
+    <?php endif; ?>
 </div>

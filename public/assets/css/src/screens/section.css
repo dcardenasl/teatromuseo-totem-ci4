@@ -634,43 +634,6 @@
     color: rgba(53, 52, 48, 0.76);
 }
 
-.school-closing {
-    display: grid;
-    gap: 24px;
-    justify-items: center;
-    padding-top: 8px;
-}
-
-.school-closing__collage {
-    width: min(84%, 820px);
-    display: block;
-    margin-top: 6px;
-}
-
-.school-closing__logos {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 4px;
-}
-
-.school-closing__logo {
-    display: block;
-    object-fit: contain;
-}
-
-.school-closing__logo--primary {
-    width: 96px;
-    height: 96px;
-}
-
-.school-closing__logo--secondary {
-    width: 114px;
-    height: 114px;
-    border-radius: 50%;
-}
-
 .footer-ornament--school {
     display: none;
 }

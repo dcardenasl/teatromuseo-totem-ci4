@@ -7,8 +7,6 @@
             'ariaLabel' => 'Secciones del museo',
             'showCoda' => false,
         ]) ?>
-
-        <?= view('totem/partials/page_footer') ?>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [

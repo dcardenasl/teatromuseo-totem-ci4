@@ -6,6 +6,76 @@
     overflow: hidden;
 }
 
+.footer-brand {
+    display: grid;
+    gap: 26px;
+    justify-items: center;
+    width: 100%;
+    max-width: 760px;
+    margin-inline: auto;
+    margin-top: 56px;
+    margin-bottom: 32px;
+    padding-top: 12px;
+}
+
+.footer-brand__logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.footer-brand__logo {
+    display: grid;
+    place-items: center;
+    gap: 8px;
+}
+
+.footer-brand__logo--state {
+    width: 110px;
+    min-height: 110px;
+}
+
+.footer-brand__logo-image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.footer-brand__logo--brand {
+    min-width: 142px;
+}
+
+.footer-brand__mark {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: 3px solid var(--brand-gold);
+    background: url('../animations/logo.gif') no-repeat center center / cover;
+    box-shadow: 0 8px 18px rgba(74, 50, 24, 0.12);
+}
+
+.footer-brand__label {
+    color: var(--ink);
+    font-family: "Lato", "Trebuchet MS", "Segoe UI", sans-serif;
+    font-size: 0.86rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    line-height: 1.05;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.footer-brand--school {
+    max-width: 860px;
+}
+
+.footer-brand--school .footer-brand__logos {
+    gap: 20px 30px;
+}
+
 .footer-cloud,
 .footer-stage {
     position: absolute;

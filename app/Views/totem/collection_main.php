@@ -58,20 +58,6 @@
             ]) ?>
         <?php endforeach; ?>
 
-        <footer class="collection-footer" aria-hidden="true">
-            <div class="collection-footer__logo collection-footer__logo--state">
-                <img
-                    src="<?= esc(base_url('assets/img/logos/ministerio_culturas_chile.png')) ?>"
-                    alt="Ministerio de las Culturas, las Artes y el Patrimonio de Chile"
-                    loading="lazy"
-                >
-            </div>
-            <div class="collection-footer__logo collection-footer__logo--brand">
-                <span class="collection-footer__brand-mark"></span>
-                <span>Teatromuseo</span>
-            </div>
-        </footer>
-
         <div class="sr-only">
             <h2><?= esc(lang('Collection.main_title')) ?></h2>
             <p><?= esc(lang('Collection.heading_title')) ?></p>

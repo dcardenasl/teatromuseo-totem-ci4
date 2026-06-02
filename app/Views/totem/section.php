@@ -104,19 +104,6 @@
                         <?php endforeach; ?>
                     </section>
 
-                    <section class="school-closing" aria-label="Cierre editorial">
-                        <img
-                            class="school-closing__collage"
-                            src="<?= esc(base_url($section['closingImage'] ?? 'assets/img/school/school_collage.webp'), 'attr') ?>"
-                            alt=""
-                            aria-hidden="true"
-                        >
-
-                        <div class="school-closing__logos" aria-label="Logos institucionales">
-                            <img class="school-closing__logo school-closing__logo--primary" src="<?= esc(base_url($section['logoPrimary'] ?? 'assets/img/logos/ministerio_culturas_chile.png'), 'attr') ?>" alt="Ministerio de las Culturas, las Artes y el Patrimonio">
-                            <img class="school-closing__logo school-closing__logo--secondary" src="<?= esc(base_url($section['logoSecondary'] ?? 'assets/img/menu/menu_escuela.webp'), 'attr') ?>" alt="Teatromuseo">
-                        </div>
-                    </section>
                 </section>
             <?php else: ?>
                 <section class="content-grid content-grid--section">
@@ -141,13 +128,13 @@
             <?php endif; ?>
         </div>
 
-        <?= $this->include('totem/partials/page_footer', ['variant' => isset($courses) ? 'school' : 'section']) ?>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
         'title' => esc($section['title']),
         'content' => $content,
-        'nav' => $nav ?? []
+        'nav' => $nav ?? [],
+        'footerVariant' => isset($courses) ? 'school' : 'section',
     ]) ?>
 
     <?php if (isset($courses)): ?>

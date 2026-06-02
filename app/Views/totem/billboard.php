@@ -32,8 +32,6 @@
                 <?php endforeach; ?>
             </section>
         </div>
-
-        <?= $this->include('totem/partials/page_footer', ['variant' => 'billboard']) ?>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
