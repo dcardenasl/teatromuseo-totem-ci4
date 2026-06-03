@@ -1,4 +1,6 @@
-@container kiosk (max-width: 920px) {
+/* El iPad en vertical debe seguir viendo la composición de tótem,
+   no la variante compacta reservada para teléfonos pequeños. */
+@container kiosk (max-width: 560px) {
     .page-content {
         --content-padding-inline: 14px;
         --content-padding-top: 16px;
@@ -72,7 +74,7 @@
     }
 }
 
-@container kiosk (max-width: 640px) {
+@container kiosk (max-width: 560px) {
     .page-content {
         --content-padding-inline: 12px;
         --content-padding-top: 14px;

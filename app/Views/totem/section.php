@@ -209,7 +209,7 @@
                     window.__totemSchoolPeopleModalCleanup();
                 }
 
-                const isMobile = window.matchMedia('(max-width: 820px) and (pointer: coarse)').matches;
+                const isMobile = window.matchMedia('(max-width: 560px) and (pointer: coarse)').matches;
                 document.querySelectorAll('.school-course__qr-link[data-qr-url]').forEach((link) => {
                     const url = link.getAttribute('data-qr-url');
 
