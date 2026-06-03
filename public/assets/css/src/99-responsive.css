@@ -249,6 +249,7 @@
 
     /* --- Rejilla de Menú y Tarjetas --- */
     .menu-grid {
+        --menu-grid-column-gap: 24px;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 30px 24px;
         padding: 8px 24px 0;
@@ -336,8 +337,9 @@
     }
 
     .school-page__intro {
-        width: 100%;
+        width: min(100%, 780px);
         font-size: 1rem;
+        padding-inline: 14px;
     }
 
     .school-stats {
@@ -372,10 +374,73 @@
         font-size: 0.7rem;
     }
 
+    .school-people-rail {
+        width: 100%;
+        grid-auto-columns: 148px;
+        gap: 10px;
+        padding-inline: 2px;
+    }
+
+    .school-people-rail .teacher-card {
+        padding: 10px;
+        border-radius: 20px;
+    }
+
+    .school-people-rail .teacher-card__name {
+        font-size: 0.9rem;
+    }
+
+    .school-people-rail .teacher-card__role {
+        font-size: 0.72rem;
+    }
+
+    .school-people-rail .teacher-card__country {
+        font-size: 0.64rem;
+    }
+
+    .school-person-modal {
+        padding: 12px;
+    }
+
+    .school-person-modal__panel {
+        grid-template-columns: 1fr;
+        width: min(94vw, 620px);
+        max-height: 88vh;
+        gap: 14px;
+        padding: 16px;
+        border-radius: 28px;
+    }
+
+    .school-person-modal__media {
+        aspect-ratio: 4 / 3;
+    }
+
+    .school-person-modal__content {
+        gap: 10px;
+        padding: 4px 2px 6px;
+    }
+
+    .school-person-modal__name {
+        font-size: clamp(1.8rem, 7cqi, 2.6rem);
+    }
+
     .school-course {
         width: 100%;
-        grid-template-columns: 104px minmax(0, 1fr);
+        grid-template-columns: 1fr;
         gap: 12px;
+        padding: 14px;
+        justify-items: center;
+    }
+
+    .school-course__poster {
+        width: min(100%, 320px);
+        aspect-ratio: 4 / 3;
+        border-radius: 16px;
+    }
+
+    .school-course__body {
+        width: 100%;
+        padding-top: 0;
     }
 
     .school-course__qr {
@@ -389,6 +454,7 @@
         grid-template-columns: 1fr;
         gap: 12px;
         align-items: start;
+        width: 100%;
     }
 
     .school-course__contact-copy {
