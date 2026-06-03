@@ -58,16 +58,70 @@ final class TotemRoutesTest extends CIUnitTestCase
     public function testCollectionRoute(): void
     {
         $result = $this->get('museo/coleccion');
+        $body = (string) $result->getBody();
+
         $result->assertStatus(200);
         $result->assertSee('Colección');
         $result->assertSee('Títeres');
-        $result->assertSee('Payasos');
         $result->assertSee('Máscaras');
         $result->assertSee('En exhibición');
         $result->assertSee('Técnicas');
         $result->assertSee('Historia');
-        $result->assertSee('Teatro de payasos');
         $result->assertSee('Tradiciones');
+        $result->assertSee('collection-pill--disabled');
+        $result->assertSee('museo/historia');
+        $result->assertSee('museo/coleccion/titeres/exhibicion');
+        $result->assertSee('museo/coleccion/mascaras/exhibicion');
+        $result->assertSee('museo/coleccion/mascaras/tradiciones');
+        $result->assertDontSee('Teatro de payasos');
+
+        self::assertTrue(
+            strpos($body, 'collection-band--puppets') !== false
+            && strpos($body, 'collection-band--masks') !== false
+            && strpos($body, 'collection-band--clowns') !== false
+            && strpos($body, 'collection-band--puppets') < strpos($body, 'collection-band--masks')
+            && strpos($body, 'collection-band--masks') < strpos($body, 'collection-band--clowns'),
+            'La colección debería ordenar Títeres, Máscaras y Payasos.'
+        );
+    }
+
+    public function testHistoryRoute(): void
+    {
+        $result = $this->get('museo/historia');
+
+        $result->assertStatus(200);
+        $result->assertSee('Historia');
+        $result->assertSee('Archivo editorial');
+        $result->assertSee('Historia del Circo');
+        $result->assertSee('Historia de los Payasos');
+        $result->assertSee('Tradición del Títere');
+        $result->assertDontSee('Entrada editorial');
+    }
+
+    public function testPuppetsExhibitRoute(): void
+    {
+        $result = $this->get('museo/coleccion/titeres/exhibicion');
+
+        $result->assertStatus(200);
+        $result->assertSee('Títeres en exhibición');
+    }
+
+    public function testMasksExhibitRoute(): void
+    {
+        $result = $this->get('museo/coleccion/mascaras/exhibicion');
+
+        $result->assertStatus(200);
+        $result->assertSee('Máscaras en exhibición');
+    }
+
+    public function testMasksTraditionsRoute(): void
+    {
+        $result = $this->get('museo/coleccion/mascaras/tradiciones');
+
+        $result->assertStatus(200);
+        $result->assertSee('Tradiciones de Máscaras');
+        $result->assertSee('Comedia del Arte');
+        $result->assertSee('Comedia del Andes');
     }
 
     public function testTheaterSchoolRoute(): void

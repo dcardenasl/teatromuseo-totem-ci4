@@ -14,6 +14,8 @@
 
 $item = $item ?? [];
 $bandClass = trim('collection-band ' . ($bandClass ?? '') . ' ' . ($item['class'] ?? ''));
+$routeA = $item['routeA'] ?? [];
+$routeB = $item['routeB'] ?? [];
 ?>
 
 <section class="<?= esc($bandClass) ?>">
@@ -23,12 +25,25 @@ $bandClass = trim('collection-band ' . ($bandClass ?? '') . ' ' . ($item['class'
     <div class="collection-band__body">
         <h3 class="collection-band__title"><?= esc($item['title'] ?? '') ?></h3>
         <div class="collection-band__actions">
-            <a class="collection-pill" href="<?= esc($item['routeA']['href'] ?? '#') ?>">
-                <?= esc($item['routeA']['label'] ?? '') ?>
-            </a>
-            <a class="collection-pill" href="<?= esc($item['routeB']['href'] ?? '#') ?>">
-                <?= esc($item['routeB']['label'] ?? '') ?>
-            </a>
+            <?php if (!empty($routeA['disabled']) || empty($routeA['href'])): ?>
+                <span class="collection-pill collection-pill--disabled" aria-disabled="true">
+                    <?= esc($routeA['label'] ?? '') ?>
+                </span>
+            <?php else: ?>
+                <a class="collection-pill" href="<?= esc($routeA['href']) ?>">
+                    <?= esc($routeA['label'] ?? '') ?>
+                </a>
+            <?php endif; ?>
+
+            <?php if (!empty($routeB['disabled']) || empty($routeB['href'])): ?>
+                <span class="collection-pill collection-pill--disabled" aria-disabled="true">
+                    <?= esc($routeB['label'] ?? '') ?>
+                </span>
+            <?php else: ?>
+                <a class="collection-pill" href="<?= esc($routeB['href']) ?>">
+                    <?= esc($routeB['label'] ?? '') ?>
+                </a>
+            <?php endif; ?>
         </div>
     </div>
 </section>

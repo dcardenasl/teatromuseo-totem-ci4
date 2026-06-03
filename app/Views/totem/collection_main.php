@@ -8,7 +8,7 @@
             'image' => base_url('assets/img/museum/cat_coleccion.webp'),
             'routeA' => [
                 'label' => lang('Collection.collection_exhibit'),
-                'href' => base_url('museo/coleccion/titeres'),
+                'href' => base_url('museo/coleccion/titeres/exhibicion'),
             ],
             'routeB' => [
                 'label' => lang('Collection.collection_techniques'),
@@ -17,30 +17,31 @@
             'bandClass' => 'collection-band--puppets',
         ],
         [
-            'title' => lang('Collection.clowns'),
-            'image' => base_url('assets/img/museum/cat_historia_comica.webp'),
-            'routeA' => [
-                'label' => lang('Collection.collection_history'),
-                'href' => base_url('museo/coleccion/payasos'),
-            ],
-            'routeB' => [
-                'label' => lang('Collection.collection_clown_theatre'),
-                'href' => base_url('museo/coleccion/payasos'),
-            ],
-            'bandClass' => 'collection-band--clowns',
-        ],
-        [
             'title' => lang('Collection.masks'),
             'image' => base_url('assets/img/museum/cat_el_museo.webp'),
             'routeA' => [
                 'label' => lang('Collection.collection_exhibit'),
-                'href' => base_url('museo/coleccion/mascaras'),
+                'href' => base_url('museo/coleccion/mascaras/exhibicion'),
             ],
             'routeB' => [
                 'label' => lang('Collection.collection_traditions'),
-                'href' => base_url('museo/coleccion/mascaras'),
+                'href' => base_url('museo/coleccion/mascaras/tradiciones'),
             ],
             'bandClass' => 'collection-band--masks',
+        ],
+        [
+            'title' => lang('Collection.clowns'),
+            'image' => base_url('assets/img/museum/cat_historia_comica.webp'),
+            'routeA' => [
+                'label' => lang('Collection.collection_exhibit'),
+                'href' => null,
+                'disabled' => true,
+            ],
+            'routeB' => [
+                'label' => lang('Collection.collection_history'),
+                'href' => base_url('museo/historia'),
+            ],
+            'bandClass' => 'collection-band--clowns',
         ],
     ];
 

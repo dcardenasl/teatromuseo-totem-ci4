@@ -6,7 +6,7 @@
             'items' => array_map(
                 static fn (array $tradition): array => [
                     'title' => $tradition['title'],
-                    'href'  => base_url('museo/coleccion/mascaras/' . $tradition['slug']),
+                    'href'  => base_url('museo/coleccion/mascaras/tradiciones/' . $tradition['slug']),
                 ],
                 $traditions
             ),
@@ -15,7 +15,7 @@
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => lang('Collection.masks_title'),
+        'title' => lang('Collection.masks_traditions_title'),
         'content' => $content,
         'nav' => $nav ?? []
     ]) ?>

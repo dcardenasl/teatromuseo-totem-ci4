@@ -2401,10 +2401,9 @@ body.totem-animations-disabled .language-instruction {
 
 .school-course__contact {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 14px;
-    align-items: start;
-    justify-items: start;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 22px;
+    align-items: end;
     margin-top: 8px;
 }
 
@@ -2423,9 +2422,9 @@ body.totem-animations-disabled .language-instruction {
 
 .school-course__qr {
     display: grid;
-    justify-items: start;
+    justify-items: center;
     gap: 8px;
-    text-align: left;
+    text-align: center;
 }
 
 .school-course__qr-link {
@@ -5601,9 +5600,7 @@ body.totem-transitions-disabled .totem-transition-overlay {
         radial-gradient(circle at 24% 78%, #e3c185 0 16%, transparent 17%);
     clip-path: polygon(50% 0, 62% 16%, 80% 10%, 92% 28%, 100% 36%, 88% 52%, 100% 70%, 84% 82%, 78% 100%, 60% 84%, 42% 100%, 30% 78%, 12% 82%, 18% 62%, 0 54%, 16% 38%, 8% 20%, 24% 14%, 34% 0);
 }
-/* El iPad en vertical debe seguir viendo la composición de tótem,
-   no la variante compacta reservada para teléfonos pequeños. */
-@container kiosk (max-width: 560px) {
+@container kiosk (max-width: 920px) {
     .page-content {
         --content-padding-inline: 14px;
         --content-padding-top: 16px;
@@ -5677,7 +5674,7 @@ body.totem-transitions-disabled .totem-transition-overlay {
     }
 }
 
-@container kiosk (max-width: 560px) {
+@container kiosk (max-width: 640px) {
     .page-content {
         --content-padding-inline: 12px;
         --content-padding-top: 14px;
