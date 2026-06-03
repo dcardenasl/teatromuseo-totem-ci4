@@ -2,7 +2,7 @@
 
 <?= $this->section('content') ?>
 <div class="totem-page totem-page--center">
-    <section class="screen splash-screen" aria-label="Pantalla de inicio">
+    <section class="screen splash-screen" aria-label="<?= esc(lang('Splash.screen_label'), 'attr') ?>">
         <div class="screen__content splash-scene">
             <div class="splash-sky" aria-hidden="true">
                 <span class="splash-bird splash-bird--top"></span>
@@ -27,7 +27,7 @@
             </div>
 
             <div class="splash-collage" aria-hidden="true">
-                <img src="<?= base_url('assets/img/menu/collage_referencia.webp') ?>" alt="Teatromuseo Collage" class="splash-collage__img">
+                <img src="<?= base_url('assets/img/menu/collage_referencia.webp') ?>" alt="<?= esc(lang('Splash.collage_alt'), 'attr') ?>" class="splash-collage__img">
             </div>
         </div>
     </section>

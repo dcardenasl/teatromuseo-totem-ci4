@@ -4,8 +4,8 @@
     <?php ob_start(); ?>
         <?= view('totem/partials/menu_grid', [
             'items' => array_map(
-                fn (int $i) => [
-                    'title' => "Capítulo Histórico #$i",
+                static fn (int $i): array => [
+                    'title' => sprintf(lang('ComicHistory.chapter_placeholder'), $i),
                     'href' => '#',
                 ],
                 range(1, 3)

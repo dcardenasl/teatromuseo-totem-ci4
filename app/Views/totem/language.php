@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
         <div class="language-layout">
-            <section class="language-card language-card--bare language-card--panel language-card--floating" aria-label="Selector de idiomas">
+            <section class="language-card language-card--bare language-card--panel language-card--floating" aria-label="<?= esc(lang('Menu.select_language'), 'attr') ?>">
                 <div class="language-card__chrome">
                     <button class="language-card__close pill-button pill-button--ghost" type="button" aria-label="<?= esc(lang('Menu.close_selector'), 'attr') ?>" onclick="closeLanguageSelection()">
                         <span class="pill-button__icon" aria-hidden="true">×</span>
@@ -11,7 +11,7 @@
                 </div>
 
                 <!-- Contenedor de instrucciones en todos los idiomas para el usuario nativo -->
-                <div class="language-instructions-container" aria-label="Selecciona tu idioma / Select your language / Sélectionnez votre langue / Selecione o seu idioma">
+                <div class="language-instructions-container" aria-label="<?= esc(lang('Menu.select_language'), 'attr') ?>">
                     <div class="language-instruction lang-instruction--es" data-lang="es">
                         <span class="language-instruction__decorator"></span>
                         <span class="language-instruction__text"><?= lang('Menu.select_language', [], 'es') ?></span>
@@ -34,7 +34,7 @@
                     </div>
                 </div>
 
-                <div class="language-grid language-grid--spacious" role="list" aria-label="Idiomas">
+                <div class="language-grid language-grid--spacious" role="list" aria-label="<?= esc(lang('Common.languages_label'), 'attr') ?>">
                     <button class="pill-button pill-button--language" type="button" data-lang="es" aria-pressed="false" onclick="setLanguage('es')">
                         Español
                     </button>

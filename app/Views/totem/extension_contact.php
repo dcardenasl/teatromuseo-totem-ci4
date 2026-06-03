@@ -2,7 +2,7 @@
 
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
-        <p>Formulario de contacto y teclado táctil (mock).</p>
+        <p><?= esc(lang('Common.contact_mock')) ?></p>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [

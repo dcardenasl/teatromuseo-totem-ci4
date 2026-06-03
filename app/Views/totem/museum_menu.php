@@ -4,13 +4,13 @@
     <?php ob_start(); ?>
         <?= view('totem/partials/menu_grid', [
             'items' => $items,
-            'ariaLabel' => 'Secciones del museo',
+            'ariaLabel' => lang('Common.museum_sections_label'),
             'showCoda' => false,
         ]) ?>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => lang('Menu.explore_museum'),
+        'title' => lang('Menu.el_museo'),
         'titleWidth' => '9.5ch',
         'content' => $content,
         'nav' => $nav ?? []

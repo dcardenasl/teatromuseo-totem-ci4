@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
         <div class="screen-page__body">
-            <section class="billboard-months" aria-label="Fechas disponibles">
+            <section class="billboard-months" aria-label="<?= esc(lang('Billboard.available_dates_label'), 'attr') ?>">
                 <?php foreach ($months as $month): ?>
                     <div class="month-group">
                         <span class="month-group__title"><?= esc($month['title']) ?></span>
@@ -16,7 +16,7 @@
                 <?php endforeach; ?>
             </section>
 
-            <section class="event-list" aria-label="Eventos">
+            <section class="event-list" aria-label="<?= esc(lang('Billboard.events_label'), 'attr') ?>">
                 <?php foreach ($events as $event): ?>
                     <a class="event-card <?= esc($event['class']) ?>" href="<?= base_url('cartelera/detalle/' . esc($event['slug'] ?? '1')) ?>">
                         <div class="event-card__media" aria-hidden="true"></div>
@@ -35,7 +35,7 @@
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => 'Cartelera',
+        'title' => lang('Menu.programming'),
         'content' => $content,
         'nav' => $nav ?? []
     ]) ?>

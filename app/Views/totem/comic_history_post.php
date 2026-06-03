@@ -2,7 +2,7 @@
 
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
-        <p>Post de historia: <?= $slug ?> (mock).</p>
+        <p><?= esc(sprintf(lang('Common.history_post_mock'), $slug)) ?></p>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [

@@ -7,7 +7,7 @@ $actions = $nav ?? [];
     </div>
 
     <?php if ($actions !== []): ?>
-        <nav class="totem-header__actions" aria-label="Navegación principal">
+        <nav class="totem-header__actions" aria-label="<?= esc(lang('Nav.navigation_label'), 'attr') ?>">
             <?php foreach ($actions as $action): ?>
                 <a class="<?= esc($action['class'] ?? 'pill-button') ?>" href="<?= esc($action['href']) ?>">
                     <span class="pill-button__icon" aria-hidden="true">

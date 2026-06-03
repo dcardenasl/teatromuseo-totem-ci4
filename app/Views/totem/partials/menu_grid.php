@@ -14,7 +14,7 @@ $items = $items ?? [];
 $ariaLabel = $ariaLabel ?? '';
 $showCoda = (bool)($showCoda ?? false);
 $codaImage = $codaImage ?? 'assets/img/menu/collage_referencia.webp';
-$codaAlt = $codaAlt ?? 'Teatromuseo Collage';
+    $codaAlt = $codaAlt ?? lang('Splash.collage_alt');
 $codaClass = $codaClass ?? '';
 ?>
 
@@ -22,7 +22,7 @@ $codaClass = $codaClass ?? '';
     <div class="menu-grid"<?php if ($ariaLabel !== ''): ?> aria-label="<?= esc($ariaLabel) ?>"<?php endif; ?>>
         <?php foreach ($items as $item): ?>
             <?= view('totem/partials/card', [
-                'title'    => $item['title'] ?? 'Sin título',
+                'title'    => $item['title'] ?? lang('Common.untitled_card'),
                 'href'     => $item['href'] ?? '#',
                 'class'    => $item['class'] ?? '',
                 'artClass' => $item['artClass'] ?? '',

@@ -4,13 +4,13 @@
     <?php ob_start(); ?>
         <div class="screen-page__body">
             <?php if (isset($courses)): ?>
-                <section class="school-page" aria-label="Teatro escuela">
+                <section class="school-page" aria-label="<?= esc(lang('Section.school_aria_label'), 'attr') ?>">
                     <div class="school-page__hero">
-                        <figure class="school-video" aria-label="<?= esc($section['heroAlt'] ?? 'Teatro escuela', 'attr') ?>">
+                        <figure class="school-video" aria-label="<?= esc($section['heroAlt'] ?? lang('Section.school_aria_label'), 'attr') ?>">
                             <img
                                 class="school-video__image"
                                 src="<?= esc(base_url($section['heroImage'] ?? 'assets/img/menu/menu_escuela.webp'), 'attr') ?>"
-                                alt="<?= esc($section['heroAlt'] ?? 'Teatro escuela', 'attr') ?>"
+                                alt="<?= esc($section['heroAlt'] ?? lang('Section.school_aria_label'), 'attr') ?>"
                             >
                             <span class="school-video__play" aria-hidden="true">
                                 <span class="school-video__play-triangle"></span>
@@ -19,7 +19,7 @@
 
                         <p class="school-page__intro"><?= esc($section['introCopy'] ?? '') ?></p>
 
-                        <div class="school-stats" aria-label="Cifras clave">
+                        <div class="school-stats" aria-label="<?= esc(lang('Section.key_stats_label'), 'attr') ?>">
                             <?php foreach (($section['stats'] ?? []) as $stat): ?>
                                 <div class="school-stat">
                                     <span class="school-stat__value"><?= esc($stat['value'] ?? '') ?></span>
@@ -30,8 +30,8 @@
                         </div>
                     </div>
 
-                    <section class="school-teachers" aria-label="Maestros">
-                        <h2 class="school-section-title"><?= esc($section['teachersTitle'] ?? 'Maestros') ?></h2>
+                    <section class="school-teachers" aria-label="<?= esc(lang('Section.teachers_label'), 'attr') ?>">
+                        <h2 class="school-section-title"><?= esc($section['teachersTitle'] ?? lang('Section.teachers_label')) ?></h2>
 
                         <div class="school-teacher-grid" role="list">
                             <?php foreach ($teachers as $index => $teacher): ?>
@@ -43,9 +43,9 @@
                                         >
                                     </div>
                                     <div class="teacher-card__body">
-                                        <h3 class="teacher-card__name">NOMBRE APELLIDO</h3>
-                                        <p class="teacher-card__role">Especialidad</p>
-                                        <p class="teacher-card__country">País</p>
+                                        <h3 class="teacher-card__name"><?= esc(lang('Section.teacher_name_placeholder')) ?></h3>
+                                        <p class="teacher-card__role"><?= esc(lang('Section.teacher_role_placeholder')) ?></p>
+                                        <p class="teacher-card__country"><?= esc(lang('Section.teacher_country_placeholder')) ?></p>
                                     </div>
                                 </article>
                             <?php endforeach; ?>
@@ -60,27 +60,27 @@
                         </div>
                     </section>
 
-                    <section class="school-courses" aria-label="Cursos">
-                        <h2 class="school-section-title school-section-title--course"><?= esc($section['coursesTitle'] ?? 'Cursos') ?></h2>
+                    <section class="school-courses" aria-label="<?= esc(lang('Section.courses_label'), 'attr') ?>">
+                        <h2 class="school-section-title school-section-title--course"><?= esc($section['coursesTitle'] ?? lang('Section.courses_label')) ?></h2>
 
                         <?php foreach ($courses as $course): ?>
                             <article class="school-course">
                                 <div class="school-course__poster">
                                     <img
                                         src="<?= esc(base_url($section['courseImage'] ?? 'assets/img/menu/menu_programacion.webp'), 'attr') ?>"
-                                        alt="<?= esc($section['courseTitle'] ?? 'Curso', 'attr') ?>"
+                                        alt="<?= esc($section['courseTitle'] ?? lang('Section.course_title_placeholder'), 'attr') ?>"
                                     >
                                 </div>
 
                                 <div class="school-course__body">
-                                    <span class="school-course__tag"><?= esc($section['courseTag'] ?? 'Nacional') ?></span>
+                                    <span class="school-course__tag"><?= esc($section['courseTag'] ?? lang('Section.course_tag')) ?></span>
                                     <h3 class="school-course__title"><?= esc($section['courseTitle'] ?? '') ?></h3>
                                     <p class="school-course__start"><?= esc($section['courseStart'] ?? '') ?></p>
                                     <p class="school-course__copy"><?= esc($section['courseCopy'] ?? '') ?></p>
 
                                     <div class="school-course__contact">
                                         <div class="school-course__contact-copy">
-                                            <span class="school-course__contact-label"><?= esc($section['courseContactLabel'] ?? 'Correo de contacto:') ?></span>
+                                            <span class="school-course__contact-label"><?= esc($section['courseContactLabel'] ?? lang('Section.course_contact_label')) ?></span>
                                             <span class="school-course__contact-value"><?= esc($section['courseContact'] ?? '') ?></span>
                                         </div>
 
@@ -88,15 +88,15 @@
                                             <a
                                                 class="school-course__qr-link"
                                                 data-qr-url="<?= esc($section['courseQrUrl'] ?? '#', 'attr') ?>"
-                                                aria-label="Abrir información de Teatro Escuela"
-                                            >
+                                            aria-label="<?= esc(lang('Section.course_qr_action_label'), 'attr') ?>"
+                                        >
                                                 <img
                                                     class="school-course__qr-box"
                                                     src="<?= esc(base_url($section['courseQrImage'] ?? 'assets/img/school/teatroescuela-qr.png'), 'attr') ?>"
-                                                    alt="QR a Teatro Escuela"
+                                                    alt="<?= esc(lang('Section.course_qr_alt'), 'attr') ?>"
                                                 >
                                             </a>
-                                            <span class="school-course__qr-label"><?= esc($section['courseQrLabel'] ?? 'Más información') ?></span>
+                                            <span class="school-course__qr-label"><?= esc($section['courseQrLabel'] ?? lang('Section.course_qr_label')) ?></span>
                                         </div>
                                     </div>
                                 </div>

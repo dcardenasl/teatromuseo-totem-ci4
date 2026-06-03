@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
         <div class="screen-page__body billboard-detail">
-            <section class="billboard-detail__intro" aria-label="Cabecera editorial de cartelera">
+            <section class="billboard-detail__intro" aria-label="<?= esc(lang('Billboard.editorial_intro_label'), 'attr') ?>">
                 <div class="billboard-detail__tags">
                     <?php foreach (($detail['tags'] ?? []) as $tag): ?>
                         <span class="billboard-detail__tag chip"><?= esc($tag) ?></span>
@@ -18,20 +18,20 @@
                 </p>
             </section>
 
-            <section class="billboard-detail__media" aria-label="Imagen principal de cartelera">
-                <figure class="billboard-detail__poster-frame" aria-label="<?= esc($detail['title'] ?? 'Obra', 'attr') ?>">
+            <section class="billboard-detail__media" aria-label="<?= esc(lang('Billboard.media_label'), 'attr') ?>">
+                <figure class="billboard-detail__poster-frame" aria-label="<?= esc($detail['title'] ?? lang('Billboard.default_title'), 'attr') ?>">
                     <img
                         class="billboard-detail__poster"
                         src="<?= esc(base_url($detail['image'] ?? 'assets/img/menu/menu_programacion.webp'), 'attr') ?>"
-                        alt="<?= esc($detail['title'] ?? 'Obra', 'attr') ?>"
+                        alt="<?= esc($detail['title'] ?? lang('Billboard.default_title'), 'attr') ?>"
                     >
                 </figure>
 
-                <div class="billboard-detail__nav" aria-label="Navegación de imágenes">
-                    <button type="button" class="billboard-detail__nav-btn" aria-label="Imagen anterior">
+                <div class="billboard-detail__nav" aria-label="<?= esc(lang('Billboard.image_nav_label'), 'attr') ?>">
+                    <button type="button" class="billboard-detail__nav-btn" aria-label="<?= esc(lang('Billboard.previous_image'), 'attr') ?>">
                         <img src="<?= esc(base_url('assets/img/ui/slider_left.webp'), 'attr') ?>" alt="" aria-hidden="true">
                     </button>
-                    <button type="button" class="billboard-detail__nav-btn" aria-label="Imagen siguiente">
+                    <button type="button" class="billboard-detail__nav-btn" aria-label="<?= esc(lang('Billboard.next_image'), 'attr') ?>">
                         <img src="<?= esc(base_url('assets/img/ui/slider_right.webp'), 'attr') ?>" alt="" aria-hidden="true">
                     </button>
                 </div>
@@ -44,7 +44,7 @@
                     </p>
                 </div>
 
-                <aside class="billboard-detail__sidebar" aria-label="Ficha rápida">
+                <aside class="billboard-detail__sidebar" aria-label="<?= esc(lang('Billboard.quick_sheet_label'), 'attr') ?>">
                     <div class="billboard-detail__schedule">
                         <span class="billboard-detail__date"><?= esc($detail['date'] ?? '') ?></span>
                         <span class="billboard-detail__time"><?= esc($detail['time'] ?? '') ?></span>
@@ -55,7 +55,7 @@
                     <div class="billboard-detail__metric">
                         <span class="billboard-detail__metric-head">
                             <img src="<?= esc(base_url('assets/img/ui/icon_duration.webp'), 'attr') ?>" alt="" aria-hidden="true">
-                            <span>Duración aproximada:</span>
+                            <span><?= esc(lang('Billboard.duration_label')) ?></span>
                         </span>
                         <strong class="billboard-detail__metric-value"><?= esc($detail['duration'] ?? '') ?></strong>
                     </div>
@@ -67,14 +67,14 @@
                             <img src="<?= esc(base_url('assets/img/ui/icon_ticket.webp'), 'attr') ?>" alt="" aria-hidden="true">
                             <span><?= esc($detail['price'] ?? '') ?></span>
                         </span>
-                        <strong class="billboard-detail__metric-value">Niños, estudiantes y 3 edad: $3.500</strong>
+                        <strong class="billboard-detail__metric-value"><?= esc(lang('Billboard.price_note')) ?></strong>
                     </div>
 
-                    <p class="billboard-detail__note">*Las entradas se adquieren 20 minutos antes de la función en la boletería de Teatromuseo.</p>
+                    <p class="billboard-detail__note"><?= esc(lang('Billboard.ticket_note')) ?></p>
                 </aside>
             </section>
 
-            <section class="billboard-detail__closing" aria-label="Cierre editorial">
+            <section class="billboard-detail__closing" aria-label="<?= esc(lang('Billboard.closing_label'), 'attr') ?>">
                 <div class="billboard-detail__collage">
                     <img
                         class="billboard-detail__collage-image"
@@ -91,7 +91,7 @@
                         alt=""
                         aria-hidden="true"
                     >
-                    <p class="billboard-detail__contact-copy"><?= esc($detail['closingNote'] ?? 'Síguenos en Instagram y entérate de más detalles') ?></p>
+                    <p class="billboard-detail__contact-copy"><?= esc($detail['closingNote'] ?? lang('Billboard.default_closing_note')) ?></p>
                 </div>
 
             </section>
@@ -99,7 +99,7 @@
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => 'CARTELERA',
+        'title' => lang('Menu.programming'),
         'content' => $content,
         'nav' => $nav ?? []
     ]) ?>

@@ -2,7 +2,7 @@
 
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
-        <p>Detalle de ficha: <?= $id ?> (mock).</p>
+        <p><?= esc(sprintf(lang('Common.collection_item_mock'), $id)) ?></p>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [

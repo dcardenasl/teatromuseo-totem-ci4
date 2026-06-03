@@ -11,7 +11,7 @@
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => 'Técnica ' . $technique['title'],
+        'title' => lang('Collection.technique_prefix') . ' ' . $technique['title'],
         'content' => $content,
         'nav' => $nav ?? []
     ]) ?>

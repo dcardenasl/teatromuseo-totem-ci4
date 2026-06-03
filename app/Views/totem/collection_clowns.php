@@ -4,8 +4,8 @@
     <?php ob_start(); ?>
         <?= view('totem/partials/menu_grid', [
             'items' => array_map(
-                fn (int $i) => [
-                    'title' => "Payaso Histórico #$i",
+                static fn (int $i): array => [
+                    'title' => sprintf(lang('Collection.clown_placeholder'), $i),
                     'href' => '#',
                 ],
                 range(1, 4)
