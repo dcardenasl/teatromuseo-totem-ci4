@@ -355,6 +355,7 @@ window.totemNavigateTo = function(url, event = null, isPopState = false) {
                         url.includes('/titeres/') || 
                         url.includes('/mascaras/') || 
                         url.includes('/payasos/') || 
+                        url.includes('/historia/') ||
                         url.includes('/historia-comica/');
 
     // Si es clic en tarjeta o destino de detalle, se elige aleatoriamente uno de los efectos lúdicos

@@ -12,7 +12,7 @@
             ],
             'routeB' => [
                 'label' => lang('Collection.collection_techniques'),
-                'href' => base_url('museo/coleccion/titeres'),
+                'href' => base_url('museo/coleccion/titeres/tecnicas'),
             ],
             'bandClass' => 'collection-band--puppets',
         ],
@@ -48,10 +48,6 @@
     ob_start();
     ?>
     <div class="collection-page">
-        <header class="collection-heading">
-            <h2 class="collection-heading__title"><?= esc(lang('Collection.heading_title')) ?></h2>
-        </header>
-
         <?php foreach ($sections as $section): ?>
             <?= view('totem/partials/collection_band', [
                 'bandClass' => $section['bandClass'] ?? '',

@@ -2,7 +2,8 @@
 
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
-        <?= view('totem/partials/menu_grid', [
+        <div class="collection-page">
+            <?= view('totem/partials/menu_grid', [
                 'items' => array_map(
                     static fn (array $tradition): array => [
                         'title' => $tradition['title'],
@@ -10,8 +11,9 @@
                     ],
                     $traditions
                 ),
-            'showCoda' => false,
-        ]) ?>
+                'showCoda' => false,
+            ]) ?>
+        </div>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [

@@ -33,7 +33,7 @@ return [
     'technique_prefix' => 'Technique',
     'section_eyebrow' => 'Living theatre archive',
     'section_title' => 'Collection',
-    'section_copy' => 'Explore our catalogue of puppets, marionettes, masks, and comic history. Choose a category to see the objects on display.',
+    'section_copy' => 'Explore our catalogue of puppets, marionettes, masks, and editorial history. Choose a category to see the objects on display.',
     'section_details_title' => 'Puppets, masks, and clowns',
     'section_details_copy' => 'Browse the physical pieces that make up the living theatre display. You can explore by puppet technique or mask tradition.',
     'section_stat_puppets_label' => 'Puppets',

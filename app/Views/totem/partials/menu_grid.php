@@ -28,6 +28,7 @@ $codaClass = $codaClass ?? '';
                 'artClass' => $item['artClass'] ?? '',
                 'copy'     => $item['copy'] ?? '',
                 'img'      => $item['img'] ?? '',
+                'disabled' => $item['disabled'] ?? false,
             ]) ?>
         <?php endforeach; ?>
     </div>

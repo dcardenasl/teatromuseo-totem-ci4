@@ -53,7 +53,7 @@ class TotemController extends BaseController
                 'exploreLabel' => lang('Menu.explore_museum'),
                 'items' => [
                     $this->menuItem(lang('Menu.collection'), 'museo/coleccion', lang('Menu.collection_copy'), 'menu-card--museum', 'museum/cat_coleccion.webp'),
-                    $this->menuItem(lang('Menu.comic_history'), 'museo/historia-comica', lang('Menu.comic_history_copy'), 'menu-card--history', 'museum/cat_historia_comica.webp'),
+                    $this->menuItem(lang('Menu.comic_history'), 'museo/historia', lang('Menu.comic_history_copy'), 'menu-card--history', 'museum/cat_historia_comica.webp'),
                     $this->menuItem(lang('Menu.explore_museum'), 'museo/el-museo', lang('Menu.museum_copy'), 'menu-card--school', 'museum/cat_el_museo.webp'),
                     $this->menuItem(lang('Menu.visits'), 'visitas-guiadas', lang('Menu.visits_copy'), 'menu-card--visits', 'museum/cat_visitas_guiadas.webp'),
                 ],
@@ -77,6 +77,16 @@ class TotemController extends BaseController
         ));
     }
 
+    public function collectionPuppetsExhibit()
+    {
+        return view('totem/collection_puppets_exhibit', array_merge(
+            $this->pageMeta(lang('Collection.puppets_exhibit_title')),
+            [
+                'nav' => $this->shellNav(base_url('museo/coleccion')),
+            ]
+        ));
+    }
+
     public function collectionTechnique($slug)
     {
         $techniques = $this->api()->techniques();
@@ -95,7 +105,7 @@ class TotemController extends BaseController
         return view('totem/collection_technique_detail', array_merge(
             $this->pageMeta(lang('Collection.technique_prefix') . ' - ' . $technique['title']),
             [
-                'nav' => $this->shellNav(base_url('museo/coleccion/titeres')),
+                'nav' => $this->shellNav(base_url('museo/coleccion/titeres/tecnicas')),
                 'technique' => $technique
             ]
         ));
@@ -117,6 +127,55 @@ class TotemController extends BaseController
         ));
     }
 
+    public function collectionMasksExhibit()
+    {
+        return view('totem/collection_masks_exhibit', array_merge(
+            $this->pageMeta(lang('Collection.masks_exhibit_title')),
+            [
+                'nav' => $this->shellNav(base_url('museo/coleccion')),
+            ]
+        ));
+    }
+
+    public function collectionMasksTraditions()
+    {
+        $traditions = [
+            ['title' => lang('Collection.tradition_comedia_arte'), 'slug' => 'comedia-arte'],
+            ['title' => lang('Collection.tradition_comedia_andes'), 'slug' => 'comedia-andes'],
+        ];
+
+        return view('totem/collection_masks_traditions', array_merge(
+            $this->pageMeta(lang('Collection.masks_traditions_title')),
+            [
+                'nav' => $this->shellNav(base_url('museo/coleccion')),
+                'traditions' => $traditions,
+            ]
+        ));
+    }
+
+    public function collectionMaskTradition($slug)
+    {
+        $traditions = [
+            'comedia-arte' => lang('Collection.tradition_comedia_arte'),
+            'comedia-andes' => lang('Collection.tradition_comedia_andes'),
+        ];
+
+        if (! isset($traditions[$slug])) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        return view('totem/collection_mask_tradition', array_merge(
+            $this->pageMeta($traditions[$slug]),
+            [
+                'nav' => $this->shellNav(base_url('museo/coleccion/mascaras/tradiciones')),
+                'tradition' => [
+                    'slug' => $slug,
+                    'title' => $traditions[$slug],
+                ],
+            ]
+        ));
+    }
+
     public function collectionClowns()
     {
         return view('totem/collection_clowns', array_merge(
@@ -134,15 +193,19 @@ class TotemController extends BaseController
     }
 
 
-    public function museumComicHistoryMain()
+    public function museumHistoryMain()
     {
         return view('totem/comic_history_main', array_merge(
             $this->pageMeta(lang('ComicHistory.main_title')),
             [
                 'nav' => $this->shellNav(base_url('museo')),
-                'posts' => $this->api()->collection(['category' => 'historia-comica']) // Ajustar según endpoint real de historia
             ]
         ));
+    }
+
+    public function museumComicHistoryMain()
+    {
+        return $this->museumHistoryMain();
     }
 
     public function museumHistoryPost($slug)
@@ -150,7 +213,7 @@ class TotemController extends BaseController
         return view('totem/comic_history_post', array_merge(
             $this->pageMeta(lang('ComicHistory.main_title')),
             [
-                'nav' => $this->shellNav(base_url('museo/historia-comica')),
+                'nav' => $this->shellNav(base_url('museo/historia')),
                 'post' => $this->api()->museumHistory($slug)
             ]
         ));

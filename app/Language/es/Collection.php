@@ -33,7 +33,7 @@ return [
     'technique_prefix' => 'Técnica',
     'section_eyebrow' => 'Archivo vivo del teatro',
     'section_title' => 'Colección',
-    'section_copy' => 'Explora nuestro catálogo de títeres, marionetas, máscaras e historia cómica. Selecciona una categoría para ver los objetos en exhibición.',
+    'section_copy' => 'Explora nuestro catálogo de títeres, marionetas, máscaras e historia editorial. Selecciona una categoría para ver los objetos en exhibición.',
     'section_details_title' => 'Títeres, máscaras y payasos',
     'section_details_copy' => 'Navega por las piezas físicas que forman parte de la muestra viva del teatro. Podrás explorar por técnica de títere o tradición de máscara.',
     'section_stat_puppets_label' => 'Títeres',

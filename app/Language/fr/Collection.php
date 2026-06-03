@@ -33,7 +33,7 @@ return [
     'technique_prefix' => 'Technique',
     'section_eyebrow' => 'Archive vivante du théâtre',
     'section_title' => 'Collection',
-    'section_copy' => 'Explorez notre catalogue de marionnettes, masques et histoire comique. Choisissez une catégorie pour voir les objets exposés.',
+    'section_copy' => 'Explorez notre catalogue de marionnettes, masques et histoire éditoriale. Choisissez une catégorie pour voir les objets exposés.',
     'section_details_title' => 'Marionnettes, masques et clowns',
     'section_details_copy' => 'Parcourez les pièces physiques qui composent la vitrine vivante du théâtre. Vous pouvez explorer par technique de marionnette ou tradition de masque.',
     'section_stat_puppets_label' => 'Marionnettes',

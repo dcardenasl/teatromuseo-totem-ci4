@@ -14,14 +14,22 @@ $routes->get('museo', 'TotemController::museum');
 
 // Museo - Coleccion
 $routes->get('museo/coleccion', 'TotemController::collectionMain');
-$routes->get('museo/coleccion/titeres', 'TotemController::collectionTechniques');
-$routes->get('museo/coleccion/titeres/(:segment)', 'TotemController::collectionTechnique/$1');
-$routes->get('museo/coleccion/mascaras', 'TotemController::collectionMasks');
-$routes->get('museo/coleccion/mascaras/(:segment)', 'TotemController::collectionMaskTradition/$1');
+$routes->addRedirect('museo/coleccion/titeres', 'museo/coleccion/titeres/exhibicion', 301);
+$routes->get('museo/coleccion/titeres/tecnicas', 'TotemController::collectionTechniques');
+$routes->get('museo/coleccion/titeres/exhibicion', 'TotemController::collectionPuppetsExhibit');
+$routes->get('museo/coleccion/titeres/tecnicas/(:segment)', 'TotemController::collectionTechnique/$1');
+$routes->addRedirect('museo/coleccion/titeres/(:segment)', 'museo/coleccion/titeres/tecnicas/$1', 301);
+$routes->addRedirect('museo/coleccion/mascaras', 'museo/coleccion/mascaras/exhibicion', 301);
+$routes->get('museo/coleccion/mascaras/exhibicion', 'TotemController::collectionMasksExhibit');
+$routes->get('museo/coleccion/mascaras/tradiciones', 'TotemController::collectionMasksTraditions');
+$routes->get('museo/coleccion/mascaras/tradiciones/(:segment)', 'TotemController::collectionMaskTradition/$1');
 $routes->get('museo/coleccion/payasos', 'TotemController::collectionClowns');
 $routes->get('museo/coleccion/fichas/(:num)', 'TotemController::collectionItem/$1');
 
-// Museo - Historia Comica
+// Museo - Historia
+$routes->get('museo/historia', 'TotemController::museumHistoryMain');
+$routes->get('museo/historia/(:segment)', 'TotemController::museumHistoryPost/$1');
+// Legacy aliases kept for existing QR codes and deep links
 $routes->get('museo/historia-comica', 'TotemController::museumComicHistoryMain');
 $routes->get('museo/historia-comica/(:segment)', 'TotemController::museumHistoryPost/$1');
 

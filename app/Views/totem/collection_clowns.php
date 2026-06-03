@@ -6,7 +6,8 @@
             'items' => array_map(
                 static fn (int $i): array => [
                     'title' => sprintf(lang('Collection.clown_placeholder'), $i),
-                    'href' => '#',
+                    'href' => null,
+                    'disabled' => true,
                 ],
                 range(1, 4)
             ),

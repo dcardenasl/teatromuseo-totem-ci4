@@ -3,13 +3,13 @@
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
         <?= view('totem/partials/menu_grid', [
-            'items' => array_map(
-                static fn (array $technique): array => [
-                    'title' => $technique['title'],
-                    'href'  => base_url('museo/coleccion/titeres/' . $technique['slug']),
-                ],
-                $techniques
-            ),
+                'items' => array_map(
+                    static fn (array $technique): array => [
+                        'title' => $technique['title'],
+                        'href'  => base_url('museo/coleccion/titeres/tecnicas/' . $technique['slug']),
+                    ],
+                    $techniques
+                ),
             'showCoda' => false,
         ]) ?>
     <?php $content = ob_get_clean(); ?>

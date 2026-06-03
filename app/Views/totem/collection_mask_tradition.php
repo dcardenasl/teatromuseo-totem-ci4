@@ -3,14 +3,12 @@
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
         <article>
-            <?php if (isset($technique['description'])): ?>
-                <p><?= esc($technique['description']) ?></p>
-            <?php endif; ?>
+            <p><?= esc(lang('Collection.masks_traditions_title')) ?></p>
         </article>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => lang('Collection.technique_prefix') . ' ' . $technique['title'],
+        'title' => $tradition['title'] ?? lang('Collection.masks_traditions_title'),
         'content' => $content,
         'nav' => $nav ?? []
     ]) ?>
