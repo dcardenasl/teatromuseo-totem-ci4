@@ -2,16 +2,30 @@
 
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
-        <?= view('totem/partials/menu_grid', [
-            'items' => array_map(
-                static fn (int $i): array => [
-                    'title' => sprintf(lang('ComicHistory.chapter_placeholder'), $i),
-                    'href' => '#',
+        <div class="collection-page collection-page--history">
+            <header class="collection-heading">
+                <p class="collection-heading__eyebrow"><?= esc(lang('ComicHistory.details_title')) ?></p>
+                <p class="collection-heading__copy"><?= esc(lang('ComicHistory.main_copy')) ?></p>
+            </header>
+
+            <?= view('totem/partials/menu_grid', [
+                'items' => [
+                    [
+                        'title' => lang('ComicHistory.entry_circus_history'),
+                        'href' => '#',
+                    ],
+                    [
+                        'title' => lang('ComicHistory.entry_clowns_history'),
+                        'href' => '#',
+                    ],
+                    [
+                        'title' => lang('ComicHistory.entry_puppetry_tradition'),
+                        'href' => '#',
+                    ],
                 ],
-                range(1, 3)
-            ),
-            'showCoda' => false,
-        ]) ?>
+                'showCoda' => false,
+            ]) ?>
+        </div>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [

@@ -21,7 +21,10 @@ $routes->get('museo/coleccion/mascaras/(:segment)', 'TotemController::collection
 $routes->get('museo/coleccion/payasos', 'TotemController::collectionClowns');
 $routes->get('museo/coleccion/fichas/(:num)', 'TotemController::collectionItem/$1');
 
-// Museo - Historia Comica
+// Museo - Historia
+$routes->get('museo/historia', 'TotemController::museumHistoryMain');
+$routes->get('museo/historia/(:segment)', 'TotemController::museumHistoryPost/$1');
+// Legacy aliases kept for existing QR codes and deep links
 $routes->get('museo/historia-comica', 'TotemController::museumComicHistoryMain');
 $routes->get('museo/historia-comica/(:segment)', 'TotemController::museumHistoryPost/$1');
 

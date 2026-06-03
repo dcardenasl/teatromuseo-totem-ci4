@@ -53,7 +53,7 @@ class TotemController extends BaseController
                 'exploreLabel' => lang('Menu.explore_museum'),
                 'items' => [
                     $this->menuItem(lang('Menu.collection'), 'museo/coleccion', lang('Menu.collection_copy'), 'menu-card--museum', 'museum/cat_coleccion.webp'),
-                    $this->menuItem(lang('Menu.comic_history'), 'museo/historia-comica', lang('Menu.comic_history_copy'), 'menu-card--history', 'museum/cat_historia_comica.webp'),
+                    $this->menuItem(lang('Menu.comic_history'), 'museo/historia', lang('Menu.comic_history_copy'), 'menu-card--history', 'museum/cat_historia_comica.webp'),
                     $this->menuItem(lang('Menu.explore_museum'), 'museo/el-museo', lang('Menu.museum_copy'), 'menu-card--school', 'museum/cat_el_museo.webp'),
                     $this->menuItem(lang('Menu.visits'), 'visitas-guiadas', lang('Menu.visits_copy'), 'menu-card--visits', 'museum/cat_visitas_guiadas.webp'),
                 ],
