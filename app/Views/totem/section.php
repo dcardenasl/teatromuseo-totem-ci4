@@ -30,35 +30,100 @@
                         </div>
                     </div>
 
-                    <section class="school-teachers" aria-label="<?= esc(lang('Section.teachers_label'), 'attr') ?>">
+                    <section class="school-people-section" aria-label="<?= esc(lang('Section.teachers_label'), 'attr') ?>">
                         <h2 class="school-section-title"><?= esc($section['teachersTitle'] ?? lang('Section.teachers_label')) ?></h2>
 
-                        <div class="school-teacher-grid" role="list">
-                            <?php foreach ($teachers as $index => $teacher): ?>
-                                <article class="teacher-card <?= esc($teacher['tone'] ?? '') ?>" role="listitem">
-                                    <div class="teacher-card__media" aria-hidden="true">
+                        <div class="school-people-rail" role="list" aria-label="<?= esc(lang('Section.teachers_label'), 'attr') ?>">
+                            <?php foreach ($teachers as $teacher): ?>
+                                <button
+                                    type="button"
+                                    class="teacher-card teacher-card--interactive <?= esc($teacher['tone'] ?? '') ?>"
+                                    role="listitem"
+                                    aria-haspopup="dialog"
+                                    aria-controls="school-person-modal"
+                                    data-person-trigger
+                                    data-person-group="<?= esc($section['teachersTitle'] ?? lang('Section.teachers_label'), 'attr') ?>"
+                                    data-person-name="<?= esc($teacher['name'], 'attr') ?>"
+                                    data-person-role="<?= esc($teacher['role'], 'attr') ?>"
+                                    data-person-description="<?= esc($teacher['description'], 'attr') ?>"
+                                    data-person-photo="<?= esc(base_url($personPhoto), 'attr') ?>"
+                                    data-person-alt="<?= esc($teacher['name'], 'attr') ?>"
+                                >
+                                    <span class="teacher-card__media" aria-hidden="true">
                                         <img
-                                            src="<?= esc(base_url($section['heroImage'] ?? 'assets/img/menu/menu_escuela.webp'), 'attr') ?>"
+                                            src="<?= esc(base_url($personPhoto), 'attr') ?>"
                                             alt=""
                                         >
-                                    </div>
-                                    <div class="teacher-card__body">
-                                        <h3 class="teacher-card__name"><?= esc(lang('Section.teacher_name_placeholder')) ?></h3>
-                                        <p class="teacher-card__role"><?= esc(lang('Section.teacher_role_placeholder')) ?></p>
-                                        <p class="teacher-card__country"><?= esc(lang('Section.teacher_country_placeholder')) ?></p>
-                                    </div>
-                                </article>
+                                    </span>
+                                    <span class="teacher-card__body">
+                                        <span class="teacher-card__name"><?= esc($teacher['name']) ?></span>
+                                        <span class="teacher-card__role"><?= esc($teacher['role']) ?></span>
+                                        <span class="teacher-card__country"><?= esc(lang('Section.school_person_card_cta')) ?></span>
+                                    </span>
+                                </button>
                             <?php endforeach; ?>
                         </div>
+                    </section>
 
-                        <div class="school-dots" aria-hidden="true">
-                            <span class="school-dots__dot is-active"></span>
-                            <span class="school-dots__dot"></span>
-                            <span class="school-dots__dot"></span>
-                            <span class="school-dots__dot"></span>
-                            <span class="school-dots__dot"></span>
+                    <section class="school-people-section" aria-label="<?= esc(lang('Section.school_students_title'), 'attr') ?>">
+                        <h2 class="school-section-title"><?= esc($section['studentsTitle'] ?? lang('Section.school_students_title')) ?></h2>
+
+                        <div class="school-people-rail" role="list" aria-label="<?= esc(lang('Section.school_students_title'), 'attr') ?>">
+                            <?php foreach ($students as $student): ?>
+                                <button
+                                    type="button"
+                                    class="teacher-card teacher-card--interactive <?= esc($student['tone'] ?? '') ?>"
+                                    role="listitem"
+                                    aria-haspopup="dialog"
+                                    aria-controls="school-person-modal"
+                                    data-person-trigger
+                                    data-person-group="<?= esc($section['studentsTitle'] ?? lang('Section.school_students_title'), 'attr') ?>"
+                                    data-person-name="<?= esc($student['name'], 'attr') ?>"
+                                    data-person-role="<?= esc($student['role'], 'attr') ?>"
+                                    data-person-description="<?= esc($student['description'], 'attr') ?>"
+                                    data-person-photo="<?= esc(base_url($personPhoto), 'attr') ?>"
+                                    data-person-alt="<?= esc($student['name'], 'attr') ?>"
+                                >
+                                    <span class="teacher-card__media" aria-hidden="true">
+                                        <img
+                                            src="<?= esc(base_url($personPhoto), 'attr') ?>"
+                                            alt=""
+                                        >
+                                    </span>
+                                    <span class="teacher-card__body">
+                                        <span class="teacher-card__name"><?= esc($student['name']) ?></span>
+                                        <span class="teacher-card__role"><?= esc($student['role']) ?></span>
+                                        <span class="teacher-card__country"><?= esc(lang('Section.school_person_card_cta')) ?></span>
+                                    </span>
+                                </button>
+                            <?php endforeach; ?>
                         </div>
                     </section>
+
+                    <div class="school-person-modal" id="school-person-modal" data-school-person-modal hidden aria-hidden="true">
+                        <div class="school-person-modal__backdrop" data-school-person-modal-close></div>
+                        <div class="school-person-modal__panel" role="dialog" aria-modal="true" aria-labelledby="school-person-modal-title" aria-describedby="school-person-modal-description">
+                            <button
+                                type="button"
+                                class="school-person-modal__close"
+                                data-school-person-modal-close
+                                aria-label="<?= esc(lang('Section.school_person_modal_close'), 'attr') ?>"
+                            >
+                                ×
+                            </button>
+
+                            <div class="school-person-modal__media">
+                                <img data-school-person-modal-photo src="" alt="">
+                            </div>
+
+                            <div class="school-person-modal__content">
+                                <p class="school-person-modal__group" data-school-person-modal-group></p>
+                                <h3 id="school-person-modal-title" class="school-person-modal__name" data-school-person-modal-name></h3>
+                                <p class="school-person-modal__role" data-school-person-modal-role></p>
+                                <p id="school-person-modal-description" class="school-person-modal__description" data-school-person-modal-description></p>
+                            </div>
+                        </div>
+                    </div>
 
                     <section class="school-courses" aria-label="<?= esc(lang('Section.courses_label'), 'attr') ?>">
                         <h2 class="school-section-title school-section-title--course"><?= esc($section['coursesTitle'] ?? lang('Section.courses_label')) ?></h2>
