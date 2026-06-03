@@ -583,15 +583,107 @@ class TotemController extends BaseController
 
         $courses = array_slice($courses, 0, 1);
 
+        $personPhoto = 'assets/img/school/school_collage.webp';
         $teachers = [
-            ['tone' => 'teacher-card--amber'],
-            ['tone' => 'teacher-card--navy'],
-            ['tone' => 'teacher-card--olive'],
-            ['tone' => 'teacher-card--sepia'],
-            ['tone' => 'teacher-card--rose'],
-            ['tone' => 'teacher-card--crimson'],
-            ['tone' => 'teacher-card--gold'],
-            ['tone' => 'teacher-card--ink'],
+            [
+                'tone' => 'teacher-card--amber',
+                'name' => 'Marta Jara',
+                'role' => 'Clown y pedagogía',
+                'description' => 'Coordina el laboratorio de juego, presencia y creación escénica para grupos escolares y familia.',
+            ],
+            [
+                'tone' => 'teacher-card--navy',
+                'name' => 'Tomás Vega',
+                'role' => 'Máscara y movimiento',
+                'description' => 'Investiga cuerpo, ritmo y máscara desde una práctica de escena precisa y muy física.',
+            ],
+            [
+                'tone' => 'teacher-card--olive',
+                'name' => 'Paula Montt',
+                'role' => 'Dramaturgia infantil',
+                'description' => 'Diseña ejercicios de relato, imaginación y composición para trabajar con infancias y mediadores.',
+            ],
+            [
+                'tone' => 'teacher-card--sepia',
+                'name' => 'Nicolás Ríos',
+                'role' => 'Títeres y manipulación',
+                'description' => 'Acompaña procesos de animación de objetos, muñecos y presencia escénica con foco expresivo.',
+            ],
+            [
+                'tone' => 'teacher-card--rose',
+                'name' => 'Valentina Soto',
+                'role' => 'Voz y presencia',
+                'description' => 'Trabaja la voz proyectada, la escucha y la relación entre cuerpo, gesto y palabra.',
+            ],
+            [
+                'tone' => 'teacher-card--crimson',
+                'name' => 'Javier Lobo',
+                'role' => 'Improvisación',
+                'description' => 'Propone dinámicas de improvisación, juego compartido y construcción de confianza en escena.',
+            ],
+            [
+                'tone' => 'teacher-card--gold',
+                'name' => 'Camila Figueroa',
+                'role' => 'Escena familiar',
+                'description' => 'Trabaja la mediación y el diseño de experiencias teatrales para públicos diversos.',
+            ],
+            [
+                'tone' => 'teacher-card--ink',
+                'name' => 'Rodrigo Salas',
+                'role' => 'Laboratorio de montaje',
+                'description' => 'Integra análisis de escena, materialidad y dirección de grupo para procesos de montaje.',
+            ],
+        ];
+
+        $students = [
+            [
+                'tone' => 'teacher-card--amber',
+                'name' => 'Lucía Paredes',
+                'role' => 'Alumno destacado',
+                'description' => 'Destaca por su energía, escucha y rápida incorporación del juego físico en escena.',
+            ],
+            [
+                'tone' => 'teacher-card--navy',
+                'name' => 'Diego Araya',
+                'role' => 'Alumno destacado',
+                'description' => 'Sobresale en improvisación, trabajo en equipo y resolución escénica bajo presión.',
+            ],
+            [
+                'tone' => 'teacher-card--olive',
+                'name' => 'Sofía Núñez',
+                'role' => 'Alumna destacada',
+                'description' => 'Tiene especial sensibilidad para el gesto, la máscara y la composición visual.',
+            ],
+            [
+                'tone' => 'teacher-card--sepia',
+                'name' => 'Benjamín Toro',
+                'role' => 'Alumno destacado',
+                'description' => 'Combina curiosidad técnica con gran capacidad de observación y presencia en escena.',
+            ],
+            [
+                'tone' => 'teacher-card--rose',
+                'name' => 'Antonia Rojas',
+                'role' => 'Alumna destacada',
+                'description' => 'Aporta liderazgo suave, escucha activa y una relación natural con el público.',
+            ],
+            [
+                'tone' => 'teacher-card--crimson',
+                'name' => 'Matías Bravo',
+                'role' => 'Alumno destacado',
+                'description' => 'Trabaja con precisión corporal y mucho interés por la creación de personajes.',
+            ],
+            [
+                'tone' => 'teacher-card--gold',
+                'name' => 'Elena Cárdenas',
+                'role' => 'Alumna destacada',
+                'description' => 'Resalta en procesos colaborativos y en el uso creativo de la voz y el ritmo.',
+            ],
+            [
+                'tone' => 'teacher-card--ink',
+                'name' => 'Felipe Muñoz',
+                'role' => 'Alumno destacado',
+                'description' => 'Su trabajo destaca por la disciplina, el humor y la facilidad para construir atmósferas.',
+            ],
         ];
 
         return [
@@ -607,6 +699,7 @@ class TotemController extends BaseController
                     ['label' => lang('Section.school_stat_students'), 'value' => '1000'],
                 ],
                 'teachersTitle' => lang('Section.school_teachers_title'),
+                'studentsTitle' => lang('Section.school_students_title'),
                 'coursesTitle' => lang('Section.school_courses_title'),
                 'courseImage' => 'assets/img/menu/menu_programacion.webp',
                 'courseTag' => lang('Section.school_course_tag'),
@@ -624,6 +717,8 @@ class TotemController extends BaseController
             ],
             'courses' => $courses,
             'teachers' => $teachers,
+            'students' => $students,
+            'personPhoto' => $personPhoto,
         ];
     }
 
