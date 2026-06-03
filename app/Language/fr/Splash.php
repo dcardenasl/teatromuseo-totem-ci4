@@ -6,4 +6,6 @@ return [
     'discover' => 'Découvrir',
     'touch_start' => 'Touchez pour commencer',
     'welcome' => 'Bienvenue',
+    'screen_label' => 'Écran d’accueil',
+    'collage_alt' => 'Collage Teatromuseo',
 ];
