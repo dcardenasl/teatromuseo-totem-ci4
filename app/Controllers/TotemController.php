@@ -47,14 +47,14 @@ class TotemController extends BaseController
     public function museum()
     {
         return view('totem/museum_menu', array_merge(
-            $this->pageMeta(lang('Menu.explore_museum')),
+            $this->pageMeta(lang('Menu.el_museo')),
             [
                 'nav' => $this->shellNav(base_url('menu')),
                 'exploreLabel' => lang('Menu.explore_museum'),
                 'items' => [
                     $this->menuItem(lang('Menu.collection'), 'museo/coleccion', lang('Menu.collection_copy'), 'menu-card--museum', 'museum/cat_coleccion.webp'),
                     $this->menuItem(lang('Menu.comic_history'), 'museo/historia-comica', lang('Menu.comic_history_copy'), 'menu-card--history', 'museum/cat_historia_comica.webp'),
-                    $this->menuItem(lang('Menu.el_museo'), 'museo/el-museo', lang('Menu.el_museo_copy'), 'menu-card--school', 'museum/cat_el_museo.webp'),
+                    $this->menuItem(lang('Menu.explore_museum'), 'museo/el-museo', lang('Menu.museum_copy'), 'menu-card--school', 'museum/cat_el_museo.webp'),
                     $this->menuItem(lang('Menu.visits'), 'visitas-guiadas', lang('Menu.visits_copy'), 'menu-card--visits', 'museum/cat_visitas_guiadas.webp'),
                 ],
             ]
@@ -104,8 +104,8 @@ class TotemController extends BaseController
     public function collectionMasks()
     {
         $traditions = [
-            ['title' => 'Comedia del Arte', 'slug' => 'comedia-arte'],
-            ['title' => 'Comedia del Andes', 'slug' => 'comedia-andes'],
+            ['title' => lang('Collection.tradition_comedia_arte'), 'slug' => 'comedia-arte'],
+            ['title' => lang('Collection.tradition_comedia_andes'), 'slug' => 'comedia-andes'],
         ];
 
         return view('totem/collection_masks', array_merge(
@@ -206,16 +206,16 @@ class TotemController extends BaseController
         return [
             'nav' => $this->shellNav(base_url('museo')),
             'section' => [
-                'eyebrow' => lang('Collection.main_title'),
-                'title' => 'Colección',
-                'copy' => 'Explora nuestro catálogo de títeres, marionetas, máscaras e historia cómica. Selecciona una categoría para ver los objetos en exhibición.',
+                'eyebrow' => lang('Collection.section_eyebrow'),
+                'title' => lang('Collection.section_title'),
+                'copy' => lang('Collection.section_copy'),
                 'visualClass' => 'section-hero__visual section-hero__visual--museum',
-                'detailsTitle' => 'Títeres, Máscaras y Payasos',
-                'detailsCopy' => 'Navega por las piezas físicas que forman parte de la muestra viva del teatro. Podrás explorar por técnica de títere o tradición de máscara.',
+                'detailsTitle' => lang('Collection.section_details_title'),
+                'detailsCopy' => lang('Collection.section_details_copy'),
                 'stats' => [
-                    ['label' => 'Títeres', 'value' => 'Categoría principal'],
-                    ['label' => 'Máscaras', 'value' => 'Tradiciones vivas'],
-                    ['label' => 'Payasos', 'value' => 'Historia editorial'],
+                    ['label' => lang('Collection.section_stat_puppets_label'), 'value' => lang('Collection.section_stat_puppets_value')],
+                    ['label' => lang('Collection.section_stat_masks_label'), 'value' => lang('Collection.section_stat_masks_value')],
+                    ['label' => lang('Collection.section_stat_clowns_label'), 'value' => lang('Collection.section_stat_clowns_value')],
                 ],
             ],
         ];
@@ -226,16 +226,16 @@ class TotemController extends BaseController
         return [
             'nav' => $this->shellNav(base_url('museo')),
             'section' => [
-                'eyebrow' => 'Memoria del Circo y Clown',
-                'title' => 'Historia Cómica',
-                'copy' => 'Un viaje por la historia del Circo Chileno y el Teatro de Payasos. Recorre la línea de tiempo de nuestro patrimonio cómico.',
+                'eyebrow' => lang('ComicHistory.section_eyebrow'),
+                'title' => lang('ComicHistory.section_title'),
+                'copy' => lang('ComicHistory.section_copy'),
                 'visualClass' => 'section-hero__visual section-hero__visual--history',
-                'detailsTitle' => 'Línea de Tiempo del Humor',
-                'detailsCopy' => 'Desde el circo tradicional del siglo XIX hasta las escuelas modernas de clown. La historia de la risa como resistencia cultural.',
+                'detailsTitle' => lang('ComicHistory.section_details_title'),
+                'detailsCopy' => lang('ComicHistory.section_details_copy'),
                 'stats' => [
-                    ['label' => 'Formato', 'value' => 'Línea de tiempo'],
-                    ['label' => 'Contenido', 'value' => 'Editorial e histórico'],
-                    ['label' => 'Hitos', 'value' => 'Circo y Payasos'],
+                    ['label' => lang('ComicHistory.section_stat_format_label'), 'value' => lang('ComicHistory.section_stat_format_value')],
+                    ['label' => lang('ComicHistory.section_stat_content_label'), 'value' => lang('ComicHistory.section_stat_content_value')],
+                    ['label' => lang('ComicHistory.section_stat_milestones_label'), 'value' => lang('ComicHistory.section_stat_milestones_value')],
                 ],
             ],
         ];
@@ -246,16 +246,16 @@ class TotemController extends BaseController
         return [
             'nav' => $this->shellNav(base_url('museo')),
             'section' => [
-                'eyebrow' => 'Sobre el Espacio',
-                'title' => 'El Museo',
-                'copy' => 'Conoce la historia institucional, la memoria de nuestro edificio patrimonial (Iglesia San Judas Tadeo) y los logros del FMIM 2024.',
+                'eyebrow' => lang('MuseumInfo.main_eyebrow'),
+                'title' => lang('Menu.el_museo'),
+                'copy' => lang('MuseumInfo.main_copy'),
                 'visualClass' => 'section-hero__visual section-hero__visual--school',
-                'detailsTitle' => 'Historia en la Actualidad',
-                'detailsCopy' => 'Nuestra misión es preservar y mediar el oficio del títere y el payaso. Descubre cómo el edificio sirvió como refugio y resistencia.',
+                'detailsTitle' => lang('MuseumInfo.main_details_title'),
+                'detailsCopy' => lang('MuseumInfo.main_details_copy'),
                 'stats' => [
-                    ['label' => 'Edificio', 'value' => 'Patrimonio de Valparaíso'],
-                    ['label' => 'Misión', 'value' => 'Preservación y risa'],
-                    ['label' => 'FMIM 2024', 'value' => 'Hito de renovación'],
+                    ['label' => lang('MuseumInfo.main_stat_building_label'), 'value' => lang('MuseumInfo.main_stat_building')],
+                    ['label' => lang('MuseumInfo.main_stat_mission_label'), 'value' => lang('MuseumInfo.main_stat_mission')],
+                    ['label' => lang('MuseumInfo.main_stat_fmim_label'), 'value' => lang('MuseumInfo.main_stat_fmim')],
                 ],
             ],
         ];
@@ -461,15 +461,15 @@ class TotemController extends BaseController
             'nav' => $this->shellNav(),
             'section' => [
                 'eyebrow' => lang('Collection.main_title'),
-                'title' => lang('Menu.explore_museum'),
-                'copy' => 'Una vitrina editorial para piezas, objetos y archivos del teatro patrimonial. La propuesta prioriza contraste, marcos ornamentales y lectura rápida para una experiencia táctil en tótem.',
+                'title' => lang('Menu.el_museo'),
+                'copy' => lang('Section.museum_copy'),
                 'visualClass' => 'section-hero__visual section-hero__visual--museum',
-                'detailsTitle' => 'Capas de experiencia',
-                'detailsCopy' => 'La pantalla mezcla descubrimiento, memoria y navegación por capas. Cada bloque actúa como una pieza de museo con jerarquía clara y alto contraste.',
+                'detailsTitle' => lang('Section.museum_details_title'),
+                'detailsCopy' => lang('Section.museum_details_copy'),
                 'stats' => [
-                    ['label' => 'Formato', 'value' => 'Recorrido curado'],
-                    ['label' => 'Enfoque', 'value' => 'Patrimonio y mediación'],
-                    ['label' => 'Acción', 'value' => 'Tocar para explorar'],
+                    ['label' => lang('Section.museum_stat_format_label'), 'value' => lang('Section.museum_stat_format')],
+                    ['label' => lang('Section.museum_stat_focus_label'), 'value' => lang('Section.museum_stat_focus')],
+                    ['label' => lang('Section.museum_stat_action_label'), 'value' => lang('Section.museum_stat_action')],
                 ],
             ],
         ];
@@ -482,14 +482,14 @@ class TotemController extends BaseController
             'section' => [
                 'eyebrow' => lang('Menu.history_copy'),
                 'title' => lang('Menu.history'),
-                'copy' => 'Un relato visual más calmado, con piezas enmarcadas y una lectura de archivo que conserva el carácter artesanal de la propuesta.',
+                'copy' => lang('ComicHistory.main_copy'),
                 'visualClass' => 'section-hero__visual section-hero__visual--history',
-                'detailsTitle' => 'Línea de tiempo',
-                'detailsCopy' => 'Conviene trabajar este módulo como una secuencia de hitos con tarjetas compactas, para no perder el ritmo de escaneo en pantalla vertical.',
+                'detailsTitle' => lang('ComicHistory.details_title'),
+                'detailsCopy' => lang('ComicHistory.details_copy'),
                 'stats' => [
-                    ['label' => 'Origen', 'value' => 'Fundación y contexto'],
-                    ['label' => 'Tono', 'value' => 'Documental y cercano'],
-                    ['label' => 'Salida', 'value' => 'Volver al menú'],
+                    ['label' => lang('ComicHistory.stat_origin_label'), 'value' => lang('ComicHistory.stat_origin')],
+                    ['label' => lang('ComicHistory.stat_tone_label'), 'value' => lang('ComicHistory.stat_tone')],
+                    ['label' => lang('ComicHistory.stat_exit_label'), 'value' => lang('ComicHistory.stat_exit')],
                 ],
             ],
         ];
@@ -510,6 +510,14 @@ class TotemController extends BaseController
     {
         $apiCourses = $this->api()->courses();
         $courses = [];
+        $locale = $this->request->getLocale();
+        $fallbackMonthName = self::getMonthName(4, $locale);
+        $fallbackStart = match ($locale) {
+            'en' => sprintf(lang('Section.school_start_en'), $fallbackMonthName, '20', '2026'),
+            'fr' => sprintf(lang('Section.school_start_fr'), '20', $fallbackMonthName, '2026'),
+            'pt' => sprintf(lang('Section.school_start_pt'), '20', $fallbackMonthName, '2026'),
+            default => sprintf(lang('Section.school_start_es'), '20', $fallbackMonthName, '2026'),
+        };
 
         if (!empty($apiCourses)) {
             foreach ($apiCourses as $course) {
@@ -531,16 +539,14 @@ class TotemController extends BaseController
                     $day = date('d', $time);
                     $monthName = self::getMonthName((int)date('n', $time), $this->request->getLocale());
                     $year = date('Y', $time);
-                    $locale = $this->request->getLocale();
-
                     if ($locale === 'en') {
-                        $startText = 'Starts: ' . $monthName . ' ' . $day . ', ' . $year;
+                        $startText = sprintf(lang('Section.school_start_en'), $monthName, $day, $year);
                     } elseif ($locale === 'fr') {
-                        $startText = 'Début: ' . $day . ' ' . $monthName . ' ' . $year;
+                        $startText = sprintf(lang('Section.school_start_fr'), $day, $monthName, $year);
                     } elseif ($locale === 'pt') {
-                        $startText = 'Início: ' . $day . ' de ' . $monthName . ' de ' . $year;
+                        $startText = sprintf(lang('Section.school_start_pt'), $day, $monthName, $year);
                     } else {
-                        $startText = 'Inicio: ' . $day . ' de ' . $monthName . ' de ' . $year;
+                        $startText = sprintf(lang('Section.school_start_es'), $day, $monthName, $year);
                     }
                 }
 
@@ -555,22 +561,22 @@ class TotemController extends BaseController
             // Mocks de contingencia
             $courses = [
                 [
-                    'tag' => 'Nacional',
-                    'title' => 'La Escuela de los Nuevos Comediantes',
-                    'start' => 'Inicio: 20 de abril de 2026',
-                    'copy' => 'Formación escénica para jóvenes y adultos con foco en presencia, oficio y repertorio.',
+                    'tag' => lang('Section.school_course_tag'),
+                    'title' => lang('Section.school_course_title'),
+                    'start' => $fallbackStart,
+                    'copy' => lang('Section.school_course_copy'),
                 ],
                 [
-                    'tag' => 'Para niños',
-                    'title' => 'Súbete al escenario',
-                    'start' => 'Inicio: 20 de abril de 2026',
-                    'copy' => 'Sesiones lúdicas para descubrir escena, juego y expresión corporal desde el teatro.',
+                    'tag' => lang('Menu.audience_kids'),
+                    'title' => lang('Section.school_course_child_title'),
+                    'start' => $fallbackStart,
+                    'copy' => lang('Section.school_course_child_copy'),
                 ],
                 [
-                    'tag' => 'Internacional',
-                    'title' => 'Máscaras Sagradas',
-                    'start' => 'Inicio: 20 de abril de 2026',
-                    'copy' => 'Práctica de presencia y construcción corporal con énfasis en ritualidad y máscara.',
+                    'tag' => lang('Menu.audience_international'),
+                    'title' => lang('Section.school_course_mask_title'),
+                    'start' => $fallbackStart,
+                    'copy' => lang('Section.school_course_mask_copy'),
                 ],
             ];
         }
@@ -593,23 +599,23 @@ class TotemController extends BaseController
             'section' => [
                 'title' => lang('Menu.school'),
                 'heroImage' => 'assets/img/menu/menu_escuela.webp',
-                'heroAlt' => 'Escuela de teatro del Teatromuseo',
-                'introCopy' => 'TeatroEscuela es el área de la Fundación Teatromuseo del Títere y el Payaso que desarrolla y lleva a cabo los planes pedagógicos con los que la organización promueve, difunde y conserva los ancestrales oficios escénicos de la animación, la nariz roja y la máscara cómica.',
+                'heroAlt' => lang('Section.school_hero_alt'),
+                'introCopy' => lang('Section.school_intro'),
                 'stats' => [
-                    ['label' => 'Cursos', 'value' => '50'],
-                    ['label' => 'Maestros', 'value' => '20'],
-                    ['label' => 'Alumnos', 'value' => '1000'],
+                    ['label' => lang('Section.school_stat_courses'), 'value' => '50'],
+                    ['label' => lang('Section.school_stat_teachers'), 'value' => '20'],
+                    ['label' => lang('Section.school_stat_students'), 'value' => '1000'],
                 ],
-                'teachersTitle' => 'Maestros',
-                'coursesTitle' => 'Cursos',
+                'teachersTitle' => lang('Section.school_teachers_title'),
+                'coursesTitle' => lang('Section.school_courses_title'),
                 'courseImage' => 'assets/img/menu/menu_programacion.webp',
-                'courseTag' => 'Nacional',
-                'courseTitle' => 'La Escuela de los Nuevos Comediantes',
-                'courseStart' => 'Fecha de inicio: lunes 20 de abril de 2026',
-                'courseCopy' => 'Desde el año 2007, la Fundación Teatromuseo del Títere y el Payaso, ha fundado el programa, difundir y profesionalizar estas artes de la representación en nuestro país. A través de una escuela de formación nacional e internacional, un museo especializado en ambas disciplinas escénicas y una sala de teatro con una cartelera familiar permanente.',
-                'courseContactLabel' => 'Correo de contacto:',
-                'courseContact' => 'teatroescuela@teatromuseo.cl',
-                'courseQrLabel' => 'Más información',
+                'courseTag' => lang('Section.school_course_tag'),
+                'courseTitle' => lang('Section.school_course_title'),
+                'courseStart' => $fallbackStart,
+                'courseCopy' => lang('Section.school_course_copy'),
+                'courseContactLabel' => lang('Section.course_contact_label'),
+                'courseContact' => lang('Section.school_course_contact_value'),
+                'courseQrLabel' => lang('Section.school_course_qr_label'),
                 'courseQrImage' => 'assets/img/school/teatroescuela-qr.png',
                 'courseQrUrl' => 'https://teatromuseo.cl/teatro-escuela?utm_source=totem',
                 'closingImage' => 'assets/img/school/school_collage.webp',
@@ -638,7 +644,7 @@ class TotemController extends BaseController
                     $monthsMap[$monthName][] = $day;
                 }
 
-                $tag = lang('Menu.audience_family');
+                $tag = lang('Billboard.audience_family');
                 if (isset($show['audience_id'])) {
                     $audId = (int)$show['audience_id'];
                     if ($audId === 1) {
@@ -654,13 +660,13 @@ class TotemController extends BaseController
 
                 // Determinar clase de tarjeta por la audiencia
                 $class = 'event-card--family';
-                if ($tag === 'Adultos') {
+                if ($tag === lang('Billboard.audience_adults')) {
                     $class = 'event-card--adult';
                 }
 
                 $events[] = [
                     'tag'   => $tag,
-                    'type'  => 'Teatro', // Valor por defecto en la estructura
+                    'type'  => lang('Billboard.event_type_theatre'),
                     'title' => $show['title'] ?? '',
                     'copy'  => $show['description'] ?? '',
                     'class' => $class,
@@ -677,39 +683,39 @@ class TotemController extends BaseController
         } else {
             // Mocks de contingencia
             $months = [
-                ['title' => 'Mayo', 'days' => ['10', '17', '24', '30']],
-                ['title' => 'Junio', 'days' => ['2', '9', '16', '23']],
+                ['title' => lang('Billboard.month_may'), 'days' => ['10', '17', '24', '30']],
+                ['title' => lang('Billboard.month_june'), 'days' => ['2', '9', '16', '23']],
             ];
             $events = [
                 [
-                    'tag' => 'Familiar',
-                    'type' => 'Títeres',
-                    'title' => 'La Malattia di Nogasto',
-                    'copy' => 'Una comedia física con clowns y malabares que apuesta por el asombro y el ritmo de la escena.',
+                    'tag' => lang('Billboard.fallback_audience_family'),
+                    'type' => lang('Billboard.event_type_puppets'),
+                    'title' => lang('Billboard.fallback_title_1'),
+                    'copy' => lang('Billboard.fallback_copy_1'),
                     'class' => 'event-card--family',
                     'slug' => 'la-malattia-di-nogasto',
                 ],
                 [
-                    'tag' => 'Adultos',
-                    'type' => 'Máscaras',
-                    'title' => 'Muaki',
-                    'copy' => 'Una propuesta de cuerpo, suspensión y juego con una visualidad frontal y directa.',
+                    'tag' => lang('Billboard.fallback_audience_adults'),
+                    'type' => lang('Billboard.event_type_masks'),
+                    'title' => lang('Billboard.fallback_title_2'),
+                    'copy' => lang('Billboard.fallback_copy_2'),
                     'class' => 'event-card--adult',
                     'slug' => 'muaki',
                 ],
                 [
-                    'tag' => 'Familiar',
-                    'type' => 'Payasos',
-                    'title' => 'Ayayai',
-                    'copy' => 'Escena física con humor, música y objetos para público de todas las edades.',
+                    'tag' => lang('Billboard.fallback_audience_family'),
+                    'type' => lang('Billboard.event_type_clowns'),
+                    'title' => lang('Billboard.fallback_title_3'),
+                    'copy' => lang('Billboard.fallback_copy_3'),
                     'class' => 'event-card--family',
                     'slug' => 'ayayai',
                 ],
                 [
-                    'tag' => 'Adultos',
-                    'type' => 'Música',
-                    'title' => 'Rock festival',
-                    'copy' => 'Una programación nocturna con energía de escena en vivo y lenguaje de concierto.',
+                    'tag' => lang('Billboard.fallback_audience_adults'),
+                    'type' => lang('Billboard.event_type_music'),
+                    'title' => lang('Billboard.fallback_title_4'),
+                    'copy' => lang('Billboard.fallback_copy_4'),
                     'class' => 'event-card--music',
                     'slug' => 'rock-festival',
                 ],
@@ -725,26 +731,26 @@ class TotemController extends BaseController
 
     private function billboardDetailSection($slug = null): array
     {
-        $title = 'La Malattia di Nogasto';
-        $copy = 'Una comedia para toda la familia, que los hará viajar por diferentes estados, donde la belleza del arte del malabar, se entremezcla con estos encantadores clown. El público es su mejor aliado, ya que los niños gozarán como nunca y los padres volverán a ser niños. Estos payasos embarcarán a su público en un vertiginoso viaje con números de magia sobre-humanos y malabares que desafiaban a la muerte cada instante, con un deseo incontrolable de despertar en el espectador la risa. Este espectáculo consta de diversas rutinas, los cuales a través de su música e instrumentos van hilando cada número. Se presentarán números clásicos de payasos, además de magia, malabares, música en campanitas, equilibrios y concursos con mucha interacción con el público. Está dirigido a toda la familia y tiene una duración de 50 min. Este espectáculo es adaptable para hacerlo en salas, teatros o al aire libre y su tiempo de duración es flexible para mayor comodidad del evento.';
-        $tags = ['Adultos', 'Máscaras'];
+        $title = lang('Billboard.fallback_title_1');
+        $copy = lang('Billboard.detail_copy_1');
+        $tags = [lang('Billboard.fallback_audience_adults'), lang('Billboard.event_type_masks')];
         $image = 'assets/img/billboard/la-malattia-di-nogasto-poster.webp';
         $closingImage = 'assets/img/billboard/la-malattia-di-nogasto-collage.webp';
         $qrImage = 'assets/img/school/teatroescuela-qr.png';
-        $closingNote = 'Síguenos en Instagram y entérate de más detalles';
+        $closingNote = lang('Billboard.default_closing_note');
         
         if ($slug === 'muaki') {
-            $title = 'Muaki';
-            $copy = 'Una propuesta de cuerpo, suspensión y juego con una visualidad frontal y directa. La máscara cómica y la comedia del arte se cruzan en una pieza breve, intensa y muy táctil.';
-            $tags = ['Adultos', 'Máscaras'];
+            $title = lang('Billboard.fallback_title_2');
+            $copy = lang('Billboard.detail_copy_2');
+            $tags = [lang('Billboard.fallback_audience_adults'), lang('Billboard.event_type_masks')];
         } elseif ($slug === 'ayayai') {
-            $title = 'Ayayai';
-            $copy = 'Escena física con humor, música y objetos para público de todas las edades. El movimiento y el gesto sostienen una función clara, cálida y cercana.';
-            $tags = ['Familiar', 'Payasos'];
+            $title = lang('Billboard.fallback_title_3');
+            $copy = lang('Billboard.detail_copy_3');
+            $tags = [lang('Billboard.fallback_audience_family'), lang('Billboard.event_type_clowns')];
         } elseif ($slug === 'rock-festival') {
-            $title = 'Rock festival';
-            $copy = 'Una programación nocturna con energía de escena en vivo y lenguaje de concierto para jóvenes y adultos en Teatromuseo.';
-            $tags = ['Adultos', 'Música'];
+            $title = lang('Billboard.fallback_title_4');
+            $copy = lang('Billboard.detail_copy_4');
+            $tags = [lang('Billboard.fallback_audience_adults'), lang('Billboard.event_type_music')];
         }
 
         return [
@@ -753,12 +759,12 @@ class TotemController extends BaseController
                 'tags' => $tags,
                 'title' => $title,
                 'image' => $image,
-                'company' => 'Compañía Teatromuseo',
-                'direction' => 'Dirección: Víctor Quiroga',
-                'date' => 'Sábado 10 de mayo',
-                'time' => '19.00 h',
-                'duration' => '50 min',
-                'price' => 'General: $4.500',
+                'company' => lang('Billboard.default_company'),
+                'direction' => lang('Billboard.default_direction'),
+                'date' => lang('Billboard.default_date'),
+                'time' => lang('Billboard.default_time'),
+                'duration' => lang('Billboard.default_duration'),
+                'price' => lang('Billboard.default_price'),
                 'copy' => $copy,
                 'closingImage' => $closingImage,
                 'qrImage' => $qrImage,
@@ -774,14 +780,14 @@ class TotemController extends BaseController
             'section' => [
                 'eyebrow' => lang('Menu.visits_copy'),
                 'title' => lang('Menu.visits'),
-                'copy' => 'Una variante más breve del módulo de museo, útil para grupos y reservas. Sirve para recuperar el lenguaje ornamental de la propuesta con una acción clara.',
+                'copy' => lang('Section.visits_copy'),
                 'visualClass' => 'section-hero__visual section-hero__visual--visits',
-                'detailsTitle' => 'Cómo funciona',
-                'detailsCopy' => 'Bloques cortos, tarjetas por tipo de recorrido y una llamada a reserva para que la navegación sea inmediata desde pantalla táctil.',
+                'detailsTitle' => lang('Section.visits_details_title'),
+                'detailsCopy' => lang('Section.visits_details_copy'),
                 'stats' => [
-                    ['label' => 'Reservas', 'value' => 'Con anticipación'],
-                    ['label' => 'Público', 'value' => 'Escolar y general'],
-                    ['label' => 'Modalidad', 'value' => 'Presencial'],
+                    ['label' => lang('Menu.reservations'), 'value' => lang('Section.visits_stat_reservations')],
+                    ['label' => lang('Menu.audience'), 'value' => lang('Section.visits_stat_audience')],
+                    ['label' => lang('Menu.format'), 'value' => lang('Section.visits_stat_mode')],
                 ],
             ],
         ];
@@ -794,14 +800,14 @@ class TotemController extends BaseController
             'section' => [
                 'eyebrow' => lang('Menu.friends_copy'),
                 'title' => lang('Menu.friends'),
-                'copy' => 'Un espacio para alianzas, aportes y pertenencia. En la interfaz conviene mantener una composición generosa, con pocos elementos y una invitación clara a participar.',
+                'copy' => lang('Section.friends_copy'),
                 'visualClass' => 'section-hero__visual section-hero__visual--friends',
-                'detailsTitle' => 'Participa',
-                'detailsCopy' => 'El bloque debe funcionar como un puente entre identidad institucional y llamado a la acción, sin saturar la pantalla con texto.',
+                'detailsTitle' => lang('Section.friends_details_title'),
+                'detailsCopy' => lang('Section.friends_details_copy'),
                 'stats' => [
-                    ['label' => 'Aporte', 'value' => 'Colaboraciones'],
-                    ['label' => 'Red', 'value' => 'Comunidad cultural'],
-                    ['label' => 'Contacto', 'value' => 'info@teatromuseo.cl'],
+                    ['label' => lang('Section.friends_stat_support_label'), 'value' => lang('Section.friends_stat_support')],
+                    ['label' => lang('Section.friends_stat_network_label'), 'value' => lang('Section.friends_stat_network')],
+                    ['label' => lang('Section.friends_stat_contact_label'), 'value' => lang('Section.friends_stat_contact')],
                 ],
             ],
         ];
