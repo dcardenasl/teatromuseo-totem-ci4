@@ -1792,9 +1792,26 @@
     transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
+.collection-pill--disabled {
+    background: #dbd8d2;
+    color: rgba(72, 66, 59, 0.72);
+    box-shadow: 0 4px 0 rgba(96, 88, 78, 0.18);
+    cursor: default;
+    pointer-events: none;
+    transform: none;
+    opacity: 0.95;
+}
+
 .collection-pill:hover,
 .collection-pill:focus-visible {
     transform: translateY(-1px);
+}
+
+.collection-pill--disabled:hover,
+.collection-pill--disabled:focus-visible,
+.collection-pill--disabled:active {
+    transform: none;
+    box-shadow: 0 4px 0 rgba(96, 88, 78, 0.18);
 }
 
 .collection-pill:active {
