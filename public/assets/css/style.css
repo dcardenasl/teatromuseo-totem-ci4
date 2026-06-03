@@ -1589,6 +1589,17 @@ body.totem-animations-disabled .language-instruction {
     overflow: visible;
 }
 
+.menu-card--disabled {
+    cursor: default;
+    background: #ecebea;
+    border-radius: 18px;
+    box-shadow: inset 0 0 0 1px rgba(78, 71, 62, 0.10);
+    padding: 10px 10px 12px;
+    opacity: 0.92;
+    filter: grayscale(1) saturate(0.2) contrast(0.9);
+    pointer-events: none;
+}
+
 .menu-card::before {
     display: none;
 }
@@ -1596,6 +1607,25 @@ body.totem-animations-disabled .language-instruction {
 .menu-card:hover,
 .menu-card:focus-visible {
     transform: none;
+}
+
+.menu-card--disabled:hover,
+.menu-card--disabled:focus-visible {
+    transform: none;
+}
+
+.menu-card--disabled .menu-card__art img,
+.menu-card--disabled .menu-card__img,
+.menu-card--disabled .menu-card__art-core {
+    filter: grayscale(1) saturate(0.1) contrast(0.85) brightness(1.05);
+}
+
+.menu-card--disabled .menu-card__title {
+    color: rgba(55, 48, 40, 0.78);
+}
+
+.menu-card--disabled .menu-card__copy {
+    color: rgba(55, 48, 40, 0.56);
 }
 
 .menu-card:focus-visible {
@@ -3607,9 +3637,26 @@ body.totem-animations-disabled .language-instruction {
     transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
+.collection-pill--disabled {
+    background: #dbd8d2;
+    color: rgba(72, 66, 59, 0.72);
+    box-shadow: 0 4px 0 rgba(96, 88, 78, 0.18);
+    cursor: default;
+    pointer-events: none;
+    transform: none;
+    opacity: 0.95;
+}
+
 .collection-pill:hover,
 .collection-pill:focus-visible {
     transform: translateY(-1px);
+}
+
+.collection-pill--disabled:hover,
+.collection-pill--disabled:focus-visible,
+.collection-pill--disabled:active {
+    transform: none;
+    box-shadow: 0 4px 0 rgba(96, 88, 78, 0.18);
 }
 
 .collection-pill:active {
