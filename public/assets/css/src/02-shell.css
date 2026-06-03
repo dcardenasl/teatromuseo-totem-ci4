@@ -82,6 +82,14 @@
     width: 100%;
 }
 
+/* Global spacing anchor for every totem screen. Adjust the tokens in 00-tokens.css and the responsive overrides in 99-responsive.css. */
+.page-content {
+    padding:
+        var(--content-padding-top)
+        var(--content-padding-inline)
+        var(--content-padding-bottom);
+}
+
 .screen {
     width: 100%;
     min-height: 100dvh;

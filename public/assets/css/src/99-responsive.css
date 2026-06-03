@@ -1,4 +1,10 @@
 @container kiosk (max-width: 920px) {
+    .page-content {
+        --content-padding-inline: 14px;
+        --content-padding-top: 16px;
+        --content-padding-bottom: 14px;
+    }
+
     .totem-header {
         position: static;
         grid-template-columns: auto auto;
@@ -67,6 +73,12 @@
 }
 
 @container kiosk (max-width: 640px) {
+    .page-content {
+        --content-padding-inline: 12px;
+        --content-padding-top: 14px;
+        --content-padding-bottom: 12px;
+    }
+
     /* --- Cabecera y Navegación (Una Sola Línea) --- */
     .totem-header {
         display: flex;
@@ -637,8 +649,27 @@
 }
 
 @container kiosk (max-width: 480px) {
+    .billboard-detail {
+        gap: 20px;
+        padding-bottom: 36px;
+    }
+
+    .billboard-detail__intro {
+        gap: 8px;
+    }
+
+    .billboard-detail__show-title {
+        font-size: clamp(1.65rem, 8.4cqi, 2.3rem);
+        line-height: 0.98;
+    }
+
+    .billboard-detail__meta {
+        font-size: 0.94rem;
+    }
+
     .billboard-detail__body,
     .billboard-detail__closing {
+        gap: 18px;
         grid-template-columns: 1fr;
     }
 
@@ -648,6 +679,12 @@
 
     .billboard-detail__sidebar {
         padding-top: 0;
+    }
+
+    .billboard-detail__lead,
+    .billboard-detail__note,
+    .billboard-detail__contact-copy {
+        max-width: 100%;
     }
 
     .billboard-detail__closing {

@@ -29,6 +29,9 @@
     --page-title-size: clamp(2.9rem, 6cqi, 4.8rem);
     --page-title-letter-spacing: 0.03em;
     --page-title-line-height: 0.92;
+    --content-padding-inline: 16px;
+    --content-padding-top: 18px;
+    --content-padding-bottom: 14px;
 
     /* Bordes y radios */
     --radius-xl: 40px;

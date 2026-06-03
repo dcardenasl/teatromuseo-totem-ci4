@@ -42,7 +42,6 @@
     display: grid;
     grid-template-rows: auto auto auto auto;
     gap: 14px;
-    padding: 18px 16px 14px;
     overflow: visible;
 }
 
