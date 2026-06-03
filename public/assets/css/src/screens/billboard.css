@@ -118,7 +118,7 @@
     justify-items: start;
     gap: 10px;
     text-align: left;
-    padding: 6px 8px 0;
+    padding: 0;
 }
 
 .billboard-detail__tags {
@@ -214,19 +214,19 @@
 .billboard-detail__body {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(176px, 0.36fr);
-    gap: 28px;
+    gap: 24px;
     align-items: start;
     margin-top: 6px;
 }
 
 .billboard-detail__copy {
     min-width: 0;
-    padding-left: 8px;
+    padding-left: 0;
 }
 
 .billboard-detail__lead {
     margin: 0;
-    max-width: 33ch;
+    max-width: none;
     color: var(--ink);
     font-size: 1rem;
     line-height: 1.38;
@@ -237,6 +237,7 @@
     gap: 18px;
     align-content: start;
     padding-top: 14px;
+    min-width: 0;
 }
 
 .billboard-detail__schedule {
@@ -270,31 +271,40 @@
 
 .billboard-detail__metric {
     display: grid;
-    gap: 14px;
+    grid-template-columns: 42px minmax(0, 1fr);
+    column-gap: 10px;
+    row-gap: 8px;
+    align-items: start;
 }
 
-.billboard-detail__metric-head {
-    display: inline-flex;
-    align-items: flex-start;
-    gap: 10px;
-    color: var(--ink);
-    font-size: 1.02rem;
-    line-height: 1.15;
-}
-
-.billboard-detail__metric-head--strong {
-    font-weight: 700;
-}
-
-.billboard-detail__metric-head img {
+.billboard-detail__metric-icon {
     width: 42px;
     height: 42px;
     object-fit: contain;
     flex: 0 0 auto;
     margin-top: -1px;
+    grid-row: 1 / span 2;
+}
+
+.billboard-detail__metric-content {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+}
+
+.billboard-detail__metric-label {
+    display: block;
+    color: var(--ink);
+    font-size: 1.02rem;
+    line-height: 1.15;
+}
+
+.billboard-detail__metric-label--strong {
+    font-weight: 700;
 }
 
 .billboard-detail__metric-value {
+    padding-left: 0;
     color: var(--ink);
     font-size: 1.02rem;
     line-height: 1.4;
@@ -302,7 +312,7 @@
 
 .billboard-detail__note {
     margin: 0;
-    max-width: 14ch;
+    max-width: 100%;
     color: var(--ink);
     font-size: 0.78rem;
     line-height: 1.32;
@@ -346,7 +356,7 @@
 
 .billboard-detail__contact-copy {
     margin: 0;
-    max-width: 14ch;
+    max-width: 100%;
     color: var(--ink);
     font-size: 1rem;
     line-height: 1.34;

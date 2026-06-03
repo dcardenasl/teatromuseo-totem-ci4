@@ -29,6 +29,9 @@
     --page-title-size: clamp(2.9rem, 6cqi, 4.8rem);
     --page-title-letter-spacing: 0.03em;
     --page-title-line-height: 0.92;
+    --content-padding-inline: 16px;
+    --content-padding-top: 18px;
+    --content-padding-bottom: 14px;
 
     /* Bordes y radios */
     --radius-xl: 40px;
@@ -316,7 +319,6 @@ h1, h2, h3, h4, h5, h6 {
     display: grid;
     grid-template-rows: auto auto auto auto;
     gap: 14px;
-    padding: 18px 16px 14px;
     overflow: visible;
 }
 
@@ -4105,7 +4107,7 @@ body.totem-animations-disabled .language-instruction {
     justify-items: start;
     gap: 10px;
     text-align: left;
-    padding: 6px 8px 0;
+    padding: 0;
 }
 
 .billboard-detail__tags {
@@ -4201,19 +4203,19 @@ body.totem-animations-disabled .language-instruction {
 .billboard-detail__body {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(176px, 0.36fr);
-    gap: 28px;
+    gap: 24px;
     align-items: start;
     margin-top: 6px;
 }
 
 .billboard-detail__copy {
     min-width: 0;
-    padding-left: 8px;
+    padding-left: 0;
 }
 
 .billboard-detail__lead {
     margin: 0;
-    max-width: 33ch;
+    max-width: none;
     color: var(--ink);
     font-size: 1rem;
     line-height: 1.38;
@@ -4224,6 +4226,7 @@ body.totem-animations-disabled .language-instruction {
     gap: 18px;
     align-content: start;
     padding-top: 14px;
+    min-width: 0;
 }
 
 .billboard-detail__schedule {
@@ -4257,31 +4260,40 @@ body.totem-animations-disabled .language-instruction {
 
 .billboard-detail__metric {
     display: grid;
-    gap: 14px;
+    grid-template-columns: 42px minmax(0, 1fr);
+    column-gap: 10px;
+    row-gap: 8px;
+    align-items: start;
 }
 
-.billboard-detail__metric-head {
-    display: inline-flex;
-    align-items: flex-start;
-    gap: 10px;
-    color: var(--ink);
-    font-size: 1.02rem;
-    line-height: 1.15;
-}
-
-.billboard-detail__metric-head--strong {
-    font-weight: 700;
-}
-
-.billboard-detail__metric-head img {
+.billboard-detail__metric-icon {
     width: 42px;
     height: 42px;
     object-fit: contain;
     flex: 0 0 auto;
     margin-top: -1px;
+    grid-row: 1 / span 2;
+}
+
+.billboard-detail__metric-content {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+}
+
+.billboard-detail__metric-label {
+    display: block;
+    color: var(--ink);
+    font-size: 1.02rem;
+    line-height: 1.15;
+}
+
+.billboard-detail__metric-label--strong {
+    font-weight: 700;
 }
 
 .billboard-detail__metric-value {
+    padding-left: 0;
     color: var(--ink);
     font-size: 1.02rem;
     line-height: 1.4;
@@ -4289,7 +4301,7 @@ body.totem-animations-disabled .language-instruction {
 
 .billboard-detail__note {
     margin: 0;
-    max-width: 14ch;
+    max-width: 100%;
     color: var(--ink);
     font-size: 0.78rem;
     line-height: 1.32;
@@ -4333,7 +4345,7 @@ body.totem-animations-disabled .language-instruction {
 
 .billboard-detail__contact-copy {
     margin: 0;
-    max-width: 14ch;
+    max-width: 100%;
     color: var(--ink);
     font-size: 1rem;
     line-height: 1.34;
@@ -5338,6 +5350,14 @@ body.totem-transitions-disabled .totem-transition-overlay {
     width: 100%;
 }
 
+/* Global spacing anchor for every totem screen. Adjust the tokens in 00-tokens.css and the responsive overrides in 99-responsive.css. */
+.page-content {
+    padding:
+        var(--content-padding-top)
+        var(--content-padding-inline)
+        var(--content-padding-bottom);
+}
+
 .screen {
     width: 100%;
     min-height: 100dvh;
@@ -5581,6 +5601,12 @@ body.totem-transitions-disabled .totem-transition-overlay {
     clip-path: polygon(50% 0, 62% 16%, 80% 10%, 92% 28%, 100% 36%, 88% 52%, 100% 70%, 84% 82%, 78% 100%, 60% 84%, 42% 100%, 30% 78%, 12% 82%, 18% 62%, 0 54%, 16% 38%, 8% 20%, 24% 14%, 34% 0);
 }
 @container kiosk (max-width: 920px) {
+    .page-content {
+        --content-padding-inline: 14px;
+        --content-padding-top: 16px;
+        --content-padding-bottom: 14px;
+    }
+
     .totem-header {
         position: static;
         grid-template-columns: auto auto;
@@ -5649,6 +5675,12 @@ body.totem-transitions-disabled .totem-transition-overlay {
 }
 
 @container kiosk (max-width: 640px) {
+    .page-content {
+        --content-padding-inline: 12px;
+        --content-padding-top: 14px;
+        --content-padding-bottom: 12px;
+    }
+
     /* --- Cabecera y Navegación (Una Sola Línea) --- */
     .totem-header {
         display: flex;
@@ -6219,8 +6251,27 @@ body.totem-transitions-disabled .totem-transition-overlay {
 }
 
 @container kiosk (max-width: 480px) {
+    .billboard-detail {
+        gap: 20px;
+        padding-bottom: 36px;
+    }
+
+    .billboard-detail__intro {
+        gap: 8px;
+    }
+
+    .billboard-detail__show-title {
+        font-size: clamp(1.65rem, 8.4cqi, 2.3rem);
+        line-height: 0.98;
+    }
+
+    .billboard-detail__meta {
+        font-size: 0.94rem;
+    }
+
     .billboard-detail__body,
     .billboard-detail__closing {
+        gap: 18px;
         grid-template-columns: 1fr;
     }
 
@@ -6230,6 +6281,12 @@ body.totem-transitions-disabled .totem-transition-overlay {
 
     .billboard-detail__sidebar {
         padding-top: 0;
+    }
+
+    .billboard-detail__lead,
+    .billboard-detail__note,
+    .billboard-detail__contact-copy {
+        max-width: 100%;
     }
 
     .billboard-detail__closing {

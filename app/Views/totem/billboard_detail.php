@@ -53,24 +53,33 @@
                     <span class="billboard-detail__rule" aria-hidden="true"></span>
 
                     <div class="billboard-detail__metric">
-                        <span class="billboard-detail__metric-head">
-                            <img src="<?= esc(base_url('assets/img/ui/icon_duration.webp'), 'attr') ?>" alt="" aria-hidden="true">
-                            <span><?= esc(lang('Billboard.duration_label')) ?></span>
-                        </span>
-                        <strong class="billboard-detail__metric-value"><?= esc($detail['duration'] ?? '') ?></strong>
+                        <img
+                            class="billboard-detail__metric-icon"
+                            src="<?= esc(base_url('assets/img/ui/icon_duration.webp'), 'attr') ?>"
+                            alt=""
+                            aria-hidden="true"
+                        >
+                        <div class="billboard-detail__metric-content">
+                            <span class="billboard-detail__metric-label"><?= esc(lang('Billboard.duration_label')) ?></span>
+                            <strong class="billboard-detail__metric-value"><?= esc($detail['duration'] ?? '') ?></strong>
+                        </div>
                     </div>
 
                     <span class="billboard-detail__rule" aria-hidden="true"></span>
 
                     <div class="billboard-detail__metric">
-                        <span class="billboard-detail__metric-head billboard-detail__metric-head--strong">
-                            <img src="<?= esc(base_url('assets/img/ui/icon_ticket.webp'), 'attr') ?>" alt="" aria-hidden="true">
-                            <span><?= esc($detail['price'] ?? '') ?></span>
-                        </span>
-                        <strong class="billboard-detail__metric-value"><?= esc(lang('Billboard.price_note')) ?></strong>
+                        <img
+                            class="billboard-detail__metric-icon"
+                            src="<?= esc(base_url('assets/img/ui/icon_ticket.webp'), 'attr') ?>"
+                            alt=""
+                            aria-hidden="true"
+                        >
+                        <div class="billboard-detail__metric-content">
+                            <span class="billboard-detail__metric-label billboard-detail__metric-label--strong"><?= esc($detail['price'] ?? '') ?></span>
+                            <strong class="billboard-detail__metric-value"><?= esc(lang('Billboard.price_note')) ?></strong>
+                            <p class="billboard-detail__note"><?= esc(lang('Billboard.ticket_note')) ?></p>
+                        </div>
                     </div>
-
-                    <p class="billboard-detail__note"><?= esc(lang('Billboard.ticket_note')) ?></p>
                 </aside>
             </section>
 
