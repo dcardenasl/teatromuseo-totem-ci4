@@ -6,11 +6,13 @@
     gap: 16px;
     margin-bottom: 16px;
     padding: 8px 6px 12px;
-    position: relative;
-    z-index: 10;
-    background: transparent;
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: rgba(250, 244, 233, 0.94);
     border: 0;
-    backdrop-filter: none;
+    backdrop-filter: blur(10px) saturate(1.05);
+    box-shadow: 0 8px 24px rgba(52, 34, 14, 0.08);
     justify-content: center;
     width: 100%;
     text-align: left;

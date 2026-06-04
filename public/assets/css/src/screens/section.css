@@ -586,9 +586,9 @@
 
 .school-course__contact {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 22px;
-    align-items: end;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    align-items: start;
     margin-top: 8px;
 }
 
@@ -609,6 +609,7 @@
     display: grid;
     justify-items: center;
     gap: 8px;
+    justify-self: start;
     text-align: center;
 }
 
