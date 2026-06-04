@@ -521,7 +521,7 @@
 
 .school-course {
     display: grid;
-    grid-template-columns: minmax(230px, 0.34fr) minmax(0, 1fr);
+    grid-template-columns: minmax(190px, 0.28fr) minmax(0, 1fr);
     gap: 20px;
     width: min(88%, 860px);
     margin: 0 auto;
@@ -1879,8 +1879,8 @@
 }
 
 .collection-footer__brand-mark {
-    width: 66px;
-    height: 66px;
+    width: 92px;
+    height: 92px;
     border-radius: 50%;
     border: 3px solid var(--brand-gold);
     background: url('../animations/logo.gif') no-repeat center center / cover;

@@ -75,7 +75,7 @@
     }
 }
 
-@container kiosk (max-width: 560px) {
+@container kiosk (max-width: 640px) {
     .page-content {
         --content-padding-inline: 12px;
         --content-padding-top: 14px;

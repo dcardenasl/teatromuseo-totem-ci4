@@ -401,8 +401,8 @@
 }
 
 .billboard-detail__brand-mark {
-    width: 68px;
-    height: 68px;
+    width: 92px;
+    height: 92px;
     border-radius: 50%;
     border: 3px solid var(--brand-gold);
     background: url('../animations/logo.gif') no-repeat center center / cover;
