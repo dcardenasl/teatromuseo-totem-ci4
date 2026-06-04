@@ -4,6 +4,9 @@ namespace App\Controllers;
 
 class TotemController extends BaseController
 {
+    private const MUSEUM_BLOCK_EXCERPT_CHARS = 180;
+    private const MUSEUM_TODAY_MAX_BLOCKS    = 4;
+
     private ?\App\Services\TotemApiService $apiService = null;
 
     private function api(): \App\Services\TotemApiService
@@ -107,22 +110,6 @@ class TotemController extends BaseController
             [
                 'nav' => $this->shellNav(base_url('museo/coleccion/titeres/tecnicas')),
                 'technique' => $technique
-            ]
-        ));
-    }
-
-    public function collectionMasks()
-    {
-        $traditions = [
-            ['title' => lang('Collection.tradition_comedia_arte'), 'slug' => 'comedia-arte'],
-            ['title' => lang('Collection.tradition_comedia_andes'), 'slug' => 'comedia-andes'],
-        ];
-
-        return view('totem/collection_masks', array_merge(
-            $this->pageMeta(lang('Collection.masks_title')),
-            [
-                'nav' => $this->shellNav(base_url('museo/coleccion')),
-                'traditions' => $traditions
             ]
         ));
     }
@@ -264,66 +251,6 @@ class TotemController extends BaseController
         return view('totem/extension_contact', array_merge($this->pageMeta(lang('Extension.title')), ['nav' => $this->shellNav(base_url('menu'))]));
     }
 
-    private function collectionSection(): array
-    {
-        return [
-            'nav' => $this->shellNav(base_url('museo')),
-            'section' => [
-                'eyebrow' => lang('Collection.section_eyebrow'),
-                'title' => lang('Collection.section_title'),
-                'copy' => lang('Collection.section_copy'),
-                'visualClass' => 'section-hero__visual section-hero__visual--museum',
-                'detailsTitle' => lang('Collection.section_details_title'),
-                'detailsCopy' => lang('Collection.section_details_copy'),
-                'stats' => [
-                    ['label' => lang('Collection.section_stat_puppets_label'), 'value' => lang('Collection.section_stat_puppets_value')],
-                    ['label' => lang('Collection.section_stat_masks_label'), 'value' => lang('Collection.section_stat_masks_value')],
-                    ['label' => lang('Collection.section_stat_clowns_label'), 'value' => lang('Collection.section_stat_clowns_value')],
-                ],
-            ],
-        ];
-    }
-
-    private function comicHistorySection(): array
-    {
-        return [
-            'nav' => $this->shellNav(base_url('museo')),
-            'section' => [
-                'eyebrow' => lang('ComicHistory.section_eyebrow'),
-                'title' => lang('ComicHistory.section_title'),
-                'copy' => lang('ComicHistory.section_copy'),
-                'visualClass' => 'section-hero__visual section-hero__visual--history',
-                'detailsTitle' => lang('ComicHistory.section_details_title'),
-                'detailsCopy' => lang('ComicHistory.section_details_copy'),
-                'stats' => [
-                    ['label' => lang('ComicHistory.section_stat_format_label'), 'value' => lang('ComicHistory.section_stat_format_value')],
-                    ['label' => lang('ComicHistory.section_stat_content_label'), 'value' => lang('ComicHistory.section_stat_content_value')],
-                    ['label' => lang('ComicHistory.section_stat_milestones_label'), 'value' => lang('ComicHistory.section_stat_milestones_value')],
-                ],
-            ],
-        ];
-    }
-
-    private function museumInfoSection(): array
-    {
-        return [
-            'nav' => $this->shellNav(base_url('museo')),
-            'section' => [
-                'eyebrow' => lang('MuseumInfo.main_eyebrow'),
-                'title' => lang('Menu.el_museo'),
-                'copy' => lang('MuseumInfo.main_copy'),
-                'visualClass' => 'section-hero__visual section-hero__visual--school',
-                'detailsTitle' => lang('MuseumInfo.main_details_title'),
-                'detailsCopy' => lang('MuseumInfo.main_details_copy'),
-                'stats' => [
-                    ['label' => lang('MuseumInfo.main_stat_building_label'), 'value' => lang('MuseumInfo.main_stat_building')],
-                    ['label' => lang('MuseumInfo.main_stat_mission_label'), 'value' => lang('MuseumInfo.main_stat_mission')],
-                    ['label' => lang('MuseumInfo.main_stat_fmim_label'), 'value' => lang('MuseumInfo.main_stat_fmim')],
-                ],
-            ],
-        ];
-    }
-
     /**
      * Build a resilient editorial context for the museum today screen.
      *
@@ -407,7 +334,7 @@ class TotemController extends BaseController
             }
 
             $title = trim((string) ($block['title'] ?? ''));
-            $copy = $this->excerptMuseumBlockContent((string) ($block['content'] ?? ''), 180);
+            $copy = $this->excerptMuseumBlockContent((string) ($block['content'] ?? ''));
 
             if ($title === '' && $copy === '') {
                 continue;
@@ -421,10 +348,10 @@ class TotemController extends BaseController
             ];
         }
 
-        return array_slice($normalized, 0, 4);
+        return array_slice($normalized, 0, self::MUSEUM_TODAY_MAX_BLOCKS);
     }
 
-    private function excerptMuseumBlockContent(string $html, int $limit = 180): string
+    private function excerptMuseumBlockContent(string $html, int $limit = self::MUSEUM_BLOCK_EXCERPT_CHARS): string
     {
         $plain = trim((string) preg_replace('/\s+/u', ' ', html_entity_decode(strip_tags($html), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
 
@@ -443,11 +370,6 @@ class TotemController extends BaseController
         return $plain;
     }
 
-    public function history()
-    {
-        return view('totem/section', array_merge($this->pageMeta(lang('Menu.history')), $this->historySection()));
-    }
-
     public function theaterSchool()
     {
         return view('totem/theater_school', array_merge($this->pageMeta(lang('Menu.school')), $this->schoolSection()));
@@ -461,11 +383,6 @@ class TotemController extends BaseController
     public function billboardDetail($slug = null)
     {
         return view('totem/billboard_detail', array_merge($this->pageMeta(lang('Menu.billboard_detail')), $this->billboardDetailSection($slug)));
-    }
-
-    public function guidedVisits()
-    {
-        return view('totem/section', array_merge($this->pageMeta(lang('Menu.visits')), $this->visitsSection()));
     }
 
     public function friends()
@@ -514,46 +431,6 @@ class TotemController extends BaseController
                 'href' => base_url('menu'),
                 'icon' => '⌂',
                 'class' => 'pill-button pill-button--home',
-            ],
-        ];
-    }
-
-    private function museumSection(): array
-    {
-        return [
-            'nav' => $this->shellNav(),
-            'section' => [
-                'eyebrow' => lang('Collection.main_title'),
-                'title' => lang('Menu.el_museo'),
-                'copy' => lang('Section.museum_copy'),
-                'visualClass' => 'section-hero__visual section-hero__visual--museum',
-                'detailsTitle' => lang('Section.museum_details_title'),
-                'detailsCopy' => lang('Section.museum_details_copy'),
-                'stats' => [
-                    ['label' => lang('Section.museum_stat_format_label'), 'value' => lang('Section.museum_stat_format')],
-                    ['label' => lang('Section.museum_stat_focus_label'), 'value' => lang('Section.museum_stat_focus')],
-                    ['label' => lang('Section.museum_stat_action_label'), 'value' => lang('Section.museum_stat_action')],
-                ],
-            ],
-        ];
-    }
-
-    private function historySection(): array
-    {
-        return [
-            'nav' => $this->shellNav(base_url('menu')),
-            'section' => [
-                'eyebrow' => lang('Menu.history_copy'),
-                'title' => lang('Menu.history'),
-                'copy' => lang('ComicHistory.main_copy'),
-                'visualClass' => 'section-hero__visual section-hero__visual--history',
-                'detailsTitle' => lang('ComicHistory.details_title'),
-                'detailsCopy' => lang('ComicHistory.details_copy'),
-                'stats' => [
-                    ['label' => lang('ComicHistory.stat_origin_label'), 'value' => lang('ComicHistory.stat_origin')],
-                    ['label' => lang('ComicHistory.stat_tone_label'), 'value' => lang('ComicHistory.stat_tone')],
-                    ['label' => lang('ComicHistory.stat_exit_label'), 'value' => lang('ComicHistory.stat_exit')],
-                ],
             ],
         ];
     }
@@ -644,6 +521,7 @@ class TotemController extends BaseController
             ];
         }
 
+        // El tótem muestra un curso a la vez por restricción de espacio en pantalla
         $courses = array_slice($courses, 0, 1);
 
         $personPhoto = 'assets/img/school/school_collage.webp';
