@@ -156,11 +156,13 @@ h1, h2, h3, h4, h5, h6 {
     gap: 16px;
     margin-bottom: 16px;
     padding: 8px 6px 12px;
-    position: relative;
-    z-index: 10;
-    background: transparent;
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: rgba(250, 244, 233, 0.94);
     border: 0;
-    backdrop-filter: none;
+    backdrop-filter: blur(10px) saturate(1.05);
+    box-shadow: 0 8px 24px rgba(52, 34, 14, 0.08);
     justify-content: center;
     width: 100%;
     text-align: left;
@@ -2431,9 +2433,9 @@ body.totem-animations-disabled .language-instruction {
 
 .school-course__contact {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 22px;
-    align-items: end;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    align-items: start;
     margin-top: 8px;
 }
 
@@ -2454,6 +2456,7 @@ body.totem-animations-disabled .language-instruction {
     display: grid;
     justify-items: center;
     gap: 8px;
+    justify-self: start;
     text-align: center;
 }
 
@@ -5655,7 +5658,8 @@ body.totem-transitions-disabled .totem-transition-overlay {
     }
 
     .totem-header {
-        position: static;
+        position: sticky;
+        top: 0;
         grid-template-columns: auto auto;
         justify-content: center;
         align-items: center;
@@ -5738,7 +5742,8 @@ body.totem-transitions-disabled .totem-transition-overlay {
         gap: 12px;
         margin-bottom: 16px;
         padding: 8px 6px 0;
-        position: static;
+        position: sticky;
+        top: 0;
         width: 100%;
     }
 
@@ -6063,74 +6068,6 @@ body.totem-transitions-disabled .totem-transition-overlay {
         padding: 12px;
     }
 
-    .school-person-modal__panel {
-        grid-template-columns: 1fr;
-        width: min(94vw, 620px);
-        max-height: 88vh;
-        gap: 14px;
-        padding: 16px;
-        border-radius: 28px;
-    }
-
-    .school-person-modal__media {
-        aspect-ratio: 4 / 3;
-    }
-
-    .school-person-modal__content {
-        gap: 10px;
-        padding: 4px 2px 6px;
-    }
-
-    .school-person-modal__name {
-        font-size: clamp(1.8rem, 7cqi, 2.6rem);
-    }
-
-    .school-course {
-        width: 100%;
-        grid-template-columns: 1fr;
-        gap: 12px;
-        padding: 14px;
-        justify-items: center;
-    }
-
-    .school-course__poster {
-        width: min(100%, 320px);
-        aspect-ratio: 4 / 3;
-        border-radius: 16px;
-    }
-
-    .school-course__body {
-        width: 100%;
-        padding-top: 0;
-    }
-
-    .school-course__qr {
-        display: grid;
-        justify-items: start;
-        gap: 6px;
-        margin-top: 8px;
-    }
-
-    .school-course__contact {
-        grid-template-columns: 1fr;
-        gap: 12px;
-        align-items: start;
-        width: 100%;
-    }
-
-    .school-course__contact-copy {
-        order: 1;
-    }
-
-    .school-course__qr {
-        order: 2;
-    }
-
-    .school-course__qr-box {
-        width: 64px;
-        height: 64px;
-    }
-
     .school-dossier {
         gap: 16px;
         padding-bottom: 24px;
@@ -6298,6 +6235,64 @@ body.totem-transitions-disabled .totem-transition-overlay {
 }
 
 @container kiosk (max-width: 480px) {
+    .school-person-modal {
+        padding: 12px;
+    }
+
+    .school-person-modal__panel {
+        grid-template-columns: 1fr;
+        width: min(94vw, 620px);
+        max-height: 88vh;
+        gap: 14px;
+        padding: 16px;
+        border-radius: 28px;
+    }
+
+    .school-person-modal__media {
+        aspect-ratio: 4 / 3;
+    }
+
+    .school-person-modal__content {
+        gap: 10px;
+        padding: 4px 2px 6px;
+    }
+
+    .school-person-modal__name {
+        font-size: clamp(1.8rem, 7cqi, 2.6rem);
+    }
+
+    .school-course {
+        width: 100%;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 14px;
+        justify-items: center;
+    }
+
+    .school-course__poster {
+        width: min(100%, 320px);
+        aspect-ratio: 4 / 3;
+        border-radius: 16px;
+    }
+
+    .school-course__body {
+        width: 100%;
+        padding-top: 0;
+    }
+
+    .school-course__qr {
+        justify-self: start;
+    }
+
+    .school-course__contact {
+        width: 100%;
+    }
+
+    .school-course__qr-box {
+        width: 64px;
+        height: 64px;
+    }
+
     .billboard-detail {
         gap: 20px;
         padding-bottom: 36px;
