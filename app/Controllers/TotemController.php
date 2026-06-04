@@ -450,7 +450,7 @@ class TotemController extends BaseController
 
     public function theaterSchool()
     {
-        return view('totem/section', array_merge($this->pageMeta(lang('Menu.school')), $this->schoolSection()));
+        return view('totem/theater_school', array_merge($this->pageMeta(lang('Menu.school')), $this->schoolSection()));
     }
 
     public function billboard()
