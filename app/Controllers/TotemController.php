@@ -511,7 +511,7 @@ class TotemController extends BaseController
             ],
             [
                 'label' => lang('Nav.home'),
-                'href' => base_url('/'),
+                'href' => base_url('menu'),
                 'icon' => '⌂',
                 'class' => 'pill-button pill-button--home',
             ],
