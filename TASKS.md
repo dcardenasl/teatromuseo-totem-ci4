@@ -52,7 +52,7 @@ Esta sección documenta la comparación real entre el tótem en `http://localhos
       4. El header debe conservar la misma lógica de navegación y tamaño de botones que el PDF.
 
 ### B. Colección del Museo
-> ⚠️ **Cambio de arquitectura (1/6):** La navegación se simplificó. `collection_main` es ahora la única pantalla de colección — muestra Títeres, Payasos y Máscaras con scroll, navegando directo a fichas. Las subrutas `/titeres`, `/mascaras`, `/payasos` y sus vistas quedan obsoletas y serán eliminadas.
+> ⚠️ **Cambio de arquitectura (1/6):** `collection_main` es la única pantalla activa de Colección. Ahí mismo aparecen Títeres, Payasos y Máscaras con sus botones de navegación inmediatos, y desde cada bloque se entra directo al contenido correspondiente. Las pantallas intermedias `/titeres`, `/mascaras` y `/payasos` ya no existen como pasos separados y quedan obsoletas.
 
 - [ ] **B1 — Rediseñar `collection_main` según diseño aprobado de Coni** (`/museo/coleccion`)
   * **PDF de referencia:** `COLECCION.pdf`
@@ -60,9 +60,9 @@ Esta sección documenta la comparación real entre el tótem en `http://localhos
   * **Archivos a tocar:** [app/Views/totem/collection_main.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_main.php)
   * **Bloqueante:** ⏳ Assets de Coni pendientes (reunión 4/6).
   * **Criterio de aceptación:**
-      1. Una sola pantalla con scroll muestra Títeres, Payasos y Máscaras como secciones.
-      2. Cada sección tiene ilustraciones decorativas de Coni (PNG placeholder → swap final).
-      3. Los links van directo a `/museo/coleccion/fichas/{id}`, sin pantalla intermedia.
+      1. Una sola pantalla concentra Títeres, Payasos y Máscaras con sus botones de navegación visibles.
+      2. Cada bloque enlaza directo a su destino final, sin pantalla intermedia.
+      3. Cada sección tiene ilustraciones decorativas de Coni (PNG placeholder → swap final).
       4. Las rutas y vistas obsoletas están eliminadas.
 - [ ] **B2 — Implementar ficha individual de objeto** (`/museo/coleccion/fichas/{id}`)
   * **PDF de referencia:** `COLECCION.pdf` (versión corregida — no recibida aún)
@@ -176,7 +176,7 @@ Esta tabla debe mantenerse actualizada cuando se cambie cualquier imagen, ilustr
 | Menú principal - Visitas Guiadas | `public/assets/img/menu/menu_visitas.webp` | `/menu` | final | Coincide con la tarjeta de visitas. |
 | Menú principal - Amigos de Teatromuseo | `public/assets/img/menu/menu_amigos.webp` | `/menu` | final | Coincide con la tarjeta de amigos. |
 | Menú principal - Collage inferior de edificio / ornamento | `public/assets/img/menu/collage_referencia.webp` | `/menu` | provisional | Usado como referencia visual del cierre inferior, revisar si el PDF tiene recorte o composición distinta. |
-| Colección - Títeres (imagen principal) | `public/assets/img/museum/cat_coleccion.webp` | `/museo/coleccion` y `/museo/coleccion/titeres` | final | Es el asset principal visible para la sección de colección. |
+| Colección - Títeres (imagen principal) | `public/assets/img/museum/cat_coleccion.webp` | `/museo/coleccion` | final | Es el asset principal visible para la sección de colección. |
 | Colección - Historia Cómica | `public/assets/img/museum/cat_historia_comica.webp` | `/museo/coleccion` y `/museo/historia-comica` | final | Coincide con el bloque de historia cómica. |
 | Colección - El Museo | `public/assets/img/museum/cat_el_museo.webp` | `/museo/coleccion` y `/museo/el-museo` | final | Coincide con el bloque del museo. |
 | Colección - Visitas Guiadas | `public/assets/img/museum/cat_visitas_guiadas.webp` | `/museo/coleccion` y `/visitas-guiadas` | final | Coincide con el bloque de visitas. |
@@ -314,10 +314,10 @@ Esta tabla define el estado mínimo esperado para considerar una pantalla alinea
 | Pantalla | Tamaño objetivo | Bloque 1 | Bloque 2 | Bloque 3 | Bloque 4 | Asset principal | Check final |
 |---|---|---|---|---|---|---|---|
 | `/menu` | 1080x1920 vertical | Topbar | Título central | Grilla de accesos | Ornamento inferior | `public/assets/img/menu/*.webp` | Debe caber sin cortes y conservar la composición del PDF. |
-| `/museo/coleccion` | 1080x1920 vertical | Topbar | Título | Bloque Títeres | Bloque Payasos | `public/assets/img/museum/cat_*.webp` | Debe verse como portada editorial, no como lista de textos. |
-| `/museo/coleccion/titeres` | 1080x1920 vertical | Topbar | Título | Grid de técnicas | CTA / navegación secundaria | `public/assets/img/museum/cat_coleccion.webp` | Debe sostenerse visualmente como catálogo táctil. |
-| `/museo/coleccion/mascaras` | 1080x1920 vertical | Topbar | Título | Acceso 1 | Acceso 2 | `public/assets/img/museum/cat_*.webp` | Debe tener peso visual suficiente para no sentirse vacío. |
-| `/museo/coleccion/payasos` | 1080x1920 vertical | Topbar | Título | Narrativa editorial | CTA / enlace a historia | `ausente` | Debe dejar de ser placeholder. |
+| `/museo/coleccion` | 1080x1920 vertical | Topbar | Título | Bloque Títeres | Bloque Payasos | `public/assets/img/museum/cat_*.webp` | Debe incluir los botones de navegación inmediatos dentro de cada bloque y no depender de pantallas intermedias. |
+| `/museo/coleccion/titeres` | 1080x1920 vertical | Obsoleta | Obsoleta | Obsoleta | Obsoleta | `public/assets/img/museum/cat_coleccion.webp` | Ruta eliminada por la simplificación de navegación. |
+| `/museo/coleccion/mascaras` | 1080x1920 vertical | Obsoleta | Obsoleta | Obsoleta | Obsoleta | `public/assets/img/museum/cat_*.webp` | Ruta eliminada por la simplificación de navegación. |
+| `/museo/coleccion/payasos` | 1080x1920 vertical | Obsoleta | Obsoleta | Obsoleta | Obsoleta | `ausente` | Ruta eliminada por la simplificación de navegación. |
 | `/museo/historia-comica` | 1080x1920 vertical | Topbar | Título | Composición central | Segundo bloque / CTA | `ausente` | Debe reproducir el dramatismo del PDF. |
 | `/cartelera/detalle/{slug}` | 1080x1920 vertical | Topbar | Título + tags | Imagen o galería | Ficha lateral + cierre | `ausente` por obra | Debe conservar legibilidad y jerarquía editorial. |
 | `/teatro-escuela` | 1080x1920 vertical | Topbar | Hero | Métricas | Cursos + cierre | `public/assets/img/school/school_collage.webp` + ausentes | Debe sentirse como dossier y no como ficha simple. |
@@ -337,7 +337,7 @@ Esta lista convierte la auditoría visual en pasos accionables. Si se quiere ret
 | Pantalla | Bloque principal a resolver | Archivo principal | Estado actual | Próxima acción concreta |
 |---|---|---|---|---|
 | `/menu` | Ajuste fino de composición | [app/Views/totem/main_menu.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/main_menu.php) | cercano | Revisar espaciado, escala y cierre inferior comparando captura contra PDF. |
-| `/museo/coleccion` | Pantalla única con scroll (Títeres + Payasos + Máscaras) | [app/Views/totem/collection_main.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_main.php) | Pendiente rediseño | ⏳ Bloqueado por assets de Coni. Al recibirlos: rediseñar, eliminar subrutas y vistas obsoletas. |
+| `/museo/coleccion` | Pantalla única con navegación directa a Títeres / Payasos / Máscaras | [app/Views/totem/collection_main.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_main.php) | Pendiente rediseño | ⏳ Bloqueado por assets de Coni. Al recibirlos: rediseñar, eliminar subrutas y vistas obsoletas. |
 | ~~`/museo/coleccion/titeres`~~ | ~~Técnicas~~ | ~~collection_techniques.php~~ | **OBSOLETA** | Eliminar ruta y vista al implementar rediseño de collection_main. |
 | ~~`/museo/coleccion/mascaras`~~ | ~~Tradiciones~~ | ~~collection_masks.php~~ | **OBSOLETA** | Eliminar ruta y vista al implementar rediseño de collection_main. |
 | ~~`/museo/coleccion/payasos`~~ | ~~Editorial payasos~~ | ~~collection_clowns.php~~ | **OBSOLETA** | Eliminar ruta y vista al implementar rediseño de collection_main. |
@@ -436,20 +436,15 @@ Para cualquier desarrollo en este módulo, guíate por este mapa de archivos cla
 
 ## 🌊 OLEADA 2: Cobertura Completa de Contenidos
 > **Estado:** Bloques A, B y C completados ✅ — Bloques D, E y F pendientes.
-> **Objetivo:** Desarrollar todas las nuevas pantallas y vistas de navegación profunda detalladas en el plano de la v1.0, incorporando los assets definitivos de diseño y las decisiones del equipo.
+> **Objetivo:** Desarrollar las pantallas y vistas de navegación profunda detalladas en el plano de la v1.0, incorporando los assets definitivos de diseño y las decisiones del equipo.
 >
-> ⚠️ **Decisión de arquitectura (1/6):** La navegación de Colección fue simplificada. El diseño de Coni unifica Títeres, Payasos y Máscaras en una sola pantalla con scroll (`/museo/coleccion`), desde donde se navega directo a fichas individuales. Las rutas intermedias `/coleccion/titeres`, `/coleccion/mascaras` y `/coleccion/payasos` quedan obsoletas. Las vistas `collection_techniques.php`, `collection_masks.php` y `collection_clowns.php` serán reemplazadas al implementar el rediseño de `collection_main.php`.
+> ⚠️ **Decisión de arquitectura (1/6):** La navegación de Colección quedó concentrada en una sola pantalla (`/museo/coleccion`). Ahí se muestran Títeres, Payasos y Máscaras con sus botones de navegación inmediatos; desde cada bloque se salta directo al contenido final. Las rutas intermedias `/coleccion/titeres`, `/coleccion/mascaras` y `/coleccion/payasos` quedaron obsoletas, al igual que las vistas `collection_techniques.php`, `collection_masks.php` y `collection_clowns.php`.
 
 ### 1. Bloque A: Colección del Museo (Estructura de Navegación)
 - [x] **Rutas dinámicas en CodeIgniter 4**
   *   **Ruta de Implementación:** Modificar [app/Config/Routes.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Config/Routes.php)
-  *   **Instrucciones:** Registrar las nuevas rutas dinámicas para fichas, técnicas y colecciones:
+  *   **Instrucciones:** La navegación activa de Colección usa sólo la ruta de ficha. Las rutas intermedias quedaron obsoletas y no deben registrarse de nuevo:
       ```php
-      $routes->get('museo/coleccion/titeres', 'TotemController::collectionTechniques');
-      $routes->get('museo/coleccion/titeres/(:segment)', 'TotemController::collectionTechnique/$1');
-      $routes->get('museo/coleccion/mascaras', 'TotemController::collectionMasks');
-      $routes->get('museo/coleccion/mascaras/(:segment)', 'TotemController::collectionMaskTradition/$1');
-      $routes->get('museo/coleccion/payasos', 'TotemController::collectionClowns');
       $routes->get('museo/coleccion/fichas/(:num)', 'TotemController::collectionItem/$1');
       ```
 - [x] **A1 — Vista Principal de Colección creada** (`/museo/coleccion`) ✅
@@ -461,8 +456,8 @@ Para cualquier desarrollo en este módulo, guíate por este mapa de archivos cla
   *   **Ruta de Implementación:** [app/Views/totem/collection_main.php](file:///Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_main.php)
   *   **Bloqueante:** ⏳ Requiere assets PNG de Coni (ilustraciones decorativas por sección). Pendiente reunión 4/6.
   *   **Instrucciones:**
-      1. Rediseñar `collection_main` como pantalla única con scroll: sección Títeres → sección Payasos → sección Máscaras.
-      2. Cada sección enlaza directo a `/museo/coleccion/fichas/{id}`.
+      1. Rediseñar `collection_main` como pantalla única que contiene Títeres, Payasos y Máscaras con navegación directa desde cada bloque.
+      2. Cada bloque enlaza directo a su destino final, sin pantalla intermedia.
       3. Eliminar rutas `/coleccion/titeres`, `/coleccion/mascaras`, `/coleccion/payasos` de `Routes.php`.
       4. Eliminar vistas `collection_techniques.php`, `collection_masks.php`, `collection_clowns.php`.
 - [ ] **A4 — Ficha Individual de Objeto** (`/museo/coleccion/fichas/{id}`)
