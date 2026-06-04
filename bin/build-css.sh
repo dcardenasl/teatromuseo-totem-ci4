@@ -24,6 +24,7 @@ FILES=(
     "$SRC/screens/idle.css"
     "$SRC/screens/menu.css"
     "$SRC/screens/section.css"
+    "$SRC/screens/school.css"
     "$SRC/screens/section-extras.css"
     "$SRC/screens/museum-today.css"
     "$SRC/screens/billboard.css"

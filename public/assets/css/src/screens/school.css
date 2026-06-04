@@ -1,0 +1,1013 @@
+.school-layout {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 12px;
+    min-height: 0;
+}
+
+.section-hero__visual--school-compact {
+    min-height: 160px;
+}
+
+.course-list {
+    display: grid;
+    gap: 10px;
+    min-height: 0;
+    overflow: visible;
+}
+
+.course-card {
+    display: grid;
+    grid-template-columns: 88px minmax(0, 1fr) 72px;
+    gap: 12px;
+    align-items: start;
+    padding: 12px;
+    border-radius: 24px;
+    background: rgba(255, 250, 241, 0.78);
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    box-shadow: var(--shadow);
+}
+
+.course-card__thumb,
+.course-card__qr-box {
+    border-radius: 18px;
+    background:
+        radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.85), transparent 20%),
+        linear-gradient(180deg, rgba(219, 100, 8, 0.7), rgba(180, 72, 43, 0.9));
+}
+
+.course-card__thumb {
+    min-height: 100px;
+}
+
+.course-card__body {
+    display: grid;
+    gap: 5px;
+    min-width: 0;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(216, 93, 16, 0.12);
+    color: var(--accent-strong);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.course-card__title {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    line-height: 1.06;
+}
+
+.course-card__date {
+    margin: 0;
+    color: var(--accent-strong);
+    font-weight: 800;
+    font-size: 0.9rem;
+}
+
+.course-card__copy {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.4;
+    font-size: 0.92rem;
+}
+
+.course-card__qr {
+    display: grid;
+    justify-items: center;
+    gap: 6px;
+    align-content: start;
+    text-align: center;
+}
+
+.course-card__qr-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.school-page {
+    display: grid;
+    gap: 28px;
+    width: 100%;
+    padding-bottom: 34px;
+}
+
+.school-page__hero {
+    display: grid;
+    justify-items: center;
+    gap: 18px;
+}
+
+.school-page__hero-mark {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.18), transparent 58%),
+        url("/assets/img/menu/menu_escuela.webp") center/cover no-repeat;
+    box-shadow:
+        0 0 0 4px rgba(245, 216, 81, 0.96),
+        0 10px 18px rgba(69, 46, 18, 0.18);
+}
+
+.school-page__hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+.school-page__title {
+    margin: 10px 0 0;
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-size: clamp(3.2rem, 8.2cqi, 6.2rem);
+    line-height: 0.9;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    text-align: center;
+}
+
+.school-video {
+    position: relative;
+    width: min(78%, 760px);
+    aspect-ratio: 1.95 / 1;
+    margin: 4px auto 0;
+    border: 1px solid rgba(92, 70, 43, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    background: #0d0a0b;
+    box-shadow: 0 16px 30px rgba(66, 43, 18, 0.16);
+}
+
+.school-video::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.26)),
+        radial-gradient(circle at 50% 60%, rgba(76, 39, 104, 0.28), transparent 40%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.school-video__image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+    z-index: 0;
+}
+
+.school-video__play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 2;
+    width: 72px;
+    height: 72px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    background: rgba(0, 0, 0, 0.12);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.12), 0 10px 24px rgba(0, 0, 0, 0.22);
+    display: grid;
+    place-items: center;
+}
+
+.school-video__play-triangle {
+    width: 0;
+    height: 0;
+    margin-left: 7px;
+    border-left: 22px solid rgba(255, 255, 255, 0.96);
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+}
+
+.school-page__intro {
+    margin: 0 auto;
+    width: min(82%, 780px);
+    font-size: 1.02rem;
+    line-height: 1.75;
+    color: var(--ink);
+    text-align: left;
+}
+
+.school-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    width: min(84%, 800px);
+    margin: 8px auto 0;
+    align-items: end;
+}
+
+.school-stat {
+    display: grid;
+    gap: 6px;
+    justify-items: center;
+    text-align: center;
+    padding: 0 18px;
+}
+
+.school-stat:not(:last-child) {
+    border-right: 1px solid rgba(92, 70, 43, 0.18);
+}
+
+.school-stat__value {
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-size: clamp(3.6rem, 7.5cqi, 5.4rem);
+    line-height: 0.9;
+    color: var(--ink);
+}
+
+.school-stat__divider {
+    display: none;
+}
+
+.school-stat__label {
+    padding-bottom: 0;
+    color: rgba(53, 52, 48, 0.78);
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.school-teachers {
+    display: grid;
+    gap: 14px;
+}
+
+.school-section-title {
+    margin: 8px 0 2px;
+    text-align: center;
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-size: clamp(3rem, 7.2cqi, 5.8rem);
+    font-weight: 400;
+    line-height: 0.92;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.school-teacher-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px 18px;
+    width: min(88%, 860px);
+    margin: 0 auto;
+}
+
+.teacher-card {
+    display: grid;
+    gap: 8px;
+    justify-items: center;
+}
+
+.teacher-card__media {
+    width: 100%;
+    aspect-ratio: 0.78 / 1;
+    overflow: hidden;
+    border-radius: 0;
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    background:
+        radial-gradient(circle at 42% 32%, rgba(255, 255, 255, 0.92), transparent 16%),
+        linear-gradient(180deg, rgba(238, 232, 221, 0.96), rgba(195, 173, 140, 0.96));
+    box-shadow: 0 12px 20px rgba(68, 42, 18, 0.14);
+}
+
+.teacher-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center center;
+    display: block;
+    filter: saturate(0.96) contrast(1.02);
+}
+
+.teacher-card__body {
+    width: 100%;
+    text-align: center;
+    display: grid;
+    gap: 2px;
+}
+
+.teacher-card__name {
+    margin: 0;
+    font-size: 0.86rem;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+}
+
+.teacher-card__role,
+.teacher-card__country {
+    margin: 0;
+    color: rgba(53, 52, 48, 0.74);
+    font-size: 0.78rem;
+    line-height: 1.2;
+}
+
+.teacher-card--amber .teacher-card__media {
+    background:
+        radial-gradient(circle at 40% 30%, rgba(255, 255, 255, 0.7), transparent 16%),
+        linear-gradient(180deg, rgba(243, 228, 206, 0.96), rgba(199, 149, 86, 0.96));
+}
+
+.teacher-card--navy .teacher-card__media {
+    background:
+        radial-gradient(circle at 40% 30%, rgba(255, 255, 255, 0.7), transparent 16%),
+        linear-gradient(180deg, rgba(214, 223, 232, 0.96), rgba(109, 129, 150, 0.96));
+}
+
+.teacher-card--olive .teacher-card__media {
+    background:
+        radial-gradient(circle at 40% 30%, rgba(255, 255, 255, 0.7), transparent 16%),
+        linear-gradient(180deg, rgba(230, 228, 208, 0.96), rgba(165, 156, 100, 0.96));
+}
+
+.teacher-card--sepia .teacher-card__media {
+    background:
+        radial-gradient(circle at 40% 30%, rgba(255, 255, 255, 0.7), transparent 16%),
+        linear-gradient(180deg, rgba(243, 234, 225, 0.96), rgba(174, 139, 103, 0.96));
+}
+
+.teacher-card--rose .teacher-card__media {
+    background:
+        radial-gradient(circle at 40% 30%, rgba(255, 255, 255, 0.7), transparent 16%),
+        linear-gradient(180deg, rgba(242, 225, 230, 0.96), rgba(196, 126, 144, 0.96));
+}
+
+.teacher-card--crimson .teacher-card__media {
+    background:
+        radial-gradient(circle at 40% 30%, rgba(255, 255, 255, 0.7), transparent 16%),
+        linear-gradient(180deg, rgba(234, 212, 205, 0.96), rgba(167, 82, 69, 0.96));
+}
+
+.teacher-card--gold .teacher-card__media {
+    background:
+        radial-gradient(circle at 40% 30%, rgba(255, 255, 255, 0.7), transparent 16%),
+        linear-gradient(180deg, rgba(244, 228, 194, 0.96), rgba(196, 152, 77, 0.96));
+}
+
+.teacher-card--ink .teacher-card__media {
+    background:
+        radial-gradient(circle at 40% 30%, rgba(255, 255, 255, 0.7), transparent 16%),
+        linear-gradient(180deg, rgba(215, 213, 208, 0.96), rgba(96, 91, 82, 0.96));
+}
+
+.school-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.school-dots__dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    border: 1px solid rgba(53, 52, 48, 0.85);
+    background: transparent;
+}
+
+.school-dots__dot.is-active {
+    background: rgba(53, 52, 48, 0.85);
+}
+
+.school-courses {
+    display: grid;
+    gap: 16px;
+    padding-top: 10px;
+}
+
+.school-section-title--course {
+    margin-top: 8px;
+}
+
+.school-course {
+    display: grid;
+    grid-template-columns: minmax(190px, 0.28fr) minmax(0, 1fr);
+    gap: 20px;
+    width: min(88%, 860px);
+    margin: 0 auto;
+    align-items: start;
+}
+
+.school-course__poster {
+    overflow: hidden;
+    background: rgba(248, 241, 228, 0.96);
+}
+
+.school-course__poster img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.school-course__body {
+    display: grid;
+    gap: 8px;
+    align-content: start;
+    padding-top: 4px;
+}
+
+.school-course__tag {
+    display: inline-flex;
+    width: fit-content;
+    min-height: 24px;
+    align-items: center;
+    padding: 0 8px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.school-course__title {
+    margin: 0;
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-size: clamp(1.5rem, 3.4cqi, 2.6rem);
+    font-weight: 400;
+    line-height: 1.08;
+}
+
+.school-course__start {
+    margin: 0;
+    color: var(--accent-strong);
+    font-size: 0.95rem;
+    font-weight: 800;
+}
+
+.school-course__copy {
+    margin: 0;
+    color: rgba(53, 52, 48, 0.9);
+    line-height: 1.6;
+    max-width: 44rem;
+}
+
+.school-course__contact {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    align-items: start;
+    margin-top: 8px;
+}
+
+.school-course__contact-label {
+    display: block;
+    font-size: 0.84rem;
+    color: rgba(53, 52, 48, 0.76);
+}
+
+.school-course__contact-value {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.92rem;
+    font-weight: 800;
+}
+
+.school-course__qr {
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    justify-self: start;
+    text-align: center;
+}
+
+.school-course__qr-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.school-course__qr-box {
+    width: 78px;
+    height: 78px;
+    display: block;
+    object-fit: cover;
+    object-position: center center;
+    border-radius: 0;
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    background: #fff;
+}
+
+.school-course__qr-label {
+    font-size: 0.68rem;
+    color: rgba(53, 52, 48, 0.76);
+}
+
+.footer-ornament--school {
+    display: none;
+}
+
+.school-dossier {
+    display: grid;
+    gap: 20px;
+    width: 100%;
+    padding-bottom: 36px;
+}
+
+.school-dossier__hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+    gap: 18px;
+    align-items: stretch;
+}
+
+.school-dossier__media {
+    position: relative;
+    min-height: 0;
+    border-radius: 34px;
+    padding: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    background:
+        radial-gradient(circle at 24% 18%, rgba(255, 243, 194, 0.9), transparent 18%),
+        radial-gradient(circle at 78% 78%, rgba(187, 126, 57, 0.24), transparent 24%),
+        linear-gradient(180deg, rgba(255, 249, 239, 0.98), rgba(231, 208, 168, 0.96));
+    box-shadow: 0 22px 42px rgba(78, 52, 25, 0.16);
+}
+
+.school-dossier__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    border-radius: 24px;
+    box-shadow: inset 0 0 0 1px rgba(92, 70, 43, 0.08);
+}
+
+.school-dossier__media::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border-radius: 26px;
+    border: 1px solid rgba(92, 70, 43, 0.14);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.school-dossier__badge,
+.school-dossier__ribbon {
+    position: absolute;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 14px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    box-shadow: 0 10px 20px rgba(56, 38, 18, 0.14);
+}
+
+.school-dossier__badge {
+    top: 22px;
+    left: 22px;
+    min-height: 36px;
+    background: rgba(53, 52, 48, 0.92);
+    color: var(--paper);
+}
+
+.school-dossier__ribbon {
+    right: 22px;
+    bottom: 22px;
+    min-height: 32px;
+    background: rgba(255, 248, 232, 0.94);
+    color: rgba(53, 52, 48, 0.88);
+}
+
+.school-dossier__intro,
+.school-dossier__closing {
+    display: grid;
+    gap: 16px;
+    align-content: start;
+}
+
+.school-dossier__intro {
+    padding: 26px 24px 24px;
+    min-height: 100%;
+    background:
+        radial-gradient(circle at 82% 18%, rgba(233, 140, 41, 0.08), transparent 18%),
+        linear-gradient(180deg, rgba(255, 251, 245, 0.98), rgba(246, 236, 221, 0.96));
+}
+
+.school-dossier__eyebrow {
+    margin: 0;
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-size: 0.94rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(53, 52, 48, 0.58);
+}
+
+.school-dossier__title {
+    margin: 0;
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 0.94;
+    font-size: clamp(2.7rem, 6.2cqi, 4.8rem);
+}
+
+.school-dossier__copy,
+.school-dossier__panel-copy {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+.school-dossier__stats {
+    gap: 12px;
+}
+
+.school-stat-card {
+    background: rgba(255, 248, 236, 0.94);
+    border-color: rgba(92, 70, 43, 0.1);
+}
+
+.school-dossier__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 4px;
+}
+
+.school-dossier__action {
+    min-height: 58px;
+    padding-inline: 18px;
+}
+
+.school-dossier__panel {
+    display: grid;
+    gap: 18px;
+    padding: 22px 24px 24px;
+    border-radius: 34px;
+    background:
+        radial-gradient(circle at 10% 0%, rgba(233, 140, 41, 0.06), transparent 20%),
+        linear-gradient(180deg, rgba(255, 250, 243, 0.98), rgba(245, 235, 220, 0.96));
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    box-shadow: var(--shadow);
+}
+
+.school-dossier__panel-head {
+    display: grid;
+    gap: 10px;
+    max-width: 54rem;
+}
+
+.school-dossier__panel-title {
+    margin: 0;
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 4.8cqi, 3.2rem);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 0.96;
+}
+
+.school-people {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.teacher-card {
+    display: grid;
+    gap: 10px;
+    min-height: 100%;
+    padding: 18px 18px 16px;
+    border-radius: 26px;
+    background: rgba(255, 250, 241, 0.9);
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.38);
+}
+
+.teacher-card::before {
+    content: "";
+    width: 52px;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(92, 70, 43, 0.2);
+}
+
+.teacher-card__label {
+    margin-top: 4px;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(53, 52, 48, 0.58);
+}
+
+.teacher-card__title {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.5rem;
+    line-height: 1.05;
+    font-weight: 400;
+}
+
+.teacher-card__copy {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.65;
+}
+
+.teacher-card--burnt::before {
+    background: linear-gradient(90deg, #c44d20, #f28b3d);
+}
+
+.teacher-card--gold::before {
+    background: linear-gradient(90deg, #9c6a1f, #d9a74d);
+}
+
+.teacher-card--ink::before {
+    background: linear-gradient(90deg, #3d3c38, #6a6559);
+}
+
+.course-list--dossier {
+    display: grid;
+    gap: 12px;
+}
+
+.course-card--dossier {
+    grid-template-columns: 96px minmax(0, 1fr) 78px;
+    gap: 14px;
+    padding: 14px;
+    border-radius: 28px;
+    background: rgba(255, 250, 241, 0.9);
+}
+
+.course-card--dossier .course-card__thumb {
+    min-height: 104px;
+}
+
+.course-card--dossier .course-card__title {
+    font-size: 1.55rem;
+}
+
+.school-dossier__closing {
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 0.35fr);
+    align-items: center;
+    padding: 22px 24px 24px;
+    background:
+        radial-gradient(circle at 86% 14%, rgba(56, 52, 48, 0.06), transparent 18%),
+        linear-gradient(180deg, rgba(255, 249, 240, 0.98), rgba(241, 231, 215, 0.96));
+}
+
+.school-dossier__qr {
+    display: grid;
+    gap: 10px;
+    justify-items: center;
+    align-content: center;
+    padding: 14px;
+    border-radius: 28px;
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    background: rgba(255, 250, 241, 0.9);
+    text-align: center;
+}
+
+.school-dossier__qr-label,
+.school-dossier__qr-hint {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(53, 52, 48, 0.58);
+}
+
+.school-dossier__qr-box {
+    width: 152px;
+    aspect-ratio: 1;
+    border-radius: 20px;
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    background:
+        linear-gradient(90deg, rgba(53, 52, 48, 0.92) 0 12%, transparent 12% 25%, rgba(53, 52, 48, 0.92) 25% 37%, transparent 37% 50%, rgba(53, 52, 48, 0.92) 50% 62%, transparent 62% 75%, rgba(53, 52, 48, 0.92) 75% 87%, transparent 87% 100%),
+        linear-gradient(180deg, rgba(53, 52, 48, 0.92) 0 12%, transparent 12% 25%, rgba(53, 52, 48, 0.92) 25% 37%, transparent 37% 50%, rgba(53, 52, 48, 0.92) 50% 62%, transparent 62% 75%, rgba(53, 52, 48, 0.92) 75% 87%, transparent 87% 100%),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.7), transparent 55%),
+        #fff;
+    box-shadow: inset 0 0 0 10px rgba(255, 250, 241, 0.92);
+}
+
+.school-dossier__qr-hint {
+    max-width: 12rem;
+    line-height: 1.4;
+}
+
+.school-people-section {
+    display: grid;
+    gap: 12px;
+    width: 100%;
+    padding-top: 2px;
+}
+
+.school-people-rail {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 150px;
+    gap: 12px;
+    width: min(88%, 860px);
+    margin: 0 auto;
+    padding: 4px 4px 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.school-people-rail::-webkit-scrollbar {
+    display: none;
+}
+
+.school-people-rail .teacher-card {
+    width: 100%;
+    min-height: 100%;
+    padding: 12px;
+    border-radius: 22px;
+    background: rgba(255, 250, 241, 0.94);
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    box-shadow: 0 10px 18px rgba(68, 42, 18, 0.12);
+    scroll-snap-align: start;
+}
+
+.school-people-rail .teacher-card--interactive {
+    appearance: none;
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    cursor: pointer;
+    text-align: left;
+    transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+
+.school-people-rail .teacher-card--interactive:hover,
+.school-people-rail .teacher-card--interactive:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 24px rgba(68, 42, 18, 0.16);
+    border-color: rgba(92, 70, 43, 0.22);
+    outline: none;
+}
+
+.school-people-rail .teacher-card__media {
+    min-height: 0;
+    aspect-ratio: 1 / 1;
+}
+
+.school-people-rail .teacher-card__media img {
+    object-fit: cover;
+}
+
+.school-people-rail .teacher-card__body {
+    gap: 4px;
+}
+
+.school-people-rail .teacher-card__name {
+    font-size: 0.98rem;
+    line-height: 1.05;
+}
+
+.school-people-rail .teacher-card__role {
+    font-size: 0.76rem;
+    color: rgba(53, 52, 48, 0.8);
+}
+
+.school-people-rail .teacher-card__country {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+}
+
+.school-person-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: grid;
+    place-items: center;
+    padding: 18px;
+    background: rgba(34, 25, 15, 0.4);
+    backdrop-filter: blur(8px);
+}
+
+.school-person-modal[hidden] {
+    display: none;
+}
+
+.school-person-modal__backdrop {
+    position: absolute;
+    inset: 0;
+}
+
+.school-person-modal__panel {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+    gap: 20px;
+    width: min(92vw, 920px);
+    max-height: min(84vh, 760px);
+    overflow: auto;
+    padding: 20px;
+    border-radius: 34px;
+    border: 1px solid rgba(92, 70, 43, 0.14);
+    background:
+        radial-gradient(circle at 20% 18%, rgba(255, 243, 194, 0.9), transparent 18%),
+        linear-gradient(180deg, rgba(255, 251, 245, 0.99), rgba(245, 234, 220, 0.98));
+    box-shadow: 0 30px 60px rgba(39, 25, 12, 0.3);
+}
+
+.school-person-modal__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 48px;
+    height: 48px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(53, 52, 48, 0.92);
+    color: var(--paper);
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(39, 25, 12, 0.18);
+}
+
+.school-person-modal__media {
+    overflow: hidden;
+    border-radius: 26px;
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    background: rgba(255, 250, 241, 0.9);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+.school-person-modal__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.school-person-modal__content {
+    display: grid;
+    align-content: start;
+    gap: 12px;
+    padding: 12px 6px 10px;
+}
+
+.school-person-modal__group {
+    margin: 0;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(53, 52, 48, 0.6);
+}
+
+.school-person-modal__name {
+    margin: 0;
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 4.2cqi, 3.4rem);
+    font-weight: 400;
+    line-height: 0.95;
+    text-transform: uppercase;
+}
+
+.school-person-modal__role {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--accent-strong);
+}
+
+.school-person-modal__description {
+    margin: 0;
+    max-width: 30rem;
+    color: rgba(53, 52, 48, 0.9);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.school-page--modal-open {
+    overflow: hidden;
+}
