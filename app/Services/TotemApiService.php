@@ -78,14 +78,6 @@ class TotemApiService
     }
 
     /**
-     * Obtiene el catálogo de la colección
-     */
-    public function collection(array $params = []): array
-    {
-        return $this->get('collection', $params);
-    }
-
-    /**
      * Obtiene un objeto de la colección por su ID
      */
     public function collectionItem(int $id): array
@@ -133,11 +125,4 @@ class TotemApiService
         return $this->get("museum-history/{$slug}");
     }
 
-    /**
-     * Obtiene las visitas guiadas / extensión
-     */
-    public function guidedVisits(): array
-    {
-        return $this->get('guided-visits');
-    }
 }
