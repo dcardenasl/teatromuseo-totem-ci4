@@ -159,10 +159,15 @@ h1, h2, h3, h4, h5, h6 {
     position: sticky;
     top: 0;
     z-index: 30;
-    background: rgba(250, 244, 233, 0.94);
+    background-color: rgba(250, 244, 233, 0.58);
+    background-image:
+        linear-gradient(rgba(250, 244, 233, 0.18), rgba(250, 244, 233, 0.18)),
+        radial-gradient(circle, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        var(--paper-texture);
+    background-size: 100% 100%, 24px 24px, 400px 400px;
     border: 0;
-    backdrop-filter: blur(10px) saturate(1.05);
-    box-shadow: 0 8px 24px rgba(52, 34, 14, 0.08);
+    backdrop-filter: none;
+    box-shadow: none;
     justify-content: center;
     width: 100%;
     text-align: left;
@@ -2368,7 +2373,7 @@ body.totem-animations-disabled .language-instruction {
 
 .school-course {
     display: grid;
-    grid-template-columns: minmax(230px, 0.34fr) minmax(0, 1fr);
+    grid-template-columns: minmax(190px, 0.28fr) minmax(0, 1fr);
     gap: 20px;
     width: min(88%, 860px);
     margin: 0 auto;
@@ -3726,8 +3731,8 @@ body.totem-animations-disabled .language-instruction {
 }
 
 .collection-footer__brand-mark {
-    width: 66px;
-    height: 66px;
+    width: 92px;
+    height: 92px;
     border-radius: 50%;
     border: 3px solid var(--brand-gold);
     background: url('../animations/logo.gif') no-repeat center center / cover;
@@ -4440,8 +4445,8 @@ body.totem-animations-disabled .language-instruction {
 }
 
 .billboard-detail__brand-mark {
-    width: 68px;
-    height: 68px;
+    width: 92px;
+    height: 92px;
     border-radius: 50%;
     border: 3px solid var(--brand-gold);
     background: url('../animations/logo.gif') no-repeat center center / cover;
@@ -5472,8 +5477,8 @@ body.totem-transitions-disabled .totem-transition-overlay {
 }
 
 .footer-brand__mark {
-    width: 68px;
-    height: 68px;
+    width: 92px;
+    height: 92px;
     border-radius: 50%;
     border: 3px solid var(--brand-gold);
     background: url('../animations/logo.gif') no-repeat center center / cover;
@@ -5650,7 +5655,9 @@ body.totem-transitions-disabled .totem-transition-overlay {
         radial-gradient(circle at 24% 78%, #e3c185 0 16%, transparent 17%);
     clip-path: polygon(50% 0, 62% 16%, 80% 10%, 92% 28%, 100% 36%, 88% 52%, 100% 70%, 84% 82%, 78% 100%, 60% 84%, 42% 100%, 30% 78%, 12% 82%, 18% 62%, 0 54%, 16% 38%, 8% 20%, 24% 14%, 34% 0);
 }
-@container kiosk (max-width: 920px) {
+/* El iPad en vertical debe seguir viendo la composición de tótem,
+   no la variante compacta reservada para teléfonos pequeños. */
+@container kiosk (max-width: 560px) {
     .page-content {
         --content-padding-inline: 14px;
         --content-padding-top: 16px;
