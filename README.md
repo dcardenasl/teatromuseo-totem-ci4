@@ -1,97 +1,223 @@
-# Teatro Museo — Interactive Kiosk Totem
+# Teatro Museo — Tótem Interactivo
 
-This repository contains the interactive kiosk totem frontend application for **Teatromuseo del Títere y el Payaso** built on **CodeIgniter 4**.
+Aplicación de kiosko interactivo para **Teatromuseo del Títere y el Payaso**, construida con **CodeIgniter 4**. Diseñada para pantallas táctiles verticales (1080×1920) en modo kiosko.
 
-## Architecture & Layout Overview
-- **Device Port:** Runs locally on port `8086`.
-- **Target Resolution:** Designed specifically for a high-definition vertical touch display (`1080x1920` / viewport ratio `9:16`).
-- **Layout Model:** Uses fluid typography (`cqi` units), container query context (`@container kiosk`), and safe touch zones (≥44px min-height targets).
-- **Offline & Hardcoded Data Resilience:** Contains a private local data repository inside the controller so the kiosk can run completely autonomous without external APIs or in offline environments.
+[![CI](https://github.com/davidcardenas/teatromuseo-totem-ci4/actions/workflows/ci.yml/badge.svg)](https://github.com/davidcardenas/teatromuseo-totem-ci4/actions/workflows/ci.yml)
 
 ---
 
-## Design System & Tokens
-All style tokens are structured under CSS Custom Properties in `public/assets/css/src/00-tokens.css`:
+## Características principales
 
-- **Official Color Palette:**
-  - Background (Paper): `#f8f5ec` (`--paper`)
-  - Typography / Details (Ink): `#353430` (`--ink`)
-  - Accent / Actions (Orange): `#de5928` (`--accent`)
-  - Secondary Grids (Vibrant):
-    - Light Blue: `#8fa6f0` (`--grid-blue`)
-    - Dark Purple: `#693592` (`--grid-purple`)
-    - Crimson Wine: `#880b2e` (`--grid-wine`)
-- **Interactive States:** Uses tactile `:active` scale transformation feedback and clear accessibility outlines for `:focus-visible`.
+- **Stateless**: Sin base de datos propia, consume API REST externa
+- **Resiliente**: Funciona offline con cache en archivo y datos de fallback
+- **Multiidioma**: Español, inglés, francés y portugués
+- **Accesible**: Targets táctiles ≥44px, soporte para `prefers-reduced-motion`
+- **Observable**: Logs estructurados y endpoint de health check
 
 ---
 
-## Styling Architecture
-We use a modular stylesheet pattern where separate files in `public/assets/css/src/` are compiled into the production output `public/assets/css/style.css`. 
+## Arquitectura
 
-> [!WARNING]
-> Do NOT edit `public/assets/css/style.css` directly! It is overwritten upon every compilation. Always edit partials in `public/assets/css/src/` instead.
-
-### Build CSS Command
-Whenever you modify files under `public/assets/css/src/`, recompile using:
-```bash
-composer build:css
-# or directly:
-bash bin/build-css.sh
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Vistas (Views)        →  Extend MainLayout                  │
+│  Controladores         →  Heredan BaseTotemController        │
+│  Servicios             →  TotemApiInterface + Decoradores    │
+│  Presenters            →  Transforman datos para vistas      │
+│  Fallback Repositories →  Datos de contingencia offline      │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+                    ┌─────────────────┐
+                    │  API REST       │
+                    │  (teatromuseo)  │
+                    └─────────────────┘
 ```
 
 ---
 
-## Local Development & Setup
+## Requisitos
 
-### Requirements
-- PHP 8.2 or higher
+- PHP 8.2+
 - Composer
-
-### Installation
-1. Install dependencies:
-   ```bash
-   composer install
-   ```
-2. Copy environmental variables:
-   ```bash
-   cp env .env
-   ```
-3. Start the server:
-   ```bash
-   php spark serve --port 8086
-   ```
-4. Access in your browser: `http://localhost:8086`
+- Node.js 18+ (para build de CSS)
 
 ---
 
-## Folder Structure
+## Instalación
+
+```bash
+# 1. Clonar repositorio
+git clone https://github.com/davidcardenas/teatromuseo-totem-ci4.git
+cd teatromuseo-totem-ci4
+
+# 2. Instalar dependencias PHP
+composer install
+
+# 3. Instalar dependencias Node (para CSS)
+npm install
+
+# 4. Configurar variables de entorno
+cp env .env
+# Editar .env con tus valores
+
+# 5. Compilar CSS
+composer build:css
+
+# 6. Iniciar servidor de desarrollo
+php spark serve --port 8086
 ```
-├── app/
-│   ├── Controllers/
-│   │   └── TotemController.php      # Main controller with views and offline data
-│   └── Views/
-│       ├── layouts/
-│       │   └── MainLayout.php       # Shell layouts, HTML heads, asset loaders
-│       └── totem/
-│           ├── splash.php           # Landing touch to begin screen
-│           ├── language.php         # Multi-language selector page
-│           ├── main_menu.php        # Primary content modules selection
-│           └── section.php          # Dynamic section views (Museum, History, etc.)
-├── bin/
-│   └── build-css.sh                 # High performance CSS build/concat pipeline
-└── public/
-    └── assets/
-        ├── css/
-        │   ├── src/                 # Development CSS partial modules
-        │   └── style.css            # Compiled production style sheet
-        ├── fonts/                   # Lato Typographic families
-        └── js/
-            └── app.js               # Multi-language switcher dictionary client
+
+Acceder en: `http://localhost:8086`
+
+---
+
+## Variables de entorno
+
+```bash
+# Conexión API (obligatorio)
+TOTEM_API_URL=http://localhost:8080/api/v1/totem
+TOTEM_API_KEY=your-api-key-here
+
+# Feature flags
+TOTEM_ENABLE_TRANSITIONS=true
+TOTEM_ENABLE_ANIMATIONS=true
+TOTEM_ENABLE_FILE_CACHE=true
+
+# Cache TTL (segundos)
+TOTEM_CACHE_TTL_SECONDS=60
+
+# App
+app.baseURL=http://localhost:8086/
+app.appTimezone=America/Santiago
+CI_ENVIRONMENT=development
 ```
 
 ---
 
-## Secure Deployment Exclusions
-Deployment scripts in `.deploy/` exclude local sensitive configurations:
-- Excludes `.env`, `composer.json`, `composer.lock`, `.deploy/` and macOS metadata files.
-- Minimizes package sizes to optimize totem sync speeds in 1 second.
+## Estructura del proyecto
+
+```
+app/
+├── Config/
+│   ├── Routes.php              # Rutas nombradas
+│   ├── Services.php            # Registro de servicios
+│   └── Totem.php               # Configuración del tótem
+├── Controllers/
+│   ├── BaseTotemController.php # Controlador base con helpers
+│   ├── MainController.php      # Splash, menú, idioma, 404
+│   ├── CollectionController.php# Colección: técnicas, títeres, máscaras
+│   ├── MuseumController.php    # Museo: hoy, edificio, institución
+│   ├── SchoolController.php    # Teatro escuela
+│   ├── BillboardController.php # Cartelera
+│   ├── FriendsController.php   # Amigos, extensión
+│   └── HealthController.php    # Health check /health
+├── Services/
+│   ├── TotemApiInterface.php   # Contrato de API
+│   ├── TotemApiService.php     # Implementación base
+│   ├── CachedTotemApiService.php      # Memoización por request
+│   ├── FileCachedTotemApiService.php  # Cache en archivo
+│   ├── MenuBuilder.php         # Generador de menú
+│   └── NavBuilder.php          # Generador de navegación
+├── Presenters/
+│   ├── SchoolPresenter.php
+│   ├── BillboardPresenter.php
+│   ├── MuseumTodayPresenter.php
+│   └── DatePresenter.php
+├── Repositories/
+│   ├── SchoolFallbackRepository.php
+│   ├── BillboardFallbackRepository.php
+│   └── MuseumFallbackRepository.php
+└── Enums/
+    ├── Audience.php
+    └── SchoolCategory.php
+
+public/assets/css/
+├── style.css          # ← Compilado (NO editar)
+└── src/               # ← Editar aquí
+    ├── 00-tokens.css  # Variables CSS
+    ├── 01-base.css
+    ├── 02-shell.css
+    ├── shared/        # Componentes reutilizables
+    └── screens/       # Estilos por pantalla
+```
+
+---
+
+## Comandos disponibles
+
+```bash
+# Tests
+composer test        # PHPUnit
+
+# Calidad de código
+composer lint        # PHP-CS-Fixer (dry-run)
+composer format      # PHP-CS-Fixer (fix)
+composer analyse     # PHPStan nivel 8
+
+# CSS
+composer build:css   # Compilar CSS con PostCSS
+```
+
+---
+
+## Health Check
+
+```bash
+curl http://localhost:8086/health
+```
+
+Respuesta:
+```json
+{
+  "status": "ok",
+  "api": "reachable",
+  "timestamp": "2026-06-12T23:02:17-04:00"
+}
+```
+
+---
+
+## Resiliencia offline
+
+El tótem implementa 4 capas de resiliencia:
+
+1. **API online**: Datos frescos desde la API
+2. **File Cache**: Última respuesta válida (TTL configurable)
+3. **Fallback Repositories**: Datos estáticos embebidos
+4. **Pantalla amigable**: Mensaje multiidioma si no hay datos
+
+Ver: `docs/ops/offline-fallback-strategy.md`
+
+---
+
+## Despliegue
+
+### FTP/FTPS (actual)
+
+```bash
+# Configurar credenciales en .deploy/.env.deploy
+# FTP_HOST, FTP_USER, FTP_PASS, FTP_REMOTE_PATH
+
+# Ejecutar despliegue
+python3 .deploy/deploy.py
+```
+
+### CI/CD (recomendado)
+
+El proyecto incluye workflow de GitHub Actions en `.github/workflows/ci.yml`.
+
+---
+
+## Documentación adicional
+
+- [Convenciones para desarrolladores](AGENTS.md)
+- [Estrategia offline](docs/ops/offline-fallback-strategy.md)
+- [Manual de soporte](docs/ops/support-manual.md)
+- [Plan de auditoría](docs/plans/audit-and-refactor-plan.md)
+
+---
+
+## Licencia
+
+Proprietary - Teatromuseo del Títere y el Payaso
