@@ -14,7 +14,7 @@
 $disabled = (bool) ($disabled ?? false);
 $hasHref  = !empty($href);
 $tag      = ($disabled || !$hasHref) ? 'span' : 'a';
-$attr     = ($tag === 'a') ? 'href="' . esc(base_url($href), 'attr') . '"' : 'aria-disabled="true"';
+$attr     = ($tag === 'a') ? 'href="' . esc($href, 'attr') . '"' : 'aria-disabled="true"';
 $classes  = trim('menu-card ' . (($disabled || !$hasHref) ? 'menu-card--disabled ' : '') . ($class ?? ''));
 ?>
 <<?= $tag ?> class="<?= esc($classes) ?>" <?= $attr ?>>
