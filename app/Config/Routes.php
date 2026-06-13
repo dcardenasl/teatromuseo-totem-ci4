@@ -51,3 +51,6 @@ $routes->get('cartelera/detalle/(:any)', 'BillboardController::billboardDetail/$
 $routes->get('amigos-de-teatromuseo', 'FriendsController::friends');
 
 $routes->set404Override('App\Controllers\MainController::notFound');
+
+// Health check endpoint for monitoring
+$routes->get('health', 'HealthController::index');
