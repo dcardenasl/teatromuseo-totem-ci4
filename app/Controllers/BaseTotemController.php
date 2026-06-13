@@ -34,10 +34,13 @@ abstract class BaseTotemController extends BaseController
     /**
      * Build common page metadata.
      *
+     * @param string|list<string> $title
      * @return array<string, mixed>
      */
-    protected function pageMeta(string $title): array
+    protected function pageMeta(string|array $title): array
     {
+        $title = is_string($title) ? $title : '';
+
         return [
             'pageTitle' => 'Teatromuseo - ' . $title,
             'bodyClass' => 'totem-app',
@@ -58,10 +61,15 @@ abstract class BaseTotemController extends BaseController
     /**
      * Build a menu card item.
      *
+     * @param string|list<string> $title
+     * @param string|list<string> $copy
      * @return array<string, mixed>
      */
-    protected function menuItem(string $title, string $href, string $copy, string $class, string $img = ''): array
+    protected function menuItem(string|array $title, string $href, string|array $copy, string $class, string $img = ''): array
     {
+        $title = is_string($title) ? $title : '';
+        $copy  = is_string($copy) ? $copy : '';
+
         return (new MenuBuilder())->item($title, $href, $copy, $class, $img);
     }
 

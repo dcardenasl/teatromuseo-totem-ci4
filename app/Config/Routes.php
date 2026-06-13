@@ -5,48 +5,49 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'TotemController::index');
-$routes->get('language', 'TotemController::language');
-$routes->get('menu', 'TotemController::mainMenu');
+$routes->get('/', 'MainController::index');
+$routes->get('language', 'MainController::language');
+$routes->get('menu', 'MainController::mainMenu');
 
 // Museo - Menu
-$routes->get('museo', 'TotemController::museum');
+$routes->get('museo', 'MuseumController::museum');
 
 // Museo - Coleccion
-$routes->get('museo/coleccion', 'TotemController::collectionMain');
+$routes->get('museo/coleccion', 'CollectionController::collectionMain');
 $routes->addRedirect('museo/coleccion/titeres', 'museo/coleccion/titeres/exhibicion', 301);
-$routes->get('museo/coleccion/titeres/tecnicas', 'TotemController::collectionTechniques');
-$routes->get('museo/coleccion/titeres/exhibicion', 'TotemController::collectionPuppetsExhibit');
-$routes->get('museo/coleccion/titeres/tecnicas/(:segment)', 'TotemController::collectionTechnique/$1');
+$routes->get('museo/coleccion/titeres/tecnicas', 'CollectionController::collectionTechniques');
+$routes->get('museo/coleccion/titeres/exhibicion', 'CollectionController::collectionPuppetsExhibit');
+$routes->get('museo/coleccion/titeres/tecnicas/(:segment)', 'CollectionController::collectionTechnique/$1');
 $routes->addRedirect('museo/coleccion/titeres/(:segment)', 'museo/coleccion/titeres/tecnicas/$1', 301);
 $routes->addRedirect('museo/coleccion/mascaras', 'museo/coleccion/mascaras/exhibicion', 301);
-$routes->get('museo/coleccion/mascaras/exhibicion', 'TotemController::collectionMasksExhibit');
-$routes->get('museo/coleccion/mascaras/tradiciones', 'TotemController::collectionMasksTraditions');
-$routes->get('museo/coleccion/mascaras/tradiciones/(:segment)', 'TotemController::collectionMaskTradition/$1');
-$routes->get('museo/coleccion/payasos', 'TotemController::collectionClowns');
-$routes->get('museo/coleccion/fichas/(:num)', 'TotemController::collectionItem/$1');
+$routes->get('museo/coleccion/mascaras/exhibicion', 'CollectionController::collectionMasksExhibit');
+$routes->get('museo/coleccion/mascaras/tradiciones', 'CollectionController::collectionMasksTraditions');
+$routes->get('museo/coleccion/mascaras/tradiciones/(:segment)', 'CollectionController::collectionMaskTradition/$1');
+$routes->get('museo/coleccion/fichas/(:num)', 'CollectionController::collectionItem/$1');
 
 // Museo - Historia
-$routes->get('museo/historia', 'TotemController::museumHistoryMain');
-$routes->get('museo/historia/(:segment)', 'TotemController::museumHistoryPost/$1');
+$routes->get('museo/historia', 'MuseumController::museumHistoryMain');
+$routes->get('museo/historia/(:segment)', 'MuseumController::museumHistoryPost/$1');
 // Legacy aliases kept for existing QR codes and deep links
-$routes->get('museo/historia-comica', 'TotemController::museumComicHistoryMain');
-$routes->get('museo/historia-comica/(:segment)', 'TotemController::museumHistoryPost/$1');
+$routes->get('museo/historia-comica', 'MuseumController::museumComicHistoryMain');
+$routes->get('museo/historia-comica/(:segment)', 'MuseumController::museumHistoryPost/$1');
 
 // Museo - El Museo
-$routes->get('museo/el-museo', 'TotemController::museumInfoMain');
-$routes->get('museo/el-museo/edificio', 'TotemController::museumBuilding');
-$routes->get('museo/el-museo/institucion', 'TotemController::museumInstitution');
-$routes->get('museo/el-museo/actualidad', 'TotemController::museumToday');
+$routes->get('museo/el-museo', 'MuseumController::museumInfoMain');
+$routes->get('museo/el-museo/edificio', 'MuseumController::museumBuilding');
+$routes->get('museo/el-museo/institucion', 'MuseumController::museumInstitution');
+$routes->get('museo/el-museo/actualidad', 'MuseumController::museumToday');
 
 // Teatro Escuela
-$routes->get('teatro-escuela', 'TotemController::theaterSchool');
+$routes->get('teatro-escuela', 'SchoolController::theaterSchool');
 
 // Extension
-$routes->get('extension', 'TotemController::extensionContact');
+$routes->get('extension', 'FriendsController::extensionContact');
 $routes->addRedirect('visitas-guiadas', 'extension');
 
 // Otros
-$routes->get('cartelera', 'TotemController::billboard');
-$routes->get('cartelera/detalle/(:any)', 'TotemController::billboardDetail/$1');
-$routes->get('amigos-de-teatromuseo', 'TotemController::friends');
+$routes->get('cartelera', 'BillboardController::billboard');
+$routes->get('cartelera/detalle/(:any)', 'BillboardController::billboardDetail/$1');
+$routes->get('amigos-de-teatromuseo', 'FriendsController::friends');
+
+$routes->set404Override('App\Controllers\MainController::notFound');
