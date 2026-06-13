@@ -35,17 +35,21 @@ class Services extends BaseService
             return $instance;
         }
 
-        /** @var Totem $config */
-        $config = config('Totem');
-
         // Base service with request-scoped memoization
         $service = new CachedTotemApiService(new TotemApiService());
 
         // Add file-based cache layer if enabled
-        if ($config->enableFileCache) {
-            $cachePath = WRITEPATH . $config->cachePath;
+        try {
+            /** @var Totem|null $config */
+            $config = config('Totem');
 
-            return new FileCachedTotemApiService($service, $cachePath, $config->cacheTtlSeconds);
+            if ($config !== null && $config->enableFileCache) {
+                $cachePath = WRITEPATH . $config->cachePath;
+
+                return new FileCachedTotemApiService($service, $cachePath, $config->cacheTtlSeconds);
+            }
+        } catch (\Exception $e) {
+            // If config fails, continue without file cache
         }
 
         return $service;
