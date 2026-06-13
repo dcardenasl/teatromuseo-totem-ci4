@@ -68,6 +68,8 @@ Vagrantfile
 !/writable/debugbar/index.html
 
 php_errors.log
+.php-cs-fixer.cache
+.php-cs-fixer.php
 
 #-------------------------
 # User Guide Temp Files
