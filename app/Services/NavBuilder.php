@@ -34,7 +34,7 @@ final class NavBuilder
                 'label' => lang('Nav.lang'),
                 'href'  => base_url('language' . $fromParam),
                 'icon'  => 'lang',
-                'class' => 'pill-button pill-button--lang',
+                'class' => 'pill-button pill-button--language',
             ],
             [
                 'label' => lang('Nav.home'),

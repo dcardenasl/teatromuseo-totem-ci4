@@ -601,4 +601,41 @@ body.totem-transitions-disabled .totem-transition-overlay {
     animation: grimaceCleanDisperse 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
+/* =========================================================================
+   ACCESIBILIDAD: Reduced Motion
+   ========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+    .totem-transition-overlay,
+    .totem-transition-overlay__nose,
+    .totem-transition-overlay__curtain-left,
+    .totem-transition-overlay__curtain-right,
+    .totem-transition-overlay__confetti-container,
+    .totem-transition-overlay__glove-accordion,
+    .totem-transition-overlay__glove,
+    .totem-transition-overlay__glove-bam,
+    .totem-transition-overlay__grimace,
+    .totem-transition-overlay__grimace-eye--left,
+    .totem-transition-overlay__grimace-eye--right,
+    .totem-transition-overlay__grimace-mouth {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+body.totem-animations-disabled .totem-transition-overlay,
+body.totem-animations-disabled .totem-transition-overlay__nose,
+body.totem-animations-disabled .totem-transition-overlay__curtain-left,
+body.totem-animations-disabled .totem-transition-overlay__curtain-right,
+body.totem-animations-disabled .totem-transition-overlay__confetti-container,
+body.totem-animations-disabled .totem-transition-overlay__glove-accordion,
+body.totem-animations-disabled .totem-transition-overlay__glove,
+body.totem-animations-disabled .totem-transition-overlay__glove-bam,
+body.totem-animations-disabled .totem-transition-overlay__grimace,
+body.totem-animations-disabled .totem-transition-overlay__grimace-eye--left,
+body.totem-animations-disabled .totem-transition-overlay__grimace-eye--right,
+body.totem-animations-disabled .totem-transition-overlay__grimace-mouth {
+    animation: none !important;
+    transition: none !important;
+}
+
 

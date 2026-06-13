@@ -762,7 +762,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 34px;
+    min-height: var(--touch-target-min);
     padding: 0 14px;
     width: fit-content;
     min-width: 148px;

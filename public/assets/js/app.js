@@ -106,7 +106,7 @@ function launchLanguageSelection(url) {
 function bindLanguageLaunchers() {
     document.addEventListener('click', (event) => {
         const splashLink = event.target.closest('a.splash-cta');
-        const topbarLink = event.target.closest('a.pill-button--lang');
+        const topbarLink = event.target.closest('a.pill-button--language');
 
         if (topbarLink) {
             const href = topbarLink.getAttribute('href');
@@ -272,7 +272,7 @@ function updateActiveLanguageUI() {
     const langLabels = { es: 'ESP', en: 'ENG', fr: 'FRA', pt: 'POR' };
     const activeLang = getActiveTotemLocale();
 
-    const langBtn = document.querySelector('.pill-button--lang span:last-child');
+    const langBtn = document.querySelector('.pill-button--language span:last-child');
     if (langBtn) {
         langBtn.textContent = langLabels[activeLang] || 'ESP';
     }
