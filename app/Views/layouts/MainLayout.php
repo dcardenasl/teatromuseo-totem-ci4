@@ -37,11 +37,6 @@ foreach (totem_locales() as $locale) {
     <meta name="theme-color" content="#de5928">
     <title><?= esc($pageTitle ?? lang('Meta.default_title')) ?></title>
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>?v=<?= $cssVersion ?>">
-    <style>
-        :root {
-            --paper-texture: url('<?= base_url('assets/img/ui/texture.png') ?>');
-        }
-    </style>
     <script>
         window.TOTEM_SYSTEM_MESSAGES = <?= json_encode(
             $systemMessages,
