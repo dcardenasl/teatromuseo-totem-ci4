@@ -40,8 +40,24 @@ class Totem extends BaseConfig
     {
         parent::__construct();
 
-        $this->enableTransitions = (bool) ($_ENV['TOTEM_ENABLE_TRANSITIONS'] ?? true);
-        $this->enableAnimations  = (bool) ($_ENV['TOTEM_ENABLE_ANIMATIONS'] ?? true);
+        $this->enableTransitions = $this->envBool('TOTEM_ENABLE_TRANSITIONS', true);
+        $this->enableAnimations  = $this->envBool('TOTEM_ENABLE_ANIMATIONS', true);
+    }
+
+    /**
+     * Helper para leer booleanos desde variables de entorno.
+     */
+    private function envBool(string $key, bool $default): bool
+    {
+        $value = getenv($key);
+
+        if ($value === false) {
+            return $default;
+        }
+
+        $value = strtolower(trim($value));
+
+        return ! in_array($value, ['false', '0', 'off', 'no', ''], true);
     }
 
     /**
