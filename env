@@ -95,6 +95,12 @@
 # Enable/disable non-essential animations
 # TOTEM_ENABLE_ANIMATIONS = true
 
+# Enable/disable file-based API caching (default: true)
+# TOTEM_ENABLE_FILE_CACHE = true
+
+# Cache TTL in seconds for API responses (default: 60)
+# TOTEM_CACHE_TTL_SECONDS = 60
+
 #--------------------------------------------------------------------
 # SECURITY
 #--------------------------------------------------------------------
