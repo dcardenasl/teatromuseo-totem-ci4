@@ -244,13 +244,8 @@
 - **Commit sugerido:** `refactor(views): move collection_main sections data to controller`
 
 ### F2-T2 — Centralizar configuración de locales
-- **Referencia:** Plan §3 Fase 2 → Lógica de vistas.
-- **Archivos:** `app/Config/Totem.php` o `app/Helpers/locale_helper.php`, `app/Views/totem/splash.php`, `app/Views/totem/language.php`, `app/Views/layouts/MainLayout.php`.
-- **Descripción:** Crear helper/config `totem_locales()` que devuelva `['es','en','fr','pt']` con etiquetas.
-- **Criterio de aceptación:**
-  - Solo existe una fuente de verdad para los idiomas soportados.
-  - `splash.php`, `language.php` y `MainLayout.php` usan el helper.
-- **Commit sugerido:** `refactor(i18n): centralize supported locales in helper`
+- [x] **Completado.** Creado `app/Helpers/locale_helper.php` con `totem_locales()` y `totem_locale_codes()`. Actualizadas vistas `splash.php`, `language.php` y `MainLayout.php`. Agregadas claves `locale_*` en archivos de idioma.
+- **Commit:** `refactor(i18n): centralize supported locales in helper`
 
 ### F2-T3 — Internacionalizar textos faltantes
 - **Referencia:** Plan §3 Fase 2 → Lógica de vistas.

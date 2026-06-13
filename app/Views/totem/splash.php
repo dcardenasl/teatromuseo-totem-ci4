@@ -35,23 +35,22 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
+<?php $locales = totem_locales(); ?>
 <script>
 (() => {
     const eyebrowCopies = [
-        "<?= esc(lang('Splash.discover', [], 'es'), 'js') ?>",
-        "<?= esc(lang('Splash.discover', [], 'en'), 'js') ?>",
-        "<?= esc(lang('Splash.discover', [], 'fr'), 'js') ?>",
-        "<?= esc(lang('Splash.discover', [], 'pt'), 'js') ?>"
+        <?php foreach ($locales as $locale): ?>
+        "<?= esc(lang('Splash.discover', [], $locale['code']), 'js') ?>",
+        <?php endforeach; ?>
     ];
 
     const ctaCopies = [
-        "<?= esc(lang('Splash.touch_start', [], 'es'), 'js') ?>",
-        "<?= esc(lang('Splash.touch_start', [], 'en'), 'js') ?>",
-        "<?= esc(lang('Splash.touch_start', [], 'fr'), 'js') ?>",
-        "<?= esc(lang('Splash.touch_start', [], 'pt'), 'js') ?>"
+        <?php foreach ($locales as $locale): ?>
+        "<?= esc(lang('Splash.touch_start', [], $locale['code']), 'js') ?>",
+        <?php endforeach; ?>
     ];
 
-    const locales = ['es', 'en', 'fr', 'pt'];
+    const locales = <?= json_encode(array_map(fn($l) => $l['code'], $locales)) ?>;
     const EXIT_DURATION = 700;
     const GAP_DURATION = 60;
     const ENTER_DURATION = 700;

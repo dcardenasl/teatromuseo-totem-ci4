@@ -18,32 +18,16 @@ if (! $animationsEnabled) {
 
 $bodyClasses = trim(($bodyClass ?? 'totem-app') . ' ' . implode(' ', $extraClasses));
 
-$systemMessages = [
-    'es' => [
-        'rotateTitle' => lang('Nav.rotate_title', [], 'es'),
-        'rotateText' => lang('Nav.rotate_text', [], 'es'),
-        'idleMsg' => lang('Idle.msg', [], 'es'),
-        'idleContinue' => lang('Idle.continue', [], 'es'),
-    ],
-    'en' => [
-        'rotateTitle' => lang('Nav.rotate_title', [], 'en'),
-        'rotateText' => lang('Nav.rotate_text', [], 'en'),
-        'idleMsg' => lang('Idle.msg', [], 'en'),
-        'idleContinue' => lang('Idle.continue', [], 'en'),
-    ],
-    'fr' => [
-        'rotateTitle' => lang('Nav.rotate_title', [], 'fr'),
-        'rotateText' => lang('Nav.rotate_text', [], 'fr'),
-        'idleMsg' => lang('Idle.msg', [], 'fr'),
-        'idleContinue' => lang('Idle.continue', [], 'fr'),
-    ],
-    'pt' => [
-        'rotateTitle' => lang('Nav.rotate_title', [], 'pt'),
-        'rotateText' => lang('Nav.rotate_text', [], 'pt'),
-        'idleMsg' => lang('Idle.msg', [], 'pt'),
-        'idleContinue' => lang('Idle.continue', [], 'pt'),
-    ],
-];
+$systemMessages = [];
+foreach (totem_locales() as $locale) {
+    $code = $locale['code'];
+    $systemMessages[$code] = [
+        'rotateTitle'  => lang('Nav.rotate_title', [], $code),
+        'rotateText'   => lang('Nav.rotate_text', [], $code),
+        'idleMsg'      => lang('Idle.msg', [], $code),
+        'idleContinue' => lang('Idle.continue', [], $code),
+    ];
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?= esc($htmlLang ?? 'es') ?>">

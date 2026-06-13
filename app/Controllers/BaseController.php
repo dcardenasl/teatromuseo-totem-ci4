@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
@@ -10,7 +12,7 @@ use Psr\Log\LoggerInterface;
 abstract class BaseController extends Controller
 {
     protected $request;
-    protected $helpers = ['html', 'url'];
+    protected $helpers = ['html', 'url', 'locale'];
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {

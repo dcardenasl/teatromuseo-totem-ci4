@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 return [
     'languages_label' => 'Idiomas',
+    'locale_es' => 'Español',
+    'locale_en' => 'English',
+    'locale_fr' => 'Français',
+    'locale_pt' => 'Português',
     'institutional_logos_label' => 'Logos institucionales',
     'state_logo_alt' => 'Ministerio de las Culturas, las Artes y el Patrimonio',
     'brand_label' => 'Teatromuseo',

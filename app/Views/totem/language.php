@@ -12,41 +12,21 @@
 
                 <!-- Contenedor de instrucciones en todos los idiomas para el usuario nativo -->
                 <div class="language-instructions-container" aria-label="<?= esc(lang('Menu.select_language'), 'attr') ?>">
-                    <div class="language-instruction lang-instruction--es" data-lang="es">
-                        <span class="language-instruction__decorator"></span>
-                        <span class="language-instruction__text"><?= lang('Menu.select_language', [], 'es') ?></span>
-                        <span class="language-instruction__decorator"></span>
-                    </div>
-                    <div class="language-instruction lang-instruction--en" data-lang="en">
-                        <span class="language-instruction__decorator"></span>
-                        <span class="language-instruction__text"><?= lang('Menu.select_language', [], 'en') ?></span>
-                        <span class="language-instruction__decorator"></span>
-                    </div>
-                    <div class="language-instruction lang-instruction--fr" data-lang="fr">
-                        <span class="language-instruction__decorator"></span>
-                        <span class="language-instruction__text"><?= lang('Menu.select_language', [], 'fr') ?></span>
-                        <span class="language-instruction__decorator"></span>
-                    </div>
-                    <div class="language-instruction lang-instruction--pt" data-lang="pt">
-                        <span class="language-instruction__decorator"></span>
-                        <span class="language-instruction__text"><?= lang('Menu.select_language', [], 'pt') ?></span>
-                        <span class="language-instruction__decorator"></span>
-                    </div>
+                    <?php foreach (totem_locales() as $locale): ?>
+                        <div class="language-instruction lang-instruction--<?= esc($locale['code'], 'attr') ?>" data-lang="<?= esc($locale['code'], 'attr') ?>">
+                            <span class="language-instruction__decorator"></span>
+                            <span class="language-instruction__text"><?= lang('Menu.select_language', [], $locale['code']) ?></span>
+                            <span class="language-instruction__decorator"></span>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
 
                 <div class="language-grid language-grid--spacious" role="list" aria-label="<?= esc(lang('Common.languages_label'), 'attr') ?>">
-                    <button class="pill-button pill-button--language" type="button" data-lang="es" aria-pressed="false" onclick="setLanguage('es')">
-                        Español
-                    </button>
-                    <button class="pill-button pill-button--language" type="button" data-lang="en" aria-pressed="false" onclick="setLanguage('en')">
-                        English
-                    </button>
-                    <button class="pill-button pill-button--language" type="button" data-lang="fr" aria-pressed="false" onclick="setLanguage('fr')">
-                        Français
-                    </button>
-                    <button class="pill-button pill-button--language" type="button" data-lang="pt" aria-pressed="false" onclick="setLanguage('pt')">
-                        Português
-                    </button>
+                    <?php foreach (totem_locales() as $locale): ?>
+                        <button class="pill-button pill-button--language" type="button" data-lang="<?= esc($locale['code'], 'attr') ?>" aria-pressed="false" onclick="setLanguage('<?= esc($locale['code'], 'js') ?>')">
+                            <?= esc($locale['label']) ?>
+                        </button>
+                    <?php endforeach; ?>
                 </div>
             </section>
         </div>
