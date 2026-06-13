@@ -355,68 +355,8 @@ parameters:
 			path: app/Filters/LocaleFilter.php
 
 		-
-			message: '#^Method App\\Services\\TotemApiService\:\:courses\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Services/TotemApiService.php
-
-		-
 			message: '#^Method App\\Services\\TotemApiService\:\:get\(\) has parameter \$params with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: app/Services/TotemApiService.php
-
-		-
-			message: '#^Method App\\Services\\TotemApiService\:\:get\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Services/TotemApiService.php
-
-		-
-			message: '#^Method App\\Services\\TotemApiService\:\:museum\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Services/TotemApiService.php
-
-		-
-			message: '#^Method App\\Services\\TotemApiService\:\:museumHistory\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Services/TotemApiService.php
-
-		-
-			message: '#^Method App\\Services\\TotemApiService\:\:shows\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Services/TotemApiService.php
-
-		-
-			message: '#^Method App\\Services\\TotemApiService\:\:technique\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Services/TotemApiService.php
-
-		-
-			message: '#^Method App\\Services\\TotemApiService\:\:techniques\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Services/TotemApiService.php
-
-		-
-			message: '#^Parameter \#1 \$json of function json_decode expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Services/TotemApiService.php
-
-		-
-			message: '#^Property App\\Services\\TotemApiService\:\:\$apiKey \(string\) does not accept array\<int\|string, mixed\>\|float\|int\<min, \-1\>\|int\<1, max\>\|object\|string\|true\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/Services/TotemApiService.php
-
-		-
-			message: '#^Property App\\Services\\TotemApiService\:\:\$baseUrl \(string\) does not accept array\<int\|string, mixed\>\|float\|int\<min, \-1\>\|int\<1, max\>\|object\|string\|true\.$#'
-			identifier: assign.propertyType
 			count: 1
 			path: app/Services/TotemApiService.php
 

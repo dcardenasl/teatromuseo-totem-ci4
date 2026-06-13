@@ -2,6 +2,9 @@
 
 namespace Config;
 
+use App\Services\CachedTotemApiService;
+use App\Services\TotemApiInterface;
+use App\Services\TotemApiService;
 use CodeIgniter\Config\BaseService;
 
 /**
@@ -19,14 +22,18 @@ use CodeIgniter\Config\BaseService;
  */
 class Services extends BaseService
 {
-    /*
-     * public static function example($getShared = true)
-     * {
-     *     if ($getShared) {
-     *         return static::getSharedInstance('example');
-     *     }
-     *
-     *     return new \CodeIgniter\Example();
-     * }
-     */
+    public static function totemApi(bool $getShared = true): TotemApiInterface
+    {
+        if ($getShared) {
+            static $instance;
+
+            if ($instance === null) {
+                $instance = static::totemApi(false);
+            }
+
+            return $instance;
+        }
+
+        return new CachedTotemApiService(new TotemApiService());
+    }
 }
