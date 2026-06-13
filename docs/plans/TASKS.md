@@ -185,115 +185,50 @@
 
 ## Fase 1 — Arquitectura backend
 
+> **Estado:** completada. Todos los cambios están en `dev` y el kiosko sigue navegable.
+
 ### F1-T1 — Crear BaseTotemController
-- **Referencia:** Plan §3 Fase 1 → Controladores.
-- **Archivos:** `app/Controllers/BaseTotemController.php`.
-- **Descripción:** Extraer helpers comunes (`pageMeta`, `shellNav`, `render`) de `TotemController` a una clase base.
-- **Criterio de aceptación:**
-  - `BaseTotemController` no depende de lógica de dominio.
-  - `render()` reduce la duplicación de `array_merge($this->pageMeta(...), ['nav' => ...])`.
-- **Commit sugerido:** `refactor(controllers): add BaseTotemController with shared render helpers`
+- [x] **Completado.** Creado `BaseTotemController` con `pageMeta`, `shellNav`, `menuItem` y `render`; heredado por todos los controladores de dominio.
+- **Commit:** `refactor(controllers): add BaseTotemController with shared render helpers`
 
 ### F1-T2 — Crear MenuBuilder y NavBuilder
-- **Referencia:** Plan §3 Fase 1 → Controladores.
-- **Archivos:** `app/Services/MenuBuilder.php`, `app/Services/NavBuilder.php`.
-- **Descripción:** Mover `menuItem()` y `shellNav()` a clases dedicadas.
-- **Criterio de aceptación:**
-  - Los métodos son reutilizables y testeables.
-  - `TotemController` delega en ellos.
-- **Commit sugerido:** `refactor(services): extract MenuBuilder and NavBuilder`
+- [x] **Completado.** `MenuBuilder` y `NavBuilder` extraídos a `app/Services/`; `BaseTotemController` delega en ellos.
+- **Commit:** `refactor(services): extract MenuBuilder and NavBuilder`
 
 ### F1-T3 — Dividir TotemController en controladores de dominio
-- **Referencia:** Plan §3 Fase 1 → Controladores.
-- **Archivos:** `app/Controllers/MainController.php`, `app/Controllers/MuseumController.php`, `app/Controllers/CollectionController.php`, `app/Controllers/SchoolController.php`, `app/Controllers/BillboardController.php`, `app/Controllers/FriendsController.php`, `app/Config/Routes.php`.
-- **Descripción:**
-  - Mover cada grupo de acciones a su controlador.
-  - Actualizar `Routes.php`.
-  - Eliminar `TotemController.php` al finalizar.
-- **Criterio de aceptación:**
-  - Ningún controlador excede 200 líneas de lógica.
-  - Todas las rutas siguen funcionando (tests de rutas pasan).
-- **Commit sugerido:** `refactor(controllers): split TotemController into domain controllers`
+- [x] **Completado.** Creados `MainController`, `MuseumController`, `CollectionController`, `SchoolController`, `BillboardController` y `FriendsController`; `TotemController.php` eliminado; `Routes.php` actualizado.
+- **Commit:** `refactor(controllers): split TotemController into domain controllers`
 
 ### F1-T4 — Crear TotemApiInterface y refactorizar TotemApiService
-- **Referencia:** Plan §3 Fase 1 → Servicios y API.
-- **Archivos:** `app/Services/TotemApiInterface.php`, `app/Services/TotemApiService.php`.
-- **Descripción:**
-  - Definir interfaz con todos los métodos públicos.
-  - Refactorizar `TotemApiService` para aceptar configuración/CURLRequest por constructor.
-  - Mejorar `get()` para loggear status no-2xx y JSON inválido.
-- **Criterio de aceptación:**
-  - `TotemApiService` implementa `TotemApiInterface`.
-  - Tests existentes siguen pasando.
-- **Commit sugerido:** `refactor(services): add TotemApiInterface and improve error logging`
+- [x] **Completado.** Creada `TotemApiInterface`; `TotemApiService` implementa la interfaz, acepta `CURLRequest` por constructor y loguea status no-2xx / JSON inválido.
+- **Commit:** `refactor(services): add TotemApiInterface, refactor TotemApiService and add CachedTotemApiService`
 
 ### F1-T5 — Crear CachedTotemApiService
-- **Referencia:** Plan §3 Fase 1 → Servicios y API.
-- **Archivos:** `app/Services/CachedTotemApiService.php`, `app/Config/Services.php`.
-- **Descripción:**
-  - Decorador que memoiza respuestas por request.
-  - Registrar `Services::totemApi()` para devolver la versión cacheada.
-- **Criterio de aceptación:**
-  - Llamadas repetidas a `museum()` dentro de un mismo request solo hacen una petición HTTP.
-  - Tests verifican el cache.
-- **Commit sugerido:** `feat(services): add CachedTotemApiService decorator`
+- [x] **Completado.** Creado `CachedTotemApiService` decorador con memoización por request; registrado en `Config\Services::totemApi()`.
+- **Commit:** `refactor(services): add TotemApiInterface, refactor TotemApiService and add CachedTotemApiService`
 
 ### F1-T6 — Crear presenters de dominio
-- **Referencia:** Plan §3 Fase 1 → Presenters y ViewModels.
-- **Archivos:** `app/Presenters/SchoolPresenter.php`, `app/Presenters/BillboardPresenter.php`, `app/Presenters/MuseumTodayPresenter.php`, `app/Presenters/DatePresenter.php`.
-- **Descripción:**
-  - Mover lógica de transformación de datos desde controladores a presenters.
-  - Reemplazar `getMonthName()` por `IntlDateFormatter`/`DateTimeImmutable`.
-- **Criterio de aceptación:**
-  - Cada presenter tiene tests unitarios.
-  - Controladores solo orquestan.
-- **Commit sugerido:** `refactor(presenters): add School, Billboard, MuseumToday and Date presenters`
+- [x] **Completado.** Creados `SchoolPresenter`, `BillboardPresenter`, `MuseumTodayPresenter` y `DatePresenter`; `getMonthName()` reemplazado por `IntlDateFormatter`.
+- **Commit:** `refactor(presenters): add School, Billboard, MuseumToday and Date presenters`
 
 ### F1-T7 — Extraer datos de contingencia a repositorios/config
-- **Referencia:** Plan §3 Fase 1 → Presenters y ViewModels.
-- **Archivos:** `app/Config/Totem.php`, `app/Repositories/SchoolFallbackRepository.php`, `app/Repositories/BillboardFallbackRepository.php`.
-- **Descripción:**
-  - Mover datos mock de profesores, alumnos, obras, slugs a configuración o repositorios.
-  - Los presenters usan estos repositorios cuando la API retorna vacío.
-- **Criterio de aceptación:**
-  - No hay arrays de datos estáticos en controladores.
-  - Fallback funciona offline.
-- **Commit sugerido:** `refactor(fallback): extract static mock data to fallback repositories`
+- [x] **Completado.** Creados `Config\Totem`, `SchoolFallbackRepository`, `BillboardFallbackRepository` y `MuseumFallbackRepository`; datos estáticos eliminados de controladores.
+- **Commit:** `refactor(fallback): extract static mock data to fallback repositories and Totem config`
 
 ### F1-T8 — Crear Enums y Value Objects
-- **Referencia:** Plan §3 Fase 1 → Value Objects y Enums.
-- **Archivos:** `app/Enums/SchoolCategory.php`, `app/Enums/Audience.php`, `app/ValueObjects/ImageAsset.php`, `app/Services/SlugResolver.php`.
-- **Descripción:**
-  - Reemplazar IDs mágicos por Enums.
-  - Centralizar construcción de URLs de imagen.
-  - Resolver slugs a IDs sin N+1.
-- **Criterio de aceptación:**
-  - No quedan `if ($id === 1)` en controladores.
-  - `ImageAsset` valida existencia del archivo.
-- **Commit sugerido:** `refactor(domain): add SchoolCategory and Audience enums, ImageAsset and SlugResolver`
+- [x] **Completado.** Creados `SchoolCategory`, `Audience`, `ImageAsset` y `SlugResolver`; IDs mágicos eliminados de controladores.
+- **Commit:** `refactor(domain): add SchoolCategory and Audience enums, ImageAsset and SlugResolver`
 
 ### F1-T9 — Limpiar rutas obsoletas de colección
-- **Referencia:** Plan §3 Fase 1 → Rutas.
-- **Archivos:** `app/Config/Routes.php`, `app/Views/totem/collection_techniques.php`, `app/Views/totem/collection_masks.php`, `app/Views/totem/collection_clowns.php`.
-- **Descripción:**
-  - Eliminar rutas `/museo/coleccion/titeres`, `/mascaras`, `/payasos`.
-  - Eliminar vistas asociadas obsoletas.
-  - Añadir `set404Override()` con handler amigable multiidioma.
-- **Criterio de aceptación:**
-  - Las rutas obsoletas devuelven 404 o redirigen correctamente.
-  - No quedan vistas huérfanas.
-- **Commit sugerido:** `refactor(routes): remove obsolete collection routes and add 404 handler`
+- [x] **Completado.** Eliminada ruta/vista de payasos; añadido `set404Override('App\Controllers\MainController::notFound')` con vista multiidioma.
+- **Commit:** `refactor(routes): remove obsolete collection routes and add friendly 404 handler`
 
 ### F1-T10 — Tests de integración para controladores
-- **Referencia:** Plan §3 Fase 1 → Tests.
-- **Archivos:** `tests/unit/Controllers/`.
-- **Descripción:**
-  - Tests de integración para cada nuevo controlador usando mocks del API.
-  - Tests de fallback offline.
-- **Criterio de aceptación:**
-  - Cobertura de controladores ≥70 %.
-  - Todos los tests pasan.
-- **Commit sugerido:** `test(controllers): add integration tests for domain controllers and offline fallback`
+- [x] **Completado.** Tests por dominio en `tests/unit/Controllers/`; tests unitarios para presenters y `CachedTotemApiService`.
+- **Commits:**
+  - `test(controllers): add integration tests for domain controllers`
+  - `test(presenters): add unit tests for domain presenters`
+  - `test(services): add CachedTotemApiService tests`
 
 ---
 
