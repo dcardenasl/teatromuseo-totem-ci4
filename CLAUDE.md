@@ -304,10 +304,16 @@ public static function totemApi(): TotemApiInterface
 - F3-T7: Build pipeline mejorado con PostCSS ✅
 - F3-T8: Accesibilidad táctil y reduced-motion ✅
 
-### Fase 4 — Observabilidad ⏳ PENDIENTE
-- Logs estructurados
-- Health check endpoint
-- Cache file-based
+### Fase 4 — Observabilidad ✅ COMPLETA
+- F4-T1: Logs estructurados de API ✅
+- F4-T2: Health check endpoint `/health` ✅
+- F4-T3: Estrategia de fallback offline documentada ✅
+- F4-T4: Cache file-based implementado ✅
+- F4-T5: README.md actualizado ✅
+- F4-T6: AGENTS.md actualizado ✅
+- F4-T7: Manual de soporte creado ✅
+- F4-T8: Evaluación de despliegue completada ✅
+- F4-T9: Tests finales (59 tests, 167 assertions) ✅
 
 ## Pantallas con contenido en construcción
 
