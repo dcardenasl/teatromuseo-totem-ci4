@@ -101,8 +101,8 @@
     }
 
     .totem-brand__mark {
-        width: 44px;
-        height: 44px;
+        width: 52px;
+        height: 52px;
         border-width: 2px;
         box-shadow: 0 4px 10px rgba(52, 34, 14, 0.12);
     }
@@ -120,9 +120,9 @@
     }
 
     .pill-button {
-        min-height: 44px;
+        min-height: 46px;
         padding: 0 12px;
-        font-size: 0.75rem;
+        font-size: 0.78rem;
         gap: 5px;
         border-radius: 22px;
     }
@@ -534,6 +534,51 @@
 
     .menu-card__title {
         font-size: clamp(1.65rem, 4.7cqi, 2.3rem);
+    }
+
+    .menu-card__copy {
+        max-width: 18ch;
+        font-size: 0.82rem;
+    }
+
+    .menu-grid.menu-grid--history,
+    .menu-grid.menu-grid--museum-info {
+        grid-template-columns: 1fr;
+        width: min(100%, 440px);
+        gap: 22px;
+        padding-inline: 10px;
+    }
+
+    .menu-grid--history .menu-card,
+    .menu-grid--museum-info .menu-card {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        align-items: center;
+        justify-items: center;
+        gap: 8px;
+        width: min(100%, 320px);
+        justify-self: center;
+        text-align: center;
+    }
+
+    .menu-grid--history .menu-card__art,
+    .menu-grid--museum-info .menu-card__art {
+        width: min(100%, 260px);
+        aspect-ratio: 1.16;
+    }
+
+    .menu-grid--history .menu-card__copywrap,
+    .menu-grid--museum-info .menu-card__copywrap {
+        justify-items: center;
+        text-align: center;
+    }
+
+    .menu-grid--history .menu-card__title,
+    .menu-grid--museum-info .menu-card__title {
+        min-height: 40px;
+        padding: 0 16px;
+        text-align: center;
+        font-size: 0.72rem;
     }
 
     .menu-card:nth-child(5) {
