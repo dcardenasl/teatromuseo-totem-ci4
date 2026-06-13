@@ -299,6 +299,7 @@
 - **Commit:** `refactor(css): remove dead CSS files and unused selectors`
 
 ### F3-T3 — Crear componentes base .card y .panel
+- **Estado:** Pendiente para post-presentación (15/06).
 - **Referencia:** Plan §3 Fase 3 → Componentes base.
 - **Archivos:** `public/assets/css/src/shared/components.css`, parciales afectados.
 - **Descripción:**
@@ -314,23 +315,12 @@
 - **Commit:** `fix(css): unify language button class and improve accessibility`
 
 ### F3-T5 — Corregir selectores sin estilos
-- **Referencia:** Plan §3 Fase 3 → Nomenclatura y consistencia.
-- **Archivos:** `app/Views/totem/comic_history_main.php`, `public/assets/css/src/screens/section.css`, `app/Views/totem/partials/button.php`.
-- **Descripción:**
-  - Definir estilos para `.collection-heading__eyebrow/copy` o eliminar elementos.
-  - Decidir si `partials/button.php` se usa o se elimina.
-- **Criterio de aceptación:**
-  - Todos los selectores usados en vistas tienen estilos definidos.
-- **Commit sugerido:** `fix(css): add missing styles or remove unused selectors`
+- [x] **Completado.** Agregados estilos para `.collection-heading__eyebrow` y `.collection-heading__copy`. Eliminado `partials/button.php` (no se usaba).
+- **Commit:** `fix(css): add missing styles for collection-heading elements and remove unused button partial`
 
 ### F3-T6 — Unificar responsive bajo @container kiosk
-- **Referencia:** Plan §3 Fase 3 → Responsive.
-- **Archivos:** `public/assets/css/src/screens/section.css`, `public/assets/css/src/screens/museum-today.css`, `public/assets/css/src/screens/language.css`, `public/assets/css/src/99-responsive.css`.
-- **Descripción:** Migrar `@media (max-width: ...)` a `@container kiosk (...)`.
-- **Criterio de aceptación:**
-  - No quedan media queries sueltas en parciales de pantalla.
-  - Visualmente idéntico en 1080×1920.
-- **Commit sugerido:** `refactor(css): migrate media queries to container queries`
+- [x] **Completado.** Migradas media queries de section.css, museum-today.css y language.css a `@container kiosk (...)`. Las media queries de 99-responsive.css y las de feature detection (prefers-reduced-motion, orientation) se mantienen por ser casos especiales válidos.
+- **Commit:** `refactor(css): migrate media queries to container queries`
 
 ### F3-T7 — Mejorar build CSS
 - [x] **Completado.** Implementado PostCSS con postcss-import, autoprefixer y cssnano. Creado main.css como entry point. Build ahora usa `npm run build:css`.
