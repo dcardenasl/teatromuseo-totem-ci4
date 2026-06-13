@@ -21,7 +21,6 @@
     }
 
     .content-grid,
-    .detail-layout,
     .event-card,
     .course-list {
         grid-template-columns: 1fr;
@@ -275,17 +274,9 @@
         font-size: clamp(0.95rem, 2.2cqi, 1.15rem);
     }
 
-    .section-hero__visual,
-    .detail-hero__image {
-        min-height: 0;
-    }
-
     .section-hero__visual {
+        min-height: 0;
         aspect-ratio: 16 / 10;
-    }
-
-    .detail-hero__image {
-        aspect-ratio: 3 / 4;
     }
 
     .billboard-detail__show-title {
