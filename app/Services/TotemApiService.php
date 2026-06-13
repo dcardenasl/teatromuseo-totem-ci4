@@ -92,6 +92,9 @@ class TotemApiService implements TotemApiInterface
      */
     private function get(string $path, array $params = []): array
     {
+        $startTime = microtime(true);
+        $endpoint  = ltrim($path, '/');
+
         try {
             $headers = [
                 'Accept' => 'application/json',
@@ -109,11 +112,12 @@ class TotemApiService implements TotemApiInterface
                 $options['query'] = $params;
             }
 
-            $response = $this->client->get(ltrim($path, '/'), $options);
-            $status   = $response->getStatusCode();
+            $response   = $this->client->get($endpoint, $options);
+            $status     = $response->getStatusCode();
+            $durationMs = (int) ((microtime(true) - $startTime) * 1000);
 
             if ($status !== 200) {
-                log_message('warning', "[TotemApiService] Non-2xx response from {$path}: HTTP {$status}");
+                $this->logApiCall($endpoint, $durationMs, $status, 'non_2xx_response');
 
                 return [];
             }
@@ -122,10 +126,12 @@ class TotemApiService implements TotemApiInterface
             $body = json_decode($raw, true);
 
             if (!is_array($body)) {
-                log_message('warning', "[TotemApiService] Invalid JSON from {$path}");
+                $this->logApiCall($endpoint, $durationMs, $status, 'invalid_json');
 
                 return [];
             }
+
+            $this->logApiCall($endpoint, $durationMs, $status, null);
 
             if (isset($body['data']) && is_array($body['data'])) {
                 return $body['data'];
@@ -133,10 +139,38 @@ class TotemApiService implements TotemApiInterface
 
             return $body;
         } catch (Exception $e) {
-            log_message('error', '[TotemApiService] Error al consumir ' . $path . ': ' . $e->getMessage());
+            $durationMs = (int) ((microtime(true) - $startTime) * 1000);
+            $this->logApiCall($endpoint, $durationMs, 0, $e->getMessage());
 
             return [];
         }
+    }
+
+    /**
+     * Log API call with structured JSON format.
+     *
+     * @param string      $endpoint   API endpoint called
+     * @param int         $durationMs Response time in milliseconds
+     * @param int         $status     HTTP status code (0 for network errors)
+     * @param string|null $error      Error message or type, null if success
+     */
+    private function logApiCall(string $endpoint, int $durationMs, int $status, ?string $error): void
+    {
+        $logEntry = [
+            'timestamp' => date('c'),
+            'service'   => 'totem_api',
+            'endpoint'  => $endpoint,
+            'duration'  => $durationMs,
+            'status'    => $status,
+            'success'   => $error === null && $status === 200,
+        ];
+
+        if ($error !== null) {
+            $logEntry['error'] = $error;
+        }
+
+        $level = $error !== null || $status !== 200 ? 'warning' : 'debug';
+        log_message($level, '[TotemApiService] ' . json_encode($logEntry, JSON_UNESCAPED_SLASHES));
     }
 
     /**
