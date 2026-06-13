@@ -15,4 +15,7 @@ return [
     'collection_item_mock' => 'Fiche: %s (mock).',
     'history_post_mock' => 'Billet d’histoire: %s (mock).',
     'contact_mock' => 'Formulaire de contact et clavier tactile (mock).',
+    'error_404_label' => 'Page non trouvée',
+    'error_404_title' => 'Page non trouvée',
+    'error_404_copy' => 'L’écran que vous cherchez n’est pas disponible. Retournez à l’accueil pour continuer.',
 ];
