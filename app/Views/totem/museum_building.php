@@ -2,14 +2,27 @@
 
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
-        <?= view('totem/partials/mock_notice', [
-            'titleKey' => 'Totem.mock_notice_title',
-            'copyKey'  => 'Totem.mock_notice_copy',
+        <?= view('totem/partials/museum_info_story', [
+            'eyebrow' => lang('MuseumInfo.main_eyebrow'),
+            'title' => lang('MuseumInfo.teatromuseo_history_title'),
+            'image' => 'assets/img/museo/el-museo/collage-nuestra-historia.webp',
+            'imageAlt' => lang('MuseumInfo.teatromuseo_history_alt'),
+            'intro' => lang('MuseumInfo.teatromuseo_history_intro'),
+            'sections' => [
+                [
+                    'title' => lang('MuseumInfo.mission_title'),
+                    'copy' => lang('MuseumInfo.mission_copy'),
+                ],
+                [
+                    'title' => lang('MuseumInfo.vision_title'),
+                    'copy' => lang('MuseumInfo.vision_copy'),
+                ],
+            ],
         ]) ?>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => lang('MuseumInfo.building_title'),
+        'title' => '',
         'content' => $content,
         'nav' => $nav ?? []
     ]) ?>

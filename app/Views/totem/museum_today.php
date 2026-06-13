@@ -13,7 +13,7 @@
         <div class="screen-page__body museum-today">
             <section class="museum-today__hero screen__panel" aria-labelledby="museum-today-title">
                 <div class="museum-today__visual" aria-hidden="true">
-                    <img src="<?= base_url($today['image'] ?? 'assets/img/museum/cat_el_museo.webp') ?>" alt="">
+                    <img src="<?= base_url($today['image'] ?? 'assets/img/museo/el-museo/collage-historia-actual.webp') ?>" alt="<?= esc($today['imageAlt'] ?? '', 'attr') ?>">
                     <span class="museum-today__badge"><?= esc(lang('MuseumInfo.today_feature_badge')) ?></span>
                 </div>
 
@@ -78,7 +78,7 @@
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => lang('MuseumInfo.main_title'),
+        'title' => lang('MuseumInfo.teatromuseo_today'),
         'content' => $content,
         'nav' => $nav ?? []
     ]) ?>
