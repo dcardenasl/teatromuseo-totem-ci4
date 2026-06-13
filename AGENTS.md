@@ -23,7 +23,46 @@ Este documento define las convenciones específicas para agentes de IA trabajand
 - Los servicios ACCEDEN a datos (API, fallback, caché)
 - Los presenters TRANSFORMAN datos para visualización
 
-### 2. Patrones establecidos
+### 2. Observabilidad y resiliencia (Fase 4)
+
+#### Logs estructurados
+
+Todas las llamadas API generan logs en formato JSON:
+
+```json
+{
+  "timestamp": "2026-06-12T23:02:17-04:00",
+  "service": "totem_api",
+  "endpoint": "courses",
+  "duration": 145,
+  "status": 200,
+  "success": true
+}
+```
+
+Los logs se escriben en `writable/logs/log-YYYY-MM-DD.log`.
+
+#### Health Check
+
+Endpoint `/health` para monitoreo:
+
+```bash
+curl http://localhost:8086/health
+# {"status":"ok","api":"reachable","timestamp":"..."}
+```
+
+#### Cache en archivo
+
+El servicio `FileCachedTotemApiService` proporciona cache persistente:
+
+- TTL configurable vía `TOTEM_CACHE_TTL_SECONDS` (default: 60s)
+- Ubicación: `writable/cache/totem/`
+- Se activa/desactiva con `TOTEM_ENABLE_FILE_CACHE`
+- Limpieza manual: `rm writable/cache/totem/*.cache`
+
+---
+
+### 3. Patrones establecidos
 
 #### Controladores
 
@@ -103,6 +142,16 @@ final class ExampleController extends BaseTotemController
 
 #### Servicios API
 
+Jerarquía de servicios:
+
+```
+FileCachedTotemApiService  ← Cache en archivo (TTL 60s)
+    ↓
+CachedTotemApiService      ← Memoización por request
+    ↓
+TotemApiService            ← Cliente HTTP base
+```
+
 Si necesitas agregar un método al API:
 
 ```php
@@ -118,7 +167,7 @@ public function newMethod(): array
     return $this->get('endpoint');
 }
 
-// 3. El decorador CachedTotemApiService lo hereda automáticamente
+// 3. Los decoradores lo heredan automáticamente
 ```
 
 #### Presenters
@@ -288,6 +337,12 @@ chore(deps): update codeigniter4/framework
 
 ## Checklist antes de cambios
 
+### Si vas a agregar un endpoint API nuevo:
+- [ ] Agregué método a `TotemApiInterface`
+- [ ] Implementé en `TotemApiService`
+- [ ] Verifiqué que funciona con cache deshabilitado
+- [ ] Los errores quedan en logs estructurados
+
 ### Si vas a crear un controlador nuevo:
 - [ ] Hereda de `BaseTotemController`
 - [ ] Tiene `declare(strict_types=1)`
@@ -325,6 +380,9 @@ chore(deps): update codeigniter4/framework
 | Estilos nuevos | `public/assets/css/src/screens/` o `shared/` |
 | Datos de fallback si API falla | `app/Repositories/FallbackRepository.php` |
 | Configuración del totem | `app/Config/Totem.php` + `.env` |
+| Verificar salud del sistema | Endpoint `/health` o `HealthController` |
+| Cache en archivo | `FileCachedTotemApiService` o `writable/cache/totem/` |
+| Logs de API | `writable/logs/log-YYYY-MM-DD.log` |
 
 ## Prohibido
 
@@ -335,6 +393,7 @@ chore(deps): update codeigniter4/framework
 5. **NO quitar `declare(strict_types=1)`.** Tipado estricto obligatorio.
 6. **NO crear controladores que no hereden de `BaseTotemController`.**
 7. **NO acceder API directamente desde vistas o controladores.** Usar servicios.
+8. **NO romper la resiliencia offline.** Siempre manejar el caso de API caída con fallback amigable.
 
 ## Dudas?
 
