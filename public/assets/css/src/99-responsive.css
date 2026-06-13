@@ -229,7 +229,7 @@
         padding: 0;
     }
 
-    .pill-button--language {
+    .language-card--panel .pill-button--language {
         min-height: 64px;
         font-size: 1.05rem;
     }

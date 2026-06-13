@@ -46,6 +46,6 @@
         "format": "php-cs-fixer fix",
         "analyse": "phpstan analyse --no-progress",
         "analyse:baseline": "phpstan analyse --generate-baseline",
-        "build:css": "bash bin/build-css.sh"
+        "build:css": "npm run build:css"
     }
 }

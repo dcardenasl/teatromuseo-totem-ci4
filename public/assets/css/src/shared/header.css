@@ -81,7 +81,7 @@
     align-items: center;
     gap: 12px;
     padding: 0 28px;
-    min-height: 68px;
+    min-height: 52px;
     background: var(--accent);
     color: var(--on-accent);
     border: 0;
@@ -109,10 +109,8 @@
     box-shadow: 0 2px 0 var(--pressed-shadow);
 }
 
-.pill-button--language {
+.totem-header .pill-button--language {
     justify-content: center;
-    min-height: 80px;
-    font-size: 1.4rem;
 }
 
 .pill-button--ghost {
@@ -129,6 +127,20 @@
 }
 
 .pill-button__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6em;
+    height: 1.6em;
     font-size: 1.55rem;
     line-height: 1;
+    flex-shrink: 0;
+}
+
+.pill-button__icon :is(svg, img) {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    display: block;
 }
