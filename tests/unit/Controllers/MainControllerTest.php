@@ -8,9 +8,17 @@ use CodeIgniter\Test\FeatureTestTrait;
 /**
  * @internal
  */
-final class TotemControllerTest extends CIUnitTestCase
+final class MainControllerTest extends CIUnitTestCase
 {
     use FeatureTestTrait;
+
+    public function testIndexRouteRendersSplash(): void
+    {
+        $result = $this->get('/');
+
+        $result->assertStatus(200);
+        $result->assertSee('Toca para comenzar');
+    }
 
     public function testLanguageWithValidFromParameter(): void
     {
@@ -35,21 +43,20 @@ final class TotemControllerTest extends CIUnitTestCase
         self::assertStringNotContainsString('<script>alert(1)</script>', $body);
     }
 
-    public function testTheaterSchoolRouteRendersCourseSection(): void
+    public function testMenuRouteRendersGrid(): void
     {
-        $result = $this->get('teatro-escuela');
+        $result = $this->get('menu');
 
         $result->assertStatus(200);
-        $result->assertSee('Teatro escuela');
-        $result->assertSee('school-course');
+        $result->assertSee('Menú');
+        $result->assertSee('menu-card--museum');
     }
 
-    public function testBillboardRouteRendersEvents(): void
+    public function testNotFoundRouteRendersFriendlyPage(): void
     {
-        $result = $this->get('cartelera');
+        $result = $this->get('ruta-que-no-existe');
 
-        $result->assertStatus(200);
-        $result->assertSee('Cartelera');
-        $result->assertSee('event-card');
+        $result->assertStatus(404);
+        $result->assertSee('Página no encontrada');
     }
 }
