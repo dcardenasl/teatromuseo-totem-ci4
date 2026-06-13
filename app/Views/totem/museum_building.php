@@ -1,9 +1,16 @@
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>
-<?= view('totem/partials/page_shell', [
-    'title' => lang('MuseumInfo.building_title'),
-    'content' => '<p>' . esc(lang('Common.building_mock')) . '</p>',
-    'nav' => $nav ?? []
-]) ?>
+    <?php ob_start(); ?>
+        <?= view('totem/partials/mock_notice', [
+            'titleKey' => 'Totem.mock_notice_title',
+            'copyKey'  => 'Totem.mock_notice_copy',
+        ]) ?>
+    <?php $content = ob_get_clean(); ?>
+
+    <?= view('totem/partials/page_shell', [
+        'title' => lang('MuseumInfo.building_title'),
+        'content' => $content,
+        'nav' => $nav ?? []
+    ]) ?>
 <?= $this->endSection() ?>

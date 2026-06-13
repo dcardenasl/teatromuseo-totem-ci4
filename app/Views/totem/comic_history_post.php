@@ -2,7 +2,10 @@
 
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
-        <p><?= esc(sprintf(lang('Common.history_post_mock'), $slug)) ?></p>
+        <?= view('totem/partials/mock_notice', [
+            'titleKey' => 'Totem.mock_notice_title',
+            'copyKey'  => 'Totem.mock_notice_copy',
+        ]) ?>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [

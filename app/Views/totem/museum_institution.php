@@ -2,7 +2,10 @@
 
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
-        <p><?= esc(lang('Common.institution_mock')) ?></p>
+        <?= view('totem/partials/mock_notice', [
+            'titleKey' => 'Totem.mock_notice_title',
+            'copyKey'  => 'Totem.mock_notice_copy',
+        ]) ?>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
