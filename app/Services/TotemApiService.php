@@ -16,7 +16,7 @@ class TotemApiService implements TotemApiInterface
 {
     private string $baseUrl;
     private string $apiKey;
-    private CURLRequest $client;
+    private ?CURLRequest $client = null;
 
     public function __construct(?CURLRequest $client = null)
     {
@@ -28,10 +28,29 @@ class TotemApiService implements TotemApiInterface
         $apiKey       = env('TOTEM_API_KEY');
         $this->apiKey = $apiKey !== false && $apiKey !== '' ? $apiKey : '';
 
-        $this->client = $client ?? CIBaseServices::curlrequest([
-            'base_URI' => $this->baseUrl,
-            'timeout'  => 5,
-        ]);
+        // Store injected client, otherwise create lazily
+        $this->client = $client;
+    }
+
+    /**
+     * Get or create the HTTP client lazily.
+     */
+    private function getClient(): ?CURLRequest
+    {
+        if ($this->client === null) {
+            try {
+                $this->client = CIBaseServices::curlrequest([
+                    'base_URI' => $this->baseUrl,
+                    'timeout'  => 5,
+                ]);
+            } catch (\Exception $e) {
+                // If we can't create the client, return null
+                // The get() method will handle this gracefully
+                return null;
+            }
+        }
+
+        return $this->client;
     }
 
     /**
@@ -96,6 +115,11 @@ class TotemApiService implements TotemApiInterface
         $endpoint  = ltrim($path, '/');
 
         try {
+            $client = $this->getClient();
+            if ($client === null) {
+                return [];
+            }
+
             $headers = [
                 'Accept' => 'application/json',
             ];
@@ -112,7 +136,7 @@ class TotemApiService implements TotemApiInterface
                 $options['query'] = $params;
             }
 
-            $response   = $this->client->get($endpoint, $options);
+            $response   = $client->get($endpoint, $options);
             $status     = $response->getStatusCode();
             $durationMs = (int) ((microtime(true) - $startTime) * 1000);
 
