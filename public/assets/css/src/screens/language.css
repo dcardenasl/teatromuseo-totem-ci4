@@ -370,7 +370,7 @@ body.totem-animations-disabled .language-instruction {
     color: var(--muted);
 }
 
-@media (max-width: 640px) {
+@container kiosk (max-width: 640px) {
     .language-layout {
         padding: 14px 12px 12px;
     }

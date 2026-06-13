@@ -641,7 +641,7 @@
     height: 2.9%;
 }
 
-@media (max-width: 760px) {
+@container kiosk (max-width: 760px) {
     .collection-hotspot--back {
         left: 13.8%;
         width: 16.8%;
@@ -658,7 +658,7 @@
     }
 }
 
-@media (max-width: 980px) {
+@container kiosk (max-width: 980px) {
     .collection-hero,
     .collection-route {
         grid-template-columns: 1fr;
@@ -891,7 +891,7 @@
     box-shadow: 0 8px 18px rgba(74, 50, 24, 0.12);
 }
 
-@media (max-width: 360px) {
+@container kiosk (max-width: 360px) {
     .collection-band {
         grid-template-columns: 1fr;
         gap: 16px;
