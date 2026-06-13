@@ -20,13 +20,13 @@ class TotemApiService implements TotemApiInterface
 
     public function __construct(?CURLRequest $client = null)
     {
-        /** @var string $baseUrl */
+        /** @var string|false|null $baseUrl */
         $baseUrl       = env('TOTEM_API_URL');
-        $this->baseUrl = $baseUrl !== false && $baseUrl !== '' ? $baseUrl : 'http://localhost:8080/api/v1/totem';
+        $this->baseUrl = ($baseUrl !== false && $baseUrl !== null && $baseUrl !== '') ? $baseUrl : 'http://localhost:8080/api/v1/totem';
 
-        /** @var string $apiKey */
+        /** @var string|false|null $apiKey */
         $apiKey       = env('TOTEM_API_KEY');
-        $this->apiKey = $apiKey !== false && $apiKey !== '' ? $apiKey : '';
+        $this->apiKey = ($apiKey !== false && $apiKey !== null && $apiKey !== '') ? $apiKey : '';
 
         // Store injected client, otherwise create lazily
         $this->client = $client;

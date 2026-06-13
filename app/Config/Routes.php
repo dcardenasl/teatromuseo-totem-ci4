@@ -56,4 +56,4 @@ $routes->set404Override('App\Controllers\MainController::notFound');
 $routes->get('health', 'HealthController::index');
 
 // Temporary diagnostic endpoint (remove after debugging)
-$routes->get('diag', 'DiagController::index');
+// $routes->get('diag', 'DiagController::index');
