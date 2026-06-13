@@ -14,9 +14,55 @@ final class CollectionController extends BaseTotemController
 {
     public function collectionMain(): string
     {
+        $sections = [
+            [
+                'title'     => lang('Collection.puppets'),
+                'image'     => 'assets/img/museum/cat_coleccion.webp',
+                'routeA'    => [
+                    'label' => lang('Collection.collection_exhibit'),
+                    'href'  => 'museo/coleccion/titeres/exhibicion',
+                ],
+                'routeB'    => [
+                    'label' => lang('Collection.collection_techniques'),
+                    'href'  => 'museo/coleccion/titeres/tecnicas',
+                ],
+                'bandClass' => 'collection-band--puppets',
+            ],
+            [
+                'title'     => lang('Collection.masks'),
+                'image'     => 'assets/img/museum/cat_el_museo.webp',
+                'routeA'    => [
+                    'label' => lang('Collection.collection_exhibit'),
+                    'href'  => 'museo/coleccion/mascaras/exhibicion',
+                ],
+                'routeB'    => [
+                    'label' => lang('Collection.collection_traditions'),
+                    'href'  => 'museo/coleccion/mascaras/tradiciones',
+                ],
+                'bandClass' => 'collection-band--masks',
+            ],
+            [
+                'title'     => lang('Collection.clowns'),
+                'image'     => 'assets/img/museum/cat_historia_comica.webp',
+                'routeA'    => [
+                    'label'    => lang('Collection.collection_exhibit'),
+                    'href'     => null,
+                    'disabled' => true,
+                ],
+                'routeB'    => [
+                    'label' => lang('Collection.collection_history'),
+                    'href'  => 'museo/historia',
+                ],
+                'bandClass' => 'collection-band--clowns',
+            ],
+        ];
+
         return view('totem/collection_main', array_merge(
             $this->pageMeta(lang('Collection.main_title')),
-            ['nav' => $this->shellNav(base_url('museo'))]
+            [
+                'nav'      => $this->shellNav(base_url('museo')),
+                'sections' => $sections,
+            ]
         ));
     }
 

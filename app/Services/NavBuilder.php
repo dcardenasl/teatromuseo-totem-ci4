@@ -27,19 +27,19 @@ final class NavBuilder
             [
                 'label' => lang('Nav.back'),
                 'href'  => $backHref ?? base_url('menu'),
-                'icon'  => '←',
+                'icon'  => 'arrow-left',
                 'class' => 'pill-button pill-button--back',
             ],
             [
                 'label' => lang('Nav.lang'),
                 'href'  => base_url('language' . $fromParam),
-                'icon'  => '◌',
+                'icon'  => 'lang',
                 'class' => 'pill-button pill-button--lang',
             ],
             [
                 'label' => lang('Nav.home'),
                 'href'  => base_url('menu'),
-                'icon'  => '⌂',
+                'icon'  => 'home',
                 'class' => 'pill-button pill-button--home',
             ],
         ];

@@ -28,7 +28,7 @@ final class MainControllerTest extends CIUnitTestCase
         $result->assertSee('Selecciona tu idioma');
 
         $body = (string) $result->getBody();
-        self::assertStringContainsString('targetUrl', $body);
+        self::assertStringContainsString('data-target-url', $body);
         self::assertStringContainsString('menu', $body);
     }
 

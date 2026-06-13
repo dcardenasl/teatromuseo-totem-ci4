@@ -24,15 +24,7 @@ $titleClass = trim((string)($titleClass ?? ''));
         <?php if (!empty($pageTitle)): ?>
         <section class="menu-title<?= $titleClass !== '' ? ' ' . esc($titleClass) : '' ?>">
             <h1 class="menu-title__heading" id="page-title"<?= $titleWidth !== '' ? ' style="--page-title-max-width: ' . esc($titleWidth) . ';"' : '' ?>>
-                <?php
-                    // Permitimos <br> y <strong>, pero escapamos el resto del contenido
-                    $safeTitle = str_replace(
-                        ['&lt;br&gt;', '&lt;br/&gt;', '&lt;br /&gt;', '&lt;strong&gt;', '&lt;/strong&gt;'],
-                        ['<br>', '<br>', '<br>', '<strong>', '</strong>'],
-                        esc($pageTitle)
-                    );
-                    echo $safeTitle;
-                ?>
+                <?= safe_title($pageTitle) ?>
             </h1>
         </section>
         <?php endif; ?>

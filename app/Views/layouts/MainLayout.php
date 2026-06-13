@@ -35,7 +35,7 @@ foreach (totem_locales() as $locale) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#de5928">
-    <title><?= esc($pageTitle ?? 'Teatromuseo - Tótem Interactivo') ?></title>
+    <title><?= esc($pageTitle ?? lang('Meta.default_title')) ?></title>
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>?v=<?= $cssVersion ?>">
     <style>
         :root {

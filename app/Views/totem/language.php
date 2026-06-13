@@ -2,7 +2,7 @@
 
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
-        <div class="language-layout">
+        <div class="language-layout" data-target-url="<?= esc(!empty($from) ? base_url($from) : base_url('menu'), 'attr') ?>">
             <section class="language-card language-card--bare language-card--panel language-card--floating" aria-label="<?= esc(lang('Menu.select_language'), 'attr') ?>">
                 <div class="language-card__chrome">
                     <button class="language-card__close pill-button pill-button--ghost" type="button" aria-label="<?= esc(lang('Menu.close_selector'), 'attr') ?>" onclick="closeLanguageSelection()">
@@ -31,59 +31,7 @@
             </section>
         </div>
 
-        <script>
-        (() => {
-            const targetUrl = '<?= !empty($from) ? esc(base_url($from), 'js') : esc(base_url('menu'), 'js') ?>';
 
-            function setLanguage(lang) {
-                const secureFlag = location.protocol === 'https:' ? '; Secure' : '';
-                document.cookie = "totem_lang=" + lang + "; path=/; max-age=31536000; SameSite=Lax" + secureFlag;
-                localStorage.setItem('totem_lang', lang);
-                if (window.launchLanguageSelection) {
-                    window.launchLanguageSelection(targetUrl);
-                } else {
-                    window.location.href = targetUrl;
-                }
-            }
-
-            function closeLanguageSelection() {
-                if (window.launchLanguageSelection) {
-                    window.launchLanguageSelection(targetUrl);
-                } else {
-                    window.location.href = targetUrl;
-                }
-            }
-
-            window.setLanguage = setLanguage;
-            window.closeLanguageSelection = closeLanguageSelection;
-
-            const initLanguageInteractions = () => {
-                const buttons = document.querySelectorAll('.pill-button--language');
-                const activeLang = (window.getActiveTotemLocale ? window.getActiveTotemLocale() : 'es');
-
-                const syncActiveState = (lang) => {
-                    buttons.forEach((btn) => {
-                        const isActive = btn.getAttribute('data-lang') === lang;
-                        btn.classList.toggle('is-active', isActive);
-                        btn.classList.toggle('is-inactive', !isActive);
-                        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-                    });
-
-                    document.querySelectorAll('.language-instruction').forEach((instruction) => {
-                        instruction.classList.toggle('is-highlighted', instruction.getAttribute('data-lang') === lang);
-                    });
-                };
-
-                syncActiveState(activeLang);
-            };
-
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initLanguageInteractions, { once: true });
-            } else {
-                initLanguageInteractions();
-            }
-        })();
-        </script>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
@@ -92,4 +40,8 @@
         'nav' => $nav ?? [],
         'chromeHidden' => true
     ]) ?>
+<?= $this->endSection() ?>
+
+<?= $this->section('scripts') ?>
+<script src="<?= base_url('assets/js/language-selector.js') ?>"></script>
 <?= $this->endSection() ?>

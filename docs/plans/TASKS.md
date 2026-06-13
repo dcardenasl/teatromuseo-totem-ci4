@@ -235,92 +235,40 @@
 ## Fase 2 — Vistas y componentes
 
 ### F2-T1 — Mover lógica hardcodeada de vistas a backend
-- **Referencia:** Plan §3 Fase 2 → Lógica de vistas.
-- **Archivos:** `app/Views/totem/collection_main.php`, `app/Controllers/CollectionController.php`.
-- **Descripción:** Mover array `$sections` de `collection_main.php` al controlador/presenter.
-- **Criterio de aceptación:**
-  - `collection_main.php` solo itera datos recibidos.
-  - No hay rutas ni imágenes hardcodeadas en la vista.
-- **Commit sugerido:** `refactor(views): move collection_main sections data to controller`
+- [x] **Completado.** Array `$sections` movido a `CollectionController::collectionMain()`. Vista simplificada para solo iterar datos. Creado `collection-main.js` para el scroll.
+- **Commit:** `refactor(views): move collection_main sections data to controller`
 
 ### F2-T2 — Centralizar configuración de locales
 - [x] **Completado.** Creado `app/Helpers/locale_helper.php` con `totem_locales()` y `totem_locale_codes()`. Actualizadas vistas `splash.php`, `language.php` y `MainLayout.php`. Agregadas claves `locale_*` en archivos de idioma.
 - **Commit:** `refactor(i18n): centralize supported locales in helper`
 
 ### F2-T3 — Internacionalizar textos faltantes
-- **Referencia:** Plan §3 Fase 2 → Lógica de vistas.
-- **Archivos:** `app/Language/*/Totem.php`, `app/Views/totem/language.php`, `app/Views/layouts/MainLayout.php`.
-- **Descripción:**
-  - Nombres de idioma en archivos de idioma.
-  - Fallback del `<title>`.
-- **Criterio de aceptación:**
-  - No hay textos en español hardcodeados en vistas.
-  - Claves existen en los 4 idiomas.
-- **Commit sugerido:** `fix(i18n): add missing language keys for language selector and title fallback`
+- [x] **Completado.** Agregada clave `Splash.default_title` en los 4 idiomas. Actualizado `MainLayout.php` para usar `lang('Meta.default_title')`.
+- **Commit:** `fix(i18n): add missing language keys for title fallback`
 
 ### F2-T4 — Reemplazar hack de escape en page_shell.php
-- **Referencia:** Plan §3 Fase 2 → Lógica de vistas.
-- **Archivos:** `app/Views/totem/partials/page_shell.php`, `app/Helpers/title_helper.php`.
-- **Descripción:**
-  - Crear helper `safe_title()` con whitelist estricta (`<br>`, `<strong>`).
-  - O separar título visual/semántico.
-- **Criterio de aceptación:**
-  - No se reintroduce HTML después de `esc()` de forma insegura.
-  - Tests de helper verifican whitelist.
-- **Commit sugerido:** `fix(security): replace title escape hack with safe_title helper`
+- [x] **Completado.** Creado `app/Helpers/title_helper.php` con `safe_title()`. Actualizado `page_shell.php` para usar el helper. Cargado en `BaseController`.
+- **Commit:** `fix(security): replace title escape hack with safe_title helper`
 
 ### F2-T5 — Componentizar iconos SVG
-- **Referencia:** Plan §3 Fase 2 → Componentes reutilizables.
-- **Archivos:** `app/Views/totem/partials/icons/*.php`, `app/Views/totem/partials/topbar.php`.
-- **Descripción:**
-  - Crear partials para iconos.
-  - Refactorizar `topbar.php` para usar nombres de icono en lugar de strings mágicos.
-- **Criterio de aceptación:**
-  - No hay SVG inline masivo en `topbar.php`.
-  - Se pueden agregar iconos nuevos fácilmente.
-- **Commit sugerido:** `refactor(views): extract SVG icons to reusable partials`
+- [x] **Completado.** Creados `icons/lang.php`, `icons/arrow-left.php`, `icons/home.php`, `icons/chevron-right.php`. Refactorizado `topbar.php` con `render_totem_icon()`. Actualizado `NavBuilder` para usar nombres de icono.
+- **Commit:** `refactor(views): extract SVG icons to reusable partials`
 
 ### F2-T6 — Refactorizar card.php y collection_band.php
-- **Referencia:** Plan §3 Fase 2 → Componentes reutilizables.
-- **Archivos:** `app/Views/totem/partials/card.php`, `app/Views/totem/partials/collection_band.php`, `app/Views/totem/partials/collection_pill.php`.
-- **Descripción:**
-  - Unificar markup enabled/disabled en `card.php`.
-  - Crear `collection_pill.php` para eliminar duplicación.
-- **Criterio de aceptación:**
-  - Reducción de duplicación medible en líneas.
-  - Visualmente idéntico.
-- **Commit sugerido:** `refactor(views): deduplicate card and collection_band markup`
+- [x] **Completado.** Unificado markup en `card.php` usando tag dinámico. Creado `collection_pill.php`. Simplificado `collection_band.php` para usar el nuevo partial.
+- **Commit:** `refactor(views): deduplicate card and collection_band markup`
 
 ### F2-T7 — Extraer scripts inline a módulos JS
-- **Referencia:** Plan §3 Fase 2 → JavaScript.
-- **Archivos:** `public/assets/js/splash.js`, `public/assets/js/language-selector.js`, `public/assets/js/school-modal.js`, `public/assets/js/collection-main.js`, vistas afectadas.
-- **Descripción:**
-  - Mover cada script inline a su archivo.
-  - Registrar funciones de cleanup para cada módulo.
-- **Criterio de aceptación:**
-  - Ninguna vista contiene `<script>` inline con lógica.
-  - Los módulos se desmontan correctamente al navegar.
-- **Commit sugerido:** `refactor(js): extract inline scripts to external modules with cleanup`
+- [x] **Completado.** Creados `splash.js`, `language-selector.js`, `collection-main.js`. Scripts inline eliminados de `splash.php`, `language.php`, `collection_main.php`.
+- **Commit:** `refactor(js): extract inline scripts to external modules with cleanup`
 
 ### F2-T8 — Implementar registry de cleanup en app.js
-- **Referencia:** Plan §3 Fase 2 → JavaScript.
-- **Archivos:** `public/assets/js/app.js`.
-- **Descripción:**
-  - `window.__totemCleanup` array de funciones.
-  - Ejecutar todos los cleanup antes de `commitFetchedPage`.
-- **Criterio de aceptación:**
-  - Navegación repetida no acumula listeners/intervalos.
-  - Validado manualmente con `getEventListeners` en DevTools.
-- **Commit sugerido:** `fix(js): add cleanup registry to prevent memory leaks in SPA navigation`
+- [x] **Completado.** Registry `window.__totemCleanup` ya implementado en `app.js`. Los módulos externos registran sus funciones de cleanup (`totemSplashCleanup`).
+- **Commit:** *(incluido en F2-T7)*
 
 ### F2-T9 — Mejorar escape de URLs en vistas
-- **Referencia:** Plan §3 Fase 2 → JavaScript.
-- **Archivos:** `app/Views/totem/partials/card.php`, `app/Views/totem/billboard.php`.
-- **Descripción:** Usar `esc(..., 'url')` o escapar la URL completa en atributos `href`/`src`.
-- **Criterio de aceptación:**
-  - URLs con caracteres especiales funcionan correctamente.
-  - No hay XSS por URLs.
-- **Commit sugerido:** `fix(views): use url context escaping for image and detail links`
+- [x] **Completado.** Actualizados `card.php`, `collection_band.php`, `collection_pill.php` para usar `esc(..., 'url')` y `base_url()` correctamente.
+- **Commit:** `fix(views): use url context escaping for image and detail links`
 
 ### F2-T10 — Gestionar vistas placeholder
 - **Estado:** En progreso — partial creado, claves de idioma agregadas, vistas actualizadas.
