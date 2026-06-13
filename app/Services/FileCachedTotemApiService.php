@@ -25,7 +25,13 @@ final class FileCachedTotemApiService implements TotemApiInterface
         $this->cachePath  = $cachePath ?? WRITEPATH . 'cache/totem/';
         $this->ttlSeconds = $ttlSeconds;
 
-        $this->ensureCacheDirectoryExists();
+        // Silently attempt to create cache directory - don't fail if unable
+        try {
+            $this->ensureCacheDirectoryExists();
+        } catch (\Exception $e) {
+            // If we can't create the cache directory, we'll still work
+            // but without caching (readFromCache/writeToCache will handle it)
+        }
     }
 
     /**
