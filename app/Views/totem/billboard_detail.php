@@ -87,7 +87,7 @@
                 <div class="billboard-detail__collage">
                     <img
                         class="billboard-detail__collage-image"
-                        src="<?= esc(base_url($detail['closingImage'] ?? 'assets/img/menu/collage_referencia.webp'), 'attr') ?>"
+                        src="<?= esc(base_url($detail['closingImage'] ?? 'assets/img/splash/collage-inicio.webp'), 'attr') ?>"
                         alt=""
                         aria-hidden="true"
                     >

@@ -49,7 +49,7 @@ final class MuseumTodayPresenter
             'eyebrow'      => lang('MuseumInfo.today_eyebrow'),
             'intro'        => lang('MuseumInfo.today_intro'),
             'headline'     => lang('MuseumInfo.today_title'),
-            'image'        => 'assets/img/museum/cat_el_museo.webp',
+            'image'        => 'assets/img/museo/el-museo/collage-historia-actual.webp',
             'imageAlt'     => lang('MuseumInfo.today_image_alt'),
             'sectionTitle' => is_string($sectionTitle) ? $sectionTitle : '',
             'primary'      => $primary,

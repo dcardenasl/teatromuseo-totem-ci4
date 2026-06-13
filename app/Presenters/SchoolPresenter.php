@@ -39,7 +39,7 @@ final class SchoolPresenter
             'courses'    => $courses,
             'teachers'   => $this->fallback->teachers(),
             'students'   => $this->fallback->students(),
-            'personPhoto' => 'assets/img/school/school_collage.webp',
+            'personPhoto' => 'assets/img/teatro-escuela/collage.webp',
         ];
     }
 

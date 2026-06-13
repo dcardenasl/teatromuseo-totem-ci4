@@ -13,16 +13,15 @@
                     [
                         'title' => lang('ComicHistory.entry_circus_history'),
                         'href' => '#',
+                        'img' => 'assets/img/museo/historia/collage-circo.webp',
                     ],
                     [
                         'title' => lang('ComicHistory.entry_clowns_history'),
                         'href' => '#',
-                    ],
-                    [
-                        'title' => lang('ComicHistory.entry_puppetry_tradition'),
-                        'href' => '#',
+                        'img' => 'assets/img/museo/historia/collage-teatro.webp',
                     ],
                 ],
+                'gridClass' => 'menu-grid--history',
                 'showCoda' => false,
             ]) ?>
         </div>

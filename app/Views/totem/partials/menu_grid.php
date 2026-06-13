@@ -8,18 +8,20 @@
  * @param string $codaImage
  * @param string $codaAlt
  * @param string $codaClass
+ * @param string $gridClass
  */
 
 $items = $items ?? [];
 $ariaLabel = $ariaLabel ?? '';
 $showCoda = (bool)($showCoda ?? false);
-$codaImage = $codaImage ?? 'assets/img/menu/collage_referencia.webp';
-    $codaAlt = $codaAlt ?? lang('Splash.collage_alt');
+$codaImage = $codaImage ?? 'assets/img/splash/collage-inicio.webp';
+$codaAlt = $codaAlt ?? lang('Splash.collage_alt');
 $codaClass = $codaClass ?? '';
+$gridClass = trim('menu-grid ' . ($gridClass ?? ''));
 ?>
 
 <section class="menu-layout">
-    <div class="menu-grid"<?php if ($ariaLabel !== ''): ?> aria-label="<?= esc($ariaLabel) ?>"<?php endif; ?>>
+    <div class="<?= esc($gridClass) ?>"<?php if ($ariaLabel !== ''): ?> aria-label="<?= esc($ariaLabel) ?>"<?php endif; ?>>
         <?php foreach ($items as $item): ?>
             <?= view('totem/partials/card', [
                 'title'    => $item['title'] ?? lang('Common.untitled_card'),

@@ -21,8 +21,8 @@ final class MuseumController extends BaseTotemController
                 'exploreLabel' => lang('Menu.explore_museum'),
                 'items' => [
                     $this->menuItem(lang('Menu.collection'), 'museo/coleccion', lang('Menu.collection_copy'), 'menu-card--museum', 'museum/cat_coleccion.webp'),
-                    $this->menuItem(lang('Menu.comic_history'), 'museo/historia', lang('Menu.comic_history_copy'), 'menu-card--history', 'museum/cat_historia_comica.webp'),
-                    $this->menuItem(lang('Menu.explore_museum'), 'museo/el-museo', lang('Menu.museum_copy'), 'menu-card--school', 'museum/cat_el_museo.webp'),
+                    $this->menuItem(lang('Menu.comic_history'), 'museo/historia', lang('Menu.comic_history_copy'), 'menu-card--history', 'museo/historia/collage-circo.webp'),
+                    $this->menuItem(lang('Menu.explore_museum'), 'museo/el-museo', lang('Menu.museum_copy'), 'menu-card--school', 'museo/el-museo/marco.webp'),
                     $this->menuItem(lang('Menu.visits'), 'visitas-guiadas', lang('Menu.visits_copy'), 'menu-card--visits', 'museum/cat_visitas_guiadas.webp'),
                 ],
             ]
@@ -40,7 +40,7 @@ final class MuseumController extends BaseTotemController
     public function museumBuilding(): string
     {
         return view('totem/museum_building', array_merge(
-            $this->pageMeta(lang('MuseumInfo.building_title')),
+            $this->pageMeta(lang('MuseumInfo.teatromuseo_history_title')),
             [
                 'nav' => $this->shellNav(base_url('museo/el-museo')),
                 'data' => $this->totemApi()->museum(),
@@ -51,7 +51,7 @@ final class MuseumController extends BaseTotemController
     public function museumInstitution(): string
     {
         return view('totem/museum_institution', array_merge(
-            $this->pageMeta(lang('MuseumInfo.institution_title')),
+            $this->pageMeta(lang('MuseumInfo.church_history_title')),
             [
                 'nav' => $this->shellNav(base_url('museo/el-museo')),
                 'data' => $this->totemApi()->museum(),
@@ -64,7 +64,7 @@ final class MuseumController extends BaseTotemController
         $presenter = new MuseumTodayPresenter();
 
         return view('totem/museum_today', array_merge(
-            $this->pageMeta(lang('MuseumInfo.main_title')),
+            $this->pageMeta(lang('MuseumInfo.teatromuseo_today')),
             [
                 'nav' => $this->shellNav(base_url('museo/el-museo')),
                 'today' => $presenter->present($this->totemApi()->museum()),

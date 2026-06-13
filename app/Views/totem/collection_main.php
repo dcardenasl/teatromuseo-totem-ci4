@@ -15,9 +15,10 @@
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => '',
+        'title' => lang('Collection.heading_title'),
         'content' => $content,
         'nav' => $nav ?? [],
+        'titleWidth' => '10ch',
     ]) ?>
 <?= $this->endSection() ?>
 

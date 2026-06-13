@@ -17,7 +17,7 @@ final class CollectionController extends BaseTotemController
         $sections = [
             [
                 'title'     => lang('Collection.puppets'),
-                'image'     => 'assets/img/museum/cat_coleccion.webp',
+                'image'     => 'assets/img/museo/coleccion/titeres/titere.webp',
                 'routeA'    => [
                     'label' => lang('Collection.collection_exhibit'),
                     'href'  => 'museo/coleccion/titeres/exhibicion',
@@ -29,21 +29,8 @@ final class CollectionController extends BaseTotemController
                 'bandClass' => 'collection-band--puppets',
             ],
             [
-                'title'     => lang('Collection.masks'),
-                'image'     => 'assets/img/museum/cat_el_museo.webp',
-                'routeA'    => [
-                    'label' => lang('Collection.collection_exhibit'),
-                    'href'  => 'museo/coleccion/mascaras/exhibicion',
-                ],
-                'routeB'    => [
-                    'label' => lang('Collection.collection_traditions'),
-                    'href'  => 'museo/coleccion/mascaras/tradiciones',
-                ],
-                'bandClass' => 'collection-band--masks',
-            ],
-            [
                 'title'     => lang('Collection.clowns'),
-                'image'     => 'assets/img/museum/cat_historia_comica.webp',
+                'image'     => 'assets/img/museo/coleccion/payasos/payaso.webp',
                 'routeA'    => [
                     'label'    => lang('Collection.collection_exhibit'),
                     'href'     => null,
@@ -54,6 +41,19 @@ final class CollectionController extends BaseTotemController
                     'href'  => 'museo/historia',
                 ],
                 'bandClass' => 'collection-band--clowns',
+            ],
+            [
+                'title'     => lang('Collection.masks'),
+                'image'     => 'assets/img/museo/coleccion/mascaras/mascara.webp',
+                'routeA'    => [
+                    'label' => lang('Collection.collection_exhibit'),
+                    'href'  => 'museo/coleccion/mascaras/exhibicion',
+                ],
+                'routeB'    => [
+                    'label' => lang('Collection.collection_traditions'),
+                    'href'  => 'museo/coleccion/mascaras/tradiciones',
+                ],
+                'bandClass' => 'collection-band--masks',
             ],
         ];
 

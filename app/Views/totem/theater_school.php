@@ -113,7 +113,7 @@
                             </button>
 
                             <div class="school-person-modal__media">
-                                <img data-school-person-modal-photo src="" alt="">
+                                <img data-school-person-modal-photo alt="">
                             </div>
 
                             <div class="school-person-modal__content">

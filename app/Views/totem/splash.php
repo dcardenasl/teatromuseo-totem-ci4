@@ -35,7 +35,7 @@ $localesData = array_map(fn($l) => [
             </div>
 
             <div class="splash-collage" aria-hidden="true">
-                <img src="<?= base_url('assets/img/menu/collage_referencia.webp') ?>" alt="<?= esc(lang('Splash.collage_alt'), 'attr') ?>" class="splash-collage__img">
+                <img src="<?= base_url('assets/img/splash/collage-inicio.webp') ?>" alt="<?= esc(lang('Splash.collage_alt'), 'attr') ?>" class="splash-collage__img">
             </div>
         </div>
     </section>
