@@ -25,6 +25,10 @@
 # app_baseURL = ''
 # app.forceGlobalSecureRequests = false
 # app.CSPEnabled = false
+#
+# En producción se recomienda activar ambos:
+# app.forceGlobalSecureRequests = true
+# app.CSPEnabled = true
 
 #--------------------------------------------------------------------
 # DATABASE
@@ -69,7 +73,16 @@
 # logger.threshold = 4
 
 #--------------------------------------------------------------------
-# TOTEM
+# TOTEM API
+#--------------------------------------------------------------------
+# Base URL and key for the museum API consumed by the totem.
+# TOTEM_API_KEY must match the value configured in the API backend.
+
+# TOTEM_API_URL = 'http://localhost:8080/api/v1/totem'
+# TOTEM_API_KEY = ''
+
+#--------------------------------------------------------------------
+# TOTEM FEATURES
 #--------------------------------------------------------------------
 
 # TOTEM_ENABLE_TRANSITIONS = false
