@@ -328,6 +328,11 @@
 - **Commit sugerido:** `fix(views): use url context escaping for image and detail links`
 
 ### F2-T10 — Gestionar vistas placeholder
+- **Estado:** En progreso — partial creado, claves de idioma agregadas, vistas actualizadas.
+- **Notas:**
+  - Se mantienen los mocks para la presentación del lunes 15/06.
+  - Las vistas vacías que forman parte de la navegación NO se eliminan; serán pobladas con los diseños de listados próximamente.
+  - Vistas actualizadas: `collection_puppets_exhibit.php`, `collection_masks_exhibit.php`, `museum_building.php`, `museum_institution.php`, `extension_contact.php`, `comic_history_post.php`, `collection_item_detail.php`.
 - **Referencia:** Plan §3 Fase 2 → Vistas placeholder.
 - **Archivos:** `app/Views/totem/partials/mock_notice.php`, vistas placeholder.
 - **Descripción:**
