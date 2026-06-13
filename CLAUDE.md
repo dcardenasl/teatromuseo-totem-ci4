@@ -1,39 +1,147 @@
 # CLAUDE.md — teatromuseo-totem-ci4
 
-Tótem interactivo del Teatro Museo. Aplicación CI4 diseñada para pantallas táctiles verticales
-(1080×1920) en modo kiosko (Fully Kiosk Browser). Sin base de datos propia — todo el contenido
-proviene de la API del museo.
+Tótem interactivo del Teatro Museo. Aplicación CodeIgniter 4 diseñada para pantallas táctiles verticales (1080×1920) en modo kiosko (Fully Kiosk Browser). Sin base de datos propia — todo el contenido proviene de la API del museo.
 
 ## Arquitectura
 
 ```
-Kiosko → TotemController → TotemApiService → teatromuseo-api-ci4 (:8080)
+┌─────────────────────────────────────────────────────────────────┐
+│                         KIOSKO (1080×1920)                       │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐  │
+│  │MainController│  │Collection   │  │SchoolController         │  │
+│  │             │  │Controller   │  │BillboardController      │  │
+│  │Museum       │  │Friends      │  │                         │  │
+│  │Controller   │  │Controller   │  │  (Domain Controllers)    │  │
+│  └──────┬──────┘  └──────┬──────┘  └────────────┬────────────┘  │
+│         └─────────────────┴──────────────────────┘                │
+│                         │                                        │
+│              ┌──────────▼──────────┐                             │
+│              │ BaseTotemController │                             │
+│              │  (Shared helpers)   │                             │
+│              └──────────┬──────────┘                             │
+│                         │                                        │
+│              ┌──────────▼──────────┐                             │
+│              │   Services          │                             │
+│              │ • TotemApiInterface │                             │
+│              │ • CachedTotemApiService                             │
+│              │ • MenuBuilder       │                             │
+│              │ • NavBuilder        │                             │
+│              └──────────┬──────────┘                             │
+│                         │                                        │
+│              ┌──────────▼──────────┐                             │
+│              │   Presenters        │                             │
+│              │ • SchoolPresenter   │                             │
+│              │ • BillboardPresenter│                             │
+│              │ • MuseumTodayPresenter                             │
+│              │ • DatePresenter     │                             │
+│              └─────────────────────┘                             │
+└─────────────────────────────────────────────────────────────────┘
+                                │
+                                ▼
+                  ┌─────────────────────────┐
+                  │  teatromuseo-api-ci4    │
+                  │      (:8080)            │
+                  └─────────────────────────┘
 ```
 
-- **Sin DB ni migraciones.** El tótem es stateless; consume `/api/v1/totem/*` vía CURL server-side.
-- **Autenticación:** cabecera `X-Totem-Key` (variable `TOTEM_API_KEY` en `.env`).
-- **Idiomas:** ES, EN, FR, PT vía cookie `totem_lang` y sistema de idiomas de CI4 (`lang()`).
-- **Resiliencia:** `TotemApiService::get()` captura excepciones y retorna `[]` — las vistas muestran
-  datos de contingencia (mocks) cuando la API no responde.
+### Principios arquitectónicos
 
-## Desarrollo local
+1. **Sin base de datos propia.** El tótem es stateless; consume `/api/v1/totem/*` vía CURL server-side.
+2. **Controladores de dominio.** Divididos por funcionalidad: `MainController`, `CollectionController`, `MuseumController`, `SchoolController`, `BillboardController`, `FriendsController`.
+3. **BaseTotemController.** Provee helpers comunes (`pageMeta()`, `shellNav()`, `render()`, `totemApi()`) sin lógica de dominio.
+4. **Servicios con interfaz.** `TotemApiInterface` permite decoradores como `CachedTotemApiService`.
+5. **Fallback repositories.** Datos de contingencia cuando la API no responde (`SchoolFallbackRepository`, `BillboardFallbackRepository`, `MuseumFallbackRepository`).
+6. **Presenters.** Lógica de presentación separada en clases dedicadas.
+7. **Enums.** `Audience`, `SchoolCategory` reemplazan IDs mágicos.
+8. **Idiomas.** ES, EN, FR, PT vía cookie `totem_lang` y sistema `lang()` de CI4.
 
-```bash
-php spark serve --port 8086   # servidor de desarrollo
-composer test                 # unit tests (phpunit)
+## Estructura de archivos
+
+```
+app/
+├── Config/
+│   ├── Routes.php              # Rutas nombradas, no usar arrays en to()
+│   ├── Services.php            # Registro de TotemApiInterface
+│   └── Totem.php               # Config + env vars (TOTEM_ENABLE_*)
+├── Controllers/
+│   ├── BaseTotemController.php # Helpers comunes para todos los controladores
+│   ├── MainController.php      # Splash, menú principal, 404, idioma
+│   ├── CollectionController.php# Colección: técnicas, títeres, máscaras
+│   ├── MuseumController.php    # El museo: hoy, edificio, institución
+│   ├── SchoolController.php    # Teatro escuela: cursos, técnicas
+│   ├── BillboardController.php # Cartelera: eventos, detalles
+│   └── FriendsController.php   # Amigos, extensión
+├── Services/
+│   ├── TotemApiInterface.php   # Contrato de servicio API
+│   ├── TotemApiService.php     # Implementación base (CURLRequest)
+│   ├── CachedTotemApiService.php # Decorador con memoización
+│   ├── MenuBuilder.php         # Generador de items de menú
+│   ├── NavBuilder.php          # Generador de navegación shell
+│   └── SlugResolver.php        # Resolución de IDs desde slugs
+├── Presenters/
+│   ├── SchoolPresenter.php     # Presentación de cursos/escuela
+│   ├── BillboardPresenter.php  # Presentación de cartelera
+│   ├── MuseumTodayPresenter.php# Presentación de "hoy en el museo"
+│   └── DatePresenter.php       # Formateo de fechas localizado
+├── Repositories/               # Datos de fallback/contingencia
+│   ├── SchoolFallbackRepository.php
+│   ├── BillboardFallbackRepository.php
+│   └── MuseumFallbackRepository.php
+└── Enums/                      # Reemplazo de IDs mágicos
+    ├── Audience.php
+    └── SchoolCategory.php
 ```
 
-Variables necesarias en `.env`:
+## Convenciones de código
+
+### PHP
+
+| Aspecto | Convención | Ejemplo |
+|---------|------------|---------|
+| Controladores | Sufijo `Controller`, heredan `BaseTotemController` | `CollectionController` |
+| Métodos | camelCase, descriptivo | `collectionTechniques()` |
+| Servicios | Interfaz + Implementación + Decorador | `TotemApiInterface` → `TotemApiService` → `CachedTotemApiService` |
+| Presenters | Sufijo `Presenter`, inmutable | `SchoolPresenter` |
+| Repositories | Sufijo `Repository`, datos estáticos | `SchoolFallbackRepository` |
+| Enums | PascalCase, casos PascalCase | `Audience::NationalTour` |
+| Vistas | snake_case, carpeta `totem/` | `collection_techniques.php` |
+
+### Rutas (app/Config/Routes.php)
+
+```php
+// ✅ CORRECTO: nombre de ruta como string
+$routes->get('museo/coleccion', [CollectionController::class, 'collectionMain'], ['as' => 'collection_main']);
+
+// ✅ CORRECTO: helper route() con nombre
+route('collection_main')
+
+// ❌ INCORRECTO: arrays en to() o route() con arrays
+$routes->get('path', ['Controller', 'method']); // NO USAR
+route(['Controller', 'method']); // NO USAR
 ```
-CI_ENVIRONMENT = development
-app.baseURL    = 'http://localhost:8086/'
-TOTEM_API_URL  = 'http://localhost:8080/api/v1/totem'
-TOTEM_API_KEY  = '<clave configurada en el API>'
+
+### Vistas
+
+```php
+// ✅ CORRECTO: extender MainLayout, usar page_shell
+<?= $this->extend('layouts/MainLayout') ?>
+<?= $this->section('content') ?>
+    <?= view('totem/partials/page_shell', [
+        'title' => lang('Collection.techniques_title'),
+        'content' => $content,
+        'nav' => $nav ?? []
+    ]) ?>
+<?= $this->endSection() ?>
 ```
+
+### Internacionalización (i18n)
+
+- Archivos en `app/Language/{es,en,fr,pt}/`
+- Claves en PascalCase para archivos, snake_case para claves
+- Siempre usar `lang()` con clave completa: `lang('Collection.techniques_title')`
+- Nunca hardcodear español en vistas
 
 ## CSS
-
-El CSS se compila con **concatenación de parciales**. Nunca editar `style.css` directamente.
 
 ```
 public/assets/css/
@@ -43,13 +151,17 @@ public/assets/css/
     ├── 01-base.css    ← reset, fuentes (@font-face)
     ├── 02-shell.css   ← contenedor kiosko
     ├── 99-responsive.css
-    ├── shared/        ← header, screen, hero, footer-ornament, transitions, utils…
+    ├── shared/        ← componentes reutilizables
+    │   ├── header.css
+    │   ├── footer-ornament.css
+    │   ├── transitions.css  ← transiciones entre pantallas
+    │   └── ...
     └── screens/       ← un parcial por pantalla
-        ├── section.css    ← secciones genéricas + colección
-        ├── school.css     ← pantalla Teatro Escuela (teacher-card, school-*, course-card)
-        ├── billboard.css  ← cartelera
-        ├── menu.css       ← menú principal y submenús
-        └── …
+        ├── section.css
+        ├── school.css
+        ├── billboard.css
+        ├── menu.css
+        └── ...
 ```
 
 **Ciclo de trabajo:**
@@ -57,57 +169,145 @@ public/assets/css/
 2. `composer build:css` (o `bash bin/build-css.sh`)
 3. Refrescar el navegador
 
-Para agregar un nuevo parcial: añadirlo en el orden correcto dentro del array `FILES` en
-`bin/build-css.sh`.
+## Desarrollo local
 
-## Convenciones de nombres
+```bash
+# Servidor de desarrollo
+php spark serve --port 8086
 
-| Ámbito | Convención | Ejemplo |
-|---|---|---|
-| Rutas URL | español, kebab-case | `/museo/coleccion/titeres` |
-| Métodos del controlador | inglés, camelCase | `collectionTechniques()` |
-| Vistas | inglés, snake_case | `collection_techniques.php` |
-| Clases CSS | BEM inglés | `.teacher-card--amber` |
-| Claves de idioma | inglés, PascalCase.snake_key | `Collection.masks_title` |
+# Tests y calidad
+composer test      # PHPUnit (49 tests)
+composer lint      # PHP-CS-Fixer (dry-run)
+composer analyse   # PHPStan nivel 8
+composer format    # PHP-CS-Fixer (fix)
+
+# CSS
+composer build:css # Compila style.css
+```
+
+Variables necesarias en `.env`:
+```bash
+CI_ENVIRONMENT = development
+app.baseURL    = 'http://localhost:8086/'
+TOTEM_API_URL  = 'http://localhost:8080/api/v1/totem'
+TOTEM_API_KEY  = '<clave configurada en el API>'
+
+# Feature flags
+TOTEM_ENABLE_TRANSITIONS = true   # transiciones entre pantallas
+TOTEM_ENABLE_ANIMATIONS  = true   # animaciones no esenciales
+```
 
 ## Despliegue
 
-El despliegue a producción es FTP incremental (solo archivos modificados desde el último deploy):
-
 ```bash
-# Requiere credenciales en .deploy/.env.deploy (no committed)
+# Compilar CSS antes de deploy
+composer build:css
+
+# Deploy FTP incremental (requiere .deploy/.env.deploy)
 python3 .deploy/deploy.py
 ```
 
-Los archivos excluidos del despliegue: `.env`, `vendor/`, `tests/`, `composer.*`, `.git/`,
-`writable/`.
+Archivos excluidos: `.env`, `vendor/`, `tests/`, `composer.*`, `.git/`, `writable/`.
 
-El CSS compilado (`style.css`) **sí se sube** — debe compilarse antes de hacer deploy.
+## Controladores de dominio
 
-## Estado de las waves
+### MainController
+- `index()` — Splash/idle screen
+- `mainMenu()` — Menú principal
+- `language()` — Selector de idioma
+- `notFound()` — Página 404 amigable
 
-| Wave | Estado | Descripción |
-|---|---|---|
-| Wave 1 | ✅ Completo | Shell, splash, menú, idiomas, cartelera, historia, escuela, colección |
-| Wave 2 | 🔄 Parcial | Rediseño colección (bloqueado por assets de Coni), detalle de fichas |
-| Wave 3 | ⏳ Pendiente | Integración BFF, contacto interactivo, analytics |
+### CollectionController
+- `collectionMain()` — Landing de colección
+- `collectionTechniques()` — Técnicas de titiritería
+- `collectionTechnique($slug)` — Detalle de técnica
+- `collectionPuppetsExhibit()` — Exhibición de títeres
+- `collectionMasksExhibit()` — Exhibición de máscaras
+- `collectionMasksTraditions()` — Tradiciones de máscaras
+- `collectionMaskTradition($slug)` — Detalle de tradición
+- `collectionItem($id)` — Ficha de ítem
+
+### MuseumController
+- `museumToday()` — Hoy en el museo
+- `museumInfo()` — Menú de información
+- `museumBuilding()` — El edificio
+- `museumInstitution()` — La institución
+
+### SchoolController
+- `theaterSchool()` — Teatro escuela (cursos, horarios)
+
+### BillboardController
+- `billboard()` — Cartelera de eventos
+- `billboardDetail($slug)` — Detalle de evento
+
+### FriendsController
+- `friendsSection()` — Amigos de Teatromuseo
+- `extensionContact()` — Extensión y contacto
+
+## Servicios API
+
+### TotemApiInterface
+Contrato que define los métodos disponibles:
+- `events(): array` — Eventos de cartelera
+- `courses(): array` — Cursos de escuela
+- `techniques(): array` — Técnicas de titiritería
+- `technique(int $id): array` — Detalle de técnica
+
+### TotemApiService
+Implementación base usando CURLRequest. Captura excepciones y retorna arrays vacíos en caso de error.
+
+### CachedTotemApiService
+Decorador con memoización por request. Registrado en `Config/Services.php`:
+```php
+public static function totemApi(): TotemApiInterface
+{
+    return new CachedTotemApiService(new TotemApiService());
+}
+```
+
+## Estado actual del proyecto
+
+### Fase 0 — Fundamentos ✅ COMPLETA
+- Variables de entorno corregidas
+- Bugs críticos resueltos
+- PHPStan + PHP-CS-Fixer instalados
+- CI/CD pipeline activa
+
+### Fase 1 — Arquitectura backend ✅ COMPLETA
+- BaseTotemController con helpers compartidos
+- MenuBuilder y NavBuilder extraídos
+- Controladores divididos por dominio
+- TotemApiInterface + CachedTotemApiService
+- Presenters de dominio
+- Fallback repositories
+- Enums y SlugResolver
+
+### Fase 2 — Vistas y componentes 🔄 EN PROGRESO
+- F2-T10: Mock notice parcial completado
+- Pendiente: Componentizar iconos, centralizar locales, etc.
+
+### Fase 3 — CSS design system ⏳ PENDIENTE
+- Consolidar tokens
+- Eliminar CSS muerto
+- Componentes base card/panel
+
+### Fase 4 — Observabilidad ⏳ PENDIENTE
+- Logs estructurados
+- Health check endpoint
+- Cache file-based
 
 ## Pantallas con contenido en construcción
 
-Estas rutas son accesibles pero muestran contenido de contingencia o shell vacío:
-
 | Ruta | Vista | Estado |
-|---|---|---|
-| `/museo/coleccion/titeres/exhibicion` | `collection_puppets_exhibit.php` | Shell vacío, esperando assets |
-| `/museo/coleccion/mascaras/exhibicion` | `collection_masks_exhibit.php` | Shell vacío, esperando assets |
-| `/museo/coleccion/fichas/:id` | `collection_item_detail.php` | Mock — esperando diseño de ficha |
-| `/museo/historia/:slug` | `comic_history_post.php` | Mock — esperando contenido CMS |
-| `/cartelera/detalle/:slug` | `billboard_detail.php` | Datos hardcodeados — esperando endpoint API |
-| `/museo/el-museo/edificio` | `museum_building.php` | Texto placeholder — esperando diseño |
-| `/museo/el-museo/institucion` | `museum_institution.php` | Texto placeholder — esperando diseño |
-| `/extension` | `extension_contact.php` | Mock — formulario pendiente (Wave 3) |
+|------|-------|--------|
+| `/museo/coleccion/titeres/exhibicion` | `collection_puppets_exhibit.php` | Mock notice (F2-T10) |
+| `/museo/coleccion/mascaras/exhibicion` | `collection_masks_exhibit.php` | Mock notice (F2-T10) |
+| `/museo/coleccion/fichas/:id` | `collection_item_detail.php` | Mock notice (F2-T10) |
+| `/museo/historia/:slug` | `comic_history_post.php` | Mock notice (F2-T10) |
+| `/museo/el-museo/edificio` | `museum_building.php` | Mock notice (F2-T10) |
+| `/museo/el-museo/institucion` | `museum_institution.php` | Mock notice (F2-T10) |
+| `/extension` | `extension_contact.php` | Mock notice (F2-T10) |
 
-## Rutas legacy mantenidas
+---
 
-`/museo/historia-comica` y `/museo/historia-comica/:slug` existen para no romper QR codes
-físicos ya impresos. Ambas apuntan a los mismos handlers que `/museo/historia`.
+> **Para IAs:** Si necesitas modificar este proyecto, lee también `AGENTS.md` para convenciones específicas de agentes.
