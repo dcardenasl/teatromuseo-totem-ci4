@@ -10,6 +10,7 @@
 @import "01-base.css";
 
 /* Componentes compartidos */
+@import "shared/components.css";
 @import "shared/header.css";
 @import "shared/screen.css";
 @import "shared/hero.css";
