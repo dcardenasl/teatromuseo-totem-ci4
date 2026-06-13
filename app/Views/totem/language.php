@@ -56,7 +56,8 @@
             const targetUrl = '<?= !empty($from) ? esc(base_url($from), 'js') : esc(base_url('menu'), 'js') ?>';
 
             function setLanguage(lang) {
-                document.cookie = "totem_lang=" + lang + "; path=/; max-age=31536000";
+                const secureFlag = location.protocol === 'https:' ? '; Secure' : '';
+                document.cookie = "totem_lang=" + lang + "; path=/; max-age=31536000; SameSite=Lax" + secureFlag;
                 localStorage.setItem('totem_lang', lang);
                 if (window.launchLanguageSelection) {
                     window.launchLanguageSelection(targetUrl);

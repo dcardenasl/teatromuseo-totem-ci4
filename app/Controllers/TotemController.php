@@ -14,6 +14,7 @@ class TotemController extends BaseController
         if ($this->apiService === null) {
             $this->apiService = new \App\Services\TotemApiService();
         }
+
         return $this->apiService;
     }
 
@@ -25,6 +26,11 @@ class TotemController extends BaseController
     public function language()
     {
         $from = $this->request->getGet('from');
+
+        if (is_string($from) && $from !== '' && ! preg_match('/^[a-z0-9\/\-]+$/', $from)) {
+            $from = '';
+        }
+
         return view('totem/language', array_merge(
             $this->pageMeta(lang('Menu.select_language')),
             ['from' => $from]
@@ -75,7 +81,7 @@ class TotemController extends BaseController
             $this->pageMeta(lang('Collection.techniques_title')),
             [
                 'nav' => $this->shellNav(base_url('museo/coleccion')),
-                'techniques' => $this->api()->techniques()
+                'techniques' => $this->api()->techniques(),
             ]
         ));
     }
@@ -100,7 +106,7 @@ class TotemController extends BaseController
                 break;
             }
         }
-        
+
         if (!$technique) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
@@ -109,7 +115,7 @@ class TotemController extends BaseController
             $this->pageMeta(lang('Collection.technique_prefix') . ' - ' . $technique['title']),
             [
                 'nav' => $this->shellNav(base_url('museo/coleccion/titeres/tecnicas')),
-                'technique' => $technique
+                'technique' => $technique,
             ]
         ));
     }
@@ -179,7 +185,6 @@ class TotemController extends BaseController
         ));
     }
 
-
     public function museumHistoryMain()
     {
         return view('totem/comic_history_main', array_merge(
@@ -201,7 +206,7 @@ class TotemController extends BaseController
             $this->pageMeta(lang('ComicHistory.main_title')),
             [
                 'nav' => $this->shellNav(base_url('museo/historia')),
-                'post' => $this->api()->museumHistory($slug)
+                'post' => $this->api()->museumHistory($slug),
             ]
         ));
     }
@@ -217,7 +222,7 @@ class TotemController extends BaseController
             $this->pageMeta(lang('MuseumInfo.building_title')),
             [
                 'nav' => $this->shellNav(base_url('museo/el-museo')),
-                'data' => $this->api()->museum()
+                'data' => $this->api()->museum(),
             ]
         ));
     }
@@ -228,7 +233,7 @@ class TotemController extends BaseController
             $this->pageMeta(lang('MuseumInfo.institution_title')),
             [
                 'nav' => $this->shellNav(base_url('museo/el-museo')),
-                'data' => $this->api()->museum()
+                'data' => $this->api()->museum(),
             ]
         ));
     }
@@ -359,12 +364,8 @@ class TotemController extends BaseController
             return '';
         }
 
-        if (function_exists('mb_strlen') && mb_strlen($plain) > $limit) {
+        if (mb_strlen($plain) > $limit) {
             return rtrim((string) mb_substr($plain, 0, $limit - 1)) . '…';
-        }
-
-        if (strlen($plain) > $limit) {
-            return rtrim(substr($plain, 0, $limit - 1)) . '…';
         }
 
         return $plain;
@@ -413,6 +414,7 @@ class TotemController extends BaseController
     private function shellNav(?string $backHref = null): array
     {
         $currentUri = uri_string();
+
         return [
             [
                 'label' => lang('Nav.back'),
@@ -443,6 +445,7 @@ class TotemController extends BaseController
             'fr' => [1 => 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
             'pt' => [1 => 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
         ];
+
         return $months[$locale][$monthNum] ?? $months['es'][$monthNum] ?? '';
     }
 
@@ -472,7 +475,7 @@ class TotemController extends BaseController
                         $tag = lang('Menu.school_category_education');
                     }
                 }
-                
+
                 $startText = '';
                 if (!empty($course['start_date'])) {
                     $time = strtotime($course['start_date']);
@@ -627,7 +630,6 @@ class TotemController extends BaseController
             ],
         ];
 
-
         return [
             'nav' => $this->shellNav(),
             'section' => [
@@ -696,10 +698,13 @@ class TotemController extends BaseController
                 }
 
                 // Determinar clase de tarjeta por la audiencia
-                $class = 'event-card--family';
-                if ($tag === lang('Billboard.audience_adults')) {
-                    $class = 'event-card--adult';
-                }
+                $class = match ($audId) {
+                    1 => 'event-card--national',
+                    2 => 'event-card--international',
+                    3 => 'event-card--kids',
+                    4 => 'event-card--adult',
+                    default => 'event-card--family',
+                };
 
                 $events[] = [
                     'tag'   => $tag,
@@ -775,7 +780,7 @@ class TotemController extends BaseController
         $closingImage = 'assets/img/billboard/la-malattia-di-nogasto-collage.webp';
         $qrImage = 'assets/img/school/teatroescuela-qr.png';
         $closingNote = lang('Billboard.default_closing_note');
-        
+
         if ($slug === 'muaki') {
             $title = lang('Billboard.fallback_title_2');
             $copy = lang('Billboard.detail_copy_2');
@@ -806,26 +811,6 @@ class TotemController extends BaseController
                 'closingImage' => $closingImage,
                 'qrImage' => $qrImage,
                 'closingNote' => $closingNote,
-            ],
-        ];
-    }
-
-    private function visitsSection(): array
-    {
-        return [
-            'nav' => $this->shellNav(),
-            'section' => [
-                'eyebrow' => lang('Menu.visits_copy'),
-                'title' => lang('Menu.visits'),
-                'copy' => lang('Section.visits_copy'),
-                'visualClass' => 'section-hero__visual section-hero__visual--visits',
-                'detailsTitle' => lang('Section.visits_details_title'),
-                'detailsCopy' => lang('Section.visits_details_copy'),
-                'stats' => [
-                    ['label' => lang('Menu.reservations'), 'value' => lang('Section.visits_stat_reservations')],
-                    ['label' => lang('Menu.audience'), 'value' => lang('Section.visits_stat_audience')],
-                    ['label' => lang('Menu.format'), 'value' => lang('Section.visits_stat_mode')],
-                ],
             ],
         ];
     }

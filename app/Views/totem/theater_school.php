@@ -138,10 +138,10 @@
                                 </div>
 
                                 <div class="school-course__body">
-                                    <span class="school-course__tag"><?= esc($section['courseTag'] ?? lang('Section.course_tag')) ?></span>
-                                    <h3 class="school-course__title"><?= esc($section['courseTitle'] ?? '') ?></h3>
-                                    <p class="school-course__start"><?= esc($section['courseStart'] ?? '') ?></p>
-                                    <p class="school-course__copy"><?= esc($section['courseCopy'] ?? '') ?></p>
+                                    <span class="school-course__tag"><?= esc($course['tag'] ?? $section['courseTag'] ?? lang('Section.course_tag')) ?></span>
+                                    <h3 class="school-course__title"><?= esc($course['title'] ?? $section['courseTitle'] ?? '') ?></h3>
+                                    <p class="school-course__start"><?= esc($course['start'] ?? $section['courseStart'] ?? '') ?></p>
+                                    <p class="school-course__copy"><?= esc($course['copy'] ?? $section['courseCopy'] ?? '') ?></p>
 
                                     <div class="school-course__contact">
                                         <div class="school-course__contact-copy">

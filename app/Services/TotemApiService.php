@@ -16,14 +16,14 @@ class TotemApiService
     private string $apiKey;
     private CURLRequest $client;
 
-    public function __construct()
+    public function __construct(?CURLRequest $client = null)
     {
         // Leer variables del .env con fallbacks adecuados
         $this->baseUrl = env('TOTEM_API_URL') ?: 'http://localhost:8080/api/v1/totem';
         $this->apiKey  = env('TOTEM_API_KEY') ?: '';
-        
+
         // Inicializar el cliente CURL de CodeIgniter 4
-        $this->client = Services::curlrequest([
+        $this->client = $client ?? Services::curlrequest([
             'base_URI' => $this->baseUrl,
             'timeout'  => 5, // Timeout estricto de 5 segundos
         ]);
@@ -59,6 +59,7 @@ class TotemApiService
                 if (is_array($body) && isset($body['data'])) {
                     return $body['data'];
                 }
+
                 return is_array($body) ? $body : [];
             }
         } catch (Exception $e) {
@@ -75,14 +76,6 @@ class TotemApiService
     public function shows(): array
     {
         return $this->get('shows');
-    }
-
-    /**
-     * Obtiene un objeto de la colección por su ID
-     */
-    public function collectionItem(int $id): array
-    {
-        return $this->get("collection/{$id}");
     }
 
     /**
