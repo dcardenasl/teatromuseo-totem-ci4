@@ -34,6 +34,17 @@ class Totem extends BaseConfig
     public bool $enableTransitions = true;
 
     /**
+     * Constructor - permite sobreescribir con variables de entorno.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->enableTransitions = (bool) ($_ENV['TOTEM_ENABLE_TRANSITIONS'] ?? true);
+        $this->enableAnimations  = (bool) ($_ENV['TOTEM_ENABLE_ANIMATIONS'] ?? true);
+    }
+
+    /**
      * Enable non-essential animations.
      */
     public bool $enableAnimations = true;
