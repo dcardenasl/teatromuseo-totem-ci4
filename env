@@ -1,37 +1,41 @@
 #--------------------------------------------------------------------
-# Example Environment Configuration file
+# Environment Configuration file for Teatromuseo Tótem Interactivo
 #
-# This file can be used as a starting point for your own
-# custom .env files, and contains most of the possible settings
-# available in a default install.
-#
-# By default, all of the settings are commented out. If you want
-# to override the setting, you must un-comment it by removing the '#'
-# at the beginning of the line.
+# Copy this file to .env and customize for your environment.
+# All settings are commented out by default. Uncomment to override.
 #--------------------------------------------------------------------
 
 #--------------------------------------------------------------------
 # ENVIRONMENT
 #--------------------------------------------------------------------
 
-# CI_ENVIRONMENT = production
+# Values: development, testing, production
+# CI_ENVIRONMENT = development
 
 #--------------------------------------------------------------------
 # APP
 #--------------------------------------------------------------------
 
-# app.baseURL = ''
-# If you have trouble with `.`, you could also use `_`.
-# app_baseURL = ''
+# Base URL of your application (with trailing slash)
+# app.baseURL = 'http://localhost:8080/'
+# app.baseURL = 'https://teatromuseo.example.com/'
+
+# Force HTTPS in production
 # app.forceGlobalSecureRequests = false
+
+# Content Security Policy (prepare for activation)
 # app.CSPEnabled = false
-#
-# En producción se recomienda activar ambos:
-# app.forceGlobalSecureRequests = true
-# app.CSPEnabled = true
+
+# Timezone (Chile)
+# app.appTimezone = 'America/Santiago'
+
+# Default locale
+# app.defaultLocale = 'es'
+# app.supportedLocales = ['es', 'en', 'fr', 'pt']
 
 #--------------------------------------------------------------------
 # DATABASE
+# (Not used by tótem currently - API-based application)
 #--------------------------------------------------------------------
 
 # database.default.hostname = localhost
@@ -42,48 +46,96 @@
 # database.default.DBPrefix =
 # database.default.port = 3306
 
-# If you use MySQLi as tests, first update the values of Config\Database::$tests.
-# database.tests.hostname = localhost
-# database.tests.database = ci4_test
-# database.tests.username = root
-# database.tests.password = root
-# database.tests.DBDriver = MySQLi
-# database.tests.DBPrefix =
-# database.tests.charset = utf8mb4
-# database.tests.DBCollat = utf8mb4_general_ci
-# database.tests.port = 3306
-
-#--------------------------------------------------------------------
-# ENCRYPTION
-#--------------------------------------------------------------------
-
-# encryption.key =
-
 #--------------------------------------------------------------------
 # SESSION
 #--------------------------------------------------------------------
 
 # session.driver = 'CodeIgniter\Session\Handlers\FileHandler'
-# session.savePath = null
+# session.savePath = WRITEPATH . 'session'
+# session.cookieName = ci_session
+# session.expiration = 7200
+
+#--------------------------------------------------------------------
+# COOKIE
+#--------------------------------------------------------------------
+
+# cookie.prefix = ''
+# cookie.expires = 0
+# cookie.path = '/'
+# cookie.domain = ''
+# cookie.secure = false
+# cookie.httponly = false
+# cookie.samesite = 'Lax'
+# cookie.raw = false
 
 #--------------------------------------------------------------------
 # LOGGER
 #--------------------------------------------------------------------
 
+# Threshold: 0=disabled, 1=debug, 2=info, 3=notice, 4=warning, 5=critical
 # logger.threshold = 4
 
 #--------------------------------------------------------------------
-# TOTEM API
+# TOTEM API CONNECTION
 #--------------------------------------------------------------------
-# Base URL and key for the museum API consumed by the totem.
+# Base URL and API key for the museum backend API.
 # TOTEM_API_KEY must match the value configured in the API backend.
 
 # TOTEM_API_URL = 'http://localhost:8080/api/v1/totem'
-# TOTEM_API_KEY = ''
+# TOTEM_API_KEY = 'your-api-key-here'
 
 #--------------------------------------------------------------------
-# TOTEM FEATURES
+# TOTEM FEATURE FLAGS
 #--------------------------------------------------------------------
+# Control visual effects and behaviors of the interactive totem.
 
-# TOTEM_ENABLE_TRANSITIONS = false
+# Enable/disable page transition animations (clown nose, curtain, confetti, etc.)
+# TOTEM_ENABLE_TRANSITIONS = true
+
+# Enable/disable non-essential animations
 # TOTEM_ENABLE_ANIMATIONS = true
+
+#--------------------------------------------------------------------
+# SECURITY
+#--------------------------------------------------------------------
+
+# Encryption key (generate with: php -r "echo bin2hex(random_bytes(32));"
+# encryption.key = 'your-32-byte-hex-key-here'
+
+# CSRF protection (if enabled in filters)
+# security.tokenName = csrf_test_name
+# security.headerName = X-CSRF-TOKEN
+# security.cookieName = csrf_cookie_name
+# security.expires = 7200
+
+#--------------------------------------------------------------------
+# CONTENT SECURITY POLICY
+# (Uncomment when app.CSPEnabled = true)
+#--------------------------------------------------------------------
+
+# csp.reportOnly = false
+# csp.defaultSrc = 'self'
+# csp.scriptSrc = 'self'
+# csp.styleSrc = 'self'
+# csp.imageSrc = 'self'
+# csp.baseURI = 'self'
+
+#--------------------------------------------------------------------
+# CUSTOM TOTEM SETTINGS
+#--------------------------------------------------------------------
+
+# Idle timeout in seconds (default: 120 = 2 minutes)
+# TOTEM_IDLE_TIMEOUT = 120
+
+# Warning before idle timeout (default: 15 seconds before timeout)
+# TOTEM_IDLE_WARNING = 15
+
+#--------------------------------------------------------------------
+# DEPLOYMENT (CI/CD)
+#--------------------------------------------------------------------
+# These are used by .deploy/deploy.py - not loaded by CodeIgniter
+
+# FTP_HOST = 'ftp.example.com'
+# FTP_USER = 'username'
+# FTP_PASS = 'password'
+# FTP_REMOTE_PATH = '/public_html/'
