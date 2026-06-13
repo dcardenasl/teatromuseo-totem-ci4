@@ -19,10 +19,12 @@ class LocaleFilter implements FilterInterface
 
         if (is_string($locale) && in_array($locale, $supported, true)) {
             $this->applyLocale($locale);
+
             return null;
         }
 
         $this->applyLocale($config->defaultLocale);
+
         return null;
     }
 

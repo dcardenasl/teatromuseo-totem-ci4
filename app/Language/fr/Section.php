@@ -98,4 +98,3 @@ return [
     'student_felipe_role' => 'Élève en vedette',
     'student_felipe_desc' => 'Son travail se distingue par la discipline, l’humour et la facilité à construire des atmosphères.',
 ];
-

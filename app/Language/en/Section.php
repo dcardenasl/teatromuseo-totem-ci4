@@ -98,4 +98,3 @@ return [
     'student_felipe_role' => 'Featured student',
     'student_felipe_desc' => 'His work stands out for discipline, humor, and ease in building atmospheres.',
 ];
-

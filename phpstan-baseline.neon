@@ -1,0 +1,445 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Strict comparison using \=\=\= between ''testing'' and ''testing'' will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: app/Config/Database.php
+
+		-
+			message: '#^Cannot call method get\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Config/Events.php
+
+		-
+			message: '#^Cannot call method respond\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Config/Events.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: app/Config/Events.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between ''testing'' and ''testing'' will always evaluate to false\.$#'
+			identifier: notIdentical.alwaysFalse
+			count: 1
+			path: app/Config/Events.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between ''testing'' and ''development'' will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/Config/Events.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between ''testing'' and ''production'' will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/Config/Logger.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between ''testing'' and ''production'' will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/Config/Security.php
+
+		-
+			message: '#^PHPDoc type array\<string, \(callable\(mixed\)\: mixed\)\|\(list\<callable\(mixed\)\: mixed&string\>\)\> of property Config\\View\:\:\$plugins is not covariant with PHPDoc type array\<string, \(callable\(mixed \.\.\.\)\: mixed\)\|\(list\<callable\(mixed \.\.\.\)\: mixed&string\>\)\> of overridden property CodeIgniter\\Config\\View\:\:\$plugins\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Config/View.php
+
+		-
+			message: '#^Binary operation "\." between list\<string\>\|string and '' \- '' results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:billboard\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:billboardDetail\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:billboardDetail\(\) has parameter \$slug with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:billboardDetailSection\(\) has parameter \$slug with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:billboardDetailSection\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:billboardSection\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:collectionClowns\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:collectionItem\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:collectionItem\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:collectionMain\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:collectionMaskTradition\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:collectionMaskTradition\(\) has parameter \$slug with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:collectionMasksExhibit\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:collectionMasksTraditions\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:collectionPuppetsExhibit\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:collectionTechnique\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:collectionTechnique\(\) has parameter \$slug with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:collectionTechniques\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:extensionContact\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:friends\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:friendsSection\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:language\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:mainMenu\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:menuItem\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:museum\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:museumBuilding\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:museumComicHistoryMain\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:museumHistoryMain\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:museumHistoryPost\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:museumHistoryPost\(\) has parameter \$slug with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:museumInfoMain\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:museumInstitution\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:museumToday\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:pageMeta\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:schoolSection\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:shellNav\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Method App\\Controllers\\TotemController\:\:theaterSchool\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Parameter \#1 \$blocks of method App\\Controllers\\TotemController\:\:normalizeMuseumTodayBlocks\(\) expects list\<array\<string, mixed\>\>, array\<mixed, mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Parameter \#1 \$format of function sprintf expects string, list\<string\>\|string given\.$#'
+			identifier: argument.type
+			count: 8
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Parameter \#1 \$title of method App\\Controllers\\TotemController\:\:menuItem\(\) expects string, list\<string\>\|string given\.$#'
+			identifier: argument.type
+			count: 9
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Parameter \#1 \$title of method App\\Controllers\\TotemController\:\:pageMeta\(\) expects string, list\<string\>\|string given\.$#'
+			identifier: argument.type
+			count: 22
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Parameter \#3 \$copy of method App\\Controllers\\TotemController\:\:menuItem\(\) expects string, list\<string\>\|string given\.$#'
+			identifier: argument.type
+			count: 9
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Variable \$audId might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Controllers/TotemController.php
+
+		-
+			message: '#^Call to an undefined method CodeIgniter\\HTTP\\RequestInterface\:\:getCookie\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Filters/LocaleFilter.php
+
+		-
+			message: '#^Cannot access property \$defaultLocale on object\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Filters/LocaleFilter.php
+
+		-
+			message: '#^Cannot access property \$supportedLocales on object\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Filters/LocaleFilter.php
+
+		-
+			message: '#^Cannot call method setLocale\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Filters/LocaleFilter.php
+
+		-
+			message: '#^Parameter \#1 \$locale of method CodeIgniter\\Language\\Language\:\:setLocale\(\) expects non\-empty\-string\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Filters/LocaleFilter.php
+
+		-
+			message: '#^Method App\\Services\\TotemApiService\:\:courses\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/TotemApiService.php
+
+		-
+			message: '#^Method App\\Services\\TotemApiService\:\:get\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/TotemApiService.php
+
+		-
+			message: '#^Method App\\Services\\TotemApiService\:\:get\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/TotemApiService.php
+
+		-
+			message: '#^Method App\\Services\\TotemApiService\:\:museum\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/TotemApiService.php
+
+		-
+			message: '#^Method App\\Services\\TotemApiService\:\:museumHistory\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/TotemApiService.php
+
+		-
+			message: '#^Method App\\Services\\TotemApiService\:\:shows\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/TotemApiService.php
+
+		-
+			message: '#^Method App\\Services\\TotemApiService\:\:technique\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/TotemApiService.php
+
+		-
+			message: '#^Method App\\Services\\TotemApiService\:\:techniques\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/TotemApiService.php
+
+		-
+			message: '#^Parameter \#1 \$json of function json_decode expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/TotemApiService.php
+
+		-
+			message: '#^Property App\\Services\\TotemApiService\:\:\$apiKey \(string\) does not accept array\<int\|string, mixed\>\|float\|int\<min, \-1\>\|int\<1, max\>\|object\|string\|true\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Services/TotemApiService.php
+
+		-
+			message: '#^Property App\\Services\\TotemApiService\:\:\$baseUrl \(string\) does not accept array\<int\|string, mixed\>\|float\|int\<min, \-1\>\|int\<1, max\>\|object\|string\|true\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Services/TotemApiService.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with bool will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/unit/HealthTest.php
+
+		-
+			message: '#^Cannot call method check\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: tests/unit/HealthTest.php
+
+		-
+			message: '#^Parameter \#2 \$array of function preg_grep expects array, list\<string\>\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/unit/HealthTest.php
+
+		-
+			message: '#^Parameter \#1 \$data of method Tests\\Unit\\Services\\TotemApiServiceTest\:\:json\(\) expects array\<string, mixed\>, array\<int, array\<string, int\|string\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/unit/Services/TotemApiServiceTest.php

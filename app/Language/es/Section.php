@@ -98,4 +98,3 @@ return [
     'student_felipe_role' => 'Alumno destacado',
     'student_felipe_desc' => 'Su trabajo destaca por la disciplina, el humor y la facilidad para construir atmósferas.',
 ];
-
