@@ -299,16 +299,8 @@
 - **Commit:** `refactor(css): remove dead CSS files and unused selectors`
 
 ### F3-T3 — Crear componentes base .card y .panel
-- **Estado:** Pendiente para post-presentación (15/06).
-- **Referencia:** Plan §3 Fase 3 → Componentes base.
-- **Archivos:** `public/assets/css/src/shared/components.css`, parciales afectados.
-- **Descripción:**
-  - Crear `.card` y `.panel`.
-  - Reemplazar tarjetas similares con modifiers.
-- **Criterio de aceptación:**
-  - Consistencia visual.
-  - Reducción de duplicación CSS.
-- **Commit sugerido:** `refactor(css): add card and panel base components`
+- [x] **Completado.** Creado `shared/components.css` con clases base `.card`, `.panel`, `.pill` y sus modificadores. Migrado `card.php` para usar nuevas clases junto con las legacy. Las migraciones adicionales de componentes específicos (course-card, event-card, etc.) pueden hacerse gradualmente.
+- **Commit:** `refactor(css): create base component classes and migrate card partial`
 
 ### F3-T4 — Unificar nomenclatura de botón de idioma
 - [x] **Completado.** Unificado a `pill-button--language` en NavBuilder.php, app.js, y CSS.
