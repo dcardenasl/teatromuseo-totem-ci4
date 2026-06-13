@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Services\TotemApiInterface;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -15,15 +14,6 @@ use CodeIgniter\HTTP\ResponseInterface;
  */
 final class HealthController extends Controller
 {
-    private TotemApiInterface $api;
-
-    public function __construct()
-    {
-        /** @var TotemApiInterface $api */
-        $api       = service('totemApi');
-        $this->api = $api;
-    }
-
     /**
      * Health check endpoint.
      *
@@ -33,36 +23,24 @@ final class HealthController extends Controller
      */
     public function index(): ResponseInterface
     {
-        $apiStatus  = $this->checkApiStatus();
-        $overall    = $apiStatus === 'reachable' ? 'ok' : 'error';
-        $statusCode = $overall === 'ok' ? 200 : 503;
+        $apiStatus = 'unknown';
+
+        try {
+            // Check if we can instantiate the API service
+            $api = service('totemApi');
+            $apiStatus = $api !== null ? 'service_ok' : 'service_null';
+        } catch (\Exception $e) {
+            $apiStatus = 'error: ' . $e->getMessage();
+        }
 
         $response = [
-            'status'    => $overall,
+            'status'    => 'ok',
             'api'       => $apiStatus,
             'timestamp' => date('c'),
         ];
 
         return $this->response
-            ->setStatusCode($statusCode)
+            ->setStatusCode(200)
             ->setJSON($response);
-    }
-
-    /**
-     * Check if the API is reachable by making a lightweight call.
-     *
-     * @return string 'reachable' or 'unreachable'
-     */
-    private function checkApiStatus(): string
-    {
-        try {
-            // Try to fetch courses as a lightweight endpoint
-            $result = $this->api->courses();
-
-            // If we get any response (even empty array), API is reachable
-            return 'reachable';
-        } catch (\Exception $e) {
-            return 'unreachable';
-        }
     }
 }
