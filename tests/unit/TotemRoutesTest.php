@@ -59,6 +59,35 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result->assertSee('Explora el museo');
     }
 
+    public function testMuseumInfoMainRoute(): void
+    {
+        $result = $this->get('museo/el-museo');
+
+        $result->assertStatus(200);
+        $result->assertSee('Explora el museo');
+        $result->assertSee('Historia de Teatromuseo');
+        $result->assertSee('Historia de la Iglesia');
+        $result->assertSee('Teatromuseo Hoy');
+        $result->assertSee('assets/img/museo/el-museo/collage-nuestra-historia.webp');
+        $result->assertSee('assets/img/museo/el-museo/collage-san-judas.webp');
+        $result->assertSee('assets/img/museo/el-museo/collage-historia-actual.webp');
+    }
+
+    public function testMuseumInfoDetailRoutesUseCorrectCollages(): void
+    {
+        $history = $this->get('museo/el-museo/edificio');
+        $history->assertStatus(200);
+        $history->assertSee('Historia de Teatromuseo');
+        $history->assertSee('assets/img/museo/el-museo/collage-nuestra-historia.webp');
+        $history->assertDontSee('mock');
+
+        $church = $this->get('museo/el-museo/institucion');
+        $church->assertStatus(200);
+        $church->assertSee('La Iglesia San Judas Tadeo');
+        $church->assertSee('assets/img/museo/el-museo/collage-san-judas.webp');
+        $church->assertDontSee('mock');
+    }
+
     public function testCollectionRoute(): void
     {
         $result = $this->get('museo/coleccion');
@@ -67,6 +96,7 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result->assertStatus(200);
         $result->assertSee('Colección');
         $result->assertSee('Títeres');
+        $result->assertSee('Payasos');
         $result->assertSee('Máscaras');
         $result->assertSee('En exhibición');
         $result->assertSee('Técnicas');
@@ -77,15 +107,18 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result->assertSee('museo/coleccion/titeres/exhibicion');
         $result->assertSee('museo/coleccion/mascaras/exhibicion');
         $result->assertSee('museo/coleccion/mascaras/tradiciones');
+        $result->assertSee('assets/img/museo/coleccion/titeres/titere.webp');
+        $result->assertSee('assets/img/museo/coleccion/mascaras/mascara.webp');
+        $result->assertSee('assets/img/museo/coleccion/payasos/payaso.webp');
         $result->assertDontSee('Teatro de payasos');
 
         self::assertTrue(
             strpos($body, 'collection-band--puppets') !== false
             && strpos($body, 'collection-band--masks') !== false
             && strpos($body, 'collection-band--clowns') !== false
-            && strpos($body, 'collection-band--puppets') < strpos($body, 'collection-band--masks')
-            && strpos($body, 'collection-band--masks') < strpos($body, 'collection-band--clowns'),
-            'La colección debería ordenar Títeres, Máscaras y Payasos.'
+            && strpos($body, 'collection-band--puppets') < strpos($body, 'collection-band--clowns')
+            && strpos($body, 'collection-band--clowns') < strpos($body, 'collection-band--masks'),
+            'La colección debería ordenar Títeres, Payasos y Máscaras.'
         );
     }
 
@@ -98,7 +131,9 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result->assertSee('Archivo editorial');
         $result->assertSee('Historia del Circo');
         $result->assertSee('Historia de los Payasos');
-        $result->assertSee('Tradición del Títere');
+        $result->assertSee('assets/img/museo/historia/collage-circo.webp');
+        $result->assertSee('assets/img/museo/historia/collage-teatro.webp');
+        $result->assertDontSee('Tradición del Títere');
         $result->assertDontSee('Entrada editorial');
     }
 
@@ -152,8 +187,10 @@ final class TotemRoutesTest extends CIUnitTestCase
     {
         $result = $this->get('museo/el-museo/actualidad');
         $result->assertStatus(200);
+        $result->assertSee('Teatromuseo Hoy');
         $result->assertSee('Actualidad del museo');
         $result->assertSee('Lectura editorial');
+        $result->assertSee('assets/img/museo/el-museo/collage-historia-actual.webp');
         $result->assertDontSee('mock');
     }
 
