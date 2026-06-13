@@ -282,9 +282,17 @@ public static function totemApi(): TotemApiInterface
 - Fallback repositories
 - Enums y SlugResolver
 
-### Fase 2 — Vistas y componentes 🔄 EN PROGRESO
+### Fase 2 — Vistas y componentes ✅ COMPLETA
+- F2-T1: Lógica movida de collection_main.php al controlador
+- F2-T2: Locales centralizados en helper
+- F2-T3: Textos faltantes internacionalizados
+- F2-T4: Helper safe_title() creado
+- F2-T5: Iconos SVG componentizados
+- F2-T6: card.php y collection_band.php refactorizados
+- F2-T7: Scripts inline extraídos a módulos JS
+- F2-T8: Cleanup registry verificado
+- F2-T9: Escape de URLs mejorado
 - F2-T10: Mock notice parcial completado
-- Pendiente: Componentizar iconos, centralizar locales, etc.
 
 ### Fase 3 — CSS design system ⏳ PENDIENTE
 - Consolidar tokens
