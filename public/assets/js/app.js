@@ -7,6 +7,37 @@ const TOTEM_CONFIG = window.TOTEM_CONFIG || {
 
 window.TOTEM_CONFIG = TOTEM_CONFIG;
 
+// Registry of per-page cleanup functions to avoid memory leaks in SPA navigation.
+window.__totemCleanup = window.__totemCleanup || [];
+
+function runTotemCleanup() {
+    if (Array.isArray(window.__totemCleanup)) {
+        window.__totemCleanup.forEach((cleanup) => {
+            if (typeof cleanup === 'function') {
+                try {
+                    cleanup();
+                } catch (err) {
+                    console.error('Error during totem cleanup:', err);
+                }
+            }
+        });
+        window.__totemCleanup = [];
+    }
+
+    if (typeof window.__totemSchoolPeopleModalCleanup === 'function') {
+        try {
+            window.__totemSchoolPeopleModalCleanup();
+        } catch (err) {
+            console.error('Error during school modal cleanup:', err);
+        }
+        window.__totemSchoolPeopleModalCleanup = null;
+    }
+
+    if (typeof window.totemSplashCleanup === 'function') {
+        window.totemSplashCleanup();
+    }
+}
+
 // Kiosk idle timer behavior and automatic reset to splash screen
 let idleTime = 0;
 const IDLE_LIMIT = 120; // 2 minutos en segundos
@@ -17,6 +48,8 @@ const IDLE_ACTIVITY_EVENTS = ['mousedown', 'touchstart', 'keypress', 'pointerdow
 const SUPPORTED_LOCALES = ['es', 'en', 'fr', 'pt'];
 
 function commitFetchedPage(htmlText, url, chosenTransition, x, y, isPopState) {
+    runTotemCleanup();
+
     const parser = new DOMParser();
     const newDoc = parser.parseFromString(htmlText, 'text/html');
     const newStage = newDoc.querySelector('.totem-stage');
