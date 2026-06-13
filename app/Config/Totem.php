@@ -34,6 +34,11 @@ class Totem extends BaseConfig
     public bool $enableTransitions = true;
 
     /**
+     * Enable non-essential animations.
+     */
+    public bool $enableAnimations = true;
+
+    /**
      * Constructor - permite sobreescribir con variables de entorno.
      */
     public function __construct()
@@ -42,6 +47,12 @@ class Totem extends BaseConfig
 
         $this->enableTransitions = $this->envBool('TOTEM_ENABLE_TRANSITIONS', true);
         $this->enableAnimations  = $this->envBool('TOTEM_ENABLE_ANIMATIONS', true);
+        $this->enableFileCache   = $this->envBool('TOTEM_ENABLE_FILE_CACHE', true);
+
+        $cacheTtl = getenv('TOTEM_CACHE_TTL_SECONDS');
+        if ($cacheTtl !== false && is_numeric($cacheTtl)) {
+            $this->cacheTtlSeconds = (int) $cacheTtl;
+        }
     }
 
     /**
@@ -61,7 +72,17 @@ class Totem extends BaseConfig
     }
 
     /**
-     * Enable non-essential animations.
+     * Enable file-based API caching for offline resilience.
      */
-    public bool $enableAnimations = true;
+    public bool $enableFileCache = true;
+
+    /**
+     * Cache TTL in seconds for API responses.
+     */
+    public int $cacheTtlSeconds = 60;
+
+    /**
+     * Cache directory path (relative to WRITEPATH or absolute).
+     */
+    public string $cachePath = 'cache/totem/';
 }

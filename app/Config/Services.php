@@ -3,6 +3,7 @@
 namespace Config;
 
 use App\Services\CachedTotemApiService;
+use App\Services\FileCachedTotemApiService;
 use App\Services\TotemApiInterface;
 use App\Services\TotemApiService;
 use CodeIgniter\Config\BaseService;
@@ -34,6 +35,19 @@ class Services extends BaseService
             return $instance;
         }
 
-        return new CachedTotemApiService(new TotemApiService());
+        /** @var Totem $config */
+        $config = config('Totem');
+
+        // Base service with request-scoped memoization
+        $service = new CachedTotemApiService(new TotemApiService());
+
+        // Add file-based cache layer if enabled
+        if ($config->enableFileCache) {
+            $cachePath = WRITEPATH . $config->cachePath;
+
+            return new FileCachedTotemApiService($service, $cachePath, $config->cacheTtlSeconds);
+        }
+
+        return $service;
     }
 }
