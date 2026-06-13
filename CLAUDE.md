@@ -294,10 +294,13 @@ public static function totemApi(): TotemApiInterface
 - F2-T9: Escape de URLs mejorado
 - F2-T10: Mock notice parcial completado
 
-### Fase 3 — CSS design system ⏳ PENDIENTE
-- Consolidar tokens
-- Eliminar CSS muerto
-- Componentes base card/panel
+### Fase 3 — CSS design system 🔄 EN PROGRESO
+- F3-T1: Tokens consolidados en 00-tokens.css ✅
+- F3-T2: CSS muerto eliminado (detail.css) ✅
+- F3-T4: Nomenclatura de botón de idioma unificada ✅
+- F3-T7: Build pipeline mejorado con PostCSS ✅
+- F3-T8: Accesibilidad táctil y reduced-motion ✅
+- Pendiente: F3-T3 (componentes base), F3-T5 (selectores sin estilos), F3-T6 (container queries)
 
 ### Fase 4 — Observabilidad ⏳ PENDIENTE
 - Logs estructurados

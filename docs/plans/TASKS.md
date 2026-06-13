@@ -291,26 +291,12 @@
 ## Fase 3 — CSS design system
 
 ### F3-T1 — Consolidar tokens en 00-tokens.css
-- **Referencia:** Plan §3 Fase 3 → Tokens.
-- **Archivos:** `public/assets/css/src/00-tokens.css`, `app/Views/layouts/MainLayout.php`.
-- **Descripción:**
-  - Mover `--paper-texture` de inline a tokens.
-  - Agregar tokens de surface, border, shadow, typography, z-index y touch target.
-- **Criterio de aceptación:**
-  - No hay variables inline en `MainLayout.php`.
-  - Todos los tokens nuevos se usan en al menos un parcial.
-- **Commit sugerido:** `refactor(css): consolidate design tokens in 00-tokens.css`
+- [x] **Completado.** Agregados tokens `--paper-texture`, `--shadow-card`, `--shadow-panel`, `--radius-card`, `--touch-target-min`, y escala de z-index. Eliminado CSS inline de MainLayout.php.
+- **Commit:** `refactor(css): consolidate design tokens in 00-tokens.css`
 
 ### F3-T2 — Eliminar CSS muerto confirmado
-- **Referencia:** Plan §3 Fase 3 → Limpieza de código muerto.
-- **Archivos:** `public/assets/css/src/shared/hero.css`, `public/assets/css/src/screens/detail.css`, `public/assets/css/src/screens/section.css`, `public/assets/css/src/screens/school.css`, `public/assets/css/src/screens/language.css`, `public/assets/css/src/screens/menu.css`, `public/assets/css/src/shared/utils.css`, `bin/build-css.sh`.
-- **Descripción:**
-  - Eliminar archivos y bloques muertos.
-  - Actualizar `bin/build-css.sh` si es necesario.
-- **Criterio de aceptación:**
-  - `style.css` reduce tamaño en ≥25 %.
-  - Ninguna vista afectada visualmente.
-- **Commit sugerido:** `refactor(css): remove dead CSS files and unused blocks`
+- [x] **Completado.** Eliminado `screens/detail.css` (clases detail-* no usadas). Removidos selectores obsoletos de `99-responsive.css`.
+- **Commit:** `refactor(css): remove dead CSS files and unused selectors`
 
 ### F3-T3 — Crear componentes base .card y .panel
 - **Referencia:** Plan §3 Fase 3 → Componentes base.
@@ -324,13 +310,8 @@
 - **Commit sugerido:** `refactor(css): add card and panel base components`
 
 ### F3-T4 — Unificar nomenclatura de botón de idioma
-- **Referencia:** Plan §3 Fase 3 → Nomenclatura y consistencia.
-- **Archivos:** `app/Controllers/MainController.php` o `NavBuilder`, `public/assets/js/app.js`, `public/assets/css/src/shared/header.css`.
-- **Descripción:** Decidir entre `pill-button--lang` o `pill-button--language` y aplicar en todos lados.
-- **Criterio de aceptación:**
-  - Un solo nombre en controlador, JS y CSS.
-  - Botón de idioma estilizado consistentemente.
-- **Commit sugerido:** `fix(css): unify language button modifier class`
+- [x] **Completado.** Unificado a `pill-button--language` en NavBuilder.php, app.js, y CSS.
+- **Commit:** `fix(css): unify language button class and improve accessibility`
 
 ### F3-T5 — Corregir selectores sin estilos
 - **Referencia:** Plan §3 Fase 3 → Nomenclatura y consistencia.
@@ -352,27 +333,12 @@
 - **Commit sugerido:** `refactor(css): migrate media queries to container queries`
 
 ### F3-T7 — Mejorar build CSS
-- **Referencia:** Plan §3 Fase 3 → Build pipeline.
-- **Archivos:** `bin/build-css.sh`, `package.json` (opcional), `.github/workflows/ci.yml`.
-- **Descripción:**
-  - Validación de sintaxis antes de concatenar.
-  - Opcional: PostCSS + autoprefixer + cssnano + source map.
-  - Agregar compilación CSS al CI.
-- **Criterio de aceptación:**
-  - `composer build:css` falla si hay error de sintaxis.
-  - `style.css` compilado es más pequeño.
-- **Commit sugerido:** `chore(build): improve CSS build pipeline with syntax check and minification`
+- [x] **Completado.** Implementado PostCSS con postcss-import, autoprefixer y cssnano. Creado main.css como entry point. Build ahora usa `npm run build:css`.
+- **Commit:** `chore(build): add PostCSS build pipeline with autoprefixer and cssnano`
 
 ### F3-T8 — Garantizar accesibilidad táctil y reduced-motion
-- **Referencia:** Plan §3 Fase 3 → Accesibilidad.
-- **Archivos:** Parciales CSS con targets <44px o animaciones sin fallback.
-- **Descripción:**
-  - Targets táctiles ≥44px.
-  - `prefers-reduced-motion` y `totem-animations-disabled` consistentes.
-- **Criterio de aceptación:**
-  - No quedan targets <44px.
-  - Animaciones respetan preferencias del usuario.
-- **Commit sugerido:** `fix(css): ensure touch targets and reduced motion support`
+- [x] **Completado.** Aumentado touch target de collection-pill a 44px. Agregado soporte para prefers-reduced-motion y totem-animations-disabled en transitions.css.
+- **Commit:** `fix(css): unify language button class and improve accessibility`
 
 ### F3-T9 — Validación visual en kiosko
 - **Referencia:** Plan §3 Fase 3 → Tests.
