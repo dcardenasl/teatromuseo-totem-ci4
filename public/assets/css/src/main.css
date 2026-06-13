@@ -1,0 +1,34 @@
+/**
+ * Teatromuseo Totem - Main CSS Entry Point
+ * 
+ * Este archivo importa todos los parciales CSS en el orden correcto.
+ * No editar style.css directamente - se genera automáticamente.
+ */
+
+/* Tokens y base */
+@import "00-tokens.css";
+@import "01-base.css";
+
+/* Componentes compartidos */
+@import "shared/header.css";
+@import "shared/screen.css";
+@import "shared/hero.css";
+@import "shared/utils.css";
+@import "shared/orientation-warning.css";
+@import "shared/transitions.css";
+@import "shared/footer-ornament.css";
+
+/* Pantallas específicas */
+@import "screens/splash.css";
+@import "screens/language.css";
+@import "screens/idle.css";
+@import "screens/menu.css";
+@import "screens/section.css";
+@import "screens/school.css";
+@import "screens/section-extras.css";
+@import "screens/museum-today.css";
+@import "screens/billboard.css";
+
+/* Shell y responsive */
+@import "02-shell.css";
+@import "99-responsive.css";
