@@ -23,18 +23,6 @@ final class SchoolFallbackRepository
                 'start' => $fallbackStart,
                 'copy'  => lang('Section.school_course_copy'),
             ],
-            [
-                'tag'   => lang('Menu.audience_kids'),
-                'title' => lang('Section.school_course_child_title'),
-                'start' => $fallbackStart,
-                'copy'  => lang('Section.school_course_child_copy'),
-            ],
-            [
-                'tag'   => lang('Menu.audience_international'),
-                'title' => lang('Section.school_course_mask_title'),
-                'start' => $fallbackStart,
-                'copy'  => lang('Section.school_course_mask_copy'),
-            ],
         ];
     }
 
@@ -92,7 +80,7 @@ final class SchoolFallbackRepository
             'teachersTitle'      => lang('Section.school_teachers_title'),
             'studentsTitle'      => lang('Section.school_students_title'),
             'coursesTitle'       => lang('Section.school_courses_title'),
-            'courseImage'        => 'assets/img/menu/menu_programacion.webp',
+            'courseImage'        => 'assets/img/school/la-escuela-de-los-nuevos-comediantes.webp',
             'courseTag'          => lang('Section.school_course_tag'),
             'courseTitle'        => lang('Section.school_course_title'),
             'courseStart'        => $fallbackStart,

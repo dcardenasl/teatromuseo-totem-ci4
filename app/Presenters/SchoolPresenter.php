@@ -52,7 +52,7 @@ final class SchoolPresenter
     public function presentCourses(array $apiCourses, string $locale, string $fallbackStart): array
     {
         if ($apiCourses === []) {
-            return array_slice($this->fallback->courses($fallbackStart), 0, 1);
+            return $this->fallback->courses($fallbackStart);
         }
 
         $courses = [];
@@ -71,8 +71,7 @@ final class SchoolPresenter
             ];
         }
 
-        // The totem shows one course at a time due to screen space.
-        return array_slice($courses, 0, 1);
+        return $courses;
     }
 
     /**
@@ -90,13 +89,6 @@ final class SchoolPresenter
      */
     public function fallbackStartDate(string $locale): string
     {
-        $monthName = $this->dates->monthName(4, $locale);
-
-        return match ($locale) {
-            'en' => sprintf($this->lang('Section.school_start_en'), $monthName, '20', '2026'),
-            'fr' => sprintf($this->lang('Section.school_start_fr'), '20', $monthName, '2026'),
-            'pt' => sprintf($this->lang('Section.school_start_pt'), '20', $monthName, '2026'),
-            default => sprintf($this->lang('Section.school_start_es'), '20', $monthName, '2026'),
-        };
+        return $this->dates->formatSchoolStart('2026-04-20', $locale);
     }
 }
