@@ -7,7 +7,7 @@ return [
     'building' => 'Edifício',
     'institution' => 'Instituição',
     'today' => 'Atualidade',
-    'main_title' => 'O Museu',
+    'main_title' => 'Museu',
     'teatromuseo_history' => 'História do Teatromuseo',
     'church_history' => 'História da Igreja',
     'teatromuseo_today' => 'Teatromuseo Hoje',

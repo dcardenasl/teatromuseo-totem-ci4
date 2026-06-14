@@ -7,7 +7,7 @@ return [
     'building' => 'Building',
     'institution' => 'Institution',
     'today' => 'Today',
-    'main_title' => 'The Museum',
+    'main_title' => 'Museum',
     'teatromuseo_history' => 'Teatromuseo History',
     'church_history' => 'Church History',
     'teatromuseo_today' => 'Teatromuseo Today',
