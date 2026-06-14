@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var array<int, object> $sections Ítems de colección a renderear
+ * @var array $nav                    Navegación shell
+ */
+?>
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>

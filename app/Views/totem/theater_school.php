@@ -1,3 +1,13 @@
+<?php
+/**
+ * @var array<int, array{title:string, tag?:string, start?:string, copy?:string}> $courses
+ * @var array{title:string, heroImage?:string, heroAlt?:string, introCopy?:string, stats?:array, teachersTitle?:string, studentsTitle?:string, courseImage?:string, courseTitle?:string, courseTag?:string, courseStart?:string, courseCopy?:string, courseContactLabel?:string, courseContact?:string, courseQrUrl?:string, courseQrImage?:string, courseQrLabel?:string} $section
+ * @var array<int, array{name:string, role:string, description:string, tone?:string}> $teachers
+ * @var array<int, array{name:string, role:string, description:string, tone?:string}> $students
+ * @var string $personPhoto
+ * @var array $nav
+ */
+?>
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>

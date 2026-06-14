@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var array{image?:string, imageAlt?:string, eyebrow?:string, headline?:string, intro?:string, stats?:array<int, array{label:string, value:string}>, actions?:array<int, array{href:string, label:string}>, blocks?:array<int, array{index?:string, title:string, copy:string, fallback?:bool}>, primary?:array{title:string, copy:string}} $today
+ * @var array $nav
+ */
+?>
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>

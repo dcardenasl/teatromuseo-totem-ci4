@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var array $nav
+ */
+?>
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>

@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var array{tags?:array, title:string, company:string, image?:string, ...} $detail
+ * @var array $nav
+ */
+?>
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>

@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var array{visualClass:string, detailsTitle:string, detailsCopy:string, title:string, stats?:array<int, array{label:string, value:string}>} $section
+ * @var array $nav
+ */
+?>
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>

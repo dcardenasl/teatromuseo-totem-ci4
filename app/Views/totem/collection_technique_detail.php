@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var array{title:string, description?:string} $technique
+ * @var array $nav
+ */
+?>
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>

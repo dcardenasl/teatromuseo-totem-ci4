@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var array{title:string} $tradition
+ * @var array $nav
+ */
+?>
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>

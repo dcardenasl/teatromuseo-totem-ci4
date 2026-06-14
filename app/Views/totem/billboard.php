@@ -1,3 +1,13 @@
+<?php
+/**
+ * @var array<int, array{title:string, days:array<int, string>}> $months
+ * @var array<int, array{class?:string, tone?:string, slug:string, image?:string, title:string, tag:string, type:string, dateLabel?:string, timeLabel?:string, copy:string}> $events
+ * @var array $nav
+ * @var string $titleClass
+ * @var string $titleWidth
+ * @var string $footerVariant
+ */
+?>
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>

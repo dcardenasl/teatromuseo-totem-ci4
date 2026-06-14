@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var array<int, array{title:string, slug:string}> $techniques
+ * @var array $nav
+ */
+?>
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>

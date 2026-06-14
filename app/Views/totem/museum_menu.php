@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var array<int, array{title:string, href:string, img?:string}> $items
+ * @var array $nav
+ */
+?>
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>
