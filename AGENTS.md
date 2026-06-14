@@ -257,7 +257,16 @@ lang('File.welcome_title');
 sprintf(lang('File.item_count'), $count);
 ```
 
-### 5. CSS
+### 5. Assets visuales
+
+**Regla de nombrado:**
+- Usar siempre `lowercase-kebab-case.webp` para assets nuevos.
+- Preferir nombres descriptivos y estables: `coleccion-card.webp`, `historia-card.webp`, `explora-el-museo-card.webp`.
+- El nombre debe empezar por el contenido o la función real, no por versiones genéricas como `cat`, `landing`, `main`, `v1` o `temp`.
+- Si un asset se reutiliza en varias pantallas, mantener un único nombre canónico y referenciarlo desde todos los lugares.
+- La carpeta debe reflejar la sección funcional cuando aporte claridad (`menu/`, `museum/`, `school/`, `ui/`), sin mezclar variantes arbitrarias.
+
+### 6. CSS
 
 **NUNCA editar `style.css` directamente.**
 
@@ -283,7 +292,7 @@ var(--radius-card)           /* 16px */
 var(--shadow-card)           /* sombra estándar */
 ```
 
-### 6. Tests
+### 7. Tests
 
 ```bash
 # Ejecutar todos los tests
@@ -319,7 +328,7 @@ final class ExampleControllerTest extends CIUnitTestCase
 }
 ```
 
-### 7. Commits
+### 8. Commits
 
 Usar conventional commits:
 
