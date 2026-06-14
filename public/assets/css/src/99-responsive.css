@@ -26,12 +26,6 @@
         grid-template-columns: 1fr;
     }
 
-    .event-list {
-        grid-template-columns: 1fr;
-        gap: 0;
-        width: min(100%, 560px);
-    }
-
     .billboard-months {
         gap: 14px 20px;
         width: min(100%, 620px);
@@ -86,6 +80,14 @@
 
     .footer-brand__label {
         font-size: 0.96rem;
+    }
+}
+
+@container kiosk (max-width: 430px) {
+    .event-list {
+        grid-template-columns: 1fr;
+        gap: 0;
+        width: min(100%, 430px);
     }
 }
 
