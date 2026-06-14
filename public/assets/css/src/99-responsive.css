@@ -26,6 +26,21 @@
         grid-template-columns: 1fr;
     }
 
+    .event-list {
+        grid-template-columns: 1fr;
+        gap: 0;
+        width: min(100%, 560px);
+    }
+
+    .billboard-months {
+        gap: 14px 20px;
+        width: min(100%, 620px);
+    }
+
+    .billboard-closing {
+        width: min(100%, 620px);
+    }
+
     .hero__ornaments {
         height: 270px;
     }
