@@ -9,6 +9,8 @@
     'content' => view('totem/partials/menu_grid', [
         'items' => $items,
         'showCoda' => true,
+        'codaImage' => 'assets/img/menu/collage_referencia.webp',
+        'codaAlt' => lang('Splash.collage_alt'),
     ])
 ]) ?>
 <?= $this->endSection() ?>

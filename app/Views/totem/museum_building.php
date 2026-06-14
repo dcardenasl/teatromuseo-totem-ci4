@@ -12,7 +12,7 @@
             'title' => lang('MuseumInfo.teatromuseo_history_title'),
             'image' => 'assets/img/museo/el-museo/collage-nuestra-historia.webp',
             'imageAlt' => lang('MuseumInfo.teatromuseo_history_alt'),
-            'intro' => lang('MuseumInfo.teatromuseo_history_intro'),
+            'intro' => lang('MuseumInfo.main_copy'),
             'sections' => [
                 [
                     'title' => lang('MuseumInfo.mission_title'),

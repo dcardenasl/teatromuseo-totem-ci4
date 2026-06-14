@@ -71,11 +71,11 @@ final class MuseumTodayPresenter
             'actions' => [
                 [
                     'label' => lang('MuseumInfo.today_cta_building'),
-                    'href'  => base_url('museo/el-museo/edificio'),
+                    'href'  => base_url('museo/el-museo/historia'),
                 ],
                 [
                     'label' => lang('MuseumInfo.today_cta_institution'),
-                    'href'  => base_url('museo/el-museo/institucion'),
+                    'href'  => base_url('museo/el-museo/iglesia'),
                 ],
                 [
                     'label' => lang('MuseumInfo.today_cta_back'),

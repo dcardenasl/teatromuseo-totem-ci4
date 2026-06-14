@@ -34,9 +34,9 @@ $routes->get('museo/historia-comica/(:segment)', 'MuseumController::museumHistor
 
 // Museo - Explora el museo
 $routes->get('museo/el-museo', 'MuseumController::museumInfoMain');
-$routes->get('museo/el-museo/edificio', 'MuseumController::museumBuilding');
-$routes->get('museo/el-museo/institucion', 'MuseumController::museumInstitution');
-$routes->get('museo/el-museo/actualidad', 'MuseumController::museumToday');
+$routes->get('museo/el-museo/historia', 'MuseumController::museumBuilding');
+$routes->get('museo/el-museo/iglesia', 'MuseumController::museumInstitution');
+$routes->get('museo/el-museo/hoy', 'MuseumController::museumToday');
 
 // Teatro Escuela
 $routes->get('teatro-escuela', 'SchoolController::theaterSchool');
