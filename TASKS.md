@@ -67,7 +67,7 @@ Lo que no aparece aquí ya no debe tratarse como bloqueo de exportación: `inici
 | `assets/design-refs/museo/coleccion/coleccion.webp` | `/museo/coleccion` | [app/Views/totem/collection_main.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_main.php) | Pendiente rediseño | Alta |
 | `assets/design-refs/museo/coleccion/titeres/ficha-item.webp` | `/museo/coleccion/fichas/{id}` | [app/Views/totem/collection_item_detail.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_item_detail.php) | Pendiente | Alta |
 | `assets/design-refs/museo/coleccion/titeres/tecnicas.webp` | `/museo/coleccion/titeres/tecnicas` | [app/Views/totem/collection_techniques.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_techniques.php) | Legacy | Media |
-| `assets/design-refs/museo/coleccion/mascaras/tradiciones.webp` | `/museo/coleccion/mascaras/tradiciones` | [app/Views/totem/collection_masks_traditions.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_masks_traditions.php) | Parcial | Media |
+| `assets/design-refs/museo/coleccion/mascaras/tradiciones.webp` | `/museo/coleccion/mascaras/tradiciones` | [app/Views/totem/collection_masks_traditions.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_masks_traditions.php) | Final | Usa `comedia-arte.webp` y `comedia-andes.webp` como piezas correctas. |
 | `assets/design-refs/museo/coleccion/payasos/ficha.webp` | `/museo/coleccion/payasos` | [app/Views/totem/collection_clowns.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/collection_clowns.php) | Legacy | Media |
 | `assets/design-refs/museo/explora-el-museo/historia.webp` | `/museo/el-museo/edificio` | [app/Views/totem/museum_building.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/museum_building.php) | Equivalencia pendiente de nombre | Media |
 | `assets/design-refs/museo/explora-el-museo/la-iglesia.webp` | `/museo/el-museo/institucion` | [app/Views/totem/museum_institution.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/museum_institution.php) | Equivalencia pendiente de nombre | Media |
@@ -186,7 +186,7 @@ Esta tabla debe mantenerse actualizada cuando se cambie cualquier imagen, ilustr
 | Menú principal - Programación | `public/assets/img/menu/menu_programacion.webp` | `/menu` | final | Coincide con la tarjeta de cartelera. |
 | Menú principal - Visitas Guiadas | `public/assets/img/menu/menu_visitas.webp` | `/menu` | final | Coincide con la tarjeta de visitas. |
 | Menú principal - Amigos de Teatromuseo | `public/assets/img/menu/menu_amigos.webp` | `/menu` | final | Coincide con la tarjeta de amigos. |
-| Menú principal - Collage inferior de edificio / ornamento | `public/assets/img/menu/collage_referencia.webp` | `/menu` | provisional | Usado como referencia visual del cierre inferior, revisar si la composición tiene recorte o encuadre distinto. |
+| Menú principal - Collage inferior de edificio / ornamento | `public/assets/img/menu/collage_referencia.webp` | `/menu` | final | Asset específico del menú; coincide con la referencia visual del cierre inferior. |
 | Colección - Títeres (imagen principal) | `public/assets/img/museum/coleccion-card.webp` | `/museo/coleccion` | final | Es el asset principal visible para la sección de colección. |
 | Colección - Historia | `public/assets/img/museum/historia-card.webp` | `/museo/coleccion` y `/museo/historia` | final | Coincide con el bloque de historia. |
 | Colección - Explora el museo | `public/assets/img/museum/explora-el-museo-card.webp` | `/museo/coleccion` y `/museo/el-museo` | final | Coincide con el bloque del museo. |
@@ -384,7 +384,7 @@ Esta lista convierte la auditoría visual en pasos accionables. Si se quiere ret
 - [ ] Exportar `assets/design-refs/museo/coleccion/titeres/ver-todos.webp` para el CTA de navegación total.
 - [ ] Exportar `assets/design-refs/museo/coleccion/payasos/ficha.webp` para la entrada editorial de payasos.
 - [ ] Exportar `assets/design-refs/museo/coleccion/payasos/teatro.webp` para el bloque editorial de payasos.
-- [ ] Exportar `assets/design-refs/museo/coleccion/mascaras/tradiciones.webp` para la pantalla de tradiciones.
+- [x] Exportar `assets/design-refs/museo/coleccion/mascaras/tradiciones.webp` para la pantalla de tradiciones.
 - [ ] Exportar `assets/design-refs/cartelera/cartelera-detalle.png` como equivalente final en `.webp` para `/cartelera/detalle/{slug}`.
 - [ ] Si Coni no entrega una exportación específica para la vista de `actualidad`, conservar `public/assets/img/museo/el-museo/collage-historia-actual.webp` como fallback documentado en lugar de tratarla como bloqueo.
 
@@ -393,7 +393,7 @@ Esta lista convierte la auditoría visual en pasos accionables. Si se quiere ret
 - [ ] Renombrar `public/assets/img/museo/el-museo/collage-san-judas.webp` a un nombre representativo de la Iglesia y reutilizarlo en `/museo/el-museo/institucion`.
 - [ ] Reutilizar `public/assets/img/museo/el-museo/explora-el-museo.webp` como portada real de `/museo/el-museo` si esa composición sigue siendo la correcta.
 - [ ] Reutilizar `public/assets/img/museo/historia/historia-editorial.webp` como portada o bloque de entrada fuerte donde historia necesite peso editorial.
-- [ ] Reutilizar `public/assets/img/museo/coleccion/titeres/titere.webp`, `public/assets/img/museo/coleccion/payasos/payaso.webp`, `public/assets/img/museo/coleccion/mascaras/mascara.webp`, `public/assets/img/museo/coleccion/mascaras/comedia-arte.webp` y `public/assets/img/museo/coleccion/mascaras/comedia-andes.webp` antes de duplicar nuevas piezas.
+- [x] Reutilizar `public/assets/img/museo/coleccion/titeres/titere.webp`, `public/assets/img/museo/coleccion/payasos/payaso.webp`, `public/assets/img/museo/coleccion/mascaras/mascara.webp`, `public/assets/img/museo/coleccion/mascaras/comedia-arte.webp` y `public/assets/img/museo/coleccion/mascaras/comedia-andes.webp` antes de duplicar nuevas piezas.
 - [ ] Aplicar la regla de nombres `lowercase-kebab-case.webp`, evitando `landing`, `main`, `v1`, `temp` y nombres genéricos.
 
 #### M3. Pantallas que todavía necesitan rediseño estructural

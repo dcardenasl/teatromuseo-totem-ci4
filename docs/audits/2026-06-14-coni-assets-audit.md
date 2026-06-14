@@ -33,7 +33,7 @@ Estado: cubierto.
 
 - Usa `public/assets/img/menu/menu_museo.webp`, `menu_escuela.webp`, `menu_programacion.webp`, `menu_visitas.webp`, `menu_amigos.webp` y `menu/collage_referencia.webp`.
 - La composición general sí coincide con la propuesta de Coni: título central, cinco accesos y cierre ornamental inferior.
-- `collage_referencia.webp` sigue siendo el elemento menos específico, pero ya funciona como equivalencia aceptable del cierre visual.
+- `collage_referencia.webp` es el asset correcto para este cierre y evita el desvío que causaba reutilizar el collage de `splash`.
 
 ### 1.1) `/` splash / inicio
 
@@ -167,10 +167,10 @@ Estado: sin asset dedicado equivalente.
 
 Referencia de diseño: `assets/design-refs/museo/coleccion/mascaras/tradiciones.webp`
 
-Estado: sin asset dedicado equivalente.
+Estado: cubierto.
 
-- La pantalla actual lista las tradiciones con texto.
-- Existen assets relacionados para las dos tradiciones (`comedia-arte.webp`, `comedia-andes.webp`), pero no una composición de portada/entrada equivalente a la propuesta.
+- La pantalla ahora usa `public/assets/img/museo/coleccion/mascaras/comedia-arte.webp` y `comedia-andes.webp`, que corresponden a las dos composiciones de la referencia.
+- La entrada visual ya reproduce la lógica de Coni: imagen grande arriba y botón naranja debajo para cada tradición.
 
 ### 12) `/museo/coleccion/payasos`
 
