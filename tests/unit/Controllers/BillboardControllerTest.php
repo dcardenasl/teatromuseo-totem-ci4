@@ -23,9 +23,9 @@ final class BillboardControllerTest extends CIUnitTestCase
 
     public function testBillboardDetailRouteRendersFallbackShow(): void
     {
-        $result = $this->get('cartelera/detalle/muaki');
+        $result = $this->get('cartelera/detalle/palabras-cantadas-del-viento');
 
         $result->assertStatus(200);
-        $result->assertSee('Muaki');
+        $result->assertSee('Palabras cantadas del viento');
     }
 }
