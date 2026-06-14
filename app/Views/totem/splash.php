@@ -12,14 +12,6 @@ $localesData = array_map(fn($l) => [
 <div class="totem-page totem-page--center">
     <section class="screen splash-screen" aria-label="<?= esc(lang('Splash.screen_label'), 'attr') ?>" data-locales="<?= esc(json_encode($localesData), 'attr') ?>">
         <div class="screen__content splash-scene">
-            <div class="splash-sky" aria-hidden="true">
-                <span class="splash-bird splash-bird--top"></span>
-                <span class="splash-bird splash-bird--mid"></span>
-                <span class="splash-bird splash-bird--low"></span>
-                <span class="splash-flower splash-flower--left"></span>
-                <span class="splash-flower splash-flower--right"></span>
-            </div>
-
             <div class="splash-copy">
                 <span class="splash-copy__slot splash-copy__slot--eyebrow">
                     <span class="splash-eyebrow splash-eyebrow--current"><?= lang('Splash.discover') ?></span>
