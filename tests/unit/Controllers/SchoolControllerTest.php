@@ -18,6 +18,8 @@ final class SchoolControllerTest extends CIUnitTestCase
 
         $result->assertStatus(200);
         $result->assertSee('Teatro escuela');
-        $result->assertSee('school-course');
+        $result->assertSee('Curso activo');
+        $result->assertSee('school-dossier__panel');
+        $result->assertSee('school-dossier__closing');
     }
 }
