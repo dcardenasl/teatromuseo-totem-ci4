@@ -49,11 +49,12 @@ Estado: cubierto.
 
 Referencia de diseño: `assets/design-refs/museo/museo.webp`
 
-Estado: bien cubierto.
+Estado: mayormente cubierto, con un card incorrecto en `Colección`.
 
 - La grilla principal ya quedó alineada con los cuatro accesos esperados: colección, el museo, historia y visitas.
-- Los assets actuales `public/assets/img/museum/coleccion-card.webp`, `explora-el-museo-card.webp`, `historia-card.webp` y `visitas-guiadas-card.webp` cubren la pantalla base.
-- No veo un faltante visual crítico para esta vista.
+- Los assets actuales `public/assets/img/museum/coleccion-card.webp`, `explora-el-museo-card.webp`, `historia-card.webp` y `visitas-guiadas-card.webp` cubren la pantalla base en términos de layout.
+- Sin embargo, el primer card de `Colección` no está usando la composición editorial de Coni; hoy se renderiza con una pieza simplificada tipo marioneta sola.
+- Eso lo vuelve visualmente distinto de la referencia de `Colección` dentro del módulo Museo.
 
 ### 3) `/museo/el-museo`
 
@@ -206,6 +207,82 @@ Estado: funcional, pero no hay referencia directa en `assets/design-refs/`.
   - `teatro-escuela/collage.webp`
   - `logos/ministerio_culturas_chile.webp`
 - No encontré una carpeta de Coni en `assets/design-refs/` para esta pantalla, así que no pude hacer contraste directo.
+
+## Browser Verification
+
+Se hizo una pasada viva sobre `http://localhost:8086/` con el navegador integrado para validar que el render actual sí está usando los assets correctos en las pantallas que ya están cubiertas.
+
+### Pantallas que sí calzan con Coni
+
+- `/` splash:
+  - Coincide con `assets/design-refs/inicio.jpg`.
+  - Usa `assets/img/splash/collage-inicio.webp`, `assets/img/ui/texture.webp`, `assets/animations/logo.gif`, `assets/fonts/corporate-a/Corporate%20A%20Light%20Regular.otf`, `assets/fonts/Lato/Lato-Regular.ttf` y `assets/fonts/Lato/Lato-Bold.ttf`.
+- `/menu`:
+  - Coincide con `assets/design-refs/menu-principal.jpg`.
+  - Usa `assets/img/menu/menu_museo.webp`, `menu_programacion.webp`, `menu_escuela.webp`, `menu_visitas.webp`, `menu_amigos.webp`, `menu/collage_referencia.webp` y `logos/ministerio_culturas_chile.webp`.
+- `/museo`:
+  - Coincide con `assets/design-refs/museo/museo.webp`.
+  - Usa `assets/img/museo/coleccion/titeres/titere.webp`, `assets/img/museo/el-museo/explora-el-museo.webp`, `assets/img/museo/historia/historia-editorial.webp` y `assets/img/menu/menu_visitas.webp`.
+  - Ojo: el card de `Colección` aquí no es el de la lámina `assets/design-refs/museo/coleccion/coleccion.webp`; es una marioneta sola.
+- `/museo/coleccion`:
+  - Coincide con `assets/design-refs/museo/coleccion/coleccion.webp`.
+  - Usa los tres assets base correctos: `assets/img/museo/coleccion/titeres/titere.webp`, `assets/img/museo/coleccion/payasos/payaso.webp` y `assets/img/museo/coleccion/mascaras/mascara.webp`.
+
+### Pantallas donde aún faltan assets o integración
+
+- `/museo/coleccion/titeres/exhibicion`:
+  - Hoy es un placeholder de "contenido en preparación".
+  - Coni sí dejó `assets/design-refs/museo/coleccion/titeres/ficha-item.webp` como composición de referencia.
+- `/museo/coleccion/titeres/tecnicas`:
+  - Hoy es una grilla textual sin la composición editorial de Coni.
+  - Falta integrar `assets/design-refs/museo/coleccion/titeres/tecnicas.webp`.
+- `/museo/coleccion/mascaras/tradiciones`:
+  - Hoy muestra solo texto y dos links.
+  - Falta integrar `assets/design-refs/museo/coleccion/mascaras/tradiciones.webp`.
+- `/museo/coleccion/payasos`:
+  - La ruta no resuelve; hoy devuelve "Página no encontrada".
+  - Coni sí entregó referencias para esa rama en `assets/design-refs/museo/coleccion/payasos/ficha.webp` y `assets/design-refs/museo/coleccion/payasos/teatro.webp`.
+
+### Conclusión rápida
+
+- Las pantallas base ya están bien alineadas con Coni.
+- La deuda real está en las subpantallas de Colección y en la ausencia de la ruta base de Payasos.
+- También sigue faltando la materialización de varias piezas editoriales en assets reutilizables, aunque la referencia visual ya existe.
+
+## App-wide Summary
+
+### En buen estado
+
+- `/`
+- `/menu`
+- `/museo`
+- `/museo/el-museo`
+- `/museo/historia`
+- `/teatro-escuela`
+- `/cartelera`
+- `/cartelera/detalle/{slug}`
+- `/amigos-de-teatromuseo`
+
+### Parciales o pendientes
+
+- `/extension` sigue en modo `Contenido en preparación`.
+- `/museo/coleccion/titeres/exhibicion` y `/museo/coleccion/mascaras/exhibicion` también están en modo placeholder.
+- `/museo/coleccion/mascaras/tradiciones` funciona, pero todavía no expresa la composición visual de Coni.
+- `/museo/coleccion/titeres/tecnicas` funciona, pero la vista es más funcional que editorial.
+
+### Roturas reales
+
+- `/museo/coleccion/payasos` responde 404.
+- El card de `Colección` en `/museo` usa una marioneta aislada en vez de la lámina editorial de referencia.
+- `/cartelera` y `/cartelera/detalle/{slug}` funcionan, pero el diseño todavía no calza con las láminas de Coni.
+  - En el listado, los cards son cajas textuales con miniatura vacía y no usan la composición imagen + bloque de color de la referencia.
+  - En el detalle, la jerarquía de título, chips, foto principal y cierre no reproduce la composición editorial exacta; se ve más técnico y menos editorial que la lámina `cartelera-detalle.png`.
+
+### Qué significa esto
+
+- La app no está “rota” en bloque.
+- Sí tiene una deuda clara en la rama de colección y en un par de pantallas stub.
+- El resto del sitio está razonablemente estable y navegable.
 
 ## Corrections Applied During This Audit
 

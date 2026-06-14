@@ -18,6 +18,18 @@ Esta sección documenta la comparación real entre el tótem en `http://localhos
 
 > Nota: esta auditoría conserva el histórico visual del proyecto. Si una pantalla ya quedó implementada en una oleada posterior con `[x]`, esa oleada manda para el estado técnico; la auditoría sólo conserva el gap visual o la deuda de estilo que todavía podría quedar.
 
+### Resumen ejecutivo de pendientes reales
+
+Después del cruce visual y del inventario de assets, las deudas que siguen siendo materialmente relevantes son estas:
+
+- `P1` Exportar o localizar el asset canónico de `assets/design-refs/museo/historia/historia-del-circo.webp`.
+- `P1` Exportar las piezas editoriales que faltan para Colección: `ficha-item.webp`, `ficha-tecnica.webp`, `tecnicas.webp`, `ver-todos.webp`, `payasos/ficha.webp`, `payasos/teatro.webp` y `mascaras/tradiciones.webp`.
+- `P1` Definir la versión final del afiche de detalle de Cartelera y dejarlo como asset reusable en lugar de depender sólo del fallback actual.
+- `P2` Cerrar el dossier de `teatro-escuela` con las ilustraciones secundarias de cierre y validar si hace falta una mejora puntual de composición, no un rediseño completo.
+- `P2` Alinear nombres de assets en `/museo/el-museo` para que reflejen el contenido real, aunque hoy la cobertura visual ya existe con equivalencias válidas.
+
+Lo que no aparece aquí ya no debe tratarse como bloqueo de exportación: `inicio`, `menu`, `museo`, `museo/el-museo` y la cartelera base están cubiertos funcionalmente; en esos casos queda deuda de pulido o de nomenclatura, no de pantalla inexistente.
+
 ### Fuentes de referencia
 - `assets/design-refs/inicio.jpg`
 - `assets/design-refs/menu-principal.jpg`
@@ -145,13 +157,13 @@ Esta sección documenta la comparación real entre el tótem en `http://localhos
   * **Referencia visual:** `assets/design-refs/museo/museo.webp` y los assets locales de escuela / teatro
   * **Ruta actual:** `/teatro-escuela`
   * **Archivos a tocar:** [app/Views/totem/section.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/section.php), o una vista dedicada tipo `theater_school_dossier.php`
-  * **Brecha visual:** Esta es la pantalla con mayor diferencia respecto de la referencia. La composición construye un dossier vertical largo con hero, métricas, maestros, cursos, QR y un cierre muy ilustrado. La versión actual se percibe demasiado genérica.
+  * **Brecha visual:** La composición construye un dossier vertical largo con hero, métricas, maestros, cursos, QR y un cierre ilustrado. La versión actual ya cubre la estructura base, pero todavía puede requerir cierre ornamental y una revisión fina de densidad visual.
   * **Criterio de aceptación:**
       1. Debe existir una zona hero fuerte en la parte superior.
       2. Las cifras principales deben leerse de inmediato.
       3. La sección de maestros debe sentirse como un carrusel o grilla curada, no como lista de prueba.
       4. El bloque de cursos debe parecer una pieza editorial real y no una simple tarjeta informativa.
-      5. El cierre debe incluir la composición ilustrada final y el contacto/QR en una ubicación coherente con la referencia.
+      5. El cierre debe incluir la composición ilustrada final y el contacto/QR en una ubicación coherente con la referencia, sin asumir que haga falta redibujar toda la pantalla.
 
 ### F. Pantallas de museo que siguen en modo placeholder
 - Historial completo de esta pantalla archivado en [TASKS-ARCHIVES.md](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/TASKS-ARCHIVES.md).
@@ -179,14 +191,14 @@ Esta tabla debe mantenerse actualizada cuando se cambie cualquier imagen, ilustr
 | Colección - Historia | `public/assets/img/museum/historia-card.webp` | `/museo/coleccion` y `/museo/historia` | final | Coincide con el bloque de historia. |
 | Colección - Explora el museo | `public/assets/img/museum/explora-el-museo-card.webp` | `/museo/coleccion` y `/museo/el-museo` | final | Coincide con el bloque del museo. |
 | Colección - Visitas Guiadas | `public/assets/img/museum/visitas-guiadas-card.webp` | `/museo/coleccion` y `/visitas-guiadas` | final | Coincide con el bloque de visitas. |
-| Teatro Escuela - Collage de cierre | `public/assets/img/school/school_collage.webp` | `/teatro-escuela` | final | Sirve como base del collage final, aunque la composición de referencia es más rica. |
+| Teatro Escuela - Collage de cierre | `public/assets/img/school/school_collage.webp` | `/teatro-escuela` | parcial | Sirve como base del collage final; faltan ornamentos/ajustes de cierre para cerrar la densidad visual. |
 | Cartelera detalle - Imagen principal de obra | `public/assets/img/menu/menu_programacion.webp` | `/cartelera/detalle/{slug}` | provisional | Hoy se usa como placeholder; debe reemplazarse por la imagen real de cada obra. |
 | Cartelera detalle - Flechas de galería | `public/assets/img/ui/slider_left.webp` y `public/assets/img/ui/slider_right.webp` | `/cartelera/detalle/{slug}` | final | Cumplen la función visual esperada de navegación lateral. |
 | Cartelera detalle - Icono duración | `public/assets/img/ui/icon_duration.webp` | `/cartelera/detalle/{slug}` | final | Coincide con el bloque de duración. |
 | Cartelera detalle - Icono ticket | `public/assets/img/ui/icon_ticket.webp` | `/cartelera/detalle/{slug}` | final | Coincide con el bloque de precio/entrada. |
 | Fondo / textura papel | `public/assets/img/ui/texture.png` | Todas las pantallas | final | Es la base visual del sistema. |
 | Portada de Historia | `assets/design-refs/museo/historia/landing.webp` | `/museo/historia` | provisional | La composición existe en diseño, pero aún falta alinearla del todo con la implementación actual. |
-| Hero / escena principal de Teatro Escuela | `public/assets/img/school/school_collage.webp` | `/teatro-escuela` | provisional | Ya sostiene el hero principal; todavía falta la composición más rica de la referencia. |
+| Hero / escena principal de Teatro Escuela | `public/assets/img/school/school_collage.webp` | `/teatro-escuela` | parcial | Sostiene el hero principal; la deuda real está en el cierre ilustrado, no en la ausencia del bloque base. |
 | QR editorial del dossier de Escuela | `public/assets/img/school/teatroescuela-qr.png` | `/teatro-escuela` | final | QR real generado para el enlace público de Teatro Escuela con `?utm_source=totem`. |
 | Afiche o foto principal de cartelera por obra | `ausente` | `/cartelera/detalle/{slug}` | ausente | Cada obra debería tener su propia imagen editorial y no reciclar un placeholder genérico. |
 | Ilustraciones secundarias de cierre en Escuela | `ausente` | `/teatro-escuela` | ausente | Faltan varios ornamentos finales de la referencia para reproducir la misma densidad visual. |
@@ -292,8 +304,6 @@ Esta guía no pretende reemplazar a la referencia visual como fuente de diseño.
 
 #### J6. Lista de assets faltantes o por exportar desde diseño
 - Portada editorial específica para `Historia`.
-- Hero/imagen principal definitiva para `Teatro Escuela`.
-- QR editorial final para `Teatro Escuela`.
 - Imagen principal por obra para `Cartelera detalle`.
 - Ilustraciones secundarias de cierre para `Teatro Escuela`.
 - Eventuales variantes específicas de portada para cada capítulo de `Historia`.
@@ -320,7 +330,7 @@ Esta tabla define el estado mínimo esperado para considerar una pantalla alinea
 | `/museo/historia` | 1080x1920 vertical | Topbar | Título | Composición central | Segundo bloque / CTA | `assets/design-refs/museo/historia/landing.webp` | Debe reproducir el dramatismo de la referencia actual. |
 | `/museo/historia-comica` | 1080x1920 vertical | Topbar | Título | Composición central | Segundo bloque / CTA | `assets/design-refs/museo/historia/landing.webp` | Alias heredado para QR/deep links. |
 | `/cartelera/detalle/{slug}` | 1080x1920 vertical | Topbar | Título + tags | Imagen o galería | Ficha lateral + cierre | `assets/design-refs/cartelera/cartelera-detalle.png` | Debe conservar legibilidad y jerarquía editorial. |
-| `/teatro-escuela` | 1080x1920 vertical | Topbar | Hero | Métricas | Cursos + cierre | `public/assets/img/school/school_collage.webp` + ausentes | Debe sentirse como dossier y no como ficha simple. |
+| `/teatro-escuela` | 1080x1920 vertical | Topbar | Hero | Métricas | Cursos + cierre | `public/assets/img/school/school_collage.webp` | Debe sentirse como dossier y no como ficha simple; faltan ornamentos/cierre fino para igualar la referencia. |
 | `/museo/el-museo/actualidad` | 1080x1920 vertical | Topbar | Título | Contenido real | Cierre / CTA | `assets/design-refs/museo/museo.webp` | No debe quedar en mock visible. |
 
 #### K1. Regla de uso de la tabla
@@ -347,7 +357,7 @@ Esta lista convierte la auditoría visual en pasos accionables. Si se quiere ret
 | `/museo/historia/{slug}` | Detalle de capítulo | vista asociada a controlador | parcial | Alinear el detalle con una estructura de artículo real. |
 | `/museo/historia-comica/{slug}` | Alias legacy | vista asociada a controlador | compatibilidad | Mantener sólo para QR/deep links heredados. |
 | `/cartelera/detalle/{slug}` | Afiche editorial | [app/Views/totem/billboard_detail.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/billboard_detail.php) | parcial | Separar claramente imagen, descripción y ficha lateral. |
-| `/teatro-escuela` | Dossier largo | [app/Views/totem/section.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/section.php) | lejos | Crear vista dedicada o reestructurar sección con hero, métricas, maestros y cursos. |
+| `/teatro-escuela` | Dossier largo | [app/Views/totem/section.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/section.php) | parcial | Mantener el dossier base y cerrar sólo ornamentos/ajustes finos de composición, si el repaso visual los confirma. |
 | `/museo/el-museo/actualidad` | Contenido real | [app/Views/totem/museum_today.php](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/app/Views/totem/museum_today.php) | real / fallback explícito | Reemplazar stub por una composición editorial activa, con respuesta robusta si la API no entrega bloques. |
 
 #### L1. Cómo usar este plan operativo
@@ -376,7 +386,7 @@ Esta lista convierte la auditoría visual en pasos accionables. Si se quiere ret
 - [ ] Exportar `assets/design-refs/museo/coleccion/payasos/teatro.webp` para el bloque editorial de payasos.
 - [ ] Exportar `assets/design-refs/museo/coleccion/mascaras/tradiciones.webp` para la pantalla de tradiciones.
 - [ ] Exportar `assets/design-refs/cartelera/cartelera-detalle.png` como equivalente final en `.webp` para `/cartelera/detalle/{slug}`.
-- [ ] Si existe una exportación específica para la vista de `actualidad`, integrarla; si no, producirla como asset dedicado.
+- [ ] Si Coni no entrega una exportación específica para la vista de `actualidad`, conservar `public/assets/img/museo/el-museo/collage-historia-actual.webp` como fallback documentado en lugar de tratarla como bloqueo.
 
 #### M2. Assets que hay que renombrar y reutilizar
 - [ ] Renombrar `public/assets/img/museo/el-museo/collage-nuestra-historia.webp` a un nombre representativo del contenido real y reutilizarlo en `/museo/el-museo/edificio`.
@@ -392,7 +402,7 @@ Esta lista convierte la auditoría visual en pasos accionables. Si se quiere ret
 - [ ] Rediseñar `/museo/coleccion/fichas/{id}` para que tenga una ficha individual real, no una extensión de listado.
 - [ ] Revisar `/museo/coleccion/payasos` y `/museo/coleccion/mascaras` para que, si siguen existiendo, tengan entrada editorial propia y no solo texto estructurado.
 - [ ] Rediseñar `/cartelera/detalle/{slug}` como afiche editorial completo, con imagen, ficha, tags y cierre bien jerarquizados.
-- [ ] Rediseñar `/teatro-escuela` como dossier vertical completo con hero, métricas, docentes, cursos, QR y cierre ilustrado.
+- [ ] Revisar `/teatro-escuela` como dossier vertical completo y cerrar sólo los ornamentos o ajustes visuales que el repaso final confirme como pendientes.
 
 ## 🗺️ Mapa de Componentes y Rutas Físicas del Proyecto
 
