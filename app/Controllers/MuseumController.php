@@ -15,15 +15,15 @@ final class MuseumController extends BaseTotemController
     public function museum(): string
     {
         return view('totem/museum_menu', array_merge(
-            $this->pageMeta(lang('Menu.el_museo')),
+            $this->pageMeta(lang('Menu.museum')),
             [
                 'nav' => $this->shellNav(base_url('menu')),
-                'exploreLabel' => lang('Menu.explore_museum'),
+                'exploreLabel' => lang('Menu.museum'),
                 'items' => [
-                    $this->menuItem(lang('Menu.collection'), 'museo/coleccion', lang('Menu.collection_copy'), 'menu-card--museum', 'museum/cat_coleccion.webp'),
-                    $this->menuItem(lang('Menu.comic_history'), 'museo/historia', lang('Menu.comic_history_copy'), 'menu-card--history', 'museo/historia/collage-circo.webp'),
-                    $this->menuItem(lang('Menu.explore_museum'), 'museo/el-museo', lang('Menu.museum_copy'), 'menu-card--school', 'museo/el-museo/marco.webp'),
-                    $this->menuItem(lang('Menu.visits'), 'visitas-guiadas', lang('Menu.visits_copy'), 'menu-card--visits', 'museum/cat_visitas_guiadas.webp'),
+                    $this->menuItem(lang('Menu.collection'), 'museo/coleccion', lang('Menu.collection_copy'), 'menu-card--museum', 'museo/coleccion/titeres/titere.webp'),
+                    $this->menuItem(lang('Menu.el_museo'), 'museo/el-museo', lang('Menu.museum_copy'), 'menu-card--school', 'museo/el-museo/explora-el-museo.webp'),
+                    $this->menuItem(lang('Menu.comic_history'), 'museo/historia', lang('Menu.comic_history_copy'), 'menu-card--history', 'museo/historia/historia-editorial.webp'),
+                    $this->menuItem(lang('Menu.visits'), 'visitas-guiadas', lang('Menu.visits_copy'), 'menu-card--visits', 'menu/menu_visitas.webp'),
                 ],
             ]
         ));
@@ -32,7 +32,7 @@ final class MuseumController extends BaseTotemController
     public function museumInfoMain(): string
     {
         return view('totem/museum_info_main', array_merge(
-            $this->pageMeta(lang('Menu.museum')),
+            $this->pageMeta(lang('Menu.el_museo')),
             ['nav' => $this->shellNav(base_url('museo'))]
         ));
     }

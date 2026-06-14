@@ -36,7 +36,7 @@ final class BillboardController extends BaseTotemController
         $tags         = [lang('Billboard.fallback_audience_adults'), lang('Billboard.event_type_masks')];
         $image        = 'assets/img/billboard/la-malattia-di-nogasto-poster.webp';
         $closingImage = 'assets/img/billboard/la-malattia-di-nogasto-collage.webp';
-        $qrImage      = 'assets/img/school/teatroescuela-qr.png';
+        $qrImage      = 'assets/img/school/teatroescuela-qr.webp';
         $closingNote  = lang('Billboard.default_closing_note');
 
         if ($slug === 'muaki') {

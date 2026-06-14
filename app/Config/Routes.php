@@ -32,7 +32,7 @@ $routes->get('museo/historia/(:segment)', 'MuseumController::museumHistoryPost/$
 $routes->get('museo/historia-comica', 'MuseumController::museumComicHistoryMain');
 $routes->get('museo/historia-comica/(:segment)', 'MuseumController::museumHistoryPost/$1');
 
-// Museo - El Museo
+// Museo - Explora el museo
 $routes->get('museo/el-museo', 'MuseumController::museumInfoMain');
 $routes->get('museo/el-museo/edificio', 'MuseumController::museumBuilding');
 $routes->get('museo/el-museo/institucion', 'MuseumController::museumInstitution');
