@@ -2,7 +2,11 @@
 
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
-        <div class="language-layout" data-target-url="<?= esc(!empty($from) ? base_url($from) : base_url('menu'), 'attr') ?>">
+        <!-- Language selector modal.
+             - data-on-select: URL to navigate to after selecting a language (always /menu)
+             - data-on-cancel: URL to navigate to when closing with X button (back to origin)
+        -->
+        <div class="language-layout" data-on-select="<?= esc(base_url('menu'), 'attr') ?>" data-on-cancel="<?= esc(!empty($from) ? base_url($from) : base_url('menu'), 'attr') ?>">
             <section class="language-card language-card--bare language-card--panel language-card--floating" aria-label="<?= esc(lang('Menu.select_language'), 'attr') ?>">
                 <div class="language-card__chrome">
                     <button class="language-card__close pill-button pill-button--ghost" type="button" aria-label="<?= esc(lang('Menu.close_selector'), 'attr') ?>" onclick="closeLanguageSelection()">

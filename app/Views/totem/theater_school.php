@@ -1,7 +1,7 @@
 <?php
 /**
  * @var array<int, array{title:string, tag?:string, start?:string, copy?:string}> $courses
- * @var array{title:string, heroImage?:string, heroAlt?:string, introCopy?:string, stats?:array, teachersTitle?:string, studentsTitle?:string, courseImage?:string, courseTitle?:string, courseTag?:string, courseStart?:string, courseCopy?:string, courseContactLabel?:string, courseContact?:string, courseQrUrl?:string, courseQrImage?:string, courseQrLabel?:string} $section
+ * @var array{title:string, heroImage?:string, heroVideo?:string, heroVideoType?:string, heroAlt?:string, introCopy?:string, stats?:array, teachersTitle?:string, studentsTitle?:string, courseImage?:string, courseTitle?:string, courseTag?:string, courseStart?:string, courseCopy?:string, courseContactLabel?:string, courseContact?:string, courseQrUrl?:string, courseQrImage?:string, courseQrLabel?:string} $section
  * @var array<int, array{name:string, role:string, description:string, tone?:string}> $teachers
  * @var array<int, array{name:string, role:string, description:string, tone?:string}> $students
  * @var string $personPhoto
@@ -16,12 +16,23 @@
             <?php if (isset($courses)): ?>
                 <section class="school-page" aria-label="<?= esc(lang('Section.school_aria_label'), 'attr') ?>">
                     <div class="school-page__hero">
-                        <figure class="school-video" aria-label="<?= esc($section['heroAlt'] ?? lang('Section.school_aria_label'), 'attr') ?>">
-                            <img
+                        <figure
+                            class="school-video"
+                            aria-label="<?= esc($section['heroAlt'] ?? lang('Section.school_aria_label'), 'attr') ?>"
+                            <?= empty($section['heroVideo']) ? 'hidden aria-hidden="true"' : '' ?>
+                        >
+                            <video
                                 class="school-video__image"
-                                src="<?= esc(base_url($section['heroImage'] ?? 'assets/img/menu/menu_escuela.webp'), 'attr') ?>"
-                                alt="<?= esc($section['heroAlt'] ?? lang('Section.school_aria_label'), 'attr') ?>"
+                                poster="<?= esc(base_url($section['heroImage'] ?? 'assets/img/menu/menu_escuela.webp'), 'attr') ?>"
+                                playsinline
+                                muted
+                                loop
+                                preload="metadata"
                             >
+                                <?php if (!empty($section['heroVideo'])): ?>
+                                    <source src="<?= esc(base_url($section['heroVideo']), 'attr') ?>" type="<?= esc($section['heroVideoType'] ?? 'video/mp4', 'attr') ?>">
+                                <?php endif; ?>
+                            </video>
                             <span class="school-video__play" aria-hidden="true">
                                 <span class="school-video__play-triangle"></span>
                             </span>
@@ -68,41 +79,6 @@
                                     <span class="teacher-card__body">
                                         <span class="teacher-card__name"><?= esc($teacher['name']) ?></span>
                                         <span class="teacher-card__role"><?= esc($teacher['role']) ?></span>
-                                        <span class="teacher-card__country"><?= esc(lang('Section.school_person_card_cta')) ?></span>
-                                    </span>
-                                </button>
-                            <?php endforeach; ?>
-                        </div>
-                    </section>
-
-                    <section class="school-people-section" aria-label="<?= esc(lang('Section.school_students_title'), 'attr') ?>">
-                        <h2 class="school-section-title"><?= esc($section['studentsTitle'] ?? lang('Section.school_students_title')) ?></h2>
-
-                        <div class="school-people-rail" role="list" aria-label="<?= esc(lang('Section.school_students_title'), 'attr') ?>">
-                            <?php foreach ($students as $student): ?>
-                                <button
-                                    type="button"
-                                    class="teacher-card teacher-card--interactive <?= esc($student['tone'] ?? '') ?>"
-                                    role="listitem"
-                                    aria-haspopup="dialog"
-                                    aria-controls="school-person-modal"
-                                    data-person-trigger
-                                    data-person-group="<?= esc($section['studentsTitle'] ?? lang('Section.school_students_title'), 'attr') ?>"
-                                    data-person-name="<?= esc($student['name'], 'attr') ?>"
-                                    data-person-role="<?= esc($student['role'], 'attr') ?>"
-                                    data-person-description="<?= esc($student['description'], 'attr') ?>"
-                                    data-person-photo="<?= esc(base_url($personPhoto), 'attr') ?>"
-                                    data-person-alt="<?= esc($student['name'], 'attr') ?>"
-                                >
-                                    <span class="teacher-card__media" aria-hidden="true">
-                                        <img
-                                            src="<?= esc(base_url($personPhoto), 'attr') ?>"
-                                            alt=""
-                                        >
-                                    </span>
-                                    <span class="teacher-card__body">
-                                        <span class="teacher-card__name"><?= esc($student['name']) ?></span>
-                                        <span class="teacher-card__role"><?= esc($student['role']) ?></span>
                                         <span class="teacher-card__country"><?= esc(lang('Section.school_person_card_cta')) ?></span>
                                     </span>
                                 </button>

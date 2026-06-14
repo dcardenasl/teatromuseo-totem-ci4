@@ -18,7 +18,7 @@ $localesData = array_map(fn($l) => [
                     <span class="splash-eyebrow splash-eyebrow--next" aria-hidden="true"></span>
                 </span>
                 <h1 class="splash-title">Teatromuseo</h1>
-                <a class="hero__cta splash-cta" href="<?= base_url('language') ?>">
+                <a class="hero__cta splash-cta" href="<?= base_url('language?from=/') ?>">
                     <span class="splash-copy__slot splash-copy__slot--cta">
                         <span class="splash-cta__text splash-cta__text--current"><?= lang('Splash.touch_start') ?></span>
                         <span class="splash-cta__text splash-cta__text--next" aria-hidden="true"></span>
