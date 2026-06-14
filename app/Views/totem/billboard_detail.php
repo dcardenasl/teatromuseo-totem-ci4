@@ -13,8 +13,8 @@
                 <h2 class="billboard-detail__show-title"><?= esc($detail['title'] ?? '') ?></h2>
 
                 <p class="billboard-detail__meta">
-                    <strong><?= esc($detail['company'] ?? '') ?></strong>
-                    <span><?= esc($detail['direction'] ?? '') ?></span>
+                    <span class="billboard-detail__meta-label">Compañía</span>
+                    <strong class="billboard-detail__meta-value"><?= esc($detail['company'] ?? '') ?></strong>
                 </p>
             </section>
 
@@ -42,6 +42,11 @@
                     <p class="billboard-detail__lead">
                         <?= esc($detail['copy'] ?? '') ?>
                     </p>
+                    <?php if (!empty($detail['secondaryCopy'])): ?>
+                        <p class="billboard-detail__lead billboard-detail__lead--secondary">
+                            <?= esc($detail['secondaryCopy']) ?>
+                        </p>
+                    <?php endif; ?>
                 </div>
 
                 <aside class="billboard-detail__sidebar" aria-label="<?= esc(lang('Billboard.quick_sheet_label'), 'attr') ?>">
@@ -52,32 +57,19 @@
 
                     <span class="billboard-detail__rule" aria-hidden="true"></span>
 
-                    <div class="billboard-detail__metric">
-                        <img
-                            class="billboard-detail__metric-icon"
-                            src="<?= esc(base_url('assets/img/ui/icon_duration.webp'), 'attr') ?>"
-                            alt=""
-                            aria-hidden="true"
-                        >
-                        <div class="billboard-detail__metric-content">
-                            <span class="billboard-detail__metric-label"><?= esc(lang('Billboard.duration_label')) ?></span>
-                            <strong class="billboard-detail__metric-value"><?= esc($detail['duration'] ?? '') ?></strong>
-                        </div>
-                    </div>
-
-                    <span class="billboard-detail__rule" aria-hidden="true"></span>
-
-                    <div class="billboard-detail__metric">
-                        <img
-                            class="billboard-detail__metric-icon"
-                            src="<?= esc(base_url('assets/img/ui/icon_ticket.webp'), 'attr') ?>"
-                            alt=""
-                            aria-hidden="true"
-                        >
-                        <div class="billboard-detail__metric-content">
-                            <span class="billboard-detail__metric-label billboard-detail__metric-label--strong"><?= esc($detail['price'] ?? '') ?></span>
-                            <strong class="billboard-detail__metric-value"><?= esc(lang('Billboard.price_note')) ?></strong>
-                            <p class="billboard-detail__note"><?= esc(lang('Billboard.ticket_note')) ?></p>
+                    <div class="billboard-detail__price-block">
+                        <div class="billboard-detail__metric">
+                            <img
+                                class="billboard-detail__metric-icon"
+                                src="<?= esc(base_url('assets/img/ui/icon_ticket.webp'), 'attr') ?>"
+                                alt=""
+                                aria-hidden="true"
+                            >
+                            <div class="billboard-detail__metric-content">
+                                <span class="billboard-detail__metric-label billboard-detail__metric-label--strong">Entradas</span>
+                                <strong class="billboard-detail__metric-value"><?= esc($detail['priceGeneral'] ?? '') ?></strong>
+                                <p class="billboard-detail__note"><?= esc($detail['priceReduced'] ?? '') ?></p>
+                            </div>
                         </div>
                     </div>
                 </aside>

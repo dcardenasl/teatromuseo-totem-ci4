@@ -29,22 +29,26 @@ final class BillboardPresenter
      */
     public function present(array $apiShows, string $locale): array
     {
+        $fallbackEvents = $this->fallback->events();
+
         if ($apiShows === []) {
             return [
                 'nav'    => [],
                 'months' => $this->fallback->months(),
-                'events' => $this->fallback->events(),
+                'events' => $fallbackEvents,
             ];
         }
 
         $monthsMap = [];
         $events    = [];
+        $fallbackCount = count($fallbackEvents);
 
-        foreach ($apiShows as $show) {
+        foreach ($apiShows as $index => $show) {
             if (!is_array($show)) {
                 continue;
             }
 
+            $template = $fallbackCount > 0 ? $fallbackEvents[$index % $fallbackCount] : [];
             $startDate = is_string($show['start_date'] ?? null) ? $show['start_date'] : '';
 
             if ($startDate !== '') {
@@ -59,12 +63,16 @@ final class BillboardPresenter
             $audience = Audience::fromApi($show['audience_id'] ?? null);
 
             $events[] = [
-                'tag'   => $audience->label(),
-                'type'  => lang('Billboard.event_type_theatre'),
-                'title' => is_string($show['title'] ?? null) ? $show['title'] : '',
-                'copy'  => is_string($show['description'] ?? null) ? $show['description'] : '',
-                'class' => $audience->cssClass(),
-                'slug'  => is_string($show['slug'] ?? null) ? $show['slug'] : (is_numeric($show['id'] ?? null) ? (string) $show['id'] : '1'),
+                'tag'       => $audience->label(),
+                'type'      => lang('Billboard.event_type_theatre'),
+                'title'     => is_string($show['title'] ?? null) ? $show['title'] : '',
+                'copy'      => is_string($show['description'] ?? null) ? $show['description'] : '',
+                'class'     => $audience->cssClass(),
+                'tone'      => is_string($template['tone'] ?? null) ? $template['tone'] : '',
+                'slug'      => is_string($show['slug'] ?? null) ? $show['slug'] : (is_numeric($show['id'] ?? null) ? (string) $show['id'] : '1'),
+                'image'     => is_string($template['image'] ?? null) ? $template['image'] : '',
+                'dateLabel' => is_string($template['dateLabel'] ?? null) ? $template['dateLabel'] : '',
+                'timeLabel' => is_string($template['timeLabel'] ?? null) ? $template['timeLabel'] : '',
             ];
         }
 
