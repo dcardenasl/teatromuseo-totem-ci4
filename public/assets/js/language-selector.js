@@ -1,28 +1,41 @@
 /**
  * Language selector page
+ *
+ * Behavior:
+ * - When selecting a language: navigate to data-on-select (always /menu)
+ * - When closing (X button): navigate to data-on-cancel (back to origin via 'from' parameter)
+ *
+ * Usage in language.php:
+ * - data-on-select: where to go after language selection
+ * - data-on-cancel: where to go when user closes the selector
  */
 (function() {
-    const splashEl = document.querySelector('.language-layout');
-    if (!splashEl) return;
+    const languageLayoutEl = document.querySelector('.language-layout');
+    if (!languageLayoutEl) return;
 
-    const targetUrl = splashEl.dataset.targetUrl || '/';
+    // Destinations: on-select (language chosen) vs on-cancel (close button)
+    const onSelectUrl = languageLayoutEl.dataset.onSelect || '/menu';
+    const onCancelUrl = languageLayoutEl.dataset.onCancel || '/menu';
 
     function setLanguage(lang) {
         const secureFlag = location.protocol === 'https:' ? '; Secure' : '';
         document.cookie = 'totem_lang=' + lang + '; path=/; max-age=31536000; SameSite=Lax' + secureFlag;
         localStorage.setItem('totem_lang', lang);
+
+        // After selecting language, navigate to on-select destination
         if (window.launchLanguageSelection) {
-            window.launchLanguageSelection(targetUrl);
+            window.launchLanguageSelection(onSelectUrl);
         } else {
-            window.location.href = targetUrl;
+            window.location.href = onSelectUrl;
         }
     }
 
     function closeLanguageSelection() {
+        // Close button: go back to origin (on-cancel destination)
         if (window.launchLanguageSelection) {
-            window.launchLanguageSelection(targetUrl);
+            window.launchLanguageSelection(onCancelUrl);
         } else {
-            window.location.href = targetUrl;
+            window.location.href = onCancelUrl;
         }
     }
 

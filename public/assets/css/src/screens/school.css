@@ -849,7 +849,7 @@
     border-radius: 22px;
     background: rgba(255, 250, 241, 0.94);
     border: 1px solid rgba(92, 70, 43, 0.12);
-    box-shadow: 0 10px 18px rgba(68, 42, 18, 0.12);
+    box-shadow: none;
     scroll-snap-align: start;
 }
 
@@ -864,7 +864,6 @@
 .school-people-rail .teacher-card--interactive:hover,
 .school-people-rail .teacher-card--interactive:focus-visible {
     transform: translateY(-2px);
-    box-shadow: 0 14px 24px rgba(68, 42, 18, 0.16);
     border-color: rgba(92, 70, 43, 0.22);
     outline: none;
 }

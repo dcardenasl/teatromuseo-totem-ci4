@@ -24,7 +24,7 @@
     display: grid;
     justify-items: center;
     align-content: center;
-    gap: 18px;
+    gap: 48px;
     text-align: center;
     width: min(calc(100% - 44px), 860px);
     margin-top: clamp(168px, 19vh, 250px);

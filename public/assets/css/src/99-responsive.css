@@ -168,7 +168,7 @@
     .splash-copy {
         width: min(calc(100% - 36px), 860px);
         margin-top: clamp(118px, 14vh, 180px);
-        gap: 12px;
+        gap: 36px;
         z-index: 5;
     }
 
