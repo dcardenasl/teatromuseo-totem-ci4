@@ -22,7 +22,7 @@ final class MuseumControllerTest extends CIUnitTestCase
 
     public function testMuseumTodayRouteRendersBlocks(): void
     {
-        $result = $this->get('museo/el-museo/actualidad');
+        $result = $this->get('museo/el-museo/hoy');
 
         $result->assertStatus(200);
         $result->assertSee('Actualidad del museo');

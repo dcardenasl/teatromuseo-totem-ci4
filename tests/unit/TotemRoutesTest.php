@@ -60,11 +60,10 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result->assertSee('Explora el museo');
         $result->assertSee('Historia');
         $result->assertSee('assets/img/museum/coleccion-card.webp');
-        $result->assertSee('assets/img/museum/explora-el-museo-card.webp');
-        $result->assertSee('assets/img/museum/historia-card.webp');
-        $result->assertSee('assets/img/museum/visitas-guiadas-card.webp');
-        $result->assertDontSee('assets/img/museo/el-museo/explora-el-museo.webp');
-        $result->assertDontSee('assets/img/museo/historia/historia-editorial.webp');
+        $result->assertSee('assets/img/museo/el-museo/explora-el-museo.webp');
+        $result->assertSee('assets/img/museo/historia/historia-editorial.webp');
+        $result->assertSee('assets/img/menu/menu_visitas.webp');
+        $result->assertDontSee('assets/img/museum/historia-card.webp');
     }
 
     public function testMuseumInfoMainRoute(): void
@@ -83,13 +82,13 @@ final class TotemRoutesTest extends CIUnitTestCase
 
     public function testMuseumInfoDetailRoutesUseCorrectCollages(): void
     {
-        $history = $this->get('museo/el-museo/edificio');
+        $history = $this->get('museo/el-museo/historia');
         $history->assertStatus(200);
         $history->assertSee('Historia de Teatromuseo');
         $history->assertSee('assets/img/museo/el-museo/collage-nuestra-historia.webp');
         $history->assertDontSee('mock');
 
-        $church = $this->get('museo/el-museo/institucion');
+        $church = $this->get('museo/el-museo/iglesia');
         $church->assertStatus(200);
         $church->assertSee('La Iglesia San Judas Tadeo');
         $church->assertSee('assets/img/museo/el-museo/collage-san-judas.webp');
@@ -193,13 +192,25 @@ final class TotemRoutesTest extends CIUnitTestCase
 
     public function testMuseumTodayRoute(): void
     {
-        $result = $this->get('museo/el-museo/actualidad');
+        $result = $this->get('museo/el-museo/hoy');
         $result->assertStatus(200);
         $result->assertSee('Teatromuseo Hoy');
         $result->assertSee('Actualidad del museo');
         $result->assertSee('Lectura editorial');
         $result->assertSee('assets/img/museo/el-museo/collage-historia-actual.webp');
         $result->assertDontSee('mock');
+    }
+
+    public function testMuseumInfoLegacyRoutesAreGone(): void
+    {
+        $history = $this->get('museo/el-museo/edificio');
+        $history->assertStatus(404);
+
+        $church = $this->get('museo/el-museo/institucion');
+        $church->assertStatus(404);
+
+        $today = $this->get('museo/el-museo/actualidad');
+        $today->assertStatus(404);
     }
 
     public function testFriendsRoute(): void
