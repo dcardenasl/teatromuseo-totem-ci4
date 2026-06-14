@@ -56,7 +56,15 @@ final class TotemRoutesTest extends CIUnitTestCase
     {
         $result = $this->get('museo');
         $result->assertStatus(200);
+        $result->assertSee('Museo');
         $result->assertSee('Explora el museo');
+        $result->assertSee('Historia');
+        $result->assertSee('assets/img/museum/coleccion-card.webp');
+        $result->assertSee('assets/img/museum/explora-el-museo-card.webp');
+        $result->assertSee('assets/img/museum/historia-card.webp');
+        $result->assertSee('assets/img/museum/visitas-guiadas-card.webp');
+        $result->assertDontSee('assets/img/museo/el-museo/explora-el-museo.webp');
+        $result->assertDontSee('assets/img/museo/historia/historia-editorial.webp');
     }
 
     public function testMuseumInfoMainRoute(): void
