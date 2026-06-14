@@ -859,6 +859,41 @@
     font-family: "Corporate A", Georgia, "Times New Roman", serif;
 }
 
+.collection-traditions {
+    display: grid;
+    gap: 56px;
+    justify-items: center;
+    padding: 18px 0 8px;
+}
+
+.collection-traditions__item {
+    display: grid;
+    gap: 18px;
+    justify-items: center;
+    width: min(100%, 640px);
+}
+
+.collection-traditions__media {
+    width: min(100%, 620px);
+    display: grid;
+    place-items: center;
+}
+
+.collection-traditions__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 16px 18px rgba(74, 50, 24, 0.12));
+}
+
+.collection-traditions__item .collection-pill {
+    min-width: min(100%, 360px);
+    min-height: 52px;
+    padding-inline: 26px;
+    font-size: 1rem;
+}
+
 .collection-footer__logo--state {
     width: 106px;
     min-height: 106px;
