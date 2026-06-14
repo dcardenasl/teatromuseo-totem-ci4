@@ -16,7 +16,7 @@ $variant = $variant ?? 'section';
         <div class="footer-brand__logo footer-brand__logo--state">
             <img
                 class="footer-brand__logo-image"
-                src="<?= esc(base_url('assets/img/logos/ministerio_culturas_chile.png'), 'attr') ?>"
+                src="<?= esc(base_url('assets/img/logos/ministerio_culturas_chile.webp'), 'attr') ?>"
                 alt="<?= esc(lang('Common.state_logo_alt'), 'attr') ?>"
             >
         </div>

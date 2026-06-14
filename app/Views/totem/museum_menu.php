@@ -10,7 +10,7 @@
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => lang('Menu.el_museo'),
+        'title' => lang('Menu.museum'),
         'titleWidth' => '9.5ch',
         'content' => $content,
         'nav' => $nav ?? []

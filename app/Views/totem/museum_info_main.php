@@ -26,7 +26,7 @@
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => lang('Menu.explore_museum'),
+        'title' => lang('Menu.el_museo'),
         'content' => $content,
         'nav' => $nav ?? []
     ]) ?>

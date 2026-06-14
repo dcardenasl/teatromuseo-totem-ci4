@@ -96,7 +96,7 @@
                 <div class="billboard-detail__contact">
                     <img
                         class="billboard-detail__qr-image"
-                        src="<?= esc(base_url($detail['qrImage'] ?? 'assets/img/school/teatroescuela-qr.png'), 'attr') ?>"
+                        src="<?= esc(base_url($detail['qrImage'] ?? 'assets/img/school/teatroescuela-qr.webp'), 'attr') ?>"
                         alt=""
                         aria-hidden="true"
                     >

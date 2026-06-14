@@ -157,7 +157,7 @@
                                             >
                                                 <img
                                                     class="school-course__qr-box"
-                                                    src="<?= esc(base_url($section['courseQrImage'] ?? 'assets/img/school/teatroescuela-qr.png'), 'attr') ?>"
+                                                    src="<?= esc(base_url($section['courseQrImage'] ?? 'assets/img/school/teatroescuela-qr.webp'), 'attr') ?>"
                                                     alt="<?= esc(lang('Section.course_qr_alt'), 'attr') ?>"
                                                 >
                                             </a>
