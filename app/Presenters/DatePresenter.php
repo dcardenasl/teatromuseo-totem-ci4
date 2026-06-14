@@ -42,15 +42,16 @@ final class DatePresenter
             return '';
         }
 
+        $weekday = $this->weekdayName((int) $date->format('N'), $locale);
         $day   = $date->format('d');
         $month = $this->monthName((int) $date->format('n'), $locale);
         $year  = $date->format('Y');
 
         return match ($locale) {
-            'en' => sprintf($this->lang('Section.school_start_en'), $month, $day, $year),
-            'fr' => sprintf($this->lang('Section.school_start_fr'), $day, $month, $year),
-            'pt' => sprintf($this->lang('Section.school_start_pt'), $day, $month, $year),
-            default => sprintf($this->lang('Section.school_start_es'), $day, $month, $year),
+            'en' => sprintf($this->lang('Section.school_start_en'), $weekday, $month, $day, $year),
+            'fr' => sprintf($this->lang('Section.school_start_fr'), $weekday, $day, $month, $year),
+            'pt' => sprintf($this->lang('Section.school_start_pt'), $weekday, $day, $month, $year),
+            default => sprintf($this->lang('Section.school_start_es'), $weekday, $day, $month, $year),
         };
     }
 
@@ -72,6 +73,29 @@ final class DatePresenter
         $date = DateTimeImmutable::createFromFormat('Y-m-d', $dateString);
 
         return $date !== false ? $date->format('j') : '';
+    }
+
+    /**
+     * Format a weekday name from a date string.
+     */
+    public function weekdayName(int $weekday, string $locale): string
+    {
+        if ($weekday < 1 || $weekday > 7) {
+            return '';
+        }
+
+        $formatter = new IntlDateFormatter(
+            $locale,
+            IntlDateFormatter::LONG,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            'EEEE',
+        );
+
+        $date = (new DateTimeImmutable('2026-01-05'))->modify('+' . ($weekday - 1) . ' days');
+
+        return (string) $formatter->format($date);
     }
 
     /**
