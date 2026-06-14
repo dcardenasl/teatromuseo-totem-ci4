@@ -100,10 +100,10 @@ final class SchoolFallbackRepository
             'courseContactLabel' => lang('Section.course_contact_label'),
             'courseContact'      => lang('Section.school_course_contact_value'),
             'courseQrLabel'      => lang('Section.school_course_qr_label'),
-            'courseQrImage'      => 'assets/img/school/teatroescuela-qr.png',
+            'courseQrImage'      => 'assets/img/school/teatroescuela-qr.webp',
             'courseQrUrl'        => 'https://teatromuseo.cl/teatro-escuela?utm_source=totem',
             'closingImage'       => 'assets/img/teatro-escuela/collage.webp',
-            'logoPrimary'        => 'assets/img/logos/ministerio_culturas_chile.png',
+            'logoPrimary'        => 'assets/img/logos/ministerio_culturas_chile.webp',
             'logoSecondary'      => 'assets/img/menu/menu_escuela.webp',
         ];
     }
