@@ -28,9 +28,9 @@ final class MuseumController extends BaseTotemController
                 'exploreLabel' => lang('Menu.museum'),
                 'items' => [
                     $this->menuItem(lang('Menu.collection'), 'museo/coleccion', lang('Menu.collection_copy'), 'menu-card--museum', 'museum/coleccion-card.webp'),
-                    $this->menuItem(lang('Menu.el_museo'), 'museo/el-museo', lang('Menu.museum_copy'), 'menu-card--school', 'museo/el-museo/explora-el-museo.webp'),
-                    $this->menuItem(lang('Menu.comic_history'), 'museo/historia', lang('Menu.comic_history_copy'), 'menu-card--history', 'museo/historia/historia-editorial.webp'),
-                    $this->menuItem(lang('Menu.visits'), 'visitas-guiadas', lang('Menu.visits_copy'), 'menu-card--visits', 'menu/menu_visitas.webp'),
+                    $this->menuItem(lang('Menu.el_museo'), 'museo/el-museo', lang('Menu.museum_copy'), 'menu-card--school', 'museum/explora-el-museo-card.webp'),
+                    $this->menuItem(lang('Menu.comic_history'), 'museo/historia', lang('Menu.comic_history_copy'), 'menu-card--history', 'museum/historia-card.webp'),
+                    $this->menuItem(lang('Menu.visits'), 'visitas-guiadas', lang('Menu.visits_copy'), 'menu-card--visits', 'museum/visitas-guiadas-card.webp'),
                 ],
             ]
         ));
