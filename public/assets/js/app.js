@@ -80,6 +80,7 @@ function commitFetchedPage(htmlText, url, chosenTransition, x, y, isPopState) {
     updateActiveLanguageUI();
     applyLocalizedSystemMessages();
     setupIdleTimer();
+    initStoryCarousels();
 
     return true;
 }
@@ -278,6 +279,42 @@ function updateActiveLanguageUI() {
     }
 }
 
+function initStoryCarousels() {
+    document.querySelectorAll('[data-story-carousel]').forEach((carousel) => {
+        const track = carousel.querySelector('[data-story-carousel-track]');
+        const prev = carousel.querySelector('[data-story-carousel-prev]');
+        const next = carousel.querySelector('[data-story-carousel-next]');
+
+        if (!track || !(track instanceof HTMLElement)) {
+            return;
+        }
+
+        const scrollAmount = () => Math.max(track.clientWidth * 0.92, 220);
+
+        const updateButtons = () => {
+            if (!prev || !next) {
+                return;
+            }
+
+            const atStart = track.scrollLeft <= 4;
+            const atEnd = Math.ceil(track.scrollLeft + track.clientWidth) >= track.scrollWidth - 4;
+
+            prev.toggleAttribute('disabled', atStart);
+            next.toggleAttribute('disabled', atEnd);
+        };
+
+        const scrollTrack = (direction) => {
+            track.scrollBy({ left: direction * scrollAmount(), behavior: 'smooth' });
+            window.requestAnimationFrame(updateButtons);
+        };
+
+        prev?.addEventListener('click', () => scrollTrack(-1));
+        next?.addEventListener('click', () => scrollTrack(1));
+        track.addEventListener('scroll', updateButtons, { passive: true });
+        updateButtons();
+    });
+}
+
 // Inicializar comportamientos globales al cargar el DOM inicial
 document.addEventListener('DOMContentLoaded', () => {
     // 0. Transición de Entrada (Apertura) - Solo si están habilitadas
@@ -285,6 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
     applyLocalizedSystemMessages();
     setupIdleTimer();
     bindLanguageLaunchers();
+    initStoryCarousels();
 });
 
 

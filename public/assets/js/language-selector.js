@@ -2,7 +2,7 @@
  * Language selector page
  *
  * Behavior:
- * - When selecting a language: navigate to data-on-select (always /menu)
+ * - When selecting a language: navigate to data-on-select
  * - When closing (X button): navigate to data-on-cancel (back to origin via 'from' parameter)
  *
  * Usage in language.php:
