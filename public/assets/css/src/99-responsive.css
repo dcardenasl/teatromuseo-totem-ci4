@@ -303,7 +303,7 @@
     }
 
     .collection-grid--exhibit {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .collection-grid--techniques {
@@ -425,11 +425,11 @@
     }
 
     .collection-grid--exhibit {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .collection-grid--techniques {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .collection-detail__facts {
@@ -658,6 +658,11 @@
 }
 
 @container kiosk (max-width: 480px) {
+    .collection-grid--exhibit,
+    .collection-grid--techniques {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .school-person-modal {
         padding: 12px;
     }
