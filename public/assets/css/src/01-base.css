@@ -99,8 +99,6 @@ h1, h2, h3, h4, h5, h6 {
 .event-card__title,
 .month-group__title,
 .menu-card__title,
-.museum-today__title,
-.museum-today__feature-title,
-.museum-today__block-title {
+.museum-today__title {
     overflow-wrap: break-word;
 }
