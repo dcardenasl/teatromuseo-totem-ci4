@@ -9,7 +9,9 @@
 }
 
 .billboard-title .menu-title__heading {
-    max-width: var(--page-title-max-width, 8.5ch);
+    justify-self: stretch;
+    max-width: none;
+    width: 100%;
 }
 
 .billboard-months {
@@ -197,19 +199,51 @@
 
 .billboard-closing {
     display: grid;
-    justify-items: center;
-    width: min(100%, 860px);
+    width: min(100%, 920px);
     margin: 4px auto 0;
 }
 
-.billboard-closing__image {
+.billboard-closing__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(180px, 0.7fr);
+    gap: 24px;
+    align-items: center;
+}
+
+.billboard-closing__collage {
+    margin: 0;
+}
+
+.billboard-closing__collage-image {
     display: block;
     width: 100%;
     height: auto;
 }
 
+.billboard-closing__contact {
+    display: grid;
+    justify-items: center;
+    gap: 14px;
+    text-align: center;
+    color: var(--ink);
+}
+
+.billboard-closing__qr-image {
+    display: block;
+    width: 140px;
+    height: auto;
+}
+
+.billboard-closing__note {
+    margin: 0;
+    max-width: 14ch;
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-size: clamp(1.35rem, 2.4cqi, 1.95rem);
+    line-height: 1.1;
+}
+
 .footer-brand--billboard {
-    display: none;
+    display: grid;
 }
 
 .billboard-detail {

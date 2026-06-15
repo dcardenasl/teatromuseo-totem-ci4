@@ -55,12 +55,25 @@
             </section>
 
             <section class="billboard-closing" aria-label="<?= esc(lang('Billboard.closing_label'), 'attr') ?>">
-                <img
-                    class="billboard-closing__image"
-                    src="<?= esc(base_url('assets/img/billboard/cartelera-closing.webp'), 'attr') ?>"
-                    alt=""
-                    aria-hidden="true"
-                >
+                <div class="billboard-closing__layout">
+                    <figure class="billboard-closing__collage" aria-hidden="true">
+                        <img
+                            class="billboard-closing__collage-image"
+                            src="<?= esc(base_url('assets/img/billboard/billboard-collage.webp'), 'attr') ?>"
+                            alt=""
+                        >
+                    </figure>
+
+                    <div class="billboard-closing__contact">
+                        <img
+                            class="billboard-closing__qr-image"
+                            src="<?= esc(base_url('assets/img/school/teatroescuela-qr.webp'), 'attr') ?>"
+                            alt=""
+                            aria-hidden="true"
+                        >
+                        <p class="billboard-closing__note"><?= esc(lang('Billboard.default_closing_note')) ?></p>
+                    </div>
+                </div>
             </section>
         </div>
     <?php $content = ob_get_clean(); ?>
