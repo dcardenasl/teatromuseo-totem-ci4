@@ -302,6 +302,18 @@
         width: 100px;
     }
 
+    .collection-grid--exhibit {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .collection-grid--techniques {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .collection-detail__facts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .hero__ornament--stage {
         width: 100%;
     }
@@ -405,6 +417,33 @@
 
     .school-people-rail .teacher-card__country {
         font-size: 0.64rem;
+    }
+
+    .collection-grid-layout__title,
+    .collection-detail-stage__title {
+        font-size: clamp(2rem, 7.2cqi, 3.4rem);
+    }
+
+    .collection-grid--exhibit {
+        grid-template-columns: 1fr;
+    }
+
+    .collection-grid--techniques {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .collection-detail__facts {
+        grid-template-columns: 1fr;
+    }
+
+    .collection-detail-stage__nav-btn {
+        width: 46px;
+        height: 46px;
+    }
+
+    .collection-detail-stage__nav-btn img {
+        width: 18px;
+        height: 18px;
     }
 
     .school-person-modal {
