@@ -23,7 +23,7 @@ $routes->addRedirect('museo/coleccion/mascaras', 'museo/coleccion/mascaras/exhib
 $routes->get('museo/coleccion/mascaras/exhibicion', 'CollectionController::collectionMasksExhibit');
 $routes->get('museo/coleccion/mascaras/tradiciones', 'CollectionController::collectionMasksTraditions');
 $routes->get('museo/coleccion/mascaras/tradiciones/(:segment)', 'CollectionController::collectionMaskTradition/$1');
-$routes->get('museo/coleccion/fichas/(:num)', 'CollectionController::collectionItem/$1');
+$routes->get('museo/coleccion/fichas/(:segment)', 'CollectionController::collectionItem/$1');
 
 // Museo - Historia
 $routes->get('museo/historia', 'MuseumController::museumHistoryMain');
