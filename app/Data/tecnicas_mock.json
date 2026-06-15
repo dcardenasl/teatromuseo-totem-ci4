@@ -1,0 +1,128 @@
+[
+  {
+    "id": 1,
+    "slug": "titere-de-guante",
+    "title": "Títeres de Guante",
+    "subtitle": "Una mano anima la figura desde adentro.",
+    "copy": "El titiritero introduce su mano en el cuerpo del muñeco y lo da vida desde dentro.",
+    "description": "El títere de guante es una de las técnicas más antiguas y extendidas del teatro de animación. El titiritero introduce la mano dentro del cuerpo del muñeco: el dedo índice sostiene la cabeza, mientras el pulgar y el dedo medio mueven los brazos. Esta proximidad entre mano y figura permite reacciones rápidas, gestos directos y una relación muy cercana con el público. Es la técnica del Punch and Judy en Gran Bretaña, del Polichinela en Italia y del Mamulengo en Brasil — cada cultura lo reinventó con su propio humor y personajes. Su aparente simpleza técnica esconde una expresividad formidable.",
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 2,
+    "slug": "titere-de-hilo",
+    "title": "Títeres de Hilo",
+    "subtitle": "Hilos invisibles que transmiten vida a cada gesto.",
+    "copy": "Controlada desde arriba mediante hilos que conectan al titiritero con el muñeco.",
+    "description": "La marioneta o títere de hilo se controla desde arriba mediante una cruceta de madera de la que penden hilos atados a la cabeza, las manos, las rodillas y la espalda del muñeco. El titiritero, parado sobre un puente o detrás de un telón, transmite movimiento a través de esos hilos logrando que la figura camine, baile, incline la cabeza o levante un brazo con precisión asombrosa. Es la técnica de las marionetas clásicas europeas y del teatro japonés Bunraku, donde hasta tres manipuladores animan una sola figura en perfecta sincronía. Dominarla exige años de práctica y una lectura muy fina del cuerpo en el espacio.",
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 3,
+    "slug": "titere-bocon",
+    "title": "Títeres Bocones",
+    "subtitle": "La boca que lo dice todo.",
+    "copy": "Su enorme boca articulada es el centro de toda la expresión del personaje.",
+    "description": "El bocón, también llamado Muppet, es el títere cuya característica principal es su enorme boca articulada. El titiritero introduce la mano en la cabeza del muñeco: los dedos controlan la mandíbula superior y el pulgar la inferior, haciendo que la boca se abra y cierre con cada sílaba. El cuerpo cuelga sobre el brazo del animador, y dos varillas finas mueven los brazos. La técnica fue popularizada mundialmente por Jim Henson con personajes como Kermit la Rana y los Teleñecos; el propio nombre Muppet combina las palabras marionette y puppet. Su expresividad vocal y visual la convirtió en favorita de la televisión, el cine y el teatro infantil en todo el mundo.",
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 4,
+    "slug": "titere-marote",
+    "title": "Títeres Marotes",
+    "subtitle": "La mano del titiritero se convierte en la mano del muñeco.",
+    "copy": "Una cabeza sobre un palo y la mano real del titiritero como brazo del personaje.",
+    "description": "El marote —del francés marotte, cetro de bufón medieval— es uno de los títeres más primitivos y directos. Una cabeza sostenida sobre un palo, cubierta por un largo faldón que oculta el brazo del titiritero: él mismo presta su mano como si fuera la mano del muñeco, mientras con la otra sostiene y gira la cabeza. Esta técnica crea una fusión extraña y fascinante entre el cuerpo del animador y el del títere: la mano es real, la cabeza es un objeto, pero juntos forman un solo personaje. Los marotes tienen larga historia en el teatro popular de calle y en las farsas medievales, donde el bufón llevaba una marotte como atributo cómico e irreverente.",
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 5,
+    "slug": "titere-gigante",
+    "title": "Marionetas Gigantes",
+    "subtitle": "Figuras monumentales que convierten la calle en un teatro sin paredes.",
+    "copy": "Figuras de varios metros animadas en equipo que transforman el espacio urbano.",
+    "description": "Las marionetas gigantes son figuras de gran escala — a veces de varios metros de altura — animadas mediante varillas, palancas y arneses operados por uno o varios titiriteros en simultáneo. Nacidas en el teatro callejero y el carnaval popular, irrumpieron en las grandes ciudades del mundo de la mano de compañías como Royal de Luxe de Francia, que transformó plazas y avenidas en escenarios de cuento. Su escala monumental genera un impacto visual imposible de ignorar: el gigante convierte al espectador en niño y al espacio urbano en teatro sin paredes. Requieren trabajo en equipo preciso, coreografía entre animadores y una logística de construcción y transporte considerable.",
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 6,
+    "slug": "titere-de-sombra",
+    "title": "Títeres de Sombra",
+    "subtitle": "Siluetas entre la luz y la oscuridad que cuentan historias.",
+    "copy": "Figuras interpuestas entre una fuente de luz y una pantalla traslúcida.",
+    "description": "El teatro de sombras es una de las tradiciones escénicas más antiguas del mundo, con raíces documentadas en China, India, Turquía e Indonesia hace más de dos mil años. Las figuras — planas o tridimensionales — se interponen entre una fuente de luz y una pantalla traslúcida, proyectando siluetas que el público ve desde el otro lado. La distancia entre la figura y la pantalla determina la nitidez de la sombra: acercándola o alejándola, el titiritero puede hacer que crezca, se difumine o cambie de forma en tiempo real. El Wayang kulit indonesio y el Karagöz turco son sus expresiones más reconocidas y ambos están declarados Patrimonio Cultural Inmaterial de la Humanidad por la UNESCO.",
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 7,
+    "slug": "titere-de-varilla",
+    "title": "Títeres de Varilla",
+    "subtitle": "Movimiento preciso desde abajo mediante varillas rígidas.",
+    "copy": "El titiritero opera el muñeco desde abajo con varillas conectadas a cabeza y brazos.",
+    "description": "En el títere de varilla, el titiritero sostiene una varilla central que soporta la cabeza del muñeco y acciona los brazos mediante varillas adicionales conectadas a las muñecas, todo desde abajo. A diferencia de la marioneta — que opera desde arriba — esta manipulación da un control más directo y expresivo sobre el cuerpo. La técnica alcanzó su máximo refinamiento en el teatro de marionetas japonés Bunraku, donde tres manipuladores coordinan cada figura con precisión milimétrica. En Europa, los títeres de varilla del teatro checo y alemán desarrollaron variantes propias, y hoy es una de las técnicas más estudiadas en las escuelas de teatro de animación contemporáneas alrededor del mundo.",
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 8,
+    "slug": "titere-plano",
+    "title": "Títeres Planos",
+    "subtitle": "Figuras en dos dimensiones que viven sobre una superficie.",
+    "copy": "Figuras recortadas que se deslizan sobre una superficie para narrar historias.",
+    "description": "Los títeres planos son figuras recortadas — en papel, cartón, cuero, madera o plástico — que se animan deslizándolas sobre una superficie horizontal o vertical, o a lo largo del borde de una pantalla. Son la base del teatro de siluetas y del teatro de imágenes, y tienen larga historia en las tradiciones populares de Europa del Este, China y el teatro callejero latinoamericano. Su aparente simplicidad los hace ideales para el trabajo pedagógico con niños y la narración visual directa. Sin embargo, en manos de artistas experimentados permiten composiciones plásticas de gran complejidad: los títeres articulados con bisagras pueden llegar a ser tan expresivos como cualquier figura tridimensional.",
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 9,
+    "slug": "titere-de-dedo",
+    "title": "Títeres de Dedo",
+    "subtitle": "La figura más pequeña del teatro de animación.",
+    "copy": "Una figura diminuta que se calza sobre la punta del dedo y cobra vida al instante.",
+    "description": "El títere de dedo es el formato más íntimo y portable del teatro de animación: una pequeña figura — de tela, papel, fieltro o goma — que se calza directamente sobre el dedo del titiritero. Con diez dedos disponibles, una sola persona puede animar hasta diez personajes en simultáneo. Muy utilizados en la educación infantil por su accesibilidad y bajo costo, también tienen lugar en el teatro para adultos cuando se busca una escala de miniatura que genere asombro por contraste con el mundo real. Su magia reside en la capacidad de humanizar el gesto más pequeño: basta mover levemente un dedo para que la figura cobre vida y el espectador le preste toda su atención.",
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 10,
+    "slug": "titere-corporal",
+    "title": "Títeres Corporales",
+    "subtitle": "El propio cuerpo del titiritero se convierte en el títere.",
+    "copy": "El animador usa su cuerpo entero como instrumento para crear la figura.",
+    "description": "En el títere corporal, el animador usa su propio cuerpo como material de creación: manos, pies, rostro, brazos o el cuerpo entero se transforman en personajes mediante maquillaje, vestuario o complementos que modifican la percepción del espectador. La técnica exige un entrenamiento cercano al mimo y al ilusionismo: el titiritero debe dominar cada parte de su cuerpo con precisión milimétrica para sostener la ilusión de que la figura tiene vida propia e independiente. Es un territorio fronterizo entre el teatro de actores y el teatro de objetos, y uno de los campos más fértiles de experimentación en el teatro de animación contemporáneo, donde la frontera entre cuerpo y muñeco desaparece.",
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 11,
+    "slug": "manipulacion-directa",
+    "title": "Manipulación Directa",
+    "subtitle": "El animador opera la figura a la vista del público, sin ocultarse.",
+    "copy": "El titiritero anima el objeto visible ante el público: el acto de animar es parte del espectáculo.",
+    "description": "En la manipulación directa, el titiritero sostiene, desplaza y anima el objeto o figura a la vista del público, sin pantalla ni retablo que lo oculte. Esta visibilidad del animador es una decisión estética deliberada: lejos de romper la ilusión, la refuerza al convertir el acto mismo de animar en parte del espectáculo. La técnica abarca desde el teatro de objetos contemporáneo hasta el teatro negro checo, donde los animadores vestidos de negro se hacen visualmente invisibles bajo luz ultravioleta. Libera la escena de toda arquitectura fija, permitiendo que la animación suceda en cualquier espacio y con cualquier objeto cotidiano, que en manos del animador puede convertirse en personaje.",
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 12,
+    "slug": "titere-ventrilocuo",
+    "title": "Títere Ventrílocuo",
+    "subtitle": "Una voz, dos personajes: el arte de hablar sin mover los labios.",
+    "copy": "El ventrílocuo da voz al muñeco sin mover los labios, creando la ilusión de que habla.",
+    "description": "El títere ventrílocuo es inseparable del arte de la ventriloquía: la técnica de modificar y proyectar la voz de manera que parezca provenir del muñeco mientras el artista mantiene los labios quietos. El muñeco, sentado sobre la rodilla o el brazo del ventrílocuo, suele tener la boca articulada que el artista acciona con la mano, reforzando la ilusión de que habla por sí solo. La relación entre el ventrílocuo y su figura genera un dúo donde el muñeco suele ser el más atrevido, cómico o irreverente: dice lo que el humano no se atreve. Es una disciplina con raíces en el siglo XVIII que sigue vigente en el cabaret, el humor televisivo y el teatro familiar.",
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 13,
+    "slug": "caja-lambe-lambe",
+    "title": "Caja Lambe Lambe",
+    "subtitle": "Un teatro en miniatura para un solo espectador a la vez.",
+    "copy": "Una pequeña caja con visor: la obra más íntima del teatro de animación.",
+    "description": "El Lambe Lambe es un teatro de animación en miniatura: una pequeña caja escénica donde se representa una obra breve — con títeres diminutos, sombras u objetos — para una sola persona a la vez, que observa a través de un visor mientras escucha la música o el texto en auriculares. La experiencia es íntima, poética y profundamente personal. Nació en Brasil a fines del siglo XX de la mano de Denise dos Santos e Ismine Lima, y su nombre proviene del fotógrafo antiguo que «lamía» la placa fotográfica para activar los químicos. Cada función dura entre uno y tres minutos. En Chile, compañías como Miniteatros han desarrollado una escena local vibrante alrededor de este formato.",
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 14,
+    "slug": "titeres-en-cine-stop-motion",
+    "title": "Títeres en Cine (Stop Motion)",
+    "subtitle": "Fotograma a fotograma, las figuras cobran movimiento en la pantalla.",
+    "copy": "Figuras fotografiadas posición a posición para crear movimiento en la pantalla de cine.",
+    "description": "El stop motion es la técnica cinematográfica que anima figuras tridimensionales — muñecos articulados, marionetas, objetos de plastilina — fotografiándolas posición a posición: cada fotograma registra un movimiento mínimo, y la secuencia a 24 imágenes por segundo crea la ilusión de movimiento fluido. El checo Jiří Trnka lo consagró como forma de arte en los años 40; Tim Burton con Pesadilla antes de Navidad y el estudio Laika con Coraline lo llevaron al cine contemporáneo. Es una técnica de paciencia extrema — un segundo de película puede requerir horas de trabajo —, pero el resultado tiene una textura material y una calidez táctil que la animación digital no logra replicar.",
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  }
+]
