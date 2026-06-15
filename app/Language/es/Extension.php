@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Contacto',
-    'pending_eyebrow' => 'Extensión en preparación',
-    'pending_intro' => 'Esta pantalla mantiene el mismo estándar visual mientras terminamos de conectar el contenido real.',
+    'title' => 'Extensión',
+    'pending_eyebrow' => 'Sitio en construcción',
+    'pending_intro' => 'Estamos preparando esta sección para mostrar su contenido real. Por ahora, te dejamos esta señal mientras terminamos de conectarla.',
     'pending_section_title_1' => 'Ruta de contacto',
     'pending_section_copy_1' => 'El layout ya está definido para la experiencia táctil; solo faltan los datos finales y las acciones reales.',
     'pending_section_title_2' => 'Preparado para crecer',

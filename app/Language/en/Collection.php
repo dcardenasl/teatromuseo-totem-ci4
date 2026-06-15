@@ -110,7 +110,26 @@ return [
     'section_stat_masks_value' => 'Living traditions',
     'section_stat_clowns_label' => 'Clowns',
     'section_stat_clowns_value' => 'Editorial history',
-    'tradition_comedia_arte' => 'Commedia dell’Arte',
-    'tradition_comedia_andes' => 'Andean Comedy',
-    'clown_placeholder' => 'Historic clown #%d',
+    ‘tradition_comedia_arte’ => ‘Commedia dell’Arte’,
+    ‘tradition_comedia_andes’ => ‘Andean Comedy’,
+
+    // Commedia dell’arte — detail
+    ‘tradition_comedia_arte_eyebrow’         => ‘European tradition’,
+    ‘tradition_comedia_arte_image_alt’        => ‘Commedia dell\’arte masks: Arlecchino, Pantalone and Pulcinella’,
+    ‘tradition_comedia_arte_intro’            => ‘Commedia dell\’arte was born in mid-16th-century Italy as popular street theatre. Travelling companies of actors improvised stories around a fixed set of masked characters: the miserly Pantalone, the verbose Dottore, the scheming servants (zanni) and the mischievous Arlecchino. Each leather mask was a social archetype that made fairground audiences and palace courts laugh alike.’,
+    ‘tradition_comedia_arte_section_title_1’  => ‘Mask and improvisation’,
+    ‘tradition_comedia_arte_section_copy_1’   => ‘The leather mask was the heart of the character: it covered only the upper half of the face, leaving the mouth free to speak, sing and improvise. With more than forty fixed types by the 16th century — Pantalone, il Dottore, Arlecchino, Brighella, Pulcinella — each had its own dialect, physicality and stock jokes (the «lazzi»). This theatre of masks spread across Europe from Italy, influenced Molière and Shakespeare, and gave rise to the English Punch and Judy and the French Guignol.’,
+    ‘tradition_comedia_arte_section_title_2’  => ‘Living heritage’,
+    ‘tradition_comedia_arte_section_copy_2’   => ‘Commedia dell\’arte shaped the birth of modern street puppet theatre: Pulcinella, the scheming hunchbacked servant from Naples, crossed the Alps and the English Channel to become Polichinelle in France and Punch in England. That energy of mask and improvisation survives in street puppet theatre, in contemporary clowning and in the carnivals that still carry its characters. Teatromuseo recognises it as one of the pillars of the comic craft it preserves.’,
+
+    // Andean Comedy — detail
+    ‘tradition_comedia_andes_eyebrow’         => ‘Andean tradition’,
+    ‘tradition_comedia_andes_image_alt’        => ‘Andean Diablada masks at the Carnival of Oruro’,
+    ‘tradition_comedia_andes_intro’            => ‘Andean masks are among the richest cultural heritage of South America. From the Carnival of Oruro in Bolivia — declared Oral and Intangible Heritage of Humanity by UNESCO in 2001 — to the Fiesta de La Tirana in northern Chile, the masked dances of the Andean world narrate centuries of history: indigenous resistance, colonial evangelisation and the cultural syncretism that merged them.’,
+    ‘tradition_comedia_andes_section_title_1’  => ‘Diablada and syncretism’,
+    ‘tradition_comedia_andes_section_copy_1’   => ‘The most representative dance of the Andean carnival is the Diablada, in which masks of horns, bulging eyes and strident colours dramatise the eternal struggle between good and evil. Born in Oruro in the 17th century — when the Spanish banned indigenous ceremonies and Andean peoples disguised them in Catholic forms — the Diablada turned the Tío de la Mina into the Christian Devil and the Pachamama into the Virgin of Socavón. The mask was the instrument of that cultural negotiation.’,
+    ‘tradition_comedia_andes_section_title_2’  => ‘Masks in Chile’,
+    ‘tradition_comedia_andes_section_copy_2’   => ‘In Chile, the Andean mask tradition finds its best-known expression in La Tirana, a religious festival in the Tarapacá region that draws more than 250,000 people each July. Diabladas, morenadas, caporales and tinkus fill the streets of the village with masks in a syncretism that blends Aymara cosmovision with devotion to the Virgin of Carmen. For Teatromuseo, these traditions represent the Latin American dimension of the mask-maker\’s craft: not as disguise, but as language.’,
+
+    ‘clown_placeholder’ => ‘Historic clown #%d’,
 ];

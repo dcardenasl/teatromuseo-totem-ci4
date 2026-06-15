@@ -112,5 +112,24 @@ return [
     'section_stat_clowns_value' => 'Historia editorial',
     'tradition_comedia_arte' => 'Comedia del Arte',
     'tradition_comedia_andes' => 'Comedia del Andes',
+
+    // Commedia dell'arte — detalle
+    'tradition_comedia_arte_eyebrow'         => 'Tradición europea',
+    'tradition_comedia_arte_image_alt'        => 'Máscaras de la Commedia dell\'arte: Arlecchino, Pantalone y Pulcinella',
+    'tradition_comedia_arte_intro'            => 'La commedia dell\'arte nació a mediados del siglo XVI en Italia como teatro popular callejero. Compañías itinerantes de actores improvisaban historias sobre un repertorio fijo de personajes con máscaras de cuero: el avaricioso Pantalone, el parlanchín Dottore, los sirvientes pícaros (zanni) y el travieso Arlecchino. Cada máscara era un arquetipo social que hacía reír al público de feria y al de palacio por igual.',
+    'tradition_comedia_arte_section_title_1'  => 'Máscara e improvisación',
+    'tradition_comedia_arte_section_copy_1'   => 'La máscara de cuero era el corazón del personaje: cubría solo la mitad superior del rostro, dejando libre la boca para hablar, cantar e improvisar. Con más de cuarenta tipos fijados en el siglo XVI —Pantalone, il Dottore, Arlecchino, Brighella, Pulcinella—, cada uno tenía su dialecto, su gestualidad y sus chistes propios (los «lazzi»). Este teatro de máscaras atravesó Europa desde Italia, influyó en Molière y Shakespeare, y dio origen al Punch and Judy inglés y al Guignol francés.',
+    'tradition_comedia_arte_section_title_2'  => 'Herencia viva',
+    'tradition_comedia_arte_section_copy_2'   => 'La commedia dell\'arte marcó el nacimiento del títere de calle moderno: Pulcinella, el sirviente travieso y jorobado de Nápoles, cruzó los Alpes y el Canal de la Mancha transformándose en Polichinelle en Francia y en Punch en Inglaterra. Esa energía de máscara e improvisación sobrevive en el teatro de títeres callejero, en el clown contemporáneo y en los carnavales que hoy conservan sus personajes. El Teatromuseo la reconoce como uno de los pilares del oficio cómico que preserva.',
+
+    // Comedia del Andes — detalle
+    'tradition_comedia_andes_eyebrow'         => 'Tradición andina',
+    'tradition_comedia_andes_image_alt'        => 'Máscaras de la Diablada andina en el Carnaval de Oruro',
+    'tradition_comedia_andes_intro'            => 'Las máscaras andinas son uno de los patrimonios culturales más ricos de América del Sur. Desde el Carnaval de Oruro en Bolivia —declarado Patrimonio Oral e Inmaterial de la Humanidad por la UNESCO en 2001— hasta la Fiesta de La Tirana en el norte de Chile, las danzas de máscaras del mundo andino narran siglos de historia: resistencia indígena, evangelización colonial y el sincretismo cultural que los mezcló.',
+    'tradition_comedia_andes_section_title_1'  => 'Diablada y sincretismo',
+    'tradition_comedia_andes_section_copy_1'   => 'La danza más representativa del carnaval andino es la Diablada, en la que máscaras de cuernos, ojos desorbitados y colores estridentes dramatizan la eterna lucha entre el bien y el mal. Nacida en Oruro durante el siglo XVII —cuando los españoles prohibieron las ceremonias indígenas y los pueblos andinos las camuflaron bajo formas católicas—, la Diablada convirtió al Tío de la Mina en el Diablo cristiano y a la Pachamama en la Virgen del Socavón. La máscara fue el instrumento de esa negociación cultural.',
+    'tradition_comedia_andes_section_title_2'  => 'Las máscaras en Chile',
+    'tradition_comedia_andes_section_copy_2'   => 'En Chile, la tradición andina de máscaras tiene su expresión más conocida en La Tirana, fiesta religiosa de la región de Tarapacá que convoca a más de 250.000 personas cada julio. Diabladas, morenadas, caporales y tinkus llenan de máscaras las calles del pueblo en un sincretismo que mezcla la cosmovisión aymara con la devoción a la Virgen del Carmen. Para el Teatromuseo, estas tradiciones representan la dimensión latinoamericana del oficio de la máscara: no como disfraz, sino como lenguaje.',
+
     'clown_placeholder' => 'Payaso histórico #%d',
 ];

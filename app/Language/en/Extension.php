@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Contact',
-    'pending_eyebrow' => 'Extension in progress',
-    'pending_intro' => 'This screen keeps the same visual standard while we finish wiring the real content.',
+    'title' => 'Extension',
+    'pending_eyebrow' => 'Site under construction',
+    'pending_intro' => 'We are preparing this section to show its real content. For now, we are leaving this notice while we finish connecting it.',
     'pending_section_title_1' => 'Contact route',
     'pending_section_copy_1' => 'The layout is already defined for the touch experience; only the final data and actions are missing.',
     'pending_section_title_2' => 'Ready to grow',

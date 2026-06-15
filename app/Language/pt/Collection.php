@@ -110,7 +110,26 @@ return [
     'section_stat_masks_value' => 'Tradições vivas',
     'section_stat_clowns_label' => 'Palhaços',
     'section_stat_clowns_value' => 'História editorial',
-    'tradition_comedia_arte' => 'Commedia dell’Arte',
-    'tradition_comedia_andes' => 'Comédia Andina',
-    'clown_placeholder' => 'Palhaço histórico #%d',
+    ‘tradition_comedia_arte’ => ‘Commedia dell’Arte’,
+    ‘tradition_comedia_andes’ => ‘Comédia Andina’,
+
+    // Commedia dell’arte — detalhe
+    ‘tradition_comedia_arte_eyebrow’         => ‘Tradição europeia’,
+    ‘tradition_comedia_arte_image_alt’        => ‘Máscaras da Commedia dell\’arte: Arlecchino, Pantalone e Pulcinella’,
+    ‘tradition_comedia_arte_intro’            => ‘A commedia dell\’arte nasceu em meados do século XVI na Itália como teatro popular de rua. Companhias itinerantes de atores improvisavam histórias em torno de um repertório fixo de personagens mascarados: o avarento Pantalone, o verboso Dottore, os servos espertos (zanni) e o malicioso Arlecchino. Cada máscara de couro era um arquétipo social que fazia rir tanto o público das feiras quanto as cortes dos palácios.’,
+    ‘tradition_comedia_arte_section_title_1’  => ‘Máscara e improvisação’,
+    ‘tradition_comedia_arte_section_copy_1’   => ‘A máscara de couro era o coração do personagem: cobria apenas a metade superior do rosto, deixando a boca livre para falar, cantar e improvisar. Com mais de quarenta tipos fixados no século XVI — Pantalone, il Dottore, Arlecchino, Brighella, Pulcinella — cada um tinha seu próprio dialeto, sua gestualidade e suas piadas (os «lazzi»). Esse teatro de máscaras se espalhou pela Europa a partir da Itália, influenciou Molière e Shakespeare, e deu origem ao Punch and Judy inglês e ao Guignol francês.’,
+    ‘tradition_comedia_arte_section_title_2’  => ‘Herança viva’,
+    ‘tradition_comedia_arte_section_copy_2’   => ‘A commedia dell\’arte moldou o nascimento do teatro de títeres de rua moderno: Pulcinella, o servo astuto e corcunda de Nápoles, cruzou os Alpes e o Canal da Mancha para se tornar Polichinelle na França e Punch na Inglaterra. Essa energia de máscara e improvisação sobrevive no teatro de fantoches de rua, no clown contemporâneo e nos carnavais que ainda carregam seus personagens. O Teatromuseo a reconhece como um dos pilares do ofício cômico que preserva.’,
+
+    // Comédia Andina — detalhe
+    ‘tradition_comedia_andes_eyebrow’         => ‘Tradição andina’,
+    ‘tradition_comedia_andes_image_alt’        => ‘Máscaras da Diablada andina no Carnaval de Oruro’,
+    ‘tradition_comedia_andes_intro’            => ‘As máscaras andinas são um dos patrimônios culturais mais ricos da América do Sul. Do Carnaval de Oruro na Bolívia — declarado Patrimônio Oral e Imaterial da Humanidade pela UNESCO em 2001 — até a Fiesta de La Tirana no norte do Chile, as danças mascaradas do mundo andino narram séculos de história: resistência indígena, evangelização colonial e o sincretismo cultural que os fundiu.’,
+    ‘tradition_comedia_andes_section_title_1’  => ‘Diablada e sincretismo’,
+    ‘tradition_comedia_andes_section_copy_1’   => ‘A dança mais representativa do carnaval andino é a Diablada, na qual máscaras de chifres, olhos esbugalhados e cores estridentes dramatizam a eterna luta entre o bem e o mal. Nascida em Oruro no século XVII — quando os espanhóis proibiram as cerimônias indígenas e os povos andinos as camuflaram sob formas católicas — a Diablada transformou o Tío de la Mina no Diabo cristão e a Pachamama na Virgem do Socavón. A máscara foi o instrumento dessa negociação cultural.’,
+    ‘tradition_comedia_andes_section_title_2’  => ‘As máscaras no Chile’,
+    ‘tradition_comedia_andes_section_copy_2’   => ‘No Chile, a tradição andina de máscaras encontra sua expressão mais conhecida em La Tirana, festa religiosa da região de Tarapacá que reúne mais de 250.000 pessoas a cada julho. Diabladas, morenadas, caporales e tinkus enchem as ruas da cidade de máscaras num sincretismo que mistura a cosmovisão aimara com a devoção à Virgem do Carmen. Para o Teatromuseo, essas tradições representam a dimensão latino-americana do ofício da máscara: não como disfarce, mas como linguagem.’,
+
+    ‘clown_placeholder’ => ‘Palhaço histórico #%d’,
 ];

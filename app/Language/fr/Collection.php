@@ -110,7 +110,26 @@ return [
     'section_stat_masks_value' => 'Traditions vivantes',
     'section_stat_clowns_label' => 'Clowns',
     'section_stat_clowns_value' => 'Histoire éditoriale',
-    'tradition_comedia_arte' => 'Commedia dell’Arte',
-    'tradition_comedia_andes' => 'Comédie andine',
-    'clown_placeholder' => 'Clown historique n°%d',
+    ‘tradition_comedia_arte’ => ‘Commedia dell’Arte’,
+    ‘tradition_comedia_andes’ => ‘Comédie andine’,
+
+    // Commedia dell’arte — détail
+    ‘tradition_comedia_arte_eyebrow’         => ‘Tradition européenne’,
+    ‘tradition_comedia_arte_image_alt’        => ‘Masques de la Commedia dell’arte : Arlecchino, Pantalone et Pulcinella’,
+    ‘tradition_comedia_arte_intro’            => ‘La commedia dell’arte est née au milieu du XVIe siècle en Italie comme théâtre populaire de rue. Des compagnies itinérantes d’acteurs improvisaient des histoires autour d’un répertoire fixe de personnages masqués : le pingre Pantalone, le verbeux Dottore, les serviteurs rusés (zanni) et le malicieux Arlecchino. Chaque masque de cuir était un archétype social qui faisait rire aussi bien les publics de foire que les cours des palais.’,
+    ‘tradition_comedia_arte_section_title_1’  => ‘Masque et improvisation’,
+    ‘tradition_comedia_arte_section_copy_1’   => ‘Le masque de cuir était le cœur du personnage : il ne couvrait que la moitié supérieure du visage, laissant la bouche libre pour parler, chanter et improviser. Avec plus de quarante types fixés au XVIe siècle — Pantalone, il Dottore, Arlecchino, Brighella, Pulcinella — chacun avait son propre dialecte, sa gestuelle et ses plaisanteries (les «lazzi»). Ce théâtre de masques se répandit en Europe depuis l’Italie, influença Molière et Shakespeare, et donna naissance au Punch and Judy anglais et au Guignol français.’,
+    ‘tradition_comedia_arte_section_title_2’  => ‘Un héritage vivant’,
+    ‘tradition_comedia_arte_section_copy_2’   => ‘La commedia dell’arte a façonné la naissance du théâtre de marionnettes de rue moderne : Pulcinella, le serviteur malicieux et bossu de Naples, traversa les Alpes et la Manche pour devenir Polichinelle en France et Punch en Angleterre. Cette énergie du masque et de l’improvisation survit dans le théâtre de marionnettes de rue, dans le clown contemporain et dans les carnavals qui portent encore ses personnages. Le Teatromuseo la reconnaît comme l’un des piliers du métier comique qu’il préserve.’,
+
+    // Comédie andine — détail
+    ‘tradition_comedia_andes_eyebrow’         => ‘Tradition andine’,
+    ‘tradition_comedia_andes_image_alt’        => ‘Masques de la Diablada andine au Carnaval d’Oruro’,
+    ‘tradition_comedia_andes_intro’            => ‘Les masques andins constituent l’un des patrimoines culturels les plus riches d’Amérique du Sud. Du Carnaval d’Oruro en Bolivie — déclaré Patrimoine Oral et Immatériel de l’Humanité par l’UNESCO en 2001 — à la Fiesta de La Tirana dans le nord du Chili, les danses masquées du monde andin narrent des siècles d’histoire : résistance indigène, évangélisation coloniale et syncrétisme culturel qui les a mêlés.’,
+    ‘tradition_comedia_andes_section_title_1’  => ‘Diablada et syncrétisme’,
+    ‘tradition_comedia_andes_section_copy_1’   => ‘La danse la plus représentative du carnaval andin est la Diablada, dans laquelle des masques à cornes, aux yeux exorbités et aux couleurs criardes dramatisent l’éternel combat entre le bien et le mal. Née à Oruro au XVIIe siècle — lorsque les Espagnols interdirent les cérémonies indigènes et que les peuples andins les camouflèrent sous des formes catholiques — la Diablada transforma le Tío de la Mina en Diable chrétien et la Pachamama en Vierge du Socavón. Le masque fut l’instrument de cette négociation culturelle.’,
+    ‘tradition_comedia_andes_section_title_2’  => ‘Les masques au Chili’,
+    ‘tradition_comedia_andes_section_copy_2’   => ‘Au Chili, la tradition andine des masques trouve son expression la plus connue à La Tirana, fête religieuse de la région de Tarapacá qui rassemble plus de 250 000 personnes chaque juillet. Diabladas, morenadas, caporales et tinkus emplissent les rues du village de masques dans un syncrétisme qui mêle la cosmovision aymara à la dévotion envers la Vierge du Carmen. Pour le Teatromuseo, ces traditions représentent la dimension latino-américaine du métier du masque : non comme déguisement, mais comme langage.’,
+
+    ‘clown_placeholder’ => ‘Clown historique n°%d’,
 ];
