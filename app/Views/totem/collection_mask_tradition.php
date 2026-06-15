@@ -1,21 +1,19 @@
 <?php
 /**
- * @var array{title:string} $tradition
  * @var array $nav
+ * @var array $story
  */
 ?>
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
-        <article>
-            <p><?= esc(lang('Collection.masks_traditions_title')) ?></p>
-        </article>
+        <?= view('totem/partials/museum_info_story', $story ?? []) ?>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => $tradition['title'] ?? lang('Collection.masks_traditions_title'),
+        'title'   => '',
         'content' => $content,
-        'nav' => $nav ?? []
+        'nav'     => $nav ?? [],
     ]) ?>
 <?= $this->endSection() ?>

@@ -144,14 +144,31 @@ final class CollectionController extends BaseTotemController
             throw PageNotFoundException::forPageNotFound();
         }
 
+        $key = str_replace('-', '_', $slug);
+
+        $story = [
+            'eyebrow'  => lang("Collection.tradition_{$key}_eyebrow"),
+            'title'    => $titles[$slug],
+            'image'    => "assets/img/museo/coleccion/mascaras/{$slug}.webp",
+            'imageAlt' => lang("Collection.tradition_{$key}_image_alt"),
+            'intro'    => lang("Collection.tradition_{$key}_intro"),
+            'sections' => [
+                [
+                    'title' => lang("Collection.tradition_{$key}_section_title_1"),
+                    'copy'  => lang("Collection.tradition_{$key}_section_copy_1"),
+                ],
+                [
+                    'title' => lang("Collection.tradition_{$key}_section_title_2"),
+                    'copy'  => lang("Collection.tradition_{$key}_section_copy_2"),
+                ],
+            ],
+        ];
+
         return view('totem/collection_mask_tradition', array_merge(
             $this->pageMeta($titles[$slug]),
             [
-                'nav' => $this->shellNav(base_url('museo/coleccion/mascaras/tradiciones')),
-                'tradition' => [
-                    'slug'  => $slug,
-                    'title' => $titles[$slug],
-                ],
+                'nav'   => $this->shellNav(base_url('museo/coleccion/mascaras/tradiciones')),
+                'story' => $story,
             ]
         ));
     }
