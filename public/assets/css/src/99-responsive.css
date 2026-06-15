@@ -773,3 +773,32 @@
         gap: 12px;
     }
 }
+
+@container kiosk (max-width: 380px) {
+    .totem-header {
+        gap: 6px;
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+
+    .totem-brand__mark {
+        width: 44px;
+        height: 44px;
+    }
+
+    .totem-header__actions {
+        gap: 4px;
+    }
+
+    .pill-button {
+        min-height: 40px;
+        padding: 0 8px;
+        font-size: 0.70rem;
+        gap: 4px;
+        border-radius: 18px;
+    }
+
+    .pill-button__icon {
+        font-size: 0.85rem;
+    }
+}
