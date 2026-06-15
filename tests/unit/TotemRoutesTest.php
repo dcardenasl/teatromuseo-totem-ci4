@@ -112,7 +112,6 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result->assertSee('collection-pill--disabled');
         $result->assertSee('museo/historia');
         $result->assertSee('museo/coleccion/titeres/exhibicion');
-        $result->assertSee('museo/coleccion/mascaras/exhibicion');
         $result->assertSee('museo/coleccion/mascaras/tradiciones');
         $result->assertSee('assets/img/museo/coleccion/titeres/titere.webp');
         $result->assertSee('assets/img/museo/coleccion/mascaras/mascara.webp');

@@ -45,8 +45,9 @@ final class CollectionController extends BaseTotemController
                 'title'     => lang('Collection.masks'),
                 'image'     => 'assets/img/museo/coleccion/mascaras/mascara.webp',
                 'routeA'    => [
-                    'label' => lang('Collection.collection_exhibit'),
-                    'href'  => 'museo/coleccion/mascaras/exhibicion',
+                    'label'    => lang('Collection.collection_exhibit'),
+                    'href'     => null,
+                    'disabled' => true,
                 ],
                 'routeB'    => [
                     'label' => lang('Collection.collection_traditions'),
