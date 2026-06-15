@@ -157,7 +157,7 @@ final class BillboardFallbackRepository
             'priceReduced' => 'Estud. y 3ª Edad: $3.500',
             'copy'         => $copy,
             'secondaryCopy'=> $secondaryCopy,
-            'closingImage' => 'assets/img/billboard/la-malattia-di-nogasto-collage.webp',
+            'closingImage' => 'assets/img/billboard/billboard-collage.webp',
             'qrImage'      => 'assets/img/school/teatroescuela-qr.webp',
             'closingNote'  => lang('Billboard.default_closing_note'),
         ];

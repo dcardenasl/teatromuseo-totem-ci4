@@ -95,6 +95,10 @@ final class StoryPresenter
                     'title' => lang('MuseumInfo.today_story_title_3'),
                     'copy' => lang('MuseumInfo.today_story_copy_3'),
                 ],
+                [
+                    'title' => lang('MuseumInfo.today_story_title_4'),
+                    'copy' => lang('MuseumInfo.today_story_copy_4'),
+                ],
             ],
         ];
     }

@@ -4,8 +4,8 @@
  * @var string $eyebrow
  * @var string $title
  * @var string $copy
- * @var string $image
- * @var string $imageAlt
+ * @var string|null $image
+ * @var string|null $imageAlt
  */
 ?>
 <?= $this->extend('layouts/MainLayout') ?>
@@ -19,9 +19,11 @@
                 <p class="friends-page__copy"><?= esc($copy ?? '') ?></p>
             </section>
 
-            <figure class="friends-page__art" aria-label="<?= esc($imageAlt ?? '', 'attr') ?>">
-                <img src="<?= base_url($image ?? '') ?>" alt="<?= esc($imageAlt ?? '', 'attr') ?>">
-            </figure>
+            <?php if (! empty($image ?? null)) : ?>
+                <figure class="friends-page__art" aria-label="<?= esc($imageAlt ?? '', 'attr') ?>">
+                    <img src="<?= base_url($image) ?>" alt="<?= esc($imageAlt ?? '', 'attr') ?>">
+                </figure>
+            <?php endif; ?>
         </div>
     <?php $content = ob_get_clean(); ?>
 

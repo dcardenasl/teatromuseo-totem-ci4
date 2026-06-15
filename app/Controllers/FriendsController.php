@@ -15,20 +15,23 @@ final class FriendsController extends BaseTotemController
             $this->pageMeta(lang('Menu.friends')),
             [
                 'nav' => $this->shellNav(),
-                'eyebrow' => lang('Menu.friends_copy'),
+                'eyebrow' => lang('Section.construction_eyebrow'),
                 'title' => lang('Menu.friends'),
-                'copy' => lang('Section.friends_copy'),
-                'image' => 'menu/menu_amigos.webp',
-                'imageAlt' => lang('Menu.friends'),
+                'copy' => lang('Section.construction_copy'),
             ]
         ));
     }
 
     public function extensionContact(): string
     {
-        return view('totem/extension_contact', array_merge(
+        return view('totem/friends', array_merge(
             $this->pageMeta(lang('Extension.title')),
-            ['nav' => $this->shellNav(base_url('menu'))]
+            [
+                'nav' => $this->shellNav(base_url('menu')),
+                'eyebrow' => lang('Section.construction_eyebrow'),
+                'title' => lang('Extension.title'),
+                'copy' => lang('Section.construction_copy'),
+            ]
         ));
     }
 }
