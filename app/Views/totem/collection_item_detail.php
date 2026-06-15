@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var string $title
  * @var array<string, mixed> $item
  * @var array $nav
  */
@@ -68,7 +69,7 @@
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => $item['pageTitle'] ?? lang('Collection.item_detail_title'),
+        'title' => $title ?? lang('Collection.puppets'),
         'content' => $content,
         'nav' => $nav ?? [],
     ]) ?>

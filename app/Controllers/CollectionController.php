@@ -70,8 +70,8 @@ final class CollectionController extends BaseTotemController
         return view('totem/collection_techniques', array_merge(
             $this->pageMeta(lang('Collection.techniques_title')),
             [
-                'nav'       => $this->shellNav(base_url('museo/coleccion')),
-                'tabs'      => $this->collectionTabs('techniques'),
+                'nav'        => $this->shellNav(base_url('museo/coleccion')),
+                'tabs'       => $this->collectionTabs('techniques'),
                 'techniques' => $this->collectionTechniqueCards(),
             ]
         ));
@@ -82,9 +82,9 @@ final class CollectionController extends BaseTotemController
         return view('totem/collection_puppets_exhibit', array_merge(
             $this->pageMeta(lang('Collection.puppets_exhibit_title')),
             [
-                'nav'    => $this->shellNav(base_url('museo/coleccion')),
-                'tabs'   => $this->collectionTabs('exhibit'),
-                'items'  => $this->collectionExhibitCards(),
+                'nav'   => $this->shellNav(base_url('museo/coleccion')),
+                'tabs'  => $this->collectionTabs('exhibit'),
+                'items' => $this->collectionExhibitCards(),
             ]
         ));
     }
@@ -101,7 +101,7 @@ final class CollectionController extends BaseTotemController
             $this->pageMeta($technique['pageTitle']),
             [
                 'nav'       => $this->shellNav(base_url('museo/coleccion/titeres/tecnicas')),
-                'tabs'      => $this->collectionTabs('techniques'),
+                'title'     => '',
                 'technique' => $technique,
             ]
         ));
@@ -127,7 +127,7 @@ final class CollectionController extends BaseTotemController
         return view('totem/collection_masks_traditions', array_merge(
             $this->pageMeta(lang('Collection.masks_traditions_title')),
             [
-                'nav' => $this->shellNav(base_url('museo/coleccion')),
+                'nav'        => $this->shellNav(base_url('museo/coleccion')),
                 'traditions' => $traditions,
             ]
         ));
@@ -184,11 +184,57 @@ final class CollectionController extends BaseTotemController
         return view('totem/collection_item_detail', array_merge(
             $this->pageMeta($item['pageTitle']),
             [
-                'nav'  => $this->shellNav(base_url('museo/coleccion/titeres/exhibicion')),
-                'item' => $item,
+                'nav'   => $this->shellNav(base_url('museo/coleccion/titeres/exhibicion')),
+                'title' => lang('Collection.puppets'),
+                'item'  => $item,
             ]
         ));
     }
+
+    // -------------------------------------------------------------------------
+    // i18n helpers
+    // -------------------------------------------------------------------------
+
+    /**
+     * Returns the active locale, falling back to 'es'.
+     */
+    private function getLocale(): string
+    {
+        $locale = service('request')->getLocale();
+
+        return in_array($locale, ['es', 'en', 'fr', 'pt'], true) ? $locale : 'es';
+    }
+
+    /**
+     * Extracts a localised string from a scalar or multilingual array.
+     *
+     * JSON fields can be either a plain string (legacy/placeholder) or an object
+     * like {"es":"…","en":"…","fr":"…","pt":"…"}. This helper normalises both.
+     *
+     * @param mixed $value
+     */
+    private function localized(mixed $value): string
+    {
+        if ($value === null) {
+            return '';
+        }
+
+        if (is_string($value)) {
+            return $value;
+        }
+
+        if (is_array($value)) {
+            $locale = $this->getLocale();
+
+            return (string) ($value[$locale] ?? $value['es'] ?? '');
+        }
+
+        return '';
+    }
+
+    // -------------------------------------------------------------------------
+    // Tabs
+    // -------------------------------------------------------------------------
 
     /**
      * @return list<array{label:string, href:string, active?:bool, disabled?:bool}>
@@ -197,35 +243,44 @@ final class CollectionController extends BaseTotemController
     {
         return [
             [
-                'label'   => lang('Collection.collection_exhibit'),
-                'href'    => 'museo/coleccion/titeres/exhibicion',
-                'active'  => $active === 'exhibit',
+                'label'  => lang('Collection.collection_exhibit'),
+                'href'   => 'museo/coleccion/titeres/exhibicion',
+                'active' => $active === 'exhibit',
             ],
             [
-                'label'   => lang('Collection.collection_techniques'),
-                'href'    => 'museo/coleccion/titeres/tecnicas',
-                'active'  => $active === 'techniques',
+                'label'  => lang('Collection.collection_techniques'),
+                'href'   => 'museo/coleccion/titeres/tecnicas',
+                'active' => $active === 'techniques',
             ],
         ];
     }
+
+    // -------------------------------------------------------------------------
+    // Cards
+    // -------------------------------------------------------------------------
 
     /**
      * @return list<array<string, mixed>>
      */
     private function collectionExhibitCards(): array
     {
-        $catalog = $this->collectionItemCatalog();
-        $families = $this->collectionItemFamilies();
+        $tones = ['coral', 'sky', 'violet', 'wine'];
         $cards = [];
 
-        foreach ($catalog as $index => $item) {
-            $family = $families[$index % count($families)];
+        foreach ($this->loadTiteresMock() as $index => $titere) {
+            $slug  = strtolower($titere['codigo_vitrina_bodega']);
+            $title = $titere['nombre'] ?? $titere['codigo_vitrina_bodega'];
+            $copy  = $titere['descripcion_corta'] !== null
+                ? $this->localized($titere['descripcion_corta'])
+                : lang('Collection.mock_puppet_copy');
+            $image = $titere['imagen_portada'] ?? 'assets/img/museo/coleccion/titeres/titere.webp';
+
             $cards[] = [
-                'title' => $item['title'],
-                'copy'  => lang('Collection.mock_puppet_copy'),
-                'href'  => 'museo/coleccion/fichas/' . $item['slug'],
-                'image' => 'assets/img/museo/coleccion/titeres/titere.webp',
-                'tone'  => $family['tone'],
+                'title' => $title,
+                'copy'  => $copy,
+                'href'  => 'museo/coleccion/fichas/' . $slug,
+                'image' => $image,
+                'tone'  => $tones[$index % count($tones)],
             ];
         }
 
@@ -237,15 +292,27 @@ final class CollectionController extends BaseTotemController
      */
     private function collectionTechniqueCards(): array
     {
-        $tones = ['coral', 'sky', 'violet', 'wine'];
+        $tones   = ['coral', 'sky', 'violet', 'wine'];
+        $bySlug  = [];
+
+        foreach ($this->loadTecnicasMock() as $t) {
+            $bySlug[$t['slug']] = $t;
+        }
+
         $cards = [];
 
         foreach ($this->collectionTechniqueCatalog() as $index => $technique) {
+            $mock  = $bySlug[$technique['slug']] ?? null;
+            $copy  = $mock !== null
+                ? $this->localized($mock['copy'])
+                : lang('Collection.technique_card_copy');
+            $image = $mock['image'] ?? 'assets/img/museo/coleccion/titeres/titere.webp';
+
             $cards[] = [
                 'title' => $technique['title'],
-                'copy'  => lang('Collection.technique_card_copy'),
+                'copy'  => $copy,
                 'href'  => 'museo/coleccion/titeres/tecnicas/' . $technique['slug'],
-                'image' => 'assets/img/museo/coleccion/titeres/titere.webp',
+                'image' => $image,
                 'tone'  => $tones[$index % count($tones)],
             ];
         }
@@ -253,44 +320,74 @@ final class CollectionController extends BaseTotemController
         return $cards;
     }
 
+    // -------------------------------------------------------------------------
+    // Detail builders
+    // -------------------------------------------------------------------------
+
     /**
      * @return array<string, mixed>|null
      */
     private function collectionTechniqueBySlug(string $slug): ?array
     {
         $catalog = $this->collectionTechniqueCatalog();
+        $bySlug  = [];
+
+        foreach ($this->loadTecnicasMock() as $t) {
+            $bySlug[$t['slug']] = $t;
+        }
 
         foreach ($catalog as $index => $technique) {
             if ($technique['slug'] !== $slug) {
                 continue;
             }
 
+            $mock     = $bySlug[$slug] ?? null;
             $previous = $catalog[($index - 1 + count($catalog)) % count($catalog)];
-            $next = $catalog[($index + 1) % count($catalog)];
-            $itemCatalog = $this->collectionItemCatalog();
-            $relatedIndexes = [
-                $index % count($itemCatalog),
-                ($index + 3) % count($itemCatalog),
-                ($index + 6) % count($itemCatalog),
-            ];
+            $next     = $catalog[($index + 1) % count($catalog)];
+
+            // Related: titeres that use this technique
             $related = [];
 
-            foreach ($relatedIndexes as $relatedIndex) {
-                $related[] = [
-                    'label' => $itemCatalog[$relatedIndex]['title'],
-                    'href'  => 'museo/coleccion/fichas/' . $itemCatalog[$relatedIndex]['slug'],
-                ];
+            foreach ($this->loadTiteresMock() as $titere) {
+                if (count($related) >= 3) {
+                    break;
+                }
+
+                $tSlug = $this->techniqueNameToSlug($titere['tecnicas_asociadas'] ?? '');
+
+                if ($tSlug === $slug) {
+                    $related[] = [
+                        'label' => $titere['nombre'] ?? $titere['codigo_vitrina_bodega'],
+                        'href'  => 'museo/coleccion/fichas/' . strtolower($titere['codigo_vitrina_bodega']),
+                    ];
+                }
+            }
+
+            // Fallback: first 3 items from catalog
+            if (empty($related)) {
+                $itemCatalog = $this->collectionItemCatalog();
+
+                for ($i = 0; $i < 3 && $i < count($itemCatalog); $i++) {
+                    $related[] = [
+                        'label' => $itemCatalog[$i]['title'],
+                        'href'  => 'museo/coleccion/fichas/' . $itemCatalog[$i]['slug'],
+                    ];
+                }
             }
 
             return [
-                'pageTitle'   => $technique['title'],
-                'title'       => $technique['title'],
-                'subtitle'    => sprintf(lang('Collection.technique_detail_subtitle_template'), $technique['title']),
-                'description' => sprintf(lang('Collection.technique_detail_description_template'), $technique['title']),
-                'image'       => 'assets/img/museo/coleccion/titeres/titere.webp',
-                'related'     => $related,
-                'ctaLabel'    => lang('Collection.collection_exhibit'),
-                'ctaHref'     => 'museo/coleccion/titeres/exhibicion',
+                'pageTitle'    => $technique['title'],
+                'title'        => $technique['title'],
+                'subtitle'     => $mock !== null
+                    ? $this->localized($mock['subtitle'])
+                    : sprintf(lang('Collection.technique_detail_subtitle_template'), $technique['title']),
+                'description'  => $mock !== null
+                    ? $this->localized($mock['description'])
+                    : sprintf(lang('Collection.technique_detail_description_template'), $technique['title']),
+                'image'        => $mock['image'] ?? 'assets/img/museo/coleccion/titeres/titere.webp',
+                'related'      => $related,
+                'ctaLabel'     => lang('Collection.collection_exhibit'),
+                'ctaHref'      => 'museo/coleccion/titeres/exhibicion',
                 'previousHref' => 'museo/coleccion/titeres/tecnicas/' . $previous['slug'],
                 'nextHref'     => 'museo/coleccion/titeres/tecnicas/' . $next['slug'],
             ];
@@ -304,103 +401,91 @@ final class CollectionController extends BaseTotemController
      */
     private function collectionItemBySlug(string $slug): ?array
     {
-        $catalog = $this->collectionItemCatalog();
-        $index = null;
+        $allTiteres = $this->loadTiteresMock();
+        $found      = null;
+        $foundIndex = null;
 
-        if (ctype_digit($slug)) {
-            $legacyIndex = (int) $slug - 1;
-            if (isset($catalog[$legacyIndex])) {
-                $index = $legacyIndex;
-            }
-        } else {
-            foreach ($catalog as $catalogIndex => $item) {
-                if ($item['slug'] === $slug) {
-                    $index = $catalogIndex;
-                    break;
-                }
+        foreach ($allTiteres as $index => $titere) {
+            $itemSlug = strtolower($titere['codigo_vitrina_bodega']);
+
+            if ($slug === $itemSlug || (ctype_digit($slug) && (int) $slug === $titere['numero_coleccion'])) {
+                $found      = $titere;
+                $foundIndex = $index;
+                break;
             }
         }
 
-        if ($index === null) {
+        if ($found === null || $foundIndex === null) {
             return null;
         }
 
-        $item = $catalog[$index];
-        $families = $this->collectionItemFamilies();
-        $family = $families[$index % count($families)];
-        $image = 'assets/img/museo/coleccion/titeres/titere.webp';
-        $previous = $catalog[($index - 1 + count($catalog)) % count($catalog)];
-        $next = $catalog[($index + 1) % count($catalog)];
-        $relatedIndexes = [
-            $index,
-            ($index + 3) % count($catalog),
-            ($index + 6) % count($catalog),
-        ];
+        $total         = count($allTiteres);
+        $prevTitere    = $allTiteres[($foundIndex - 1 + $total) % $total];
+        $nextTitere    = $allTiteres[($foundIndex + 1) % $total];
+        $techniqueSlug = $this->techniqueNameToSlug($found['tecnicas_asociadas'] ?? '');
+
+        $title       = $found['nombre'] ?? $found['codigo_vitrina_bodega'];
+        $subtitle    = $found['descripcion_corta'] !== null
+            ? $this->localized($found['descripcion_corta'])
+            : sprintf(lang('Collection.item_detail_subtitle'), $title);
+        $description = $found['descripcion_fisica'] !== null
+            ? $this->localized($found['descripcion_fisica'])
+            : ($found['descripcion_corta'] !== null
+                ? $this->localized($found['descripcion_corta'])
+                : lang('Collection.item_detail_description'));
+        $image       = $found['imagen_portada'] ?? 'assets/img/museo/coleccion/titeres/titere.webp';
+
+        // Related: the 3 items that follow (wrapping)
+        $related = [];
+
+        for ($i = 1; $i <= 3; $i++) {
+            $rt = $allTiteres[($foundIndex + $i) % $total];
+            $related[] = [
+                'label' => $rt['nombre'] ?? $rt['codigo_vitrina_bodega'],
+                'href'  => 'museo/coleccion/fichas/' . strtolower($rt['codigo_vitrina_bodega']),
+                'image' => $rt['imagen_portada'] ?? 'assets/img/museo/coleccion/titeres/titere.webp',
+            ];
+        }
 
         return [
-            'slug'         => $item['slug'],
-            'pageTitle'    => sprintf('%s - %s', lang('Collection.item_detail_title'), $item['title']),
-            'title'        => $item['title'],
-            'subtitle'     => sprintf(lang('Collection.item_detail_subtitle'), $item['title']),
-            'description'  => lang('Collection.item_detail_description'),
-            'technique'    => $family['technique'],
-            'origin'       => lang('Collection.item_meta_origin_value'),
-            'measurements' => lang('Collection.item_meta_measurements_value'),
-            'year'         => lang('Collection.item_meta_year_value'),
-            'donatedBy'    => lang('Collection.item_meta_donated_by_value'),
-            'code'         => sprintf(lang('Collection.item_meta_code_value'), $index + 1),
-            'image'        => $image,
-            'techniqueHref'=> $family['techniqueHref'],
-            'previousHref' => 'museo/coleccion/fichas/' . $previous['slug'],
-            'nextHref'     => 'museo/coleccion/fichas/' . $next['slug'],
-            'related'      => [
-                ['label' => $catalog[$relatedIndexes[0]]['title'], 'href' => 'museo/coleccion/fichas/' . $catalog[$relatedIndexes[0]]['slug'], 'image' => $image],
-                ['label' => $catalog[$relatedIndexes[1]]['title'], 'href' => 'museo/coleccion/fichas/' . $catalog[$relatedIndexes[1]]['slug'], 'image' => $image],
-                ['label' => $catalog[$relatedIndexes[2]]['title'], 'href' => 'museo/coleccion/fichas/' . $catalog[$relatedIndexes[2]]['slug'], 'image' => $image],
-            ],
+            'slug'          => strtolower($found['codigo_vitrina_bodega']),
+            'pageTitle'     => sprintf('%s — %s', $title, lang('Collection.item_detail_title')),
+            'title'         => $title,
+            'subtitle'      => $subtitle,
+            'description'   => $description,
+            'technique'     => $this->techniqueSlugToTitle($techniqueSlug),
+            'techniqueHref' => 'museo/coleccion/titeres/tecnicas/' . $techniqueSlug,
+            'origin'        => $found['origen'] ?? '—',
+            'measurements'  => $found['tamanio'] ?? '—',
+            'year'          => $found['periodo'] ?? '—',
+            'donatedBy'     => $found['donado_facilitado_por'] ?? '—',
+            'code'          => $found['codigo_vitrina_bodega'],
+            'image'         => $image,
+            'previousHref'  => 'museo/coleccion/fichas/' . strtolower($prevTitere['codigo_vitrina_bodega']),
+            'nextHref'      => 'museo/coleccion/fichas/' . strtolower($nextTitere['codigo_vitrina_bodega']),
+            'related'       => $related,
         ];
     }
+
+    // -------------------------------------------------------------------------
+    // Catalogs
+    // -------------------------------------------------------------------------
 
     /**
      * @return list<array{slug:string, title:string}>
      */
     private function collectionItemCatalog(): array
     {
-        return [
-            ['slug' => 'lucia', 'title' => 'Lucía'],
-            ['slug' => 'don-cristobal', 'title' => 'Don Cristóbal'],
-            ['slug' => 'mariana', 'title' => 'Mariana'],
-            ['slug' => 'isidora', 'title' => 'Isidora'],
-            ['slug' => 'mateo', 'title' => 'Mateo'],
-            ['slug' => 'sofia', 'title' => 'Sofía'],
-            ['slug' => 'tomasa', 'title' => 'Tomasa'],
-            ['slug' => 'atalia', 'title' => 'Atalia'],
-            ['slug' => 'emilio', 'title' => 'Emilio'],
-        ];
-    }
+        $catalog = [];
 
-    /**
-     * @return list<array{technique:string, techniqueHref:string, tone:string}>
-     */
-    private function collectionItemFamilies(): array
-    {
-        return [
-            [
-                'technique'    => lang('Collection.technique_hilo_title'),
-                'techniqueHref'=> 'museo/coleccion/titeres/tecnicas/titere-de-hilo',
-                'tone'         => 'coral',
-            ],
-            [
-                'technique'    => lang('Collection.technique_guante_title'),
-                'techniqueHref'=> 'museo/coleccion/titeres/tecnicas/titere-de-guante',
-                'tone'         => 'sky',
-            ],
-            [
-                'technique'    => lang('Collection.technique_direct_title'),
-                'techniqueHref'=> 'museo/coleccion/titeres/tecnicas/manipulacion-directa',
-                'tone'         => 'violet',
-            ],
-        ];
+        foreach ($this->loadTiteresMock() as $titere) {
+            $catalog[] = [
+                'slug'  => strtolower($titere['codigo_vitrina_bodega']),
+                'title' => $titere['nombre'] ?? $titere['codigo_vitrina_bodega'],
+            ];
+        }
+
+        return $catalog;
     }
 
     /**
@@ -409,20 +494,109 @@ final class CollectionController extends BaseTotemController
     private function collectionTechniqueCatalog(): array
     {
         return [
-            ['slug' => 'titere-de-guante', 'title' => lang('Collection.technique_guante_title')],
-            ['slug' => 'titere-de-hilo', 'title' => lang('Collection.technique_hilo_title')],
-            ['slug' => 'titere-bocon', 'title' => lang('Collection.technique_bocon_title')],
-            ['slug' => 'titere-marote', 'title' => lang('Collection.technique_marote_title')],
-            ['slug' => 'titere-gigante', 'title' => lang('Collection.technique_gigante_title')],
-            ['slug' => 'titere-de-sombra', 'title' => lang('Collection.technique_sombra_title')],
-            ['slug' => 'titere-de-varilla', 'title' => lang('Collection.technique_varilla_title')],
-            ['slug' => 'titere-plano', 'title' => lang('Collection.technique_plano_title')],
-            ['slug' => 'titere-de-dedo', 'title' => lang('Collection.technique_dedo_title')],
-            ['slug' => 'titere-corporal', 'title' => lang('Collection.technique_corporal_title')],
-            ['slug' => 'manipulacion-directa', 'title' => lang('Collection.technique_direct_title')],
-            ['slug' => 'titere-ventrilocuo', 'title' => lang('Collection.technique_ventrilocuo_title')],
-            ['slug' => 'caja-lambe-lambe', 'title' => lang('Collection.technique_lambe_lambe_title')],
-            ['slug' => 'titeres-en-cine-stop-motion', 'title' => lang('Collection.technique_stop_motion_title')],
+            ['slug' => 'titere-de-guante',            'title' => lang('Collection.technique_guante_title')],
+            ['slug' => 'titere-de-hilo',               'title' => lang('Collection.technique_hilo_title')],
+            ['slug' => 'titere-bocon',                 'title' => lang('Collection.technique_bocon_title')],
+            ['slug' => 'titere-marote',                'title' => lang('Collection.technique_marote_title')],
+            ['slug' => 'titere-gigante',               'title' => lang('Collection.technique_gigante_title')],
+            ['slug' => 'titere-de-sombra',             'title' => lang('Collection.technique_sombra_title')],
+            ['slug' => 'titere-de-varilla',            'title' => lang('Collection.technique_varilla_title')],
+            ['slug' => 'titere-plano',                 'title' => lang('Collection.technique_plano_title')],
+            ['slug' => 'titere-de-dedo',               'title' => lang('Collection.technique_dedo_title')],
+            ['slug' => 'titere-corporal',              'title' => lang('Collection.technique_corporal_title')],
+            ['slug' => 'manipulacion-directa',         'title' => lang('Collection.technique_direct_title')],
+            ['slug' => 'titere-ventrilocuo',           'title' => lang('Collection.technique_ventrilocuo_title')],
+            ['slug' => 'caja-lambe-lambe',             'title' => lang('Collection.technique_lambe_lambe_title')],
+            ['slug' => 'titeres-en-cine-stop-motion',  'title' => lang('Collection.technique_stop_motion_title')],
         ];
+    }
+
+    // -------------------------------------------------------------------------
+    // Mock data loaders
+    // -------------------------------------------------------------------------
+
+    /**
+     * @return list<array<string, mixed>>
+     */
+    private function loadTiteresMock(): array
+    {
+        static $cache = null;
+
+        if ($cache === null) {
+            $path  = APPPATH . 'Data/titeres_mock.json';
+            $cache = json_decode((string) file_get_contents($path), true) ?? [];
+        }
+
+        return $cache;
+    }
+
+    /**
+     * @return list<array<string, mixed>>
+     */
+    private function loadTecnicasMock(): array
+    {
+        static $cache = null;
+
+        if ($cache === null) {
+            $path  = APPPATH . 'Data/tecnicas_mock.json';
+            $cache = json_decode((string) file_get_contents($path), true) ?? [];
+        }
+
+        return $cache;
+    }
+
+    // -------------------------------------------------------------------------
+    // Technique name ↔ slug helpers
+    // -------------------------------------------------------------------------
+
+    /**
+     * Maps the human-readable technique name stored in titeres_mock.json
+     * (field: tecnicas_asociadas) to the URL slug used in routes.
+     */
+    private function techniqueNameToSlug(string $name): string
+    {
+        $map = [
+            'Guante'       => 'titere-de-guante',
+            'Hilo'         => 'titere-de-hilo',
+            'Bocón'        => 'titere-bocon',
+            'Marote'       => 'titere-marote',
+            'Gigante'      => 'titere-gigante',
+            'Sombra'       => 'titere-de-sombra',
+            'Varilla'      => 'titere-de-varilla',
+            'Plano'        => 'titere-plano',
+            'Dedo'         => 'titere-de-dedo',
+            'Corporal'     => 'titere-corporal',
+            'Directa'      => 'manipulacion-directa',
+            'Ventrílocuo'  => 'titere-ventrilocuo',
+            'Lambe Lambe'  => 'caja-lambe-lambe',
+            'Stop Motion'  => 'titeres-en-cine-stop-motion',
+        ];
+
+        return $map[trim($name)] ?? 'titere-de-guante';
+    }
+
+    /**
+     * Returns the i18n-aware display title for a technique slug.
+     */
+    private function techniqueSlugToTitle(string $slug): string
+    {
+        $map = [
+            'titere-de-guante'            => lang('Collection.technique_guante_title'),
+            'titere-de-hilo'              => lang('Collection.technique_hilo_title'),
+            'titere-bocon'                => lang('Collection.technique_bocon_title'),
+            'titere-marote'               => lang('Collection.technique_marote_title'),
+            'titere-gigante'              => lang('Collection.technique_gigante_title'),
+            'titere-de-sombra'            => lang('Collection.technique_sombra_title'),
+            'titere-de-varilla'           => lang('Collection.technique_varilla_title'),
+            'titere-plano'                => lang('Collection.technique_plano_title'),
+            'titere-de-dedo'              => lang('Collection.technique_dedo_title'),
+            'titere-corporal'             => lang('Collection.technique_corporal_title'),
+            'manipulacion-directa'        => lang('Collection.technique_direct_title'),
+            'titere-ventrilocuo'          => lang('Collection.technique_ventrilocuo_title'),
+            'caja-lambe-lambe'            => lang('Collection.technique_lambe_lambe_title'),
+            'titeres-en-cine-stop-motion' => lang('Collection.technique_stop_motion_title'),
+        ];
+
+        return $map[$slug] ?? lang('Collection.technique_guante_title');
     }
 }

@@ -1,7 +1,6 @@
 <?php
 /**
  * @var array<string, mixed> $technique
- * @var array<int, array{label:string, href:string, active?:bool, disabled?:bool}> $tabs
  * @var array $nav
  */
 ?>
@@ -10,8 +9,6 @@
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
         <div class="collection-detail collection-detail--technique">
-            <?= view('totem/partials/collection_section_nav', ['tabs' => $tabs ?? []]) ?>
-
             <?= view('totem/partials/collection_detail_stage', [
                 'eyebrow'      => lang('Collection.technique_detail_eyebrow'),
                 'title'        => $technique['title'] ?? '',
@@ -57,7 +54,7 @@
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => $technique['pageTitle'] ?? lang('Collection.techniques_title'),
+        'title' => '',
         'content' => $content,
         'nav' => $nav ?? [],
     ]) ?>
