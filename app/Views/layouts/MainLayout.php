@@ -35,7 +35,27 @@ foreach (totem_locales() as $locale) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#de5928">
+    
     <title><?= esc($pageTitle ?? lang('Meta.default_title')) ?></title>
+    <meta name="description" content="<?= esc($pageDescription ?? lang('Meta.default_description')) ?>">
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<?= esc(current_url()) ?>">
+    <meta property="og:title" content="<?= esc($pageTitle ?? lang('Meta.default_title')) ?>">
+    <meta property="og:description" content="<?= esc($pageDescription ?? lang('Meta.default_description')) ?>">
+    <meta property="og:image" content="<?= esc(base_url('assets/animations/logo.gif')) ?>">
+    <meta property="og:image:type" content="image/gif">
+    <meta property="og:image:width" content="250">
+    <meta property="og:image:height" content="250">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:url" content="<?= esc(current_url()) ?>">
+    <meta name="twitter:title" content="<?= esc($pageTitle ?? lang('Meta.default_title')) ?>">
+    <meta name="twitter:description" content="<?= esc($pageDescription ?? lang('Meta.default_description')) ?>">
+    <meta name="twitter:image" content="<?= esc(base_url('assets/animations/logo.gif')) ?>">
+
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>?v=<?= $cssVersion ?>">
     <script>
         window.TOTEM_SYSTEM_MESSAGES = <?= json_encode(
