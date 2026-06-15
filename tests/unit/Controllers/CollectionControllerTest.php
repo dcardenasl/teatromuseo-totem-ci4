@@ -28,8 +28,8 @@ final class CollectionControllerTest extends CIUnitTestCase
 
         $result->assertStatus(200);
         $result->assertSee('collection-grid--techniques');
-        $result->assertSee('Títere de hilo');
-        $result->assertSee('Manipulación directa');
+        $result->assertSee('Títeres de Hilo');
+        $result->assertSee('Títeres de Manipulación Directa');
         $result->assertSee('Ver más');
     }
 

@@ -176,7 +176,8 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result->assertSee('collection-grid--exhibit');
         $result->assertSee('Títeres en exhibición');
         $result->assertSee('Técnicas');
-        $result->assertSee('Nombre completo del títere');
+        $result->assertSee('Lucía');
+        $result->assertSee('Don Cristóbal');
         $result->assertSee('La técnica');
     }
 
@@ -206,13 +207,14 @@ final class TotemRoutesTest extends CIUnitTestCase
 
     public function testCollectionItemDetailRoute(): void
     {
-        $result = $this->get('museo/coleccion/fichas/6');
+        $result = $this->get('museo/coleccion/fichas/sofia');
 
         $result->assertStatus(200);
-        $result->assertSee('Ficha #6');
+        $result->assertSee('Ficha de Sofía');
         $result->assertSee('Conocer técnica');
         $result->assertSee('País de origen');
         $result->assertSee('TM0006');
+        $result->assertDontSee('collection-section-nav');
     }
 
     public function testTheaterSchoolRoute(): void
