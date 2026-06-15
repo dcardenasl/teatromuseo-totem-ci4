@@ -193,7 +193,7 @@ Referencias de diseño:
 Estado: parcial.
 
 - La cartelera de listado está cubierta.
-- La vista de detalle funciona con `la-malattia-di-nogasto-poster.webp` y `la-malattia-di-nogasto-collage.webp`, pero no existe un asset local que represente de forma canónica la composición de `cartelera-detalle.png`.
+- La vista de detalle funciona con `la-malattia-di-nogasto-poster.webp` y `billboard-collage.webp`, pero no existe un asset local que represente de forma canónica la composición de `cartelera-detalle.png`.
 - En otras palabras: hay contenido suficiente para producir la vista, pero falta el export específico de esa portada editorial como asset reusable.
 
 ### 14) `/teatro-escuela`
