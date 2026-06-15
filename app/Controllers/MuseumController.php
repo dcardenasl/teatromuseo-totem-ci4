@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Presenters\MuseumTodayPresenter;
+use App\Presenters\StoryPresenter;
 
 /**
  * Handles museum section screens: menu, building, institution, today and
@@ -12,6 +12,13 @@ use App\Presenters\MuseumTodayPresenter;
  */
 final class MuseumController extends BaseTotemController
 {
+    private StoryPresenter $story;
+
+    public function __construct()
+    {
+        $this->story = new StoryPresenter();
+    }
+
     public function museum(): string
     {
         return view('totem/museum_menu', array_merge(
@@ -43,7 +50,6 @@ final class MuseumController extends BaseTotemController
             $this->pageMeta(lang('MuseumInfo.teatromuseo_history_title')),
             [
                 'nav' => $this->shellNav(base_url('museo/el-museo')),
-                'data' => $this->totemApi()->museum(),
             ]
         ));
     }
@@ -54,20 +60,17 @@ final class MuseumController extends BaseTotemController
             $this->pageMeta(lang('MuseumInfo.church_history_title')),
             [
                 'nav' => $this->shellNav(base_url('museo/el-museo')),
-                'data' => $this->totemApi()->museum(),
             ]
         ));
     }
 
     public function museumToday(): string
     {
-        $presenter = new MuseumTodayPresenter();
-
         return view('totem/museum_today', array_merge(
             $this->pageMeta(lang('MuseumInfo.teatromuseo_today')),
             [
                 'nav' => $this->shellNav(base_url('museo/el-museo')),
-                'today' => $presenter->present($this->totemApi()->museum()),
+                'story' => $this->story->museumToday(),
             ]
         ));
     }
@@ -76,9 +79,7 @@ final class MuseumController extends BaseTotemController
     {
         return view('totem/comic_history_main', array_merge(
             $this->pageMeta(lang('ComicHistory.main_title')),
-            [
-                'nav' => $this->shellNav(base_url('museo')),
-            ]
+            ['nav' => $this->shellNav(base_url('museo'))]
         ));
     }
 
@@ -89,12 +90,13 @@ final class MuseumController extends BaseTotemController
 
     public function museumHistoryPost(string $slug): string
     {
+        $story = $this->story->historyPost($slug);
+
         return view('totem/comic_history_post', array_merge(
-            $this->pageMeta(lang('ComicHistory.main_title')),
+            $this->pageMeta((string) ($story['title'] ?? lang('ComicHistory.main_title'))),
             [
                 'nav' => $this->shellNav(base_url('museo/historia')),
-                'post' => $this->totemApi()->museumHistory($slug),
-                'slug' => $slug,
+                'story' => $story,
             ]
         ));
     }

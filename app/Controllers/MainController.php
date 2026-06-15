@@ -22,9 +22,16 @@ final class MainController extends BaseTotemController
             $from = '';
         }
 
+        $onCancel = $from !== '' ? $from : 'menu';
+        $onSelect = $from === '/' ? 'menu' : $onCancel;
+
         return view('totem/language', array_merge(
             $this->pageMeta(lang('Menu.select_language')),
-            ['from' => $from]
+            [
+                'from' => $from,
+                'onSelect' => $onSelect,
+                'onCancel' => $onCancel,
+            ]
         ));
     }
 
