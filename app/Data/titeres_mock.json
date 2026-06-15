@@ -5,24 +5,45 @@
     "nombre": "Mamulengo, Cholito.",
     "categoria": "Títere",
     "estado": null,
-    "descripcion_corta": "Títere Mamulengo, tradicional de Brasil declarado patrimonio de la humanidad por la UNESCO.",
-    "historia_completa": "Construido por artesanas brasileñas hijas del destacado titiritero Abel Núñez. Fueron construidos especialmente para la exposición.",
+    "descripcion_corta": {
+      "es": "Títere Mamulengo, tradicional de Brasil declarado patrimonio de la humanidad por la UNESCO.",
+      "en": "Mamulengo puppet, a traditional Brazilian form declared Intangible Cultural Heritage of Humanity by UNESCO.",
+      "fr": "Marionnette Mamulengo, forme traditionnelle brésilienne déclarée Patrimoine Culturel Immatériel de l'Humanité par l'UNESCO.",
+      "pt": "Boneco Mamulengo, forma tradicional brasileira declarada Patrimônio Cultural Imaterial da Humanidade pela UNESCO."
+    },
+    "historia_completa": {
+      "es": "Construido por artesanas brasileñas hijas del destacado titiritero Abel Núñez. Fueron construidos especialmente para la exposición.",
+      "en": "Built by Brazilian craftswomen, daughters of the renowned puppeteer Abel Núñez. They were crafted especially for this exhibition.",
+      "fr": "Construites par des artisanes brésiliennes, filles du célèbre marionnettiste Abel Núñez. Elles ont été créées spécialement pour l'exposition.",
+      "pt": "Construído por artesãs brasileiras, filhas do destacado titeriteiro Abel Núñez. Foram construídos especialmente para a exposição."
+    },
     "origen": "Brasil",
     "periodo": "2012",
     "creador_artista": "Fenisiana Barbolento",
     "ubicacion_fisica": "V1",
-    "materiales": ["Madera pintada y tela"],
+    "materiales": [
+      "Madera pintada y tela"
+    ],
     "tecnicas_asociadas": "Guante",
     "imagen_portada": null,
     "galeria": null,
     "mostrar_en_totem": null,
     "notas_internas": null,
     "coleccion": "Brasil",
-    "descripcion_fisica": "Títere de guante que representa a una persona afrodescendiente. Cabeza alargada y de madera pintada de color negro, con amplia sonrisa tallada. Vestuario de tela estampada de colores verde, rojo y blanco, y mangas azules.",
+    "descripcion_fisica": {
+      "es": "Títere de guante que representa a una persona afrodescendiente. Cabeza alargada y de madera pintada de color negro, con amplia sonrisa tallada. Vestuario de tela estampada de colores verde, rojo y blanco, y mangas azules.",
+      "en": "Glove puppet representing an Afro-descendant person. Elongated wooden head painted black, with a broad carved smile. Costume of printed fabric in green, red and white, with blue sleeves.",
+      "fr": "Marionnette à gaine représentant une personne afrodescendante. Tête allongée en bois peinte en noir, avec un large sourire sculpté. Costume en tissu imprimé aux couleurs vert, rouge et blanc, avec des manches bleues.",
+      "pt": "Títere de luva que representa uma pessoa afrodescendente. Cabeça alongada de madeira pintada de preto, com amplo sorriso entalhado. Figurino de tecido estampado nas cores verde, vermelho e branco, com mangas azuis."
+    },
     "tamanio": "53,5 cm de alto · 43 cm de ancho",
     "forma_ingreso": null,
     "donado_facilitado_por": "Grupo Sobre Vento",
-    "etiquetas": ["mamulengo", "brasil", "guante"],
+    "etiquetas": [
+      "mamulengo",
+      "brasil",
+      "guante"
+    ],
     "mas_informacion": null,
     "historia_compania": null,
     "publicado": null
@@ -33,8 +54,18 @@
     "nombre": null,
     "categoria": "Títere",
     "estado": null,
-    "descripcion_corta": "Títere Mamulengo, tradicional de Brasil declarado patrimonio de la humanidad por la UNESCO.",
-    "historia_completa": "Construido por artesanas brasileñas hijas del destacado titiritero Abel Núñez. Fueron construidos especialmente para la exposición.",
+    "descripcion_corta": {
+      "es": "Títere Mamulengo, tradicional de Brasil declarado patrimonio de la humanidad por la UNESCO.",
+      "en": "Mamulengo puppet, a traditional Brazilian form declared Intangible Cultural Heritage of Humanity by UNESCO.",
+      "fr": "Marionnette Mamulengo, forme traditionnelle brésilienne déclarée Patrimoine Culturel Immatériel de l'Humanité par l'UNESCO.",
+      "pt": "Boneco Mamulengo, forma tradicional brasileira declarada Patrimônio Cultural Imaterial da Humanidade pela UNESCO."
+    },
+    "historia_completa": {
+      "es": "Construido por artesanas brasileñas hijas del destacado titiritero Abel Núñez. Fueron construidos especialmente para la exposición.",
+      "en": "Built by Brazilian craftswomen, daughters of the renowned puppeteer Abel Núñez. They were crafted especially for this exhibition.",
+      "fr": "Construites par des artisanes brésiliennes, filles du célèbre marionnettiste Abel Núñez. Elles ont été créées spécialement pour l'exposition.",
+      "pt": "Construído por artesãs brasileiras, filhas do destacado titeriteiro Abel Núñez. Foram construídos especialmente para a exposição."
+    },
     "origen": "Brasil",
     "periodo": "2012",
     "creador_artista": "Fenisiana Barbolento",
@@ -50,7 +81,11 @@
     "tamanio": null,
     "forma_ingreso": null,
     "donado_facilitado_por": "Grupo Sobre Vento",
-    "etiquetas": ["mamulengo", "brasil", "guante"],
+    "etiquetas": [
+      "mamulengo",
+      "brasil",
+      "guante"
+    ],
     "mas_informacion": null,
     "historia_compania": null,
     "publicado": null
@@ -61,8 +96,18 @@
     "nombre": "Mamulengo, Cholito.",
     "categoria": "Títere",
     "estado": null,
-    "descripcion_corta": "Títere Mamulengo, tradicional de Brasil declarado patrimonio de la humanidad por la UNESCO.",
-    "historia_completa": "Construido por artesanas brasileñas hijas del destacado titiritero Abel Núñez. Fueron construidos especialmente para la exposición.",
+    "descripcion_corta": {
+      "es": "Títere Mamulengo, tradicional de Brasil declarado patrimonio de la humanidad por la UNESCO.",
+      "en": "Mamulengo puppet, a traditional Brazilian form declared Intangible Cultural Heritage of Humanity by UNESCO.",
+      "fr": "Marionnette Mamulengo, forme traditionnelle brésilienne déclarée Patrimoine Culturel Immatériel de l'Humanité par l'UNESCO.",
+      "pt": "Boneco Mamulengo, forma tradicional brasileira declarada Patrimônio Cultural Imaterial da Humanidade pela UNESCO."
+    },
+    "historia_completa": {
+      "es": "Construido por artesanas brasileñas hijas del destacado titiritero Abel Núñez. Fueron construidos especialmente para la exposición.",
+      "en": "Built by Brazilian craftswomen, daughters of the renowned puppeteer Abel Núñez. They were crafted especially for this exhibition.",
+      "fr": "Construites par des artisanes brésiliennes, filles du célèbre marionnettiste Abel Núñez. Elles ont été créées spécialement pour l'exposition.",
+      "pt": "Construído por artesãs brasileiras, filhas do destacado titeriteiro Abel Núñez. Foram construídos especialmente para a exposição."
+    },
     "origen": "Brasil",
     "periodo": "2012",
     "creador_artista": "Fenisiana Barbolento",
@@ -78,7 +123,11 @@
     "tamanio": null,
     "forma_ingreso": null,
     "donado_facilitado_por": "Grupo Sobre Vento",
-    "etiquetas": ["mamulengo", "brasil", "guante"],
+    "etiquetas": [
+      "mamulengo",
+      "brasil",
+      "guante"
+    ],
     "mas_informacion": null,
     "historia_compania": null,
     "publicado": null
@@ -89,8 +138,18 @@
     "nombre": "Mamulengo, Cholito.",
     "categoria": "Títere",
     "estado": null,
-    "descripcion_corta": "Títere Mamulengo, tradicional de Brasil declarado patrimonio de la humanidad por la UNESCO.",
-    "historia_completa": "Construido por artesanas brasileñas hijas del destacado titiritero Abel Núñez. Fueron construidos especialmente para la exposición.",
+    "descripcion_corta": {
+      "es": "Títere Mamulengo, tradicional de Brasil declarado patrimonio de la humanidad por la UNESCO.",
+      "en": "Mamulengo puppet, a traditional Brazilian form declared Intangible Cultural Heritage of Humanity by UNESCO.",
+      "fr": "Marionnette Mamulengo, forme traditionnelle brésilienne déclarée Patrimoine Culturel Immatériel de l'Humanité par l'UNESCO.",
+      "pt": "Boneco Mamulengo, forma tradicional brasileira declarada Patrimônio Cultural Imaterial da Humanidade pela UNESCO."
+    },
+    "historia_completa": {
+      "es": "Construido por artesanas brasileñas hijas del destacado titiritero Abel Núñez. Fueron construidos especialmente para la exposición.",
+      "en": "Built by Brazilian craftswomen, daughters of the renowned puppeteer Abel Núñez. They were crafted especially for this exhibition.",
+      "fr": "Construites par des artisanes brésiliennes, filles du célèbre marionnettiste Abel Núñez. Elles ont été créées spécialement pour l'exposition.",
+      "pt": "Construído por artesãs brasileiras, filhas do destacado titeriteiro Abel Núñez. Foram construídos especialmente para a exposição."
+    },
     "origen": "Brasil",
     "periodo": "2012",
     "creador_artista": "Fenisiana Barbolento",
@@ -106,7 +165,11 @@
     "tamanio": null,
     "forma_ingreso": null,
     "donado_facilitado_por": "Grupo Sobre Vento",
-    "etiquetas": ["mamulengo", "brasil", "guante"],
+    "etiquetas": [
+      "mamulengo",
+      "brasil",
+      "guante"
+    ],
     "mas_informacion": null,
     "historia_compania": null,
     "publicado": null
