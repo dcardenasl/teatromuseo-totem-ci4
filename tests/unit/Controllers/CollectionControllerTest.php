@@ -27,8 +27,10 @@ final class CollectionControllerTest extends CIUnitTestCase
         $result = $this->get('museo/coleccion/titeres/tecnicas');
 
         $result->assertStatus(200);
-        $result->assertSee('Técnicas');
-        $result->assertDontSee('content-panel');
+        $result->assertSee('collection-grid--techniques');
+        $result->assertSee('Títere de hilo');
+        $result->assertSee('Manipulación directa');
+        $result->assertSee('Ver más');
     }
 
     public function testCollectionMasksTraditionsRouteRendersList(): void

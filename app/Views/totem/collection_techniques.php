@@ -1,6 +1,7 @@
 <?php
 /**
- * @var array<int, array{title:string, slug:string}> $techniques
+ * @var array<int, array<string, mixed>> $techniques
+ * @var array<int, array{label:string, href:string, active?:bool, disabled?:bool}> $tabs
  * @var array $nav
  */
 ?>
@@ -8,21 +9,18 @@
 
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
-        <?= view('totem/partials/menu_grid', [
-                'items' => array_map(
-                    static fn (array $technique): array => [
-                        'title' => $technique['title'],
-                        'href'  => base_url('museo/coleccion/titeres/tecnicas/' . $technique['slug']),
-                    ],
-                    $techniques
-                ),
-            'showCoda' => false,
+        <?= view('totem/partials/collection_grid', [
+            'title'     => lang('Collection.techniques_title'),
+            'intro'     => lang('Collection.techniques_intro'),
+            'gridClass' => 'collection-grid--techniques',
+            'items'     => $techniques ?? [],
+            'tabs'      => $tabs ?? [],
         ]) ?>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
         'title' => lang('Collection.techniques_title'),
         'content' => $content,
-        'nav' => $nav ?? []
+        'nav' => $nav ?? [],
     ]) ?>
 <?= $this->endSection() ?>

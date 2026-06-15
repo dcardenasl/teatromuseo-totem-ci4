@@ -1,40 +1,78 @@
 <?php
 /**
+ * @var array<string, mixed> $item
+ * @var array<int, array{label:string, href:string, active?:bool, disabled?:bool}> $tabs
  * @var array $nav
- * @var int $id
  */
 ?>
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
-        <div class="collection-page">
-            <section class="collection-hero" aria-labelledby="collection-item-title">
-                <div class="collection-hero__media">
-                    <div class="collection-hero__frame">
-                        <img src="<?= base_url('assets/img/museo/coleccion/titeres/titere.webp') ?>" alt="" loading="eager">
-                    </div>
+        <div class="collection-detail">
+            <?= view('totem/partials/collection_section_nav', ['tabs' => $tabs ?? []]) ?>
+
+            <?= view('totem/partials/collection_detail_stage', [
+                'eyebrow'     => lang('Collection.item_detail_eyebrow'),
+                'title'       => $item['title'] ?? '',
+                'subtitle'    => $item['subtitle'] ?? '',
+                'image'       => $item['image'] ?? '',
+                'imageAlt'    => $item['title'] ?? '',
+                'previousHref'=> $item['previousHref'] ?? '',
+                'nextHref'    => $item['nextHref'] ?? '',
+            ]) ?>
+
+            <section class="collection-detail__body">
+                <div class="collection-detail__copy">
+                    <p class="collection-detail__lead"><?= esc($item['description'] ?? '') ?></p>
                 </div>
 
-                <div class="collection-hero__copy">
-                    <p class="collection-hero__eyebrow"><?= esc(lang('Collection.hero_eyebrow')) ?></p>
-                    <h2 class="collection-hero__title" id="collection-item-title"><?= esc(lang('Collection.item_title')) ?> #<?= esc((string) $id) ?></h2>
-                    <p class="collection-hero__intro"><?= esc(lang('Collection.section_copy')) ?></p>
-                    <p class="collection-hero__note"><?= esc(lang('Collection.section_details_copy')) ?></p>
-
-                    <div class="collection-hero__actions">
-                        <a class="pill-button pill-button--secondary collection-hero__cta" href="<?= esc(base_url('museo/coleccion'), 'attr') ?>">
-                            <?= esc(lang('Nav.back')) ?>
-                        </a>
+                <dl class="collection-detail__facts">
+                    <div class="collection-detail__fact">
+                        <dt><?= esc(lang('Collection.item_meta_technique')) ?></dt>
+                        <dd>
+                            <a href="<?= esc(base_url($item['techniqueHref'] ?? ''), 'attr') ?>">
+                                <?= esc($item['technique'] ?? '') ?>
+                            </a>
+                        </dd>
                     </div>
+                    <div class="collection-detail__fact">
+                        <dt><?= esc(lang('Collection.item_meta_origin')) ?></dt>
+                        <dd><?= esc($item['origin'] ?? '') ?></dd>
+                    </div>
+                    <div class="collection-detail__fact">
+                        <dt><?= esc(lang('Collection.item_meta_measurements')) ?></dt>
+                        <dd><?= esc($item['measurements'] ?? '') ?></dd>
+                    </div>
+                    <div class="collection-detail__fact">
+                        <dt><?= esc(lang('Collection.item_meta_year')) ?></dt>
+                        <dd><?= esc($item['year'] ?? '') ?></dd>
+                    </div>
+                    <div class="collection-detail__fact">
+                        <dt><?= esc(lang('Collection.item_meta_donated_by')) ?></dt>
+                        <dd><?= esc($item['donatedBy'] ?? '') ?></dd>
+                    </div>
+                    <div class="collection-detail__fact">
+                        <dt><?= esc(lang('Collection.item_meta_code')) ?></dt>
+                        <dd><?= esc($item['code'] ?? '') ?></dd>
+                    </div>
+                </dl>
+
+                <div class="collection-detail__actions">
+                    <a class="pill-button collection-detail__cta" href="<?= esc(base_url($item['techniqueHref'] ?? ''), 'attr') ?>">
+                        <?= esc(lang('Collection.item_cta_technique')) ?>
+                    </a>
+                    <a class="pill-button pill-button--secondary collection-detail__cta" href="<?= esc(base_url('museo/coleccion/titeres/exhibicion'), 'attr') ?>">
+                        <?= esc(lang('Collection.item_cta_back')) ?>
+                    </a>
                 </div>
             </section>
         </div>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => lang('Collection.item_title'),
+        'title' => $item['pageTitle'] ?? lang('Collection.item_detail_title'),
         'content' => $content,
-        'nav' => $nav ?? []
+        'nav' => $nav ?? [],
     ]) ?>
 <?= $this->endSection() ?>

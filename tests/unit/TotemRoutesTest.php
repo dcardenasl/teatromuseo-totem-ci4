@@ -173,13 +173,11 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result = $this->get('museo/coleccion/titeres/exhibicion');
 
         $result->assertStatus(200);
+        $result->assertSee('collection-grid--exhibit');
         $result->assertSee('Títeres en exhibición');
         $result->assertSee('Técnicas');
-        $result->assertDontSee('content-panel');
-        $result->assertDontSee('En armado');
-        $result->assertDontSee('Foco');
-        $result->assertDontSee('Ruta');
-        $result->assertDontSee('Mismo patrón');
+        $result->assertSee('Nombre completo del títere');
+        $result->assertSee('La técnica');
     }
 
     public function testMasksExhibitRoute(): void
@@ -212,10 +210,9 @@ final class TotemRoutesTest extends CIUnitTestCase
 
         $result->assertStatus(200);
         $result->assertSee('Ficha #6');
-        $result->assertDontSee('En armado');
-        $result->assertDontSee('Foco');
-        $result->assertDontSee('Ruta');
-        $result->assertDontSee('Mismo patrón');
+        $result->assertSee('Conocer técnica');
+        $result->assertSee('País de origen');
+        $result->assertSee('TM0006');
     }
 
     public function testTheaterSchoolRoute(): void
