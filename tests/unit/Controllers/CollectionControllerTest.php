@@ -28,6 +28,7 @@ final class CollectionControllerTest extends CIUnitTestCase
 
         $result->assertStatus(200);
         $result->assertSee('Técnicas');
+        $result->assertDontSee('content-panel');
     }
 
     public function testCollectionMasksTraditionsRouteRendersList(): void
@@ -36,6 +37,7 @@ final class CollectionControllerTest extends CIUnitTestCase
 
         $result->assertStatus(200);
         $result->assertSee('Tradiciones de Máscaras');
+        $result->assertDontSee('content-panel');
     }
 
     public function testObsoleteClownsRouteReturns404(): void

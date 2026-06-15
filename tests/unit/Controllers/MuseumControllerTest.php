@@ -20,12 +20,19 @@ final class MuseumControllerTest extends CIUnitTestCase
         $result->assertSee('Explora el museo');
     }
 
-    public function testMuseumTodayRouteRendersBlocks(): void
+    public function testMuseumTodayRouteRendersStoryWithoutBlocks(): void
     {
         $result = $this->get('museo/el-museo/hoy');
 
         $result->assertStatus(200);
         $result->assertSee('Actualidad del museo');
+        $result->assertSee('Una actualidad que se lee de frente');
+        $result->assertSee('collage-historia-actual.webp');
+        $result->assertDontSee('Bloques visibles');
+        $result->assertDontSee('Foco editorial');
+        $result->assertDontSee('Ir al edificio');
+        $result->assertDontSee('Ir a institución');
+        $result->assertDontSee('Volver al museo');
     }
 
     public function testMuseumHistoryRouteRendersArchive(): void

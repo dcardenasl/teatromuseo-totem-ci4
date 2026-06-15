@@ -138,10 +138,34 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result->assertSee('Archivo editorial');
         $result->assertSee('Historia del Circo');
         $result->assertSee('Historia de los Payasos');
+        $result->assertSee(base_url('museo/historia/historia-del-circo'));
+        $result->assertSee(base_url('museo/historia/historia-de-los-payasos'));
         $result->assertSee('assets/img/museo/historia/collage-circo.webp');
         $result->assertSee('assets/img/museo/historia/collage-teatro.webp');
         $result->assertDontSee('Tradición del Títere');
         $result->assertDontSee('Entrada editorial');
+    }
+
+    public function testHistoryCircusDetailRoute(): void
+    {
+        $result = $this->get('museo/historia/historia-del-circo');
+
+        $result->assertStatus(200);
+        $result->assertSee('Historia del Circo');
+        $result->assertSee('Origen y movimiento');
+        $result->assertSee('Memoria popular');
+        $result->assertSee('assets/img/museo/historia/collage-circo.webp');
+    }
+
+    public function testHistoryClownsDetailRoute(): void
+    {
+        $result = $this->get('museo/historia/historia-de-los-payasos');
+
+        $result->assertStatus(200);
+        $result->assertSee('Historia de los Payasos');
+        $result->assertSee('Oficio y personaje');
+        $result->assertSee('Risa y cercanía');
+        $result->assertSee('assets/img/museo/historia/collage-teatro.webp');
     }
 
     public function testPuppetsExhibitRoute(): void
@@ -150,6 +174,12 @@ final class TotemRoutesTest extends CIUnitTestCase
 
         $result->assertStatus(200);
         $result->assertSee('Títeres en exhibición');
+        $result->assertSee('Técnicas');
+        $result->assertDontSee('content-panel');
+        $result->assertDontSee('En armado');
+        $result->assertDontSee('Foco');
+        $result->assertDontSee('Ruta');
+        $result->assertDontSee('Mismo patrón');
     }
 
     public function testMasksExhibitRoute(): void
@@ -158,6 +188,12 @@ final class TotemRoutesTest extends CIUnitTestCase
 
         $result->assertStatus(200);
         $result->assertSee('Máscaras en exhibición');
+        $result->assertSee('Tradiciones');
+        $result->assertDontSee('content-panel');
+        $result->assertDontSee('En armado');
+        $result->assertDontSee('Foco');
+        $result->assertDontSee('Ruta');
+        $result->assertDontSee('Mismo patrón');
     }
 
     public function testMasksTraditionsRoute(): void
@@ -168,6 +204,18 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result->assertSee('Tradiciones de Máscaras');
         $result->assertSee('Comedia del Arte');
         $result->assertSee('Comedia del Andes');
+    }
+
+    public function testCollectionItemDetailRoute(): void
+    {
+        $result = $this->get('museo/coleccion/fichas/6');
+
+        $result->assertStatus(200);
+        $result->assertSee('Ficha #6');
+        $result->assertDontSee('En armado');
+        $result->assertDontSee('Foco');
+        $result->assertDontSee('Ruta');
+        $result->assertDontSee('Mismo patrón');
     }
 
     public function testTheaterSchoolRoute(): void
@@ -196,9 +244,13 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result->assertStatus(200);
         $result->assertSee('Teatromuseo Hoy');
         $result->assertSee('Actualidad del museo');
-        $result->assertSee('Lectura editorial');
+        $result->assertSee('Una actualidad que se lee de frente');
         $result->assertSee('assets/img/museo/el-museo/collage-historia-actual.webp');
-        $result->assertDontSee('mock');
+        $result->assertDontSee('Bloques visibles');
+        $result->assertDontSee('Foco editorial');
+        $result->assertDontSee('Ir al edificio');
+        $result->assertDontSee('Ir a institución');
+        $result->assertDontSee('Volver al museo');
     }
 
     public function testMuseumInfoLegacyRoutesAreGone(): void
@@ -218,5 +270,8 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result = $this->get('amigos-de-teatromuseo');
         $result->assertStatus(200);
         $result->assertSee('Amigos de Teatromuseo');
+        $result->assertDontSee('content-panel');
+        $result->assertDontSee('stat-card');
+        $result->assertDontSee('section-hero__visual--friends');
     }
 }

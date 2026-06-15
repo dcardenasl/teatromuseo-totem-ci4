@@ -18,6 +18,9 @@ final class FriendsControllerTest extends CIUnitTestCase
 
         $result->assertStatus(200);
         $result->assertSee('Amigos de Teatromuseo');
+        $result->assertDontSee('content-panel');
+        $result->assertDontSee('stat-card');
+        $result->assertDontSee('section-hero__visual--friends');
     }
 
     public function testExtensionRouteRendersContact(): void

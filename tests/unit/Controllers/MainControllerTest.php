@@ -22,14 +22,26 @@ final class MainControllerTest extends CIUnitTestCase
 
     public function testLanguageWithValidFromParameter(): void
     {
-        $result = $this->get('language?from=menu');
+        $result = $this->get('language?from=museo');
 
         $result->assertStatus(200);
         $result->assertSee('Selecciona tu idioma');
 
         $body = (string) $result->getBody();
-        self::assertStringContainsString('data-target-url', $body);
-        self::assertStringContainsString('menu', $body);
+        self::assertStringContainsString('data-on-select="' . base_url('museo') . '"', $body);
+        self::assertStringContainsString('data-on-cancel="' . base_url('museo') . '"', $body);
+    }
+
+    public function testLanguageFromSplashSelectsMenuButCancelsToSplash(): void
+    {
+        $result = $this->get('language?from=/');
+
+        $result->assertStatus(200);
+        $result->assertSee('Selecciona tu idioma');
+
+        $body = (string) $result->getBody();
+        self::assertStringContainsString('data-on-select="' . base_url('menu') . '"', $body);
+        self::assertStringContainsString('data-on-cancel="' . base_url('/') . '"', $body);
     }
 
     public function testLanguageWithInvalidFromParameter(): void
