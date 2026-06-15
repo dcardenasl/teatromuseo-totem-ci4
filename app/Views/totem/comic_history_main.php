@@ -17,12 +17,12 @@
                 'items' => [
                     [
                         'title' => lang('ComicHistory.entry_circus_history'),
-                        'href' => '#',
+                        'href' => base_url('museo/historia/historia-del-circo'),
                         'img' => 'assets/img/museo/historia/collage-circo.webp',
                     ],
                     [
                         'title' => lang('ComicHistory.entry_clowns_history'),
-                        'href' => '#',
+                        'href' => base_url('museo/historia/historia-de-los-payasos'),
                         'img' => 'assets/img/museo/historia/collage-teatro.webp',
                     ],
                 ],

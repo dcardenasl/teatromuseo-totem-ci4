@@ -1,20 +1,18 @@
 <?php
 /**
  * @var array $nav
+ * @var array $story
  */
 ?>
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
-        <?= view('totem/partials/mock_notice', [
-            'titleKey' => 'Totem.mock_notice_title',
-            'copyKey'  => 'Totem.mock_notice_copy',
-        ]) ?>
+        <?= view('totem/partials/museum_info_story', $story ?? []) ?>
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => lang('ComicHistory.post_title'),
+        'title' => '',
         'content' => $content,
         'nav' => $nav ?? []
     ]) ?>
