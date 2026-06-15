@@ -27,7 +27,7 @@ final class BillboardController extends BaseTotemController
                 'events'       => $context['events'],
                 'titleClass'   => 'billboard-title',
                 'titleWidth'   => '8.5ch',
-                'footerVariant'=> 'billboard',
+                'footerVariant' => 'billboard',
             ]
         ));
     }

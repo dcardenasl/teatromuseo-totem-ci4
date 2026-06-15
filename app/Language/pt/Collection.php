@@ -111,7 +111,7 @@ return [
     'section_stat_clowns_label' => 'Palhaços',
     'section_stat_clowns_value' => 'História editorial',
     'tradition_comedia_arte' => "Commedia dell'Arte",
-    'tradition_comedia_andes' => "Comédia Andina",
+    'tradition_comedia_andes' => 'Comédia Andina',
 
     // Commedia dell'arte — detalhe
     'tradition_comedia_arte_eyebrow'         => 'Tradição europeia',

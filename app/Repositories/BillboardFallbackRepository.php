@@ -156,7 +156,7 @@ final class BillboardFallbackRepository
             'priceGeneral' => 'General: $4.500',
             'priceReduced' => 'Estud. y 3ª Edad: $3.500',
             'copy'         => $copy,
-            'secondaryCopy'=> $secondaryCopy,
+            'secondaryCopy' => $secondaryCopy,
             'closingImage' => 'assets/img/billboard/billboard-collage.webp',
             'qrImage'      => 'assets/img/school/teatroescuela-qr.webp',
             'closingNote'  => lang('Billboard.default_closing_note'),
