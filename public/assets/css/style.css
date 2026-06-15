@@ -6513,7 +6513,7 @@ body.totem-animations-disabled .totem-transition-overlay__grimace-mouth {
     }
 
     .collection-grid--exhibit {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .collection-grid--techniques {
