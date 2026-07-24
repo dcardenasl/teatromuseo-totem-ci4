@@ -77,9 +77,12 @@ final class MuseumController extends BaseTotemController
 
     public function museumHistoryMain(): string
     {
+        $from = $this->request->getGet('from');
+        $backUrl = ($from === 'museo/coleccion') ? base_url('museo/coleccion') : base_url('museo');
+
         return view('totem/comic_history_main', array_merge(
             $this->pageMeta(lang('ComicHistory.main_title')),
-            ['nav' => $this->shellNav(base_url('museo'))]
+            ['nav' => $this->shellNav($backUrl)]
         ));
     }
 

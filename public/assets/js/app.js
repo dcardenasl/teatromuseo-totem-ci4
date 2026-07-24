@@ -529,6 +529,13 @@ document.addEventListener('click', (e) => {
 
     const link = e.target.closest('a');
     if (link) {
+        if (link.classList.contains('pill-button--back') || link.closest('.pill-button--back')) {
+            if (window.history.length > 1) {
+                e.preventDefault();
+                history.back();
+                return;
+            }
+        }
         const href = link.getAttribute('href');
         
         if (href && 

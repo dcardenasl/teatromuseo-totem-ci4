@@ -119,4 +119,36 @@ final class CachedTotemApiService implements TotemApiInterface
 
         return $cached;
     }
+
+    /**
+     * @return array<string, list<array<string, mixed>>>
+     */
+    public function collection(): array
+    {
+        $key = __METHOD__;
+        if (!array_key_exists($key, $this->cache)) {
+            $this->cache[$key] = $this->inner->collection();
+        }
+
+        /** @var array<string, list<array<string, mixed>>> $cached */
+        $cached = $this->cache[$key];
+
+        return $cached;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function collectionItem(int $id): array
+    {
+        $key = __METHOD__ . ':' . $id;
+        if (!array_key_exists($key, $this->cache)) {
+            $this->cache[$key] = $this->inner->collectionItem($id);
+        }
+
+        /** @var array<string, mixed> $cached */
+        $cached = $this->cache[$key];
+
+        return $cached;
+    }
 }

@@ -13,11 +13,13 @@
                 <?php foreach ($traditions as $tradition): ?>
                     <section class="collection-traditions__item">
                         <div class="collection-traditions__media">
-                            <img
-                                src="<?= base_url('assets/img/museo/coleccion/mascaras/' . $tradition['slug'] . '.webp') ?>"
-                                alt="<?= esc($tradition['title'], 'attr') ?>"
-                                class="collection-traditions__image"
-                            >
+                            <a href="<?= esc(base_url('museo/coleccion/mascaras/tradiciones/' . $tradition['slug']), 'attr') ?>">
+                                <img
+                                    src="<?= base_url('assets/img/museo/coleccion/mascaras/' . $tradition['slug'] . '.webp') ?>"
+                                    alt="<?= esc($tradition['title'], 'attr') ?>"
+                                    class="collection-traditions__image"
+                                >
+                            </a>
                         </div>
                         <?= view('totem/partials/collection_pill', [
                             'label' => $tradition['title'],

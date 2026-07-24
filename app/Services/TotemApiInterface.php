@@ -53,4 +53,18 @@ interface TotemApiInterface
      * @return array<string, mixed>
      */
     public function museumHistory(string $slug): array;
+
+    /**
+     * Get collection items grouped by category.
+     *
+     * @return array<string, list<array<string, mixed>>>
+     */
+    public function collection(): array;
+
+    /**
+     * Get a single collection item by ID.
+     *
+     * @return array<string, mixed>
+     */
+    public function collectionItem(int $id): array;
 }

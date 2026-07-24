@@ -28,3 +28,20 @@ if (!function_exists('safe_title')) {
         );
     }
 }
+
+if (!function_exists('api_file_url')) {
+    /**
+     * Returns the URL to serve a public file from the API.
+     */
+    function api_file_url(int|string|null $fileId): string
+    {
+        if ($fileId === null || $fileId === '' || $fileId === 0) {
+            return '';
+        }
+
+        $apiUrl = env('TOTEM_API_URL') ?: 'http://localhost:8080/api/v1/totem';
+        $base = str_replace('/totem', '', $apiUrl);
+
+        return $base . '/files/public/' . $fileId;
+    }
+}

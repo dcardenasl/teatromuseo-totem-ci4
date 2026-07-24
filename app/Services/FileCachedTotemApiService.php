@@ -83,6 +83,22 @@ final class FileCachedTotemApiService implements TotemApiInterface
     }
 
     /**
+     * @return array<string, list<array<string, mixed>>>
+     */
+    public function collection(): array
+    {
+        return $this->getOrCache('collection', fn () => $this->inner->collection());
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function collectionItem(int $id): array
+    {
+        return $this->getOrCache("collection:{$id}", fn () => $this->inner->collectionItem($id));
+    }
+
+    /**
      * Clear all cached files.
      */
     public function clearCache(): void

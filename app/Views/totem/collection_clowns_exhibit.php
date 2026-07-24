@@ -11,7 +11,7 @@
     <?php ob_start(); ?>
         <?php if (!empty($items)): ?>
             <?= view('totem/partials/collection_grid', [
-                'title'     => lang('Collection.masks_exhibit_title'),
+                'title'     => lang('Collection.clowns_title'),
                 'intro'     => lang('Collection.section_copy'),
                 'gridClass' => 'collection-grid--exhibit',
                 'items'     => $items,
@@ -19,22 +19,22 @@
             ]) ?>
         <?php else: ?>
             <div class="collection-page">
-                <section class="collection-hero" aria-labelledby="collection-masks-exhibit-title">
+                <section class="collection-hero" aria-labelledby="collection-clowns-exhibit-title">
                     <div class="collection-hero__media">
                         <div class="collection-hero__frame">
-                            <img src="<?= base_url('assets/img/museo/coleccion/mascaras/mascara.webp') ?>" alt="" loading="eager">
+                            <img src="<?= base_url('assets/img/museo/coleccion/payasos/payaso.webp') ?>" alt="" loading="eager">
                         </div>
                     </div>
 
                     <div class="collection-hero__copy">
                         <p class="collection-hero__eyebrow"><?= esc(lang('Collection.hero_eyebrow')) ?></p>
-                        <h2 class="collection-hero__title" id="collection-masks-exhibit-title"><?= esc(lang('Collection.masks_exhibit_title')) ?></h2>
+                        <h2 class="collection-hero__title" id="collection-clowns-exhibit-title"><?= esc(lang('Collection.clowns_title')) ?></h2>
                         <p class="collection-hero__intro"><?= esc(lang('Collection.section_copy')) ?></p>
                         <p class="collection-hero__note"><?= esc(lang('Collection.section_details_copy')) ?></p>
 
                         <div class="collection-hero__actions">
-                            <a class="pill-button collection-hero__cta" href="<?= esc(base_url('museo/coleccion/mascaras/tradiciones'), 'attr') ?>">
-                                <?= esc(lang('Collection.collection_traditions')) ?>
+                            <a class="pill-button collection-hero__cta" href="<?= esc(base_url('museo/historia?from=museo/coleccion'), 'attr') ?>">
+                                <?= esc(lang('Collection.collection_history')) ?>
                             </a>
                             <a class="pill-button pill-button--secondary collection-hero__cta" href="<?= esc(base_url('museo/coleccion'), 'attr') ?>">
                                 <?= esc(lang('Nav.back')) ?>
@@ -47,7 +47,7 @@
     <?php $content = ob_get_clean(); ?>
 
     <?= view('totem/partials/page_shell', [
-        'title' => lang('Collection.masks_exhibit_title'),
+        'title' => lang('Collection.clowns_title'),
         'content' => $content,
         'nav' => $nav ?? []
     ]) ?>

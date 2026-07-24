@@ -42,10 +42,10 @@ final class CollectionControllerTest extends CIUnitTestCase
         $result->assertDontSee('content-panel');
     }
 
-    public function testObsoleteClownsRouteReturns404(): void
+    public function testObsoleteClownsRouteReturnsRedirect(): void
     {
         $result = $this->get('museo/coleccion/payasos');
 
-        $result->assertStatus(404);
+        $result->assertRedirect();
     }
 }

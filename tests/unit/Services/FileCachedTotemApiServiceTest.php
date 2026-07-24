@@ -62,6 +62,20 @@ final class MockTotemApiService implements TotemApiInterface
 
         return [];
     }
+
+    public function collection(): array
+    {
+        ++$this->callCount;
+
+        return [];
+    }
+
+    public function collectionItem(int $id): array
+    {
+        ++$this->callCount;
+
+        return [];
+    }
 }
 
 /**

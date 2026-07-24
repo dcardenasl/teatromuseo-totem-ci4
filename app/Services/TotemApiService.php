@@ -102,6 +102,22 @@ class TotemApiService implements TotemApiInterface
     }
 
     /**
+     * @return array<string, list<array<string, mixed>>>
+     */
+    public function collection(): array
+    {
+        $res = $this->get('collection');
+        return is_array($res) && isset($res['items_by_category']) && is_array($res['items_by_category'])
+            ? $res['items_by_category']
+            : [];
+    }
+
+    public function collectionItem(int $id): array
+    {
+        return $this->asMap($this->get("collection/{$id}"));
+    }
+
+    /**
      * Execute a GET request safely.
      *
      * Logs non-2xx status codes and invalid JSON, but still returns an empty

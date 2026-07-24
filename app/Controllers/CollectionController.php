@@ -13,6 +13,16 @@ final class CollectionController extends BaseTotemController
 {
     public function collectionMain(): string
     {
+        $collection = [];
+        try {
+            $collection = $this->totemApi()->collection();
+        } catch (\Exception $e) {
+            // Fail silently
+        }
+
+        $hasClowns = !empty($collection['payasos'] ?? []);
+        $hasMasks  = !empty($collection['mascaras'] ?? []);
+
         $sections = [
             [
                 'title'     => lang('Collection.puppets'),
@@ -32,12 +42,12 @@ final class CollectionController extends BaseTotemController
                 'image'     => 'assets/img/museo/coleccion/payasos/payaso.webp',
                 'routeA'    => [
                     'label'    => lang('Collection.collection_exhibit'),
-                    'href'     => null,
-                    'disabled' => true,
+                    'href'     => $hasClowns ? 'museo/coleccion/payasos/exhibicion' : null,
+                    'disabled' => !$hasClowns,
                 ],
                 'routeB'    => [
                     'label' => lang('Collection.collection_history'),
-                    'href'  => 'museo/historia',
+                    'href'  => 'museo/historia?from=museo/coleccion',
                 ],
                 'bandClass' => 'collection-band--clowns',
             ],
@@ -46,8 +56,8 @@ final class CollectionController extends BaseTotemController
                 'image'     => 'assets/img/museo/coleccion/mascaras/mascara.webp',
                 'routeA'    => [
                     'label'    => lang('Collection.collection_exhibit'),
-                    'href'     => null,
-                    'disabled' => true,
+                    'href'     => $hasMasks ? 'museo/coleccion/mascaras/exhibicion' : null,
+                    'disabled' => !$hasMasks,
                 ],
                 'routeB'    => [
                     'label' => lang('Collection.collection_traditions'),
@@ -110,10 +120,88 @@ final class CollectionController extends BaseTotemController
 
     public function collectionMasksExhibit(): string
     {
+        $collection = [];
+        try {
+            $collection = $this->totemApi()->collection();
+        } catch (\Exception $e) {
+            // Fail silently
+        }
+
+        $items = [];
+        $tones = ['coral', 'sky', 'violet', 'wine'];
+        foreach (($collection['mascaras'] ?? []) as $index => $item) {
+            $items[] = [
+                'title' => $item['name'] ?? '',
+                'copy'  => $item['summary'] ?? '',
+                'href'  => 'museo/coleccion/fichas/' . ($item['id'] ?? ''),
+                'image' => api_file_url($item['cover_file_id'] ?? null),
+                'tone'  => $tones[$index % count($tones)],
+            ];
+        }
+
+        $tabs = [
+            [
+                'label'  => lang('Collection.collection_exhibit'),
+                'href'   => 'museo/coleccion/mascaras/exhibicion',
+                'active' => true,
+            ],
+            [
+                'label'  => lang('Collection.collection_traditions'),
+                'href'   => 'museo/coleccion/mascaras/tradiciones',
+                'active' => false,
+            ],
+        ];
+
         return view('totem/collection_masks_exhibit', array_merge(
             $this->pageMeta(lang('Collection.masks_exhibit_title')),
             [
-                'nav' => $this->shellNav(base_url('museo/coleccion')),
+                'nav'   => $this->shellNav(base_url('museo/coleccion')),
+                'tabs'  => $tabs,
+                'items' => $items,
+            ]
+        ));
+    }
+
+    public function collectionClownsExhibit(): string
+    {
+        $collection = [];
+        try {
+            $collection = $this->totemApi()->collection();
+        } catch (\Exception $e) {
+            // Fail silently
+        }
+
+        $items = [];
+        $tones = ['coral', 'sky', 'violet', 'wine'];
+        foreach (($collection['payasos'] ?? []) as $index => $item) {
+            $items[] = [
+                'title' => $item['name'] ?? '',
+                'copy'  => $item['summary'] ?? '',
+                'href'  => 'museo/coleccion/fichas/' . ($item['id'] ?? ''),
+                'image' => api_file_url($item['cover_file_id'] ?? null),
+                'tone'  => $tones[$index % count($tones)],
+            ];
+        }
+
+        $tabs = [
+            [
+                'label'  => lang('Collection.collection_exhibit'),
+                'href'   => 'museo/coleccion/payasos/exhibicion',
+                'active' => true,
+            ],
+            [
+                'label'  => lang('Collection.collection_history'),
+                'href'   => 'museo/historia?from=museo/coleccion',
+                'active' => false,
+            ],
+        ];
+
+        return view('totem/collection_clowns_exhibit', array_merge(
+            $this->pageMeta(lang('Collection.clowns_title')),
+            [
+                'nav'   => $this->shellNav(base_url('museo/coleccion')),
+                'tabs'  => $tabs,
+                'items' => $items,
             ]
         ));
     }
@@ -177,6 +265,50 @@ final class CollectionController extends BaseTotemController
     public function collectionItem(string $slug): string
     {
         $item = $this->collectionItemBySlug($slug);
+        $backUrl = base_url('museo/coleccion/titeres/exhibicion');
+        $title = lang('Collection.puppets');
+
+        if ($item === null && is_numeric($slug)) {
+            $apiItem = $this->totemApi()->collectionItem((int) $slug);
+            if ($apiItem !== []) {
+                $categorySlug = $apiItem['category']['slug'] ?? 'titeres';
+                $backUrl = base_url("museo/coleccion/{$categorySlug}/exhibicion");
+
+                $title = match ($categorySlug) {
+                    'mascaras' => lang('Collection.masks'),
+                    'payasos'  => lang('Collection.clowns'),
+                    default    => lang('Collection.puppets'),
+                };
+
+                $related = [];
+                foreach (($apiItem['related_pieces'] ?? []) as $rel) {
+                    $related[] = [
+                        'label' => $rel['name'] ?? '',
+                        'href'  => 'museo/coleccion/fichas/' . ($rel['id'] ?? ''),
+                        'image' => api_file_url($rel['cover_file_id'] ?? null),
+                    ];
+                }
+
+                $item = [
+                    'slug'          => $slug,
+                    'pageTitle'     => sprintf('%s — %s', $apiItem['name'] ?? '', lang('Collection.item_detail_title')),
+                    'title'         => $apiItem['name'] ?? '',
+                    'subtitle'      => $apiItem['summary'] ?? '',
+                    'description'   => $apiItem['summary'] ?? '',
+                    'technique'     => ! empty($apiItem['techniques']) ? $apiItem['techniques'][0]['name'] : '—',
+                    'techniqueHref' => '#',
+                    'origin'        => $apiItem['origin'] ?? '—',
+                    'measurements'  => '—',
+                    'year'          => $apiItem['period'] ?? '—',
+                    'donatedBy'     => '—',
+                    'code'          => sprintf('TM%04d', $apiItem['id']),
+                    'image'         => api_file_url($apiItem['cover_file_id'] ?? null),
+                    'previousHref'  => '#',
+                    'nextHref'      => '#',
+                    'related'       => $related,
+                ];
+            }
+        }
 
         if ($item === null) {
             throw PageNotFoundException::forPageNotFound();
@@ -185,8 +317,8 @@ final class CollectionController extends BaseTotemController
         return view('totem/collection_item_detail', array_merge(
             $this->pageMeta($item['pageTitle']),
             [
-                'nav'   => $this->shellNav(base_url('museo/coleccion/titeres/exhibicion')),
-                'title' => lang('Collection.puppets'),
+                'nav'   => $this->shellNav($backUrl),
+                'title' => $title,
                 'item'  => $item,
             ]
         ));

@@ -22,6 +22,8 @@ $routes->addRedirect('museo/coleccion/titeres/(:segment)', 'museo/coleccion/tite
 $routes->addRedirect('museo/coleccion/mascaras', 'museo/coleccion/mascaras/exhibicion', 301);
 $routes->get('museo/coleccion/mascaras/exhibicion', 'CollectionController::collectionMasksExhibit');
 $routes->get('museo/coleccion/mascaras/tradiciones', 'CollectionController::collectionMasksTraditions');
+$routes->addRedirect('museo/coleccion/payasos', 'museo/coleccion/payasos/exhibicion', 301);
+$routes->get('museo/coleccion/payasos/exhibicion', 'CollectionController::collectionClownsExhibit');
 $routes->get('museo/coleccion/mascaras/tradiciones/(:segment)', 'CollectionController::collectionMaskTradition/$1');
 $routes->get('museo/coleccion/fichas/(:segment)', 'CollectionController::collectionItem/$1');
 
