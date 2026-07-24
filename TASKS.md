@@ -100,7 +100,11 @@ Backlog técnico activo para `teatromuseo-totem-ci4`. Las tareas completadas se 
 
 - [ ] **Contenido de "TeatroMuseo Hoy"** (`/museo/el-museo/actualidad`) — el texto actual es una aproximación con IA. Reemplazar por contenido real cuando el equipo lo proporcione.
 
-- [ ] **Fichas de colección de Payasos y Máscaras** — solo hay 3 fichas completas de Títeres (Javi). Cuando el equipo complete más fichas, la Exhibición de Payasos/Máscaras se activa automáticamente (ver tareas de implementación arriba).
+- [ ] **Definir campos a mostrar por ficha en el tótem** — Javi tiene la última palabra sobre qué datos de cada objeto aparecen en pantalla (nombre, técnica, año, descripción, etc.). Esto afecta el diseño de `collection_item_detail.php` y debe definirse antes de conectar la API.
+
+- [ ] **Fichas de colección de Títeres** — completar información en el Excel oficial de Javi y definir/tomar fotografías finales. Bloqueado hasta definir los campos anteriores.
+
+- [ ] **Fichas de colección de Payasos y Máscaras** — cuando Javi complete las fichas, la Exhibición de Payasos/Máscaras se activa automáticamente (ver tareas de implementación arriba).
 
 - [ ] **Artículos adicionales de Historia** — faltan Historia de Títeres e Historia de Máscaras. Con las mismas 4 rondas de investigación + IA que se usaron para Circo y Payasos.
 
