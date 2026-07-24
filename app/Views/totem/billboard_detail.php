@@ -25,19 +25,35 @@
             </section>
 
             <section class="billboard-detail__media" aria-label="<?= esc(lang('Billboard.media_label'), 'attr') ?>">
-                <figure class="billboard-detail__poster-frame" aria-label="<?= esc($detail['title'] ?? lang('Billboard.default_title'), 'attr') ?>">
-                    <img
-                        class="billboard-detail__poster"
-                        src="<?= esc(base_url($detail['image'] ?? 'assets/img/menu/menu_programacion.webp'), 'attr') ?>"
-                        alt="<?= esc($detail['title'] ?? lang('Billboard.default_title'), 'attr') ?>"
-                    >
+                <figure class="billboard-detail__poster-frame" aria-label="<?= esc($detail['title'] ?? lang('Billboard.default_title'), 'attr') ?>" data-billboard-slider>
+                    <?php if (!empty($detail['images']) && is_array($detail['images'])): ?>
+                        <?php foreach ($detail['images'] as $index => $img): ?>
+                            <img
+                                class="billboard-detail__poster"
+                                src="<?= esc(base_url($img), 'attr') ?>"
+                                alt="<?= esc($detail['title'] ?? lang('Billboard.default_title'), 'attr') ?>"
+                                data-slide-index="<?= $index ?>"
+                                style="display: <?= $index === 0 ? 'block' : 'none' ?>;"
+                            >
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <img
+                            class="billboard-detail__poster"
+                            src="<?= esc(base_url($detail['image'] ?? 'assets/img/menu/menu_programacion.webp'), 'attr') ?>"
+                            alt="<?= esc($detail['title'] ?? lang('Billboard.default_title'), 'attr') ?>"
+                            data-slide-index="0"
+                        >
+                    <?php endif; ?>
                 </figure>
 
-                <div class="billboard-detail__nav" aria-label="<?= esc(lang('Billboard.image_nav_label'), 'attr') ?>">
-                    <button type="button" class="billboard-detail__nav-btn" aria-label="<?= esc(lang('Billboard.previous_image'), 'attr') ?>">
+                <?php 
+                $hasMultiple = !empty($detail['images']) && is_array($detail['images']) && count($detail['images']) > 1;
+                ?>
+                <div class="billboard-detail__nav" aria-label="<?= esc(lang('Billboard.image_nav_label'), 'attr') ?>"<?= $hasMultiple ? '' : ' style="display: none;"' ?>>
+                    <button type="button" class="billboard-detail__nav-btn" data-slide-prev aria-label="<?= esc(lang('Billboard.previous_image'), 'attr') ?>">
                         <img src="<?= esc(base_url('assets/img/ui/slider_left.webp'), 'attr') ?>" alt="" aria-hidden="true">
                     </button>
-                    <button type="button" class="billboard-detail__nav-btn" aria-label="<?= esc(lang('Billboard.next_image'), 'attr') ?>">
+                    <button type="button" class="billboard-detail__nav-btn" data-slide-next aria-label="<?= esc(lang('Billboard.next_image'), 'attr') ?>">
                         <img src="<?= esc(base_url('assets/img/ui/slider_right.webp'), 'attr') ?>" alt="" aria-hidden="true">
                     </button>
                 </div>
@@ -110,4 +126,40 @@
         'content' => $content,
         'nav' => $nav ?? []
     ]) ?>
+
+<script>
+(function() {
+    const slider = document.querySelector('[data-billboard-slider]');
+    const nav = document.querySelector('.billboard-detail__nav');
+    if (!slider || !nav) return;
+
+    const prevBtn = nav.querySelector('[data-slide-prev]');
+    const nextBtn = nav.querySelector('[data-slide-next]');
+    const slides = slider.querySelectorAll('[data-slide-index]');
+    const totalSlides = slides.length;
+    if (totalSlides <= 1) return;
+
+    let currentIndex = 0;
+
+    function showSlide(index) {
+        slides.forEach(slide => {
+            const slideIdx = parseInt(slide.getAttribute('data-slide-index'), 10);
+            slide.style.display = slideIdx === index ? 'block' : 'none';
+        });
+        currentIndex = index;
+    }
+
+    prevBtn.addEventListener('click', () => {
+        let nextIndex = currentIndex - 1;
+        if (nextIndex < 0) nextIndex = totalSlides - 1;
+        showSlide(nextIndex);
+    });
+
+    nextBtn.addEventListener('click', () => {
+        let nextIndex = currentIndex + 1;
+        if (nextIndex >= totalSlides) nextIndex = 0;
+        showSlide(nextIndex);
+    });
+})();
+</script>
 <?= $this->endSection() ?>

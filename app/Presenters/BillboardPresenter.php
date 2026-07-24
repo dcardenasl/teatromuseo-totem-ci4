@@ -31,11 +31,21 @@ final class BillboardPresenter
     {
         $fallbackEvents = $this->fallback->events();
 
+        $mappedFallbackEvents = [];
+        foreach ($fallbackEvents as $event) {
+            $dayNum = '';
+            if (!empty($event['dateLabel']) && preg_match('/\b\d+\b/', $event['dateLabel'], $matches)) {
+                $dayNum = $matches[0];
+            }
+            $event['day'] = $dayNum;
+            $mappedFallbackEvents[] = $event;
+        }
+
         if ($apiShows === []) {
             return [
                 'nav'    => [],
                 'months' => $this->fallback->months(),
-                'events' => $fallbackEvents,
+                'events' => $mappedFallbackEvents,
             ];
         }
 
@@ -50,19 +60,26 @@ final class BillboardPresenter
 
             $template = $fallbackCount > 0 ? $fallbackEvents[$index % $fallbackCount] : [];
             $startDate = is_string($show['start_date'] ?? null) ? $show['start_date'] : '';
+            $dayVal = '';
 
             if ($startDate !== '') {
                 $date = DateTimeImmutable::createFromFormat('Y-m-d', $startDate);
                 if ($date !== false) {
                     $monthName = $this->monthName((int) $date->format('n'), $locale);
-                    $day       = $date->format('j');
-                    $monthsMap[$monthName][] = $day;
+                    $dayVal    = $date->format('j');
+                    $monthsMap[$monthName][] = $dayVal;
                 }
             }
 
             $audience = Audience::fromApi($show['audience_id'] ?? null);
 
+            $dayNum = $dayVal;
+            if ($dayNum === '' && !empty($template['dateLabel']) && preg_match('/\b\d+\b/', $template['dateLabel'], $matches)) {
+                $dayNum = $matches[0];
+            }
+
             $events[] = [
+                'day'       => $dayNum,
                 'tag'       => $audience->label(),
                 'type'      => lang('Billboard.event_type_theatre'),
                 'title'     => is_string($show['title'] ?? null) ? $show['title'] : '',

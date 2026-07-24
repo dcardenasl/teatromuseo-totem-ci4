@@ -19,7 +19,7 @@
                         <span class="month-group__title"><?= esc($month['title']) ?></span>
                         <div class="month-group__chips">
                             <?php foreach ($month['days'] as $day): ?>
-                                <span class="date-chip"><?= esc($day) ?></span>
+                                <span class="date-chip" data-filter-day="<?= esc($day) ?>"><?= esc($day) ?></span>
                             <?php endforeach; ?>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
 
             <section class="event-list" aria-label="<?= esc(lang('Billboard.events_label'), 'attr') ?>">
                 <?php foreach ($events as $event): ?>
-                    <a class="event-card <?= esc($event['class'] ?? '') ?> <?= esc($event['tone'] ?? '') ?>" href="<?= base_url('cartelera/detalle/' . esc($event['slug'] ?? '1')) ?>">
+                    <a class="event-card <?= esc($event['class'] ?? '') ?> <?= esc($event['tone'] ?? '') ?>" href="<?= base_url('cartelera/detalle/' . esc($event['slug'] ?? '1')) ?>" data-day="<?= esc($event['day'] ?? '') ?>">
                         <div class="event-card__media">
                             <?php if (!empty($event['image'])): ?>
                                 <img
@@ -86,4 +86,43 @@
         'titleWidth' => $titleWidth ?? '',
         'footerVariant' => $footerVariant ?? 'section',
     ]) ?>
+
+<script>
+(function() {
+    const chips = document.querySelectorAll('[data-filter-day]');
+    const cards = document.querySelectorAll('[data-day]');
+
+    chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            const filterDay = chip.getAttribute('data-filter-day');
+            
+            if (chip.classList.contains('date-chip--active')) {
+                chip.classList.remove('date-chip--active');
+                cards.forEach(card => card.style.display = 'grid');
+            } else {
+                chips.forEach(c => c.classList.remove('date-chip--active'));
+                chip.classList.add('date-chip--active');
+
+                cards.forEach(card => {
+                    if (card.getAttribute('data-day') === filterDay) {
+                        card.style.display = 'grid';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+        });
+    });
+})();
+</script>
+<style>
+.date-chip {
+    cursor: pointer;
+}
+.date-chip--active {
+    background-color: var(--accent) !important;
+    color: white !important;
+    box-shadow: 0 4px 0 var(--pressed-shadow) !important;
+}
+</style>
 <?= $this->endSection() ?>
