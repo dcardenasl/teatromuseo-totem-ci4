@@ -39,7 +39,7 @@ if (!function_exists('api_file_url')) {
             return '';
         }
 
-        $apiUrl = env('TOTEM_API_URL') ?: 'http://localhost:8080/api/v1/totem';
+        $apiUrl = is_string(env('TOTEM_API_URL')) ? env('TOTEM_API_URL') : 'http://localhost:8080/api/v1/totem';
         $base = str_replace('/totem', '', $apiUrl);
 
         return $base . '/files/public/' . $fileId;

@@ -289,9 +289,12 @@ final class CollectionController extends BaseTotemController
                     ];
                 }
 
+                $detailTitle = lang('Collection.item_detail_title');
+                $detailTitle = is_array($detailTitle) ? implode(' ', $detailTitle) : $detailTitle;
+
                 $item = [
                     'slug'          => $slug,
-                    'pageTitle'     => sprintf('%s — %s', $apiItem['name'] ?? '', lang('Collection.item_detail_title')),
+                    'pageTitle'     => sprintf('%s — %s', $apiItem['name'] ?? '', $detailTitle),
                     'title'         => $apiItem['name'] ?? '',
                     'subtitle'      => $apiItem['summary'] ?? '',
                     'description'   => $apiItem['summary'] ?? '',

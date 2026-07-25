@@ -108,7 +108,7 @@ class TotemApiService implements TotemApiInterface
     {
         $res = $this->get('collection');
 
-        return is_array($res) && isset($res['items_by_category']) && is_array($res['items_by_category'])
+        return isset($res['items_by_category']) && is_array($res['items_by_category'])
             ? $res['items_by_category']
             : [];
     }
