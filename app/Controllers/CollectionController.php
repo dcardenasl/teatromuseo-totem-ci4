@@ -289,12 +289,9 @@ final class CollectionController extends BaseTotemController
                     ];
                 }
 
-                $detailTitle = lang('Collection.item_detail_title');
-                $detailTitle = is_array($detailTitle) ? implode(' ', $detailTitle) : $detailTitle;
-
                 $item = [
                     'slug'          => $slug,
-                    'pageTitle'     => sprintf('%s — %s', $apiItem['name'] ?? '', $detailTitle),
+                    'pageTitle'     => sprintf('%s — %s', $apiItem['name'] ?? '', $this->langStr('Collection.item_detail_title')),
                     'title'         => $apiItem['name'] ?? '',
                     'subtitle'      => $apiItem['summary'] ?? '',
                     'description'   => $apiItem['summary'] ?? '',
@@ -336,7 +333,7 @@ final class CollectionController extends BaseTotemController
      */
     private function getLocale(): string
     {
-        $locale = service('request')->getLocale();
+        $locale = \Config\Services::request()->getLocale();
 
         return in_array($locale, ['es', 'en', 'fr', 'pt'], true) ? $locale : 'es';
     }
@@ -368,6 +365,17 @@ final class CollectionController extends BaseTotemController
         return '';
     }
 
+    /**
+     * Returns a translation line as a plain string, joining the plural-form
+     * array shape that lang() can return for lines that take a $times argument.
+     */
+    private function langStr(string $line): string
+    {
+        $value = lang($line);
+
+        return is_array($value) ? implode(' ', $value) : $value;
+    }
+
     // -------------------------------------------------------------------------
     // Tabs
     // -------------------------------------------------------------------------
@@ -379,12 +387,12 @@ final class CollectionController extends BaseTotemController
     {
         return [
             [
-                'label'  => lang('Collection.collection_exhibit'),
+                'label'  => $this->langStr('Collection.collection_exhibit'),
                 'href'   => 'museo/coleccion/titeres/exhibicion',
                 'active' => $active === 'exhibit',
             ],
             [
-                'label'  => lang('Collection.collection_techniques'),
+                'label'  => $this->langStr('Collection.collection_techniques'),
                 'href'   => 'museo/coleccion/titeres/tecnicas',
                 'active' => $active === 'techniques',
             ],
@@ -516,13 +524,13 @@ final class CollectionController extends BaseTotemController
                 'title'        => $technique['title'],
                 'subtitle'     => $mock !== null
                     ? $this->localized($mock['subtitle'])
-                    : sprintf(lang('Collection.technique_detail_subtitle_template'), $technique['title']),
+                    : sprintf($this->langStr('Collection.technique_detail_subtitle_template'), $technique['title']),
                 'description'  => $mock !== null
                     ? $this->localized($mock['description'])
-                    : sprintf(lang('Collection.technique_detail_description_template'), $technique['title']),
+                    : sprintf($this->langStr('Collection.technique_detail_description_template'), $technique['title']),
                 'image'        => $mock['image'] ?? 'assets/img/museo/coleccion/titeres/titere.webp',
                 'related'      => $related,
-                'ctaLabel'     => lang('Collection.collection_exhibit'),
+                'ctaLabel'     => $this->langStr('Collection.collection_exhibit'),
                 'ctaHref'      => 'museo/coleccion/titeres/exhibicion',
                 'previousHref' => 'museo/coleccion/titeres/tecnicas/' . $previous['slug'],
                 'nextHref'     => 'museo/coleccion/titeres/tecnicas/' . $next['slug'],
@@ -563,12 +571,12 @@ final class CollectionController extends BaseTotemController
         $title       = $found['nombre'] ?? $found['codigo_vitrina_bodega'];
         $subtitle    = $found['descripcion_corta'] !== null
             ? $this->localized($found['descripcion_corta'])
-            : sprintf(lang('Collection.item_detail_subtitle'), $title);
+            : sprintf($this->langStr('Collection.item_detail_subtitle'), $title);
         $description = $found['descripcion_fisica'] !== null
             ? $this->localized($found['descripcion_fisica'])
             : ($found['descripcion_corta'] !== null
                 ? $this->localized($found['descripcion_corta'])
-                : lang('Collection.item_detail_description'));
+                : $this->langStr('Collection.item_detail_description'));
         $image       = $found['imagen_portada'] ?? 'assets/img/museo/coleccion/titeres/titere.webp';
 
         // Related: the 3 items that follow (wrapping)
@@ -585,7 +593,7 @@ final class CollectionController extends BaseTotemController
 
         return [
             'slug'          => strtolower($found['codigo_vitrina_bodega']),
-            'pageTitle'     => sprintf('%s — %s', $title, lang('Collection.item_detail_title')),
+            'pageTitle'     => sprintf('%s — %s', $title, $this->langStr('Collection.item_detail_title')),
             'title'         => $title,
             'subtitle'      => $subtitle,
             'description'   => $description,
@@ -630,20 +638,20 @@ final class CollectionController extends BaseTotemController
     private function collectionTechniqueCatalog(): array
     {
         return [
-            ['slug' => 'titere-de-guante',            'title' => lang('Collection.technique_guante_title')],
-            ['slug' => 'titere-de-hilo',               'title' => lang('Collection.technique_hilo_title')],
-            ['slug' => 'titere-bocon',                 'title' => lang('Collection.technique_bocon_title')],
-            ['slug' => 'titere-marote',                'title' => lang('Collection.technique_marote_title')],
-            ['slug' => 'titere-gigante',               'title' => lang('Collection.technique_gigante_title')],
-            ['slug' => 'titere-de-sombra',             'title' => lang('Collection.technique_sombra_title')],
-            ['slug' => 'titere-de-varilla',            'title' => lang('Collection.technique_varilla_title')],
-            ['slug' => 'titere-plano',                 'title' => lang('Collection.technique_plano_title')],
-            ['slug' => 'titere-de-dedo',               'title' => lang('Collection.technique_dedo_title')],
-            ['slug' => 'titere-corporal',              'title' => lang('Collection.technique_corporal_title')],
-            ['slug' => 'manipulacion-directa',         'title' => lang('Collection.technique_direct_title')],
-            ['slug' => 'titere-ventrilocuo',           'title' => lang('Collection.technique_ventrilocuo_title')],
-            ['slug' => 'caja-lambe-lambe',             'title' => lang('Collection.technique_lambe_lambe_title')],
-            ['slug' => 'titeres-en-cine-stop-motion',  'title' => lang('Collection.technique_stop_motion_title')],
+            ['slug' => 'titere-de-guante',            'title' => $this->langStr('Collection.technique_guante_title')],
+            ['slug' => 'titere-de-hilo',               'title' => $this->langStr('Collection.technique_hilo_title')],
+            ['slug' => 'titere-bocon',                 'title' => $this->langStr('Collection.technique_bocon_title')],
+            ['slug' => 'titere-marote',                'title' => $this->langStr('Collection.technique_marote_title')],
+            ['slug' => 'titere-gigante',               'title' => $this->langStr('Collection.technique_gigante_title')],
+            ['slug' => 'titere-de-sombra',             'title' => $this->langStr('Collection.technique_sombra_title')],
+            ['slug' => 'titere-de-varilla',            'title' => $this->langStr('Collection.technique_varilla_title')],
+            ['slug' => 'titere-plano',                 'title' => $this->langStr('Collection.technique_plano_title')],
+            ['slug' => 'titere-de-dedo',               'title' => $this->langStr('Collection.technique_dedo_title')],
+            ['slug' => 'titere-corporal',              'title' => $this->langStr('Collection.technique_corporal_title')],
+            ['slug' => 'manipulacion-directa',         'title' => $this->langStr('Collection.technique_direct_title')],
+            ['slug' => 'titere-ventrilocuo',           'title' => $this->langStr('Collection.technique_ventrilocuo_title')],
+            ['slug' => 'caja-lambe-lambe',             'title' => $this->langStr('Collection.technique_lambe_lambe_title')],
+            ['slug' => 'titeres-en-cine-stop-motion',  'title' => $this->langStr('Collection.technique_stop_motion_title')],
         ];
     }
 
@@ -717,22 +725,22 @@ final class CollectionController extends BaseTotemController
     private function techniqueSlugToTitle(string $slug): string
     {
         $map = [
-            'titere-de-guante'            => lang('Collection.technique_guante_title'),
-            'titere-de-hilo'              => lang('Collection.technique_hilo_title'),
-            'titere-bocon'                => lang('Collection.technique_bocon_title'),
-            'titere-marote'               => lang('Collection.technique_marote_title'),
-            'titere-gigante'              => lang('Collection.technique_gigante_title'),
-            'titere-de-sombra'            => lang('Collection.technique_sombra_title'),
-            'titere-de-varilla'           => lang('Collection.technique_varilla_title'),
-            'titere-plano'                => lang('Collection.technique_plano_title'),
-            'titere-de-dedo'              => lang('Collection.technique_dedo_title'),
-            'titere-corporal'             => lang('Collection.technique_corporal_title'),
-            'manipulacion-directa'        => lang('Collection.technique_direct_title'),
-            'titere-ventrilocuo'          => lang('Collection.technique_ventrilocuo_title'),
-            'caja-lambe-lambe'            => lang('Collection.technique_lambe_lambe_title'),
-            'titeres-en-cine-stop-motion' => lang('Collection.technique_stop_motion_title'),
+            'titere-de-guante'            => $this->langStr('Collection.technique_guante_title'),
+            'titere-de-hilo'              => $this->langStr('Collection.technique_hilo_title'),
+            'titere-bocon'                => $this->langStr('Collection.technique_bocon_title'),
+            'titere-marote'               => $this->langStr('Collection.technique_marote_title'),
+            'titere-gigante'              => $this->langStr('Collection.technique_gigante_title'),
+            'titere-de-sombra'            => $this->langStr('Collection.technique_sombra_title'),
+            'titere-de-varilla'           => $this->langStr('Collection.technique_varilla_title'),
+            'titere-plano'                => $this->langStr('Collection.technique_plano_title'),
+            'titere-de-dedo'              => $this->langStr('Collection.technique_dedo_title'),
+            'titere-corporal'             => $this->langStr('Collection.technique_corporal_title'),
+            'manipulacion-directa'        => $this->langStr('Collection.technique_direct_title'),
+            'titere-ventrilocuo'          => $this->langStr('Collection.technique_ventrilocuo_title'),
+            'caja-lambe-lambe'            => $this->langStr('Collection.technique_lambe_lambe_title'),
+            'titeres-en-cine-stop-motion' => $this->langStr('Collection.technique_stop_motion_title'),
         ];
 
-        return $map[$slug] ?? lang('Collection.technique_guante_title');
+        return $map[$slug] ?? $this->langStr('Collection.technique_guante_title');
     }
 }

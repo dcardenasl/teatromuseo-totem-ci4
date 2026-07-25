@@ -75,16 +75,6 @@ final class SchoolPresenter
     }
 
     /**
-     * Safely resolve a language line to a string.
-     */
-    private function lang(string $key): string
-    {
-        $value = lang($key);
-
-        return is_string($value) ? $value : '';
-    }
-
-    /**
      * Build a localized fallback start date string for mocked courses.
      */
     public function fallbackStartDate(string $locale): string

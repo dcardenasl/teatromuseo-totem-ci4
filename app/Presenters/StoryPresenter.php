@@ -20,7 +20,7 @@ final class StoryPresenter
             'hero' => [
                 'frame' => 'assets/img/museo/el-museo/marco.webp',
                 'items' => [
-                    $this->imageItem('assets/img/museo/el-museo/collage-nuestra-historia.webp', lang('MuseumInfo.teatromuseo_history_alt')),
+                    $this->imageItem('assets/img/museo/el-museo/collage-nuestra-historia.webp', $this->langStr('MuseumInfo.teatromuseo_history_alt')),
                 ],
             ],
             'intro' => lang('MuseumInfo.main_copy'),
@@ -48,7 +48,7 @@ final class StoryPresenter
             'hero' => [
                 'frame' => 'assets/img/museo/el-museo/marco.webp',
                 'items' => [
-                    $this->imageItem('assets/img/museo/el-museo/collage-san-judas.webp', lang('MuseumInfo.church_history_alt')),
+                    $this->imageItem('assets/img/museo/el-museo/collage-san-judas.webp', $this->langStr('MuseumInfo.church_history_alt')),
                 ],
             ],
             'intro' => lang('MuseumInfo.church_history_intro'),
@@ -76,9 +76,9 @@ final class StoryPresenter
             'hero' => [
                 'frame' => 'assets/img/museo/el-museo/marco.webp',
                 'items' => [
-                    $this->imageItem('assets/img/museo/el-museo/collage-historia-actual.webp', lang('MuseumInfo.today_image_alt')),
-                    $this->imageItem('assets/img/museo/el-museo/collage-nuestra-historia.webp', lang('MuseumInfo.teatromuseo_history_alt')),
-                    $this->imageItem('assets/img/museo/el-museo/collage-san-judas.webp', lang('MuseumInfo.church_history_alt')),
+                    $this->imageItem('assets/img/museo/el-museo/collage-historia-actual.webp', $this->langStr('MuseumInfo.today_image_alt')),
+                    $this->imageItem('assets/img/museo/el-museo/collage-nuestra-historia.webp', $this->langStr('MuseumInfo.teatromuseo_history_alt')),
+                    $this->imageItem('assets/img/museo/el-museo/collage-san-judas.webp', $this->langStr('MuseumInfo.church_history_alt')),
                 ],
             ],
             'intro' => lang('MuseumInfo.today_intro'),
@@ -116,7 +116,7 @@ final class StoryPresenter
                 'hero' => [
                     'frame' => 'assets/img/museo/el-museo/marco.webp',
                     'items' => [
-                        $this->imageItem('assets/img/museo/historia/collage-circo.webp', lang('ComicHistory.entry_circus_history')),
+                        $this->imageItem('assets/img/museo/historia/collage-circo.webp', $this->langStr('ComicHistory.entry_circus_history')),
                     ],
                 ],
                 'sections' => [
@@ -137,7 +137,7 @@ final class StoryPresenter
                 'hero' => [
                     'frame' => 'assets/img/museo/el-museo/marco.webp',
                     'items' => [
-                        $this->imageItem('assets/img/museo/historia/collage-teatro.webp', lang('ComicHistory.entry_clowns_history')),
+                        $this->imageItem('assets/img/museo/historia/collage-teatro.webp', $this->langStr('ComicHistory.entry_clowns_history')),
                     ],
                 ],
                 'sections' => [
@@ -158,7 +158,7 @@ final class StoryPresenter
                 'hero' => [
                     'frame' => 'assets/img/museo/el-museo/marco.webp',
                     'items' => [
-                        $this->imageItem('assets/img/museo/historia/historia-editorial.webp', lang('ComicHistory.entry_puppetry_tradition')),
+                        $this->imageItem('assets/img/museo/historia/historia-editorial.webp', $this->langStr('ComicHistory.entry_puppetry_tradition')),
                     ],
                 ],
                 'sections' => [
@@ -181,11 +181,11 @@ final class StoryPresenter
         return [
             'eyebrow' => lang('ComicHistory.section_eyebrow'),
             'title' => lang('ComicHistory.post_title'),
-            'intro' => sprintf(lang('ComicHistory.chapter_placeholder'), 1),
+            'intro' => sprintf($this->langStr('ComicHistory.chapter_placeholder'), 1),
             'hero' => [
                 'frame' => 'assets/img/museo/el-museo/marco.webp',
                 'items' => [
-                    $this->imageItem('assets/img/museo/historia/historia-editorial.webp', lang('ComicHistory.post_title')),
+                    $this->imageItem('assets/img/museo/historia/historia-editorial.webp', $this->langStr('ComicHistory.post_title')),
                 ],
             ],
             'sections' => [
@@ -207,5 +207,16 @@ final class StoryPresenter
             'src' => $src,
             'alt' => $alt,
         ];
+    }
+
+    /**
+     * Returns a translation line as a plain string, joining the plural-form
+     * array shape that lang() can return for lines that take a $times argument.
+     */
+    private function langStr(string $line): string
+    {
+        $value = lang($line);
+
+        return is_array($value) ? implode(' ', $value) : $value;
     }
 }
