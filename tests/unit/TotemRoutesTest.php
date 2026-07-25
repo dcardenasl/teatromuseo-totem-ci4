@@ -60,10 +60,9 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result->assertSee('Explora el museo');
         $result->assertSee('Historia');
         $result->assertSee('assets/img/museum/coleccion-card.webp');
-        $result->assertSee('assets/img/museo/el-museo/explora-el-museo.webp');
-        $result->assertSee('assets/img/museo/historia/historia-editorial.webp');
-        $result->assertSee('assets/img/menu/menu_visitas.webp');
-        $result->assertDontSee('assets/img/museum/historia-card.webp');
+        $result->assertSee('assets/img/museum/explora-el-museo-card.webp');
+        $result->assertSee('assets/img/museum/historia-card.webp');
+        $result->assertSee('assets/img/museum/visitas-guiadas-card.webp');
     }
 
     public function testMuseumInfoMainRoute(): void
@@ -152,7 +151,7 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result->assertStatus(200);
         $result->assertSee('Historia del Circo');
         $result->assertSee('Origen y movimiento');
-        $result->assertSee('Memoria popular');
+        $result->assertSee('Circo criollo');
         $result->assertSee('assets/img/museo/historia/collage-circo.webp');
     }
 
@@ -175,9 +174,7 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result->assertSee('collection-grid--exhibit');
         $result->assertSee('Títeres en exhibición');
         $result->assertSee('Técnicas');
-        $result->assertSee('Lucía');
-        $result->assertSee('Don Cristóbal');
-        $result->assertSee('La técnica');
+        $result->assertSee('Mamulengo, Cholito.');
     }
 
     public function testMasksExhibitRoute(): void
@@ -206,13 +203,13 @@ final class TotemRoutesTest extends CIUnitTestCase
 
     public function testCollectionItemDetailRoute(): void
     {
-        $result = $this->get('museo/coleccion/fichas/sofia');
+        $result = $this->get('museo/coleccion/fichas/tg1');
 
         $result->assertStatus(200);
-        $result->assertSee('Ficha de Sofía');
+        $result->assertSee('Mamulengo, Cholito.');
         $result->assertSee('Conocer técnica');
         $result->assertSee('País de origen');
-        $result->assertSee('TM0006');
+        $result->assertSee('TG1');
         $result->assertDontSee('collection-section-nav');
     }
 
@@ -241,8 +238,8 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result = $this->get('museo/el-museo/hoy');
         $result->assertStatus(200);
         $result->assertSee('Teatromuseo Hoy');
-        $result->assertSee('Actualidad del museo');
-        $result->assertSee('Una actualidad que se lee de frente');
+        $result->assertSee('Fundación Hoy');
+        $result->assertSee('Con casi dos décadas de historia');
         $result->assertSee('assets/img/museo/el-museo/collage-historia-actual.webp');
         $result->assertDontSee('Bloques visibles');
         $result->assertDontSee('Foco editorial');

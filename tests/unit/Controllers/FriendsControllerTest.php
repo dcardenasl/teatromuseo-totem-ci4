@@ -28,6 +28,6 @@ final class FriendsControllerTest extends CIUnitTestCase
         $result = $this->get('extension');
 
         $result->assertStatus(200);
-        $result->assertSee('Contacto');
+        $result->assertSee('Extensión');
     }
 }

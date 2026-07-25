@@ -25,8 +25,8 @@ final class MuseumControllerTest extends CIUnitTestCase
         $result = $this->get('museo/el-museo/hoy');
 
         $result->assertStatus(200);
-        $result->assertSee('Actualidad del museo');
-        $result->assertSee('Una actualidad que se lee de frente');
+        $result->assertSee('Fundación Hoy');
+        $result->assertSee('Con casi dos décadas de historia');
         $result->assertSee('collage-historia-actual.webp');
         $result->assertDontSee('Bloques visibles');
         $result->assertDontSee('Foco editorial');
