@@ -1,0 +1,338 @@
+[
+  {
+    "id": 1,
+    "slug": "titere-de-guante",
+    "title": "Títeres de Guante",
+    "subtitle": {
+      "es": "Una mano anima la figura desde adentro.",
+      "en": "A hand brings the figure to life from within.",
+      "fr": "Une main donne vie à la figure depuis l'intérieur.",
+      "pt": "Uma mão anima a figura por dentro."
+    },
+    "copy": {
+      "es": "El titiritero introduce su mano en el cuerpo del muñeco y lo da vida desde dentro.",
+      "en": "The puppeteer slips a hand inside the puppet's body and animates it from the inside.",
+      "fr": "Le marionnettiste introduit sa main dans le corps du personnage et lui donne vie depuis l'intérieur.",
+      "pt": "O titeriteiro introduz a mão no corpo do boneco e o anima por dentro."
+    },
+    "description": {
+      "es": "El títere de guante es una de las técnicas más antiguas y extendidas del teatro de animación. El titiritero introduce la mano dentro del cuerpo del muñeco: el dedo índice sostiene la cabeza, mientras el pulgar y el dedo medio mueven los brazos. Esta proximidad entre mano y figura permite reacciones rápidas, gestos directos y una relación muy cercana con el público. Es la técnica del Punch and Judy en Gran Bretaña, del Polichinela en Italia y del Mamulengo en Brasil — cada cultura lo reinventó con su propio humor y personajes. Su aparente simpleza técnica esconde una expresividad formidable.",
+      "en": "The glove puppet is one of the oldest and most widespread techniques in animation theatre. The puppeteer inserts their hand inside the puppet's body: the index finger supports the head while the thumb and middle finger move the arms. This closeness between hand and figure allows quick reactions, direct gestures, and a very close relationship with the audience. It is the technique of Punch and Judy in Britain, Polichinela in Italy, and Mamulengo in Brazil — each culture reinvented it with its own humour and characters. Its apparent technical simplicity conceals formidable expressiveness.",
+      "fr": "La marionnette à gaine est l'une des techniques les plus anciennes et répandues du théâtre d'animation. Le marionnettiste introduit la main dans le corps du personnage : l'index soutient la tête tandis que le pouce et le majeur actionnent les bras. Cette proximité entre la main et la figure permet des réactions rapides, des gestes directs et une relation très proche avec le public. C'est la technique du Punch and Judy en Grande-Bretagne, du Polichinella en Italie et du Mamulengo au Brésil — chaque culture l'a réinventée avec son propre humour et ses personnages. Sa simplicité technique apparente cache une expressivité formidable.",
+      "pt": "O títere de luva é uma das técnicas mais antigas e difundidas do teatro de animação. O titeriteiro introduz a mão dentro do corpo do boneco: o dedo indicador sustenta a cabeça, enquanto o polegar e o dedo médio movem os braços. Essa proximidade entre a mão e a figura permite reações rápidas, gestos diretos e uma relação muito próxima com o público. É a técnica do Punch and Judy na Grã-Bretanha, do Polichinela na Itália e do Mamulengo no Brasil — cada cultura a reinventou com seu próprio humor e personagens. Sua aparente simplicidade técnica esconde uma expressividade formidável."
+    },
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 2,
+    "slug": "titere-de-hilo",
+    "title": "Títeres de Hilo",
+    "subtitle": {
+      "es": "Hilos invisibles que transmiten vida a cada gesto.",
+      "en": "Invisible threads that transmit life to every gesture.",
+      "fr": "Des fils invisibles qui transmettent la vie à chaque geste.",
+      "pt": "Fios invisíveis que transmitem vida a cada gesto."
+    },
+    "copy": {
+      "es": "Controlada desde arriba mediante hilos que conectan al titiritero con el muñeco.",
+      "en": "Controlled from above through strings connecting the puppeteer to the puppet.",
+      "fr": "Contrôlée depuis le dessus par des fils reliant le marionnettiste au personnage.",
+      "pt": "Controlada de cima por fios que conectam o titeriteiro ao boneco."
+    },
+    "description": {
+      "es": "La marioneta o títere de hilo se controla desde arriba mediante una cruceta de madera de la que penden hilos atados a la cabeza, las manos, las rodillas y la espalda del muñeco. El titiritero, parado sobre un puente o detrás de un telón, transmite movimiento a través de esos hilos logrando que la figura camine, baile, incline la cabeza o levante un brazo con precisión asombrosa. Es la técnica de las marionetas clásicas europeas y del teatro japonés Bunraku, donde hasta tres manipuladores animan una sola figura en perfecta sincronía. Dominarla exige años de práctica y una lectura muy fina del cuerpo en el espacio.",
+      "en": "The string marionette is controlled from above via a wooden crossbar from which strings hang, tied to the head, hands, knees and back of the puppet. The puppeteer, standing on a bridge or behind a curtain, transmits movement through those strings, making the figure walk, dance, tilt its head or raise an arm with astonishing precision. It is the technique of classic European marionettes and of the Japanese Bunraku theatre, where up to three puppeteers animate a single figure in perfect unison. Mastering it takes years of practice and a very fine reading of the body in space.",
+      "fr": "La marionnette à fils se contrôle depuis le dessus via une croix en bois de laquelle pendent des fils attachés à la tête, aux mains, aux genoux et au dos du personnage. Le marionnettiste, debout sur une passerelle ou derrière un rideau, transmet le mouvement à travers ces fils, faisant marcher, danser, incliner la tête ou lever un bras à la figure avec une précision étonnante. C'est la technique des marionnettes classiques européennes et du théâtre japonais Bunraku, où jusqu'à trois manipulateurs animent une seule figure en parfaite synchronie. La maîtriser exige des années de pratique et une lecture très fine du corps dans l'espace.",
+      "pt": "A marionete de fio é controlada de cima por meio de uma cruz de madeira da qual pendem fios presos à cabeça, às mãos, aos joelhos e às costas do boneco. O titeriteiro, parado numa ponte ou atrás de um pano, transmite movimento por esses fios, fazendo a figura caminhar, dançar, inclinar a cabeça ou levantar um braço com precisão surpreendente. É a técnica das marionetes clássicas europeias e do teatro japonês Bunraku, onde até três manipuladores animam uma única figura em perfeita sincronia. Dominá-la exige anos de prática e uma leitura muito fina do corpo no espaço."
+    },
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 3,
+    "slug": "titere-bocon",
+    "title": "Títeres Bocones",
+    "subtitle": {
+      "es": "La boca que lo dice todo.",
+      "en": "The mouth that says it all.",
+      "fr": "La bouche qui dit tout.",
+      "pt": "A boca que diz tudo."
+    },
+    "copy": {
+      "es": "Su enorme boca articulada es el centro de toda la expresión del personaje.",
+      "en": "Its enormous articulated mouth is the centre of all the character's expression.",
+      "fr": "Son énorme bouche articulée est le centre de toute l'expression du personnage.",
+      "pt": "Sua enorme boca articulada é o centro de toda a expressão do personagem."
+    },
+    "description": {
+      "es": "El bocón, también llamado Muppet, es el títere cuya característica principal es su enorme boca articulada. El titiritero introduce la mano en la cabeza del muñeco: los dedos controlan la mandíbula superior y el pulgar la inferior, haciendo que la boca se abra y cierre con cada sílaba. El cuerpo cuelga sobre el brazo del animador, y dos varillas finas mueven los brazos. La técnica fue popularizada mundialmente por Jim Henson con personajes como Kermit la Rana y los Teleñecos; el propio nombre Muppet combina las palabras marionette y puppet. Su expresividad vocal y visual la convirtió en favorita de la televisión, el cine y el teatro infantil en todo el mundo.",
+      "en": "The bocon, also known as a Muppet, is a puppet whose main feature is its enormous articulated mouth. The puppeteer inserts their hand into the puppet's head: the fingers control the upper jaw and the thumb controls the lower, making the mouth open and close with every syllable. The body hangs over the puppeteer's arm, and two thin rods move the arms. The technique was popularised worldwide by Jim Henson with characters like Kermit the Frog and the Muppets; the name Muppet itself combines the words marionette and puppet. Its vocal and visual expressiveness made it a favourite in television, film and children's theatre around the world.",
+      "fr": "Le bocón, aussi appelé Muppet, est une marionnette dont la caractéristique principale est son énorme bouche articulée. Le marionnettiste introduit la main dans la tête du personnage : les doigts contrôlent la mâchoire supérieure et le pouce l'inférieure, faisant s'ouvrir et se fermer la bouche à chaque syllabe. Le corps pend sur le bras de l'animateur, et deux fines tiges actionnent les bras. La technique a été popularisée mondialement par Jim Henson avec des personnages comme Kermit la grenouille et les Muppets ; le nom Muppet lui-même combine les mots marionette et puppet. Son expressivité vocale et visuelle en a fait la favorite de la télévision, du cinéma et du théâtre pour enfants dans le monde entier.",
+      "pt": "O bocón, também chamado de Muppet, é o boneco cuja principal característica é sua enorme boca articulada. O titeriteiro introduz a mão na cabeça do boneco: os dedos controlam a mandíbula superior e o polegar a inferior, fazendo a boca abrir e fechar a cada sílaba. O corpo fica sobre o braço do animador, e duas varetas finas movem os braços. A técnica foi popularizada mundialmente por Jim Henson com personagens como Kermit, o Sapo, e os Muppets; o próprio nome Muppet combina as palavras marionette e puppet. Sua expressividade vocal e visual a tornou favorita na televisão, no cinema e no teatro infantil ao redor do mundo."
+    },
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 4,
+    "slug": "titere-marote",
+    "title": "Títeres Marotes",
+    "subtitle": {
+      "es": "La mano del titiritero se convierte en la mano del muñeco.",
+      "en": "The puppeteer's own hand becomes the puppet's hand.",
+      "fr": "La main du marionnettiste devient la main du personnage.",
+      "pt": "A mão do titeriteiro se transforma na mão do boneco."
+    },
+    "copy": {
+      "es": "Una cabeza sobre un palo y la mano real del titiritero como brazo del personaje.",
+      "en": "A head on a stick, with the puppeteer's real hand serving as the character's arm.",
+      "fr": "Une tête sur un bâton et la vraie main du marionnettiste comme bras du personnage.",
+      "pt": "Uma cabeça num bastão e a mão real do titeriteiro como braço do personagem."
+    },
+    "description": {
+      "es": "El marote —del francés marotte, cetro de bufón medieval— es uno de los títeres más primitivos y directos. Una cabeza sostenida sobre un palo, cubierta por un largo faldón que oculta el brazo del titiritero: él mismo presta su mano como si fuera la mano del muñeco, mientras con la otra sostiene y gira la cabeza. Esta técnica crea una fusión extraña y fascinante entre el cuerpo del animador y el del títere: la mano es real, la cabeza es un objeto, pero juntos forman un solo personaje. Los marotes tienen larga historia en el teatro popular de calle y en las farsas medievales, donde el bufón llevaba una marotte como atributo cómico e irreverente.",
+      "en": "The marotte — from the French marotte, a medieval jester's sceptre — is one of the most primitive and direct puppets. A head held on a stick, covered by a long skirt that hides the puppeteer's arm: the puppeteer lends their own hand as if it were the puppet's hand, while the other holds and turns the head. This technique creates a strange and fascinating fusion between the puppeteer's body and the puppet's: the hand is real, the head is an object, yet together they form a single character. Marottes have a long history in popular street theatre and medieval farce, where the jester carried a marotte as a comic and irreverent attribute.",
+      "fr": "La marotte — du français marotte, sceptre de bouffon médiéval — est l'une des marionnettes les plus primitives et directes. Une tête tenue sur un bâton, recouverte d'une longue jupe qui cache le bras du marionnettiste : celui-ci prête sa propre main comme si c'était la main du personnage, tandis que l'autre tient et tourne la tête. Cette technique crée une fusion étrange et fascinante entre le corps de l'animateur et celui de la marionnette : la main est réelle, la tête est un objet, mais ensemble ils forment un seul personnage. Les marottes ont une longue histoire dans le théâtre de rue populaire et les farces médiévales, où le bouffon portait une marotte comme attribut comique et irrévérencieux.",
+      "pt": "O marote — do francês marotte, cetro de bufão medieval — é um dos bonecos mais primitivos e diretos. Uma cabeça sustentada num bastão, coberta por uma longa saia que oculta o braço do titeriteiro: ele mesmo empresta sua mão como se fosse a mão do boneco, enquanto com a outra sustenta e gira a cabeça. Essa técnica cria uma fusão estranha e fascinante entre o corpo do animador e o do boneco: a mão é real, a cabeça é um objeto, mas juntos formam um único personagem. Os marotes têm longa história no teatro popular de rua e nas farsas medievais, onde o bufão carregava uma marotte como atributo cômico e irreverente."
+    },
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 5,
+    "slug": "titere-gigante",
+    "title": "Marionetas Gigantes",
+    "subtitle": {
+      "es": "Figuras monumentales que convierten la calle en un teatro sin paredes.",
+      "en": "Monumental figures that turn the street into a theatre without walls.",
+      "fr": "Des figures monumentales qui transforment la rue en théâtre sans murs.",
+      "pt": "Figuras monumentais que transformam a rua em um teatro sem paredes."
+    },
+    "copy": {
+      "es": "Figuras de varios metros animadas en equipo que transforman el espacio urbano.",
+      "en": "Multi-metre figures animated by a team that transform urban space.",
+      "fr": "Des figures de plusieurs mètres animées en équipe qui transforment l'espace urbain.",
+      "pt": "Figuras de vários metros animadas em equipe que transformam o espaço urbano."
+    },
+    "description": {
+      "es": "Las marionetas gigantes son figuras de gran escala — a veces de varios metros de altura — animadas mediante varillas, palancas y arneses operados por uno o varios titiriteros en simultáneo. Nacidas en el teatro callejero y el carnaval popular, irrumpieron en las grandes ciudades del mundo de la mano de compañías como Royal de Luxe de Francia, que transformó plazas y avenidas en escenarios de cuento. Su escala monumental genera un impacto visual imposible de ignorar: el gigante convierte al espectador en niño y al espacio urbano en teatro sin paredes. Requieren trabajo en equipo preciso, coreografía entre animadores y una logística de construcción y transporte considerable.",
+      "en": "Giant marionettes are large-scale figures — sometimes several metres tall — animated by rods, levers and harnesses operated by one or more puppeteers simultaneously. Born in street theatre and popular carnival, they burst into major cities worldwide with companies like Royal de Luxe from France, which turned squares and avenues into storybook stages. Their monumental scale creates an impossible-to-ignore visual impact: the giant turns the spectator into a child and the urban space into a theatre without walls. They require precise teamwork, choreography between puppeteers, and considerable construction and transportation logistics.",
+      "fr": "Les marionnettes géantes sont des figures de grande échelle — parfois de plusieurs mètres de haut — animées par des tiges, des leviers et des harnais manœuvrés par un ou plusieurs marionnettistes simultanément. Nées dans le théâtre de rue et le carnaval populaire, elles ont fait irruption dans les grandes villes du monde avec des compagnies comme Royal de Luxe de France, qui a transformé des places et des avenues en décors de conte. Leur échelle monumentale crée un impact visuel impossible à ignorer : le géant transforme le spectateur en enfant et l'espace urbain en théâtre sans murs. Elles nécessitent un travail d'équipe précis, une chorégraphie entre animateurs et une logistique de construction et de transport considérable.",
+      "pt": "As marionetes gigantes são figuras em grande escala — às vezes de vários metros de altura — animadas por varetas, alavancas e arreios operados por um ou mais titeriteiros simultaneamente. Nascidas no teatro de rua e no carnaval popular, irromperam nas grandes cidades do mundo com companhias como Royal de Luxe da França, que transformou praças e avenidas em cenários de conto. Sua escala monumental gera um impacto visual impossível de ignorar: o gigante transforma o espectador em criança e o espaço urbano em teatro sem paredes. Requerem trabalho em equipe preciso, coreografia entre animadores e uma logística de construção e transporte considerável."
+    },
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 6,
+    "slug": "titere-de-sombra",
+    "title": "Títeres de Sombra",
+    "subtitle": {
+      "es": "Siluetas entre la luz y la oscuridad que cuentan historias.",
+      "en": "Silhouettes between light and darkness that tell stories.",
+      "fr": "Silhouettes entre lumière et obscurité qui racontent des histoires.",
+      "pt": "Silhuetas entre a luz e a escuridão que contam histórias."
+    },
+    "copy": {
+      "es": "Figuras interpuestas entre una fuente de luz y una pantalla traslúcida.",
+      "en": "Figures placed between a light source and a translucent screen.",
+      "fr": "Des figures interposées entre une source de lumière et un écran translucide.",
+      "pt": "Figuras interpostas entre uma fonte de luz e uma tela translúcida."
+    },
+    "description": {
+      "es": "El teatro de sombras es una de las tradiciones escénicas más antiguas del mundo, con raíces documentadas en China, India, Turquía e Indonesia hace más de dos mil años. Las figuras — planas o tridimensionales — se interponen entre una fuente de luz y una pantalla traslúcida, proyectando siluetas que el público ve desde el otro lado. La distancia entre la figura y la pantalla determina la nitidez de la sombra: acercándola o alejándola, el titiritero puede hacer que crezca, se difumine o cambie de forma en tiempo real. El Wayang kulit indonesio y el Karagöz turco son sus expresiones más reconocidas y ambos están declarados Patrimonio Cultural Inmaterial de la Humanidad por la UNESCO.",
+      "en": "Shadow theatre is one of the oldest performance traditions in the world, with documented roots in China, India, Turkey and Indonesia more than two thousand years ago. The figures — flat or three-dimensional — are interposed between a light source and a translucent screen, projecting silhouettes that the audience sees from the other side. The distance between figure and screen determines the sharpness of the shadow: by moving closer or further away, the puppeteer can make it grow, blur or change shape in real time. Indonesian Wayang kulit and Turkish Karagöz are its most recognised expressions, and both are declared Intangible Cultural Heritage of Humanity by UNESCO.",
+      "fr": "Le théâtre d'ombres est l'une des traditions scéniques les plus anciennes du monde, avec des racines documentées en Chine, en Inde, en Turquie et en Indonésie il y a plus de deux mille ans. Les figures — planes ou tridimensionnelles — s'interposent entre une source de lumière et un écran translucide, projetant des silhouettes que le public voit de l'autre côté. La distance entre la figure et l'écran détermine la netteté de l'ombre : en l'approchant ou en l'éloignant, le marionnettiste peut la faire grandir, se brouiller ou changer de forme en temps réel. Le Wayang kulit indonésien et le Karagöz turc sont ses expressions les plus connues, et tous deux sont déclarés Patrimoine Culturel Immatériel de l'Humanité par l'UNESCO.",
+      "pt": "O teatro de sombras é uma das tradições cênicas mais antigas do mundo, com raízes documentadas na China, na Índia, na Turquia e na Indonésia há mais de dois mil anos. As figuras — planas ou tridimensionais — são interpostas entre uma fonte de luz e uma tela translúcida, projetando silhuetas que o público vê do outro lado. A distância entre a figura e a tela determina a nitidez da sombra: aproximando-a ou afastando-a, o titeriteiro pode fazê-la crescer, desfocá-la ou mudar de forma em tempo real. O Wayang kulit indonésio e o Karagöz turco são suas expressões mais conhecidas, e ambos são declarados Patrimônio Cultural Imaterial da Humanidade pela UNESCO."
+    },
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 7,
+    "slug": "titere-de-varilla",
+    "title": "Títeres de Varilla",
+    "subtitle": {
+      "es": "Movimiento preciso desde abajo mediante varillas rígidas.",
+      "en": "Precise movement from below via rigid rods.",
+      "fr": "Mouvement précis depuis le bas grâce à des tiges rigides.",
+      "pt": "Movimento preciso de baixo para cima mediante varetas rígidas."
+    },
+    "copy": {
+      "es": "El titiritero opera el muñeco desde abajo con varillas conectadas a cabeza y brazos.",
+      "en": "The puppeteer operates the puppet from below using rods connected to the head and arms.",
+      "fr": "Le marionnettiste opère le personnage depuis le bas avec des tiges connectées à la tête et aux bras.",
+      "pt": "O titeriteiro opera o boneco de baixo com varetas conectadas à cabeça e aos braços."
+    },
+    "description": {
+      "es": "En el títere de varilla, el titiritero sostiene una varilla central que soporta la cabeza del muñeco y acciona los brazos mediante varillas adicionales conectadas a las muñecas, todo desde abajo. A diferencia de la marioneta — que opera desde arriba — esta manipulación da un control más directo y expresivo sobre el cuerpo. La técnica alcanzó su máximo refinamiento en el teatro de marionetas japonés Bunraku, donde tres manipuladores coordinan cada figura con precisión milimétrica. En Europa, los títeres de varilla del teatro checo y alemán desarrollaron variantes propias, y hoy es una de las técnicas más estudiadas en las escuelas de teatro de animación contemporáneas alrededor del mundo.",
+      "en": "In the rod puppet, the puppeteer holds a central rod supporting the puppet's head and operates the arms via additional rods connected to the wrists, all from below. Unlike the marionette — which is operated from above — this manipulation gives more direct and expressive control over the body. The technique reached its peak refinement in the Japanese Bunraku puppet theatre, where three puppeteers coordinate each figure with millimetre precision. In Europe, Czech and German rod puppet theatres developed their own variants, and today it is one of the most studied techniques in contemporary animation theatre schools around the world.",
+      "fr": "Dans la marionnette à tige, le marionnettiste tient une tige centrale qui supporte la tête du personnage et actionne les bras via des tiges supplémentaires connectées aux poignets, le tout depuis le bas. Contrairement à la marionnette à fils — qui s'opère depuis le haut — cette manipulation donne un contrôle plus direct et expressif sur le corps. La technique a atteint son plus grand raffinement dans le théâtre de marionnettes japonais Bunraku, où trois manipulateurs coordonnent chaque figure avec une précision millimétrique. En Europe, les théâtres de marionnettes à tige tchèque et allemand ont développé leurs propres variantes, et c'est aujourd'hui l'une des techniques les plus étudiées dans les écoles de théâtre d'animation contemporain dans le monde entier.",
+      "pt": "No títere de vareta, o titeriteiro segura uma vareta central que suporta a cabeça do boneco e aciona os braços mediante varetas adicionais conectadas aos pulsos, tudo de baixo. Ao contrário da marionete — que é operada de cima —, essa manipulação dá um controle mais direto e expressivo sobre o corpo. A técnica atingiu seu maior refinamento no teatro de marionetes japonês Bunraku, onde três manipuladores coordenam cada figura com precisão milimétrica. Na Europa, os teatros de marionetes de vareta tcheco e alemão desenvolveram variantes próprias, e hoje é uma das técnicas mais estudadas nas escolas de teatro de animação contemporâneas ao redor do mundo."
+    },
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 8,
+    "slug": "titere-plano",
+    "title": "Títeres Planos",
+    "subtitle": {
+      "es": "Figuras en dos dimensiones que viven sobre una superficie.",
+      "en": "Two-dimensional figures that live on a surface.",
+      "fr": "Des figures en deux dimensions qui vivent sur une surface.",
+      "pt": "Figuras em duas dimensões que vivem sobre uma superfície."
+    },
+    "copy": {
+      "es": "Figuras recortadas que se deslizan sobre una superficie para narrar historias.",
+      "en": "Cut-out figures that slide across a surface to narrate stories.",
+      "fr": "Des figures découpées qui glissent sur une surface pour raconter des histoires.",
+      "pt": "Figuras recortadas que deslizam sobre uma superfície para narrar histórias."
+    },
+    "description": {
+      "es": "Los títeres planos son figuras recortadas — en papel, cartón, cuero, madera o plástico — que se animan deslizándolas sobre una superficie horizontal o vertical, o a lo largo del borde de una pantalla. Son la base del teatro de siluetas y del teatro de imágenes, y tienen larga historia en las tradiciones populares de Europa del Este, China y el teatro callejero latinoamericano. Su aparente simplicidad los hace ideales para el trabajo pedagógico con niños y la narración visual directa. Sin embargo, en manos de artistas experimentados permiten composiciones plásticas de gran complejidad: los títeres articulados con bisagras pueden llegar a ser tan expresivos como cualquier figura tridimensional.",
+      "en": "Flat puppets are cut-out figures — in paper, cardboard, leather, wood or plastic — that are animated by sliding them along a horizontal or vertical surface, or along the edge of a screen. They are the basis of silhouette theatre and image theatre, and have a long history in the folk traditions of Eastern Europe, China and Latin American street theatre. Their apparent simplicity makes them ideal for educational work with children and direct visual storytelling. However, in the hands of experienced artists, they allow plastic compositions of great complexity: articulated puppets with hinges can be as expressive as any three-dimensional figure.",
+      "fr": "Les marionnettes plates sont des figures découpées — en papier, carton, cuir, bois ou plastique — qui s'animent en glissant sur une surface horizontale ou verticale, ou le long du bord d'un écran. Elles sont la base du théâtre de silhouettes et du théâtre d'images, et ont une longue histoire dans les traditions populaires d'Europe de l'Est, de Chine et du théâtre de rue latino-américain. Leur apparente simplicité les rend idéales pour le travail pédagogique avec les enfants et la narration visuelle directe. Cependant, entre les mains d'artistes expérimentés, elles permettent des compositions plastiques d'une grande complexité : les marionnettes articulées avec des charnières peuvent être aussi expressives que n'importe quelle figure tridimensionnelle.",
+      "pt": "Os títeres planos são figuras recortadas — em papel, papelão, couro, madeira ou plástico — que se animam deslizando sobre uma superfície horizontal ou vertical, ou ao longo da borda de uma tela. São a base do teatro de silhuetas e do teatro de imagens, e têm longa história nas tradições populares da Europa Oriental, China e no teatro de rua latino-americano. Sua aparente simplicidade os torna ideais para o trabalho pedagógico com crianças e a narração visual direta. No entanto, nas mãos de artistas experientes permitem composições plásticas de grande complexidade: os bonecos articulados com dobradiças podem ser tão expressivos quanto qualquer figura tridimensional."
+    },
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 9,
+    "slug": "titere-de-dedo",
+    "title": "Títeres de Dedo",
+    "subtitle": {
+      "es": "La figura más pequeña del teatro de animación.",
+      "en": "The smallest figure in animation theatre.",
+      "fr": "La figure la plus petite du théâtre d'animation.",
+      "pt": "A figura mais pequena do teatro de animação."
+    },
+    "copy": {
+      "es": "Una figura diminuta que se calza sobre la punta del dedo y cobra vida al instante.",
+      "en": "A tiny figure that slips onto a fingertip and comes to life instantly.",
+      "fr": "Une figure minuscule qui se glisse sur le bout du doigt et prend vie instantanément.",
+      "pt": "Uma figura diminuta que se encaixa na ponta do dedo e ganha vida instantaneamente."
+    },
+    "description": {
+      "es": "El títere de dedo es el formato más íntimo y portable del teatro de animación: una pequeña figura — de tela, papel, fieltro o goma — que se calza directamente sobre el dedo del titiritero. Con diez dedos disponibles, una sola persona puede animar hasta diez personajes en simultáneo. Muy utilizados en la educación infantil por su accesibilidad y bajo costo, también tienen lugar en el teatro para adultos cuando se busca una escala de miniatura que genere asombro por contraste con el mundo real. Su magia reside en la capacidad de humanizar el gesto más pequeño: basta mover levemente un dedo para que la figura cobre vida y el espectador le preste toda su atención.",
+      "en": "The finger puppet is the most intimate and portable format in animation theatre: a small figure — of fabric, paper, felt or rubber — that fits directly onto the puppeteer's finger. With ten fingers available, one person can animate up to ten characters simultaneously. Widely used in early childhood education for their accessibility and low cost, they also find a place in adult theatre when a miniature scale is sought that creates wonder by contrast with the real world. Their magic lies in the ability to humanise the smallest gesture: barely moving a finger is enough for the figure to come to life and the spectator to give it their full attention.",
+      "fr": "La marionnette à doigt est le format le plus intime et le plus portable du théâtre d'animation : une petite figure — de tissu, de papier, de feutrine ou de caoutchouc — qui se glisse directement sur le doigt du marionnettiste. Avec dix doigts disponibles, une seule personne peut animer jusqu'à dix personnages simultanément. Très utilisées en petite enfance pour leur accessibilité et leur faible coût, elles trouvent également leur place dans le théâtre pour adultes quand on cherche une échelle de miniature qui génère l'émerveillement par contraste avec le monde réel. Leur magie réside dans la capacité à humaniser le geste le plus petit : il suffit de bouger légèrement un doigt pour que la figure prenne vie et que le spectateur lui accorde toute son attention.",
+      "pt": "O títere de dedo é o formato mais íntimo e portátil do teatro de animação: uma pequena figura — de tecido, papel, feltro ou borracha — que se encaixa diretamente no dedo do titeriteiro. Com dez dedos disponíveis, uma única pessoa pode animar até dez personagens simultaneamente. Muito utilizados na educação infantil por sua acessibilidade e baixo custo, também têm lugar no teatro para adultos quando se busca uma escala de miniatura que gere encantamento por contraste com o mundo real. Sua magia reside na capacidade de humanizar o menor gesto: basta mover levemente um dedo para que a figura ganhe vida e o espectador lhe dê toda a sua atenção."
+    },
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 10,
+    "slug": "titere-corporal",
+    "title": "Títeres Corporales",
+    "subtitle": {
+      "es": "El propio cuerpo del titiritero se convierte en el títere.",
+      "en": "The puppeteer's own body becomes the puppet.",
+      "fr": "Le propre corps du marionnettiste devient la marionnette.",
+      "pt": "O próprio corpo do titeriteiro se torna o títere."
+    },
+    "copy": {
+      "es": "El animador usa su cuerpo entero como instrumento para crear la figura.",
+      "en": "The puppeteer uses their entire body as an instrument to create the figure.",
+      "fr": "L'animateur utilise son corps entier comme instrument pour créer la figure.",
+      "pt": "O animador usa seu corpo inteiro como instrumento para criar a figura."
+    },
+    "description": {
+      "es": "En el títere corporal, el animador usa su propio cuerpo como material de creación: manos, pies, rostro, brazos o el cuerpo entero se transforman en personajes mediante maquillaje, vestuario o complementos que modifican la percepción del espectador. La técnica exige un entrenamiento cercano al mimo y al ilusionismo: el titiritero debe dominar cada parte de su cuerpo con precisión milimétrica para sostener la ilusión de que la figura tiene vida propia e independiente. Es un territorio fronterizo entre el teatro de actores y el teatro de objetos, y uno de los campos más fértiles de experimentación en el teatro de animación contemporáneo, donde la frontera entre cuerpo y muñeco desaparece.",
+      "en": "In the body puppet, the puppeteer uses their own body as the creative material: hands, feet, face, arms or the entire body become characters through makeup, costume or props that alter the spectator's perception. The technique demands training close to mime and illusionism: the puppeteer must control every part of their body with millimetre precision to sustain the illusion that the figure has its own independent life. It is a borderland between actor theatre and object theatre, and one of the most fertile fields of experimentation in contemporary animation theatre, where the boundary between body and puppet disappears.",
+      "fr": "Dans la marionnette corporelle, l'animateur utilise son propre corps comme matériau de création : mains, pieds, visage, bras ou corps entier se transforment en personnages grâce au maquillage, au costume ou aux accessoires qui modifient la perception du spectateur. La technique exige un entraînement proche du mime et de l'illusionnisme : le marionnettiste doit maîtriser chaque partie de son corps avec une précision millimétrique pour maintenir l'illusion que la figure a sa propre vie indépendante. C'est un territoire frontalier entre le théâtre d'acteurs et le théâtre d'objets, et l'un des champs les plus fertiles d'expérimentation dans le théâtre d'animation contemporain, où la frontière entre corps et marionnette disparaît.",
+      "pt": "No títere corporal, o animador usa seu próprio corpo como material de criação: mãos, pés, rosto, braços ou o corpo inteiro se transformam em personagens mediante maquiagem, figurino ou complementos que modificam a percepção do espectador. A técnica exige um treinamento próximo ao mimo e ao ilusionismo: o titeriteiro deve dominar cada parte do seu corpo com precisão milimétrica para manter a ilusão de que a figura tem vida própria e independente. É um território fronteiriço entre o teatro de atores e o teatro de objetos, e um dos campos mais férteis de experimentação no teatro de animação contemporâneo, onde a fronteira entre corpo e boneco desaparece."
+    },
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 11,
+    "slug": "manipulacion-directa",
+    "title": "Manipulación Directa",
+    "subtitle": {
+      "es": "El animador opera la figura a la vista del público, sin ocultarse.",
+      "en": "The puppeteer animates the figure in full view of the audience, without hiding.",
+      "fr": "L'animateur opère la figure à la vue du public, sans se cacher.",
+      "pt": "O animador opera a figura à vista do público, sem se esconder."
+    },
+    "copy": {
+      "es": "El titiritero anima el objeto visible ante el público: el acto de animar es parte del espectáculo.",
+      "en": "The puppeteer animates the object in full sight of the audience: the act of animating is part of the show.",
+      "fr": "Le marionnettiste anime l'objet visible devant le public : l'acte d'animer fait partie du spectacle.",
+      "pt": "O titeriteiro anima o objeto visível ante o público: o ato de animar faz parte do espetáculo."
+    },
+    "description": {
+      "es": "En la manipulación directa, el titiritero sostiene, desplaza y anima el objeto o figura a la vista del público, sin pantalla ni retablo que lo oculte. Esta visibilidad del animador es una decisión estética deliberada: lejos de romper la ilusión, la refuerza al convertir el acto mismo de animar en parte del espectáculo. La técnica abarca desde el teatro de objetos contemporáneo hasta el teatro negro checo, donde los animadores vestidos de negro se hacen visualmente invisibles bajo luz ultravioleta. Libera la escena de toda arquitectura fija, permitiendo que la animación suceda en cualquier espacio y con cualquier objeto cotidiano, que en manos del animador puede convertirse en personaje.",
+      "en": "In direct manipulation, the puppeteer holds, moves and animates the object or figure in full view of the audience, without any screen or stage to conceal them. This visibility of the puppeteer is a deliberate aesthetic choice: far from breaking the illusion, it reinforces it by making the very act of animating part of the performance. The technique ranges from contemporary object theatre to Czech black theatre, where black-clad puppeteers become visually invisible under ultraviolet light. It frees the stage from any fixed architecture, allowing animation to take place in any space with any everyday object, which in the puppeteer's hands can become a character.",
+      "fr": "Dans la manipulation directe, le marionnettiste tient, déplace et anime l'objet ou la figure à la vue du public, sans écran ni castelet pour le dissimuler. Cette visibilité de l'animateur est une décision esthétique délibérée : loin de briser l'illusion, elle la renforce en faisant de l'acte même d'animer une partie du spectacle. La technique va du théâtre d'objets contemporain au théâtre noir tchèque, où des animateurs vêtus de noir deviennent visuellement invisibles sous la lumière ultraviolette. Elle libère la scène de toute architecture fixe, permettant que l'animation se produise dans n'importe quel espace avec n'importe quel objet du quotidien, qui entre les mains de l'animateur peut devenir personnage.",
+      "pt": "Na manipulação direta, o titeriteiro segura, desloca e anima o objeto ou figura à vista do público, sem tela nem retábulo que o oculte. Essa visibilidade do animador é uma decisão estética deliberada: longe de romper a ilusão, ela a reforça ao converter o próprio ato de animar em parte do espetáculo. A técnica abrange desde o teatro de objetos contemporâneo até o teatro negro tcheco, onde animadores vestidos de preto se tornam visualmente invisíveis sob luz ultravioleta. Libera a cena de qualquer arquitetura fixa, permitindo que a animação aconteça em qualquer espaço e com qualquer objeto cotidiano, que nas mãos do animador pode se tornar personagem."
+    },
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 12,
+    "slug": "titere-ventrilocuo",
+    "title": "Títere Ventrílocuo",
+    "subtitle": {
+      "es": "Una voz, dos personajes: el arte de hablar sin mover los labios.",
+      "en": "One voice, two characters: the art of speaking without moving your lips.",
+      "fr": "Une voix, deux personnages : l'art de parler sans bouger les lèvres.",
+      "pt": "Uma voz, dois personagens: a arte de falar sem mover os lábios."
+    },
+    "copy": {
+      "es": "El ventrílocuo da voz al muñeco sin mover los labios, creando la ilusión de que habla.",
+      "en": "The ventriloquist gives voice to the puppet without moving their lips, creating the illusion that it speaks.",
+      "fr": "Le ventriloque donne voix au personnage sans bouger les lèvres, créant l'illusion qu'il parle.",
+      "pt": "O ventrílocuo dá voz ao boneco sem mover os lábios, criando a ilusão de que ele fala."
+    },
+    "description": {
+      "es": "El títere ventrílocuo es inseparable del arte de la ventriloquía: la técnica de modificar y proyectar la voz de manera que parezca provenir del muñeco mientras el artista mantiene los labios quietos. El muñeco, sentado sobre la rodilla o el brazo del ventrílocuo, suele tener la boca articulada que el artista acciona con la mano, reforzando la ilusión de que habla por sí solo. La relación entre el ventrílocuo y su figura genera un dúo donde el muñeco suele ser el más atrevido, cómico o irreverente: dice lo que el humano no se atreve. Es una disciplina con raíces en el siglo XVIII que sigue vigente en el cabaret, el humor televisivo y el teatro familiar.",
+      "en": "The ventriloquist's dummy is inseparable from the art of ventriloquism: the technique of modifying and projecting the voice so that it seems to come from the puppet while the performer keeps their lips still. The puppet, seated on the performer's knee or arm, usually has an articulated mouth that the performer operates with their hand, reinforcing the illusion that it speaks for itself. The relationship between ventriloquist and figure creates a duo where the puppet is often the bolder, funnier or more irreverent: it says what the human dares not. It is a discipline with roots in the 18th century that remains alive in cabaret, television comedy and family theatre.",
+      "fr": "La marionnette ventriloque est inséparable de l'art de la ventriloquie : la technique de modifier et de projeter la voix de manière à ce qu'elle semble provenir du personnage tandis que l'artiste garde les lèvres immobiles. Le personnage, assis sur le genou ou le bras du ventriloque, a généralement une bouche articulée que l'artiste actionne avec la main, renforçant l'illusion qu'il parle de lui-même. La relation entre le ventriloque et sa figure génère un duo où le personnage est souvent le plus audacieux, le plus comique ou le plus irrévérencieux : il dit ce que l'humain n'ose pas. C'est une discipline aux racines du XVIIIe siècle qui reste vivante dans le cabaret, l'humour télévisé et le théâtre familial.",
+      "pt": "O títere ventrílocuo é inseparável da arte da ventriloquia: a técnica de modificar e projetar a voz de forma que pareça provir do boneco enquanto o artista mantém os lábios quietos. O boneco, sentado no joelho ou no braço do ventrílocuo, costuma ter a boca articulada que o artista aciona com a mão, reforçando a ilusão de que fala por si só. A relação entre o ventrílocuo e sua figura gera um duo onde o boneco costuma ser o mais ousado, cômico ou irreverente: diz o que o humano não se atreve. É uma disciplina com raízes no século XVIII que permanece viva no cabaré, no humor televisivo e no teatro familiar."
+    },
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 13,
+    "slug": "caja-lambe-lambe",
+    "title": "Caja Lambe Lambe",
+    "subtitle": {
+      "es": "Un teatro en miniatura para un solo espectador a la vez.",
+      "en": "A miniature theatre for one spectator at a time.",
+      "fr": "Un théâtre en miniature pour un seul spectateur à la fois.",
+      "pt": "Um teatro em miniatura para um único espectador por vez."
+    },
+    "copy": {
+      "es": "Una pequeña caja con visor: la obra más íntima del teatro de animación.",
+      "en": "A small box with a viewing hole: the most intimate performance in animation theatre.",
+      "fr": "Une petite boîte avec un viseur : le spectacle le plus intime du théâtre d'animation.",
+      "pt": "Uma pequena caixa com visor: o espetáculo mais íntimo do teatro de animação."
+    },
+    "description": {
+      "es": "El Lambe Lambe es un teatro de animación en miniatura: una pequeña caja escénica donde se representa una obra breve — con títeres diminutos, sombras u objetos — para una sola persona a la vez, que observa a través de un visor mientras escucha la música o el texto en auriculares. La experiencia es íntima, poética y profundamente personal. Nació en Brasil a fines del siglo XX de la mano de Denise dos Santos e Ismine Lima, y su nombre proviene del fotógrafo antiguo que «lamía» la placa fotográfica para activar los químicos. Cada función dura entre uno y tres minutos. En Chile, compañías como Miniteatros han desarrollado una escena local vibrante alrededor de este formato.",
+      "en": "The Lambe Lambe is a miniature animation theatre: a small stage box where a brief performance — with tiny puppets, shadows or objects — is put on for one person at a time, who watches through a viewfinder while listening to music or text through headphones. The experience is intimate, poetic and deeply personal. It was born in Brazil at the end of the 20th century through Denise dos Santos and Ismine Lima, and its name comes from the old-fashioned photographer who would lick the photographic plate to activate the chemicals. Each performance lasts between one and three minutes. In Chile, companies such as Miniteatros have developed a vibrant local scene around this format.",
+      "fr": "Le Lambe Lambe est un théâtre d'animation en miniature : une petite boîte scénique où se représente un spectacle bref — avec de minuscules marionnettes, des ombres ou des objets — pour une seule personne à la fois, qui observe à travers un viseur tout en écoutant la musique ou le texte dans des écouteurs. L'expérience est intime, poétique et profondément personnelle. Elle est née au Brésil à la fin du XXe siècle grâce à Denise dos Santos et Ismine Lima, et son nom vient du photographe ancien qui léchait la plaque photographique pour activer les produits chimiques. Chaque représentation dure entre une et trois minutes. Au Chili, des compagnies comme Miniteatros ont développé une scène locale vibrante autour de ce format.",
+      "pt": "O Lambe Lambe é um teatro de animação em miniatura: uma pequena caixa cênica onde se representa um espetáculo breve — com bonecos diminutos, sombras ou objetos — para uma única pessoa por vez, que observa por um visor enquanto escuta a música ou o texto em fones de ouvido. A experiência é íntima, poética e profundamente pessoal. Nasceu no Brasil no final do século XX por Denise dos Santos e Ismine Lima, e seu nome vem do fotógrafo antigo que lamberia a placa fotográfica para ativar os produtos químicos. Cada espetáculo dura entre um e três minutos. No Chile, companhias como Miniteatros desenvolveram uma cena local vibrante em torno desse formato."
+    },
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  },
+  {
+    "id": 14,
+    "slug": "titeres-en-cine-stop-motion",
+    "title": "Títeres en Cine (Stop Motion)",
+    "subtitle": {
+      "es": "Fotograma a fotograma, las figuras cobran movimiento en la pantalla.",
+      "en": "Frame by frame, figures come to life on screen.",
+      "fr": "Image par image, les figures prennent vie à l'écran.",
+      "pt": "Quadro a quadro, as figuras ganham movimento na tela."
+    },
+    "copy": {
+      "es": "Figuras fotografiadas posición a posición para crear movimiento en la pantalla de cine.",
+      "en": "Figures photographed position by position to create movement on the cinema screen.",
+      "fr": "Des figures photographiées position par position pour créer du mouvement sur l'écran de cinéma.",
+      "pt": "Figuras fotografadas posição a posição para criar movimento na tela do cinema."
+    },
+    "description": {
+      "es": "El stop motion es la técnica cinematográfica que anima figuras tridimensionales — muñecos articulados, marionetas, objetos de plastilina — fotografiándolas posición a posición: cada fotograma registra un movimiento mínimo, y la secuencia a 24 imágenes por segundo crea la ilusión de movimiento fluido. El checo Jiří Trnka lo consagró como forma de arte en los años 40; Tim Burton con Pesadilla antes de Navidad y el estudio Laika con Coraline lo llevaron al cine contemporáneo. Es una técnica de paciencia extrema — un segundo de película puede requerir horas de trabajo —, pero el resultado tiene una textura material y una calidez táctil que la animación digital no logra replicar.",
+      "en": "Stop motion is the film technique that animates three-dimensional figures — articulated puppets, marionettes, clay objects — by photographing them position by position: each frame records a minimal movement, and the sequence at 24 images per second creates the illusion of fluid motion. Czech filmmaker Jiří Trnka established it as an art form in the 1940s; Tim Burton with The Nightmare Before Christmas and the studio Laika with Coraline brought it into contemporary cinema. It is a technique of extreme patience — a single second of footage may require hours of work —, but the result has a material texture and tactile warmth that digital animation cannot replicate.",
+      "fr": "Le stop motion est la technique cinématographique qui anime des figures tridimensionnelles — des poupées articulées, des marionnettes, des objets en pâte à modeler — en les photographiant position par position : chaque image enregistre un mouvement minimal, et la séquence à 24 images par seconde crée l'illusion d'un mouvement fluide. Le Tchèque Jiří Trnka l'a consacrée comme forme d'art dans les années 1940 ; Tim Burton avec L'étrange Noël de M. Jack et le studio Laika avec Coraline l'ont portée au cinéma contemporain. C'est une technique d'une patience extrême — une seule seconde de film peut nécessiter des heures de travail —, mais le résultat a une texture matérielle et une chaleur tactile que l'animation numérique ne parvient pas à reproduire.",
+      "pt": "O stop motion é a técnica cinematográfica que anima figuras tridimensionais — bonecos articulados, marionetes, objetos de massa de modelar — fotografando-as posição a posição: cada fotograma registra um movimento mínimo, e a sequência a 24 imagens por segundo cria a ilusão de movimento fluido. O tcheco Jiří Trnka o consagrou como forma de arte nos anos 1940; Tim Burton com O Estranho Mundo de Jack e o estúdio Laika com Coraline o levaram ao cinema contemporâneo. É uma técnica de paciência extrema — um segundo de filme pode exigir horas de trabalho —, mas o resultado tem uma textura material e um calor tátil que a animação digital não consegue replicar."
+    },
+    "image": "assets/img/museo/coleccion/titeres/titere.webp"
+  }
+]

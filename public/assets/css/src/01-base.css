@@ -1,0 +1,104 @@
+@font-face {
+    font-family: 'Corporate A';
+    src: url('../fonts/corporate-a/corporate-a.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Corporate A';
+    src: url('../fonts/corporate-a/Corporate A Light Regular.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato/Lato-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato/Lato-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato/Lato-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+html,
+body {
+    min-height: 100%;
+    height: auto;
+}
+
+html {
+    overscroll-behavior-y: auto;
+}
+
+body {
+    margin: 0;
+    color: var(--ink);
+    background-color: #d8d3c5; /* Un tono más oscuro del papel para los pilares */
+    background-image: 
+        radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px),
+        var(--paper-texture);
+    background-size: 24px 24px, 400px 400px;
+    font-family: "Lato", "Trebuchet MS", "Segoe UI", sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 100dvh;
+    overscroll-behavior-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at center, transparent, rgba(0,0,0,0.15));
+    z-index: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-weight: normal;
+}
+
+/*
+ * Resiliencia de títulos: una palabra larga sin espacios (p. ej. el francés
+ * "Marionnettes") nunca debe desbordar su caja. overflow-wrap: break-word no
+ * afecta el texto que ya cabe; solo actúa cuando habría desborde.
+ */
+.section-hero__title,
+.collection-hero__title,
+.collection-heading__title,
+.collection-band__title,
+.collection-route__title,
+.course-card__title,
+.event-card__title,
+.month-group__title,
+.menu-card__title,
+.museum-today__title {
+    overflow-wrap: break-word;
+}

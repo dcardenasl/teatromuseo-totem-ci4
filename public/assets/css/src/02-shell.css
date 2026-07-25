@@ -1,0 +1,105 @@
+
+.kiosk-shell {
+    width: 100%;
+    max-width: var(--kiosk-width);
+    margin-inline: auto;
+    min-height: 100dvh;
+    height: auto;
+    display: grid;
+    place-items: stretch;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+    container-type: inline-size;
+    container-name: kiosk;
+    touch-action: pan-y pinch-zoom;
+    
+    /* Efecto Pillarbox */
+    background-color: var(--paper);
+    background-image: 
+        radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px),
+        var(--paper-texture);
+    background-size: 24px 24px, 400px 400px;
+    box-shadow: 0 0 60px rgba(0,0,0,0.25);
+    border-inline: 1px solid var(--line);
+}
+
+/* Optimización para cuando ya estamos en vertical (Totem real) */
+@media (orientation: portrait) {
+    .kiosk-shell {
+        box-shadow: none;
+        border-inline: none;
+    }
+}
+
+.container {
+    width: 100%;
+    min-height: 100dvh;
+    position: relative;
+    touch-action: pan-y pinch-zoom;
+}
+
+.totem-stage {
+    width: 100%;
+    min-height: 100dvh;
+    height: auto;
+    display: block;
+    overflow: visible;
+    touch-action: pan-y pinch-zoom;
+}
+
+.totem-stage--language-transition {
+    overflow: hidden;
+    will-change: transform, opacity;
+    transition:
+        transform 0.36s cubic-bezier(0.25, 1, 0.5, 1),
+        opacity 0.36s ease,
+        filter 0.36s ease;
+}
+
+.totem-stage--language-leaving {
+    transform: translateY(-22vh) scale(0.97);
+    opacity: 0;
+    filter: blur(4px);
+}
+
+
+.totem-page {
+    width: 100%;
+    min-height: 100dvh;
+    height: auto;
+    padding: 0;
+    display: grid;
+    overflow: visible;
+    touch-action: pan-y pinch-zoom;
+}
+
+.totem-page--center {
+    place-items: center;
+}
+
+.totem-page > * {
+    width: 100%;
+}
+
+/* Global spacing anchor for every totem screen. Adjust the tokens in 00-tokens.css and the responsive overrides in 99-responsive.css. */
+.page-content {
+    padding:
+        var(--content-padding-top)
+        var(--content-padding-inline)
+        var(--content-padding-bottom);
+}
+
+.screen {
+    width: 100%;
+    min-height: 100dvh;
+    height: auto;
+    touch-action: pan-y pinch-zoom;
+}
+
+.screen__content {
+    width: 100%;
+    min-height: 100dvh;
+    height: auto;
+    touch-action: pan-y pinch-zoom;
+}

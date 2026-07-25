@@ -1,0 +1,115 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Strict comparison using \=\=\= between ''testing'' and ''testing'' will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: app/Config/Database.php
+
+		-
+			message: '#^Cannot call method get\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Config/Events.php
+
+		-
+			message: '#^Cannot call method respond\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Config/Events.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: app/Config/Events.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between ''testing'' and ''testing'' will always evaluate to false\.$#'
+			identifier: notIdentical.alwaysFalse
+			count: 1
+			path: app/Config/Events.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between ''testing'' and ''development'' will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/Config/Events.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between ''testing'' and ''production'' will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/Config/Logger.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between ''testing'' and ''production'' will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/Config/Security.php
+
+		-
+			message: '#^PHPDoc type array\<string, \(callable\(mixed\)\: mixed\)\|\(list\<callable\(mixed\)\: mixed&string\>\)\> of property Config\\View\:\:\$plugins is not covariant with PHPDoc type array\<string, \(callable\(mixed \.\.\.\)\: mixed\)\|\(list\<callable\(mixed \.\.\.\)\: mixed&string\>\)\> of overridden property CodeIgniter\\Config\\View\:\:\$plugins\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Config/View.php
+
+		-
+			message: '#^Call to an undefined method CodeIgniter\\HTTP\\RequestInterface\:\:getCookie\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Filters/LocaleFilter.php
+
+		-
+			message: '#^Cannot access property \$defaultLocale on object\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Filters/LocaleFilter.php
+
+		-
+			message: '#^Cannot access property \$supportedLocales on object\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Filters/LocaleFilter.php
+
+		-
+			message: '#^Cannot call method setLocale\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Filters/LocaleFilter.php
+
+		-
+			message: '#^Parameter \#1 \$locale of method CodeIgniter\\Language\\Language\:\:setLocale\(\) expects non\-empty\-string\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Filters/LocaleFilter.php
+
+		-
+			message: '#^Method App\\Services\\TotemApiService\:\:get\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Services/TotemApiService.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with bool will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/unit/HealthTest.php
+
+		-
+			message: '#^Cannot call method check\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: tests/unit/HealthTest.php
+
+		-
+			message: '#^Parameter \#2 \$array of function preg_grep expects array, list\<string\>\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/unit/HealthTest.php
+
+		-
+			message: '#^Parameter \#1 \$data of method Tests\\Unit\\Services\\TotemApiServiceTest\:\:json\(\) expects array\<string, mixed\>, array\<int, array\<string, int\|string\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/unit/Services/TotemApiServiceTest.php

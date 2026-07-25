@@ -1,0 +1,25 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'languages_label' => 'Idiomas',
+    'locale_es' => 'Español',
+    'locale_en' => 'English',
+    'locale_fr' => 'Français',
+    'locale_pt' => 'Português',
+    'institutional_logos_label' => 'Logos institucionais',
+    'state_logo_alt' => 'Ministério das Culturas, das Artes e do Patrimônio',
+    'brand_label' => 'Teatromuseo',
+    'illustration_alt' => 'Ilustração',
+    'untitled_card' => 'Sem título',
+    'museum_sections_label' => 'Seções do museu',
+    'building_mock' => 'Detalhe do edifício (mock).',
+    'institution_mock' => 'Detalhe da instituição (mock).',
+    'collection_item_mock' => 'Ficha: %s (mock).',
+    'history_post_mock' => 'Post de história: %s (mock).',
+    'contact_mock' => 'Formulário de contato e teclado tátil (mock).',
+    'error_404_label' => 'Página não encontrada',
+    'error_404_title' => 'Página não encontrada',
+    'error_404_copy' => 'A tela que você procura não está disponível. Volte ao início para continuar.',
+];

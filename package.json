@@ -1,0 +1,17 @@
+{
+  "name": "teatromuseo-totem-css",
+  "version": "1.0.0",
+  "description": "CSS build pipeline for Teatromuseo Totem",
+  "scripts": {
+    "build:css": "postcss public/assets/css/src/main.css --config postcss.config.js -o public/assets/css/style.css",
+    "lint:css": "stylelint 'public/assets/css/src/**/*.css'"
+  },
+  "devDependencies": {
+    "postcss": "^8.4.38",
+    "postcss-cli": "^11.0.0",
+    "postcss-import": "^16.1.0",
+    "postcss-custom-properties": "^13.3.6",
+    "autoprefixer": "^10.4.19",
+    "cssnano": "^7.0.2"
+  }
+}

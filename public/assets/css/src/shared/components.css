@@ -1,0 +1,180 @@
+/**
+ * Componentes base reutilizables
+ * 
+ * .card    - Tarjetas de contenido
+ * .panel   - Paneles/contenedores de sección
+ * .pill    - Botones/badges tipo píldora
+ */
+
+/* =========================================================================
+   CARDS - Tarjetas de contenido
+   ========================================================================= */
+
+.card {
+    display: grid;
+    gap: 8px;
+    padding: 0;
+    border-radius: var(--radius-card, 16px);
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+    color: var(--ink);
+    text-decoration: none;
+    position: relative;
+    overflow: visible;
+}
+
+.card:hover,
+.card:focus-visible {
+    transform: translateY(-2px);
+}
+
+.card:active {
+    transform: translateY(0);
+}
+
+.card--disabled {
+    cursor: default;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Card: Menú principal */
+.card--menu {
+    grid-template-rows: auto auto;
+    align-content: start;
+    min-height: 0;
+    align-self: start;
+}
+
+.card--menu .card__art {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    transition: transform 0.2s ease;
+}
+
+.card--menu:hover .card__art,
+.card--menu:focus-visible .card__art {
+    transform: translateY(-2px);
+}
+
+.card--menu .card__image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.card--menu .card__title {
+    margin: 0;
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+/* Card: Curso/Escuela */
+.card--course {
+    grid-template-columns: 88px minmax(0, 1fr) 72px;
+    gap: 12px;
+    align-items: start;
+    padding: 12px;
+    border-radius: 24px;
+    background: rgba(255, 250, 241, 0.78);
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    box-shadow: var(--shadow);
+}
+
+/* Card: Evento/Cartelera */
+.card--event {
+    gap: 12px;
+    padding: 14px;
+    border-radius: 24px;
+    background: rgba(255, 250, 241, 0.78);
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    box-shadow: var(--shadow);
+}
+
+/* =========================================================================
+   PANELS - Paneles de contenido
+   ========================================================================= */
+
+.panel {
+    padding: 18px 20px;
+    border-radius: var(--radius-lg, 30px);
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    box-shadow: var(--shadow);
+}
+
+.panel--soft {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+}
+
+.panel--transparent {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+/* =========================================================================
+   PILLS - Botones/badges tipo píldora
+   ========================================================================= */
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--touch-target-min, 44px);
+    padding: 0 14px;
+    border-radius: 999px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.2s ease;
+    border: 0;
+}
+
+.pill:hover,
+.pill:focus-visible {
+    transform: translateY(-1px);
+}
+
+.pill:active {
+    transform: translateY(2px);
+}
+
+.pill--primary {
+    background: var(--accent);
+    color: var(--on-accent);
+    box-shadow: 0 4px 0 var(--pressed-shadow);
+}
+
+.pill--secondary {
+    background: rgba(53, 52, 48, 0.9);
+    color: var(--paper);
+}
+
+.pill--disabled {
+    background: rgba(96, 88, 78, 0.35);
+    color: var(--paper);
+    cursor: default;
+    box-shadow: 0 4px 0 rgba(96, 88, 78, 0.18);
+}
+
+.pill--disabled:hover,
+.pill--disabled:focus-visible,
+.pill--disabled:active {
+    transform: none;
+}

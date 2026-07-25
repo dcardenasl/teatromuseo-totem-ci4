@@ -1,0 +1,441 @@
+
+.menu-layout {
+    display: grid;
+    align-content: start;
+    gap: 18px;
+    padding: 2px 0 0;
+    width: 100%;
+    min-height: 0;
+}
+
+.menu-title {
+    text-align: center;
+    display: grid;
+    gap: 12px;
+    justify-items: center;
+    margin-top: 0;
+    padding: 4px 12px 0;
+}
+
+.menu-title--compact {
+    gap: 6px;
+    margin-top: 0;
+}
+
+.menu-title__eyebrow {
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: none;
+    color: rgba(51, 43, 37, 0.56);
+}
+
+.menu-title__heading {
+    margin: 0;
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: var(--page-title-letter-spacing);
+    line-height: var(--page-title-line-height);
+    font-size: var(--page-title-size);
+    max-width: var(--page-title-max-width, 12ch);
+    text-align: center;
+    text-wrap: balance;
+}
+
+.menu-title__heading--compact {
+    max-width: var(--page-title-max-width, 10ch);
+}
+
+.menu-title__line {
+    display: block;
+}
+
+.menu-title__heading strong {
+    font-weight: 700;
+}
+
+.menu-title__copy {
+    margin: 0;
+    max-width: 40rem;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.45;
+}
+
+.menu-grid {
+    --menu-grid-column-gap: 18px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 18px;
+    padding: 0 12px;
+    width: min(100%, 1040px);
+    margin: 0 auto;
+    align-self: start;
+}
+
+.menu-card {
+    display: grid;
+    grid-template-rows: auto auto;
+    align-content: start;
+    gap: 8px;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    transition: transform 0.2s ease;
+    min-height: 0;
+    align-self: start;
+    text-align: center;
+    color: var(--ink);
+    text-decoration: none;
+    position: relative;
+    overflow: visible;
+}
+
+.menu-card--disabled {
+    cursor: default;
+    background: #ecebea;
+    border-radius: 18px;
+    box-shadow: inset 0 0 0 1px rgba(78, 71, 62, 0.10);
+    padding: 10px 10px 12px;
+    opacity: 0.92;
+    filter: grayscale(1) saturate(0.2) contrast(0.9);
+    pointer-events: none;
+}
+
+.menu-card::before {
+    display: none;
+}
+
+.menu-card:hover,
+.menu-card:focus-visible {
+    transform: none;
+}
+
+.menu-card--disabled:hover,
+.menu-card--disabled:focus-visible {
+    transform: none;
+}
+
+.menu-card--disabled .menu-card__art img,
+.menu-card--disabled .menu-card__img,
+.menu-card--disabled .menu-card__art-core {
+    filter: grayscale(1) saturate(0.1) contrast(0.85) brightness(1.05);
+}
+
+.menu-card--disabled .menu-card__title {
+    color: rgba(55, 48, 40, 0.78);
+}
+
+.menu-card--disabled .menu-card__copy {
+    color: rgba(55, 48, 40, 0.56);
+}
+
+.menu-card:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 6px;
+    border-radius: var(--radius-md);
+}
+
+.menu-card__art {
+    position: relative;
+    aspect-ratio: 1.16;
+    min-height: 0;
+    border-radius: 0;
+    border: 0;
+    box-shadow: none;
+    overflow: hidden;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-card__art::before {
+    display: none;
+}
+
+.menu-card__art img,
+.menu-card__img {
+    position: absolute;
+    inset: 6% 8% 10%;
+    width: 84%;
+    height: 84%;
+    object-fit: contain;
+    z-index: 3;
+    border-radius: 0;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    box-shadow: none;
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.menu-card:hover .menu-card__img,
+.menu-card:focus-visible .menu-card__img {
+    transform: scale(1.03);
+}
+
+.menu-card__art-core {
+    position: relative;
+    width: 68%;
+    height: 68%;
+}
+
+.menu-card__art-core::before,
+.menu-card__art-core::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+}
+
+.menu-card--museum .menu-card__art-core {
+    border-radius: 18px;
+    background:
+        radial-gradient(circle at 50% 52%, rgba(136, 73, 26, 0.95) 0 18%, transparent 19%),
+        radial-gradient(circle at 50% 50%, rgba(38, 22, 15, 0.96) 0 46%, transparent 47%),
+        linear-gradient(180deg, #e5b66e 0 100%);
+    box-shadow: inset 0 0 0 6px #d29e52, inset 0 0 0 18px #6f4a23;
+}
+
+.menu-card--museum .menu-card__art-core::before {
+    inset: 12% 30% 18%;
+    border-radius: 50% 50% 42% 42%;
+    background:
+        radial-gradient(circle at 50% 30%, #d6d0c9 0 10%, transparent 11%),
+        radial-gradient(circle at 42% 38%, #241812 0 7%, transparent 8%),
+        radial-gradient(circle at 58% 38%, #241812 0 7%, transparent 8%),
+        linear-gradient(180deg, #d76f5e 0 58%, #7d5644 58% 100%);
+}
+
+.menu-card--history .menu-card__art-core {
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 50% 50%, #a19a8b 0 25%, transparent 26%),
+        radial-gradient(circle at 50% 50%, #efe7d3 0 34%, transparent 35%),
+        linear-gradient(180deg, #c79d4a 0 100%);
+    box-shadow: inset 0 0 0 12px #b88a3d, inset 0 0 0 24px #7c5c23;
+}
+
+.menu-card--history .menu-card__art-core::before {
+    inset: 18%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, #d6dbe1 0 52%, transparent 53%), linear-gradient(180deg, #eef2f4, #a7adb5);
+    box-shadow: inset 0 0 0 8px rgba(79, 58, 20, 0.32);
+}
+
+.menu-card--school .menu-card__art-core {
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 34% 34%, #ead7bd 0 12%, transparent 13%),
+        radial-gradient(circle at 50% 50%, #111 0 30%, transparent 31%),
+        linear-gradient(180deg, #3f2c19 0 100%);
+    box-shadow: inset 0 0 0 14px #6e4b23, inset 0 0 0 28px #3b2715;
+}
+
+.menu-card--school .menu-card__art-core::before {
+    inset: auto 12% 10%;
+    height: 54%;
+    border-radius: 28px 28px 24px 24px;
+    background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.0), rgba(76, 30, 122, 0.9)),
+        radial-gradient(circle at 50% 12%, #f1d7a5 0 12%, transparent 13%);
+}
+
+.menu-card--programming .menu-card__art-core {
+    border-radius: 14px;
+    background:
+        radial-gradient(circle at 50% 16%, #fff2d0 0 10%, transparent 11%),
+        linear-gradient(180deg, #f5c15d 0 100%);
+    box-shadow: inset 0 0 0 8px #e2a33e, inset 0 0 0 22px #8a5a1d;
+}
+
+.menu-card--programming .menu-card__art-core::before {
+    inset: 14% 18% 16%;
+    border-radius: 12px;
+    background:
+        radial-gradient(circle at 50% 50%, rgba(89, 52, 16, 0.92) 0 22%, transparent 23%),
+        radial-gradient(circle at 44% 34%, #ffdf91 0 8%, transparent 9%),
+        radial-gradient(circle at 58% 34%, #ffdf91 0 8%, transparent 9%);
+}
+
+.menu-card--visits .menu-card__art-core {
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 50% 36%, #e0c78a 0 18%, transparent 19%),
+        linear-gradient(180deg, #ab8238 0 100%);
+    box-shadow: inset 0 0 0 10px #8f692f, inset 0 0 0 26px #5d411b;
+}
+
+.menu-card--visits .menu-card__art-core::before {
+    inset: 12% 18% 20%;
+    border-radius: 50% 50% 40% 40%;
+    background:
+        radial-gradient(circle at 50% 46%, #151515 0 28%, transparent 29%),
+        radial-gradient(circle at 46% 38%, #e7bf86 0 8%, transparent 9%),
+        radial-gradient(circle at 58% 38%, #e7bf86 0 8%, transparent 9%);
+}
+
+.menu-card--friends .menu-card__art-core {
+    border-radius: 32px;
+    background:
+        linear-gradient(180deg, #f5efe3 0 74%, transparent 74%),
+        linear-gradient(180deg, #f0eadc 0 100%);
+    box-shadow: inset 0 0 0 4px rgba(128, 118, 92, 0.28);
+}
+
+.menu-card--friends .menu-card__art-core::before {
+    inset: 24% 16% 16%;
+    border-radius: 8px;
+    background:
+        linear-gradient(135deg, transparent 0 40%, #1a1a1a 40% 42%, transparent 42% 100%),
+        linear-gradient(45deg, transparent 0 56%, #1a1a1a 56% 58%, transparent 58% 100%),
+        linear-gradient(180deg, transparent 0 60%, #cabd9b 60% 100%);
+    transform: rotate(-8deg);
+}
+
+.menu-card__title {
+    margin: 0;
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 4.2cqi, 3rem);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 0.92;
+    text-align: center;
+}
+
+.menu-card__copywrap {
+    display: grid;
+    gap: 0;
+    align-content: start;
+    min-height: 0;
+}
+
+.menu-card__copy {
+    margin: 0 auto;
+    max-width: 20ch;
+    color: rgba(53, 52, 48, 0.64);
+    font-size: 0.9rem;
+    line-height: 1.35;
+    margin-top: 2px;
+}
+
+.menu-card__hint {
+    display: none;
+}
+
+.menu-card:nth-child(5) {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: calc((100% - var(--menu-grid-column-gap)) / 2);
+    justify-self: center;
+}
+
+.menu-grid--history,
+.menu-grid--museum-info {
+    grid-template-columns: 1fr;
+    width: min(100%, 560px);
+    gap: 28px;
+}
+
+.menu-grid--history .menu-card:nth-child(5),
+.menu-grid--museum-info .menu-card:nth-child(5) {
+    grid-column: auto;
+    max-width: none;
+}
+
+.menu-grid--history .menu-card,
+.menu-grid--museum-info .menu-card {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+    gap: 8px;
+}
+
+.menu-grid--history .menu-card__art,
+.menu-grid--museum-info .menu-card__art {
+    width: min(100%, 320px);
+    aspect-ratio: 1.16;
+}
+
+.menu-grid--history .menu-card__art img,
+.menu-grid--museum-info .menu-card__art img {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.menu-grid--history .menu-card__copywrap,
+.menu-grid--museum-info .menu-card__copywrap {
+    justify-items: center;
+    text-align: center;
+}
+
+.menu-grid--history .menu-card__title,
+.menu-grid--museum-info .menu-card__title {
+    min-height: 42px;
+    padding: 0 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--on-accent);
+    box-shadow: 0 4px 0 var(--pressed-shadow);
+    font-family: "Lato", "Trebuchet MS", "Segoe UI", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    line-height: 1.1;
+    text-align: center;
+}
+
+@container kiosk (max-width: 760px) {
+    .menu-grid--history,
+    .menu-grid--museum-info {
+        width: min(100%, 440px);
+        gap: 14px;
+    }
+
+    .menu-grid--history .menu-card,
+    .menu-grid--museum-info .menu-card {
+        grid-template-columns: 1fr;
+        gap: 6px;
+        justify-items: center;
+    }
+
+    .menu-grid--history .menu-card__art,
+    .menu-grid--museum-info .menu-card__art {
+        width: min(100%, 240px);
+        aspect-ratio: 1.16;
+    }
+
+    .menu-grid--history .menu-card__copywrap,
+    .menu-grid--museum-info .menu-card__copywrap {
+        justify-items: center;
+        text-align: center;
+    }
+
+    .menu-grid--history .menu-card__title,
+    .menu-grid--museum-info .menu-card__title {
+        text-align: center;
+    }
+}
+
+.menu-coda {
+    display: flex;
+    justify-content: center;
+    padding: 0 12px 12px;
+}
+
+.menu-coda .splash-collage {
+    width: min(100%, 960px);
+    margin-top: 0;
+}
+
+.menu-coda .splash-collage__img {
+    max-height: 320px;
+}

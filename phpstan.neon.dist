@@ -1,0 +1,16 @@
+includes:
+    - phpstan-baseline.neon
+
+parameters:
+    level: 8
+    paths:
+        - app
+        - tests
+    excludePaths:
+        - app/Views
+        - app/Config/Routes.php
+        - app/Config/Boot
+        - tests/_support
+    bootstrapFiles:
+        - vendor/codeigniter4/framework/system/Test/bootstrap.php
+    treatPhpDocTypesAsCertain: false

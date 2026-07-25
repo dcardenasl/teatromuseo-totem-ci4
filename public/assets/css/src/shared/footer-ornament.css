@@ -1,0 +1,229 @@
+
+.footer-ornament {
+    position: relative;
+    min-height: 130px;
+    margin-top: 0;
+    overflow: hidden;
+}
+
+.footer-brand {
+    display: grid;
+    gap: 26px;
+    justify-items: center;
+    width: 100%;
+    max-width: 760px;
+    margin-inline: auto;
+    margin-top: 56px;
+    margin-bottom: 32px;
+    padding-top: 12px;
+}
+
+.footer-brand__logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.footer-brand__logo {
+    display: grid;
+    place-items: center;
+    gap: 8px;
+}
+
+.footer-brand__logo--state {
+    width: 110px;
+    min-height: 110px;
+}
+
+.footer-brand__logo-image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.footer-brand__logo--brand {
+    min-width: 142px;
+}
+
+.footer-brand__mark {
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+    border: 3px solid var(--brand-gold);
+    background: url('../animations/logo.gif') no-repeat center center / cover;
+    box-shadow: 0 8px 18px rgba(74, 50, 24, 0.12);
+}
+
+.footer-brand__label {
+    color: var(--ink);
+    font-family: "Lato", "Trebuchet MS", "Segoe UI", sans-serif;
+    font-size: 0.86rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    line-height: 1.05;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.footer-brand--school {
+    max-width: 860px;
+}
+
+.footer-brand--school .footer-brand__logos {
+    gap: 20px 30px;
+}
+
+.footer-cloud,
+.footer-stage {
+    position: absolute;
+}
+
+.footer-cloud {
+    bottom: 18px;
+    width: 150px;
+    height: 48px;
+    border-radius: 999px;
+    background: rgba(124, 194, 206, 0.28);
+}
+
+.footer-cloud::before,
+.footer-cloud::after {
+    content: "";
+    position: absolute;
+    background: inherit;
+    border-radius: inherit;
+}
+
+.footer-cloud::before {
+    width: 62px;
+    height: 62px;
+    left: 12px;
+    top: -20px;
+}
+
+.footer-cloud::after {
+    width: 78px;
+    height: 78px;
+    right: 12px;
+    top: -28px;
+}
+
+.footer-cloud--left {
+    left: 0;
+}
+
+.footer-cloud--right {
+    right: 12%;
+    width: 132px;
+}
+
+.footer-stage--house {
+    left: 22%;
+    bottom: 0;
+    width: 220px;
+    height: 104px;
+    background:
+        linear-gradient(180deg, #fffdf8 0 100%);
+    box-shadow: inset 0 0 0 4px rgba(31, 119, 189, 0.92), 0 12px 22px rgba(68, 42, 18, 0.12);
+}
+
+.footer-stage--house::before {
+    content: "";
+    position: absolute;
+    inset: auto 4px auto;
+    top: -24px;
+    height: 38px;
+    background: linear-gradient(180deg, #fffdf8 0 50%, transparent 50%);
+    clip-path: polygon(0 100%, 18% 18%, 50% 0, 82% 18%, 100% 100%);
+}
+
+.footer-stage--house::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 24px;
+    width: 46px;
+    height: 54px;
+    transform: translateX(-50%);
+    border-radius: 38px 38px 8px 8px;
+    background:
+        linear-gradient(180deg, rgba(255, 145, 58, 0.92), rgba(219, 100, 8, 0.92));
+}
+
+.footer-stage--tower {
+    right: 0;
+    bottom: 0;
+    width: 84px;
+    height: 140px;
+    background: #fffdf8;
+    box-shadow: inset 0 0 0 4px rgba(31, 119, 189, 0.92), 0 12px 22px rgba(68, 42, 18, 0.12);
+}
+
+.footer-stage--tower::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -16px;
+    width: 58px;
+    height: 24px;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, #fffdf8 0 50%, transparent 50%);
+    clip-path: polygon(0 100%, 22% 0, 78% 0, 100% 100%);
+}
+
+.footer-stage--tower::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 42px;
+    width: 32px;
+    height: 76px;
+    transform: translateX(-50%);
+    background:
+        linear-gradient(90deg, transparent 0 10%, rgba(255, 122, 26, 0.92) 10% 20%, transparent 20% 44%, rgba(255, 122, 26, 0.92) 44% 56%, transparent 56% 80%, rgba(255, 122, 26, 0.92) 80% 90%, transparent 90% 100%);
+}
+
+.footer-stage--bird {
+    right: 18%;
+    top: 18px;
+    width: 84px;
+    height: 62px;
+    background:
+        radial-gradient(circle at 50% 50%, #162024 0 10%, transparent 11%),
+        radial-gradient(circle at 36% 56%, #d7d9d3 0 22%, transparent 23%),
+        radial-gradient(circle at 64% 42%, #7a8b63 0 24%, transparent 25%),
+        radial-gradient(circle at 58% 60%, #3a3a36 0 30%, transparent 31%);
+    clip-path: polygon(0 52%, 18% 36%, 34% 40%, 46% 24%, 56% 4%, 64% 26%, 76% 36%, 90% 30%, 100% 52%, 88% 70%, 70% 66%, 62% 84%, 56% 100%, 48% 82%, 34% 68%, 18% 70%);
+    transform: rotate(16deg);
+}
+
+.footer-stage--flower {
+    right: 6px;
+    bottom: 10px;
+    width: 118px;
+    height: 118px;
+    background:
+        radial-gradient(circle at 50% 50%, #e9a0b6 0 18%, transparent 19%),
+        radial-gradient(circle at 50% 18%, #d8769a 0 16%, transparent 17%),
+        radial-gradient(circle at 82% 40%, #e2a3bb 0 14%, transparent 15%),
+        radial-gradient(circle at 72% 78%, #ce7694 0 16%, transparent 17%),
+        radial-gradient(circle at 24% 78%, #e8a9c0 0 16%, transparent 17%);
+    clip-path: polygon(50% 0, 62% 18%, 82% 8%, 90% 24%, 100% 28%, 90% 46%, 100% 64%, 84% 74%, 78% 100%, 60% 82%, 42% 100%, 28% 78%, 12% 82%, 18% 62%, 0 54%, 16% 40%, 8% 22%, 24% 18%, 34% 0);
+}
+
+.footer-stage--flower-secondary {
+    right: 52px;
+    bottom: 0;
+    width: 102px;
+    height: 102px;
+    background:
+        radial-gradient(circle at 50% 50%, #d8b47d 0 18%, transparent 19%),
+        radial-gradient(circle at 50% 18%, #eccb9c 0 14%, transparent 15%),
+        radial-gradient(circle at 82% 40%, #bd8e51 0 14%, transparent 15%),
+        radial-gradient(circle at 72% 78%, #a67742 0 16%, transparent 17%),
+        radial-gradient(circle at 24% 78%, #e3c185 0 16%, transparent 17%);
+    clip-path: polygon(50% 0, 62% 16%, 80% 10%, 92% 28%, 100% 36%, 88% 52%, 100% 70%, 84% 82%, 78% 100%, 60% 84%, 42% 100%, 30% 78%, 12% 82%, 18% 62%, 0 54%, 16% 38%, 8% 20%, 24% 14%, 34% 0);
+}

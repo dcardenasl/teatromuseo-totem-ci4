@@ -1,0 +1,809 @@
+/* El iPad en vertical debe seguir viendo la composición de tótem,
+   no la variante compacta reservada para teléfonos pequeños. */
+@container kiosk (max-width: 560px) {
+    .page-content {
+        --content-padding-inline: 14px;
+        --content-padding-top: 16px;
+        --content-padding-bottom: 14px;
+    }
+
+    .totem-header {
+        position: sticky;
+        top: 0;
+        grid-template-columns: auto auto;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .totem-header__actions {
+        width: auto;
+        justify-content: flex-start;
+    }
+
+    .content-grid,
+    .event-card,
+    .course-list {
+        grid-template-columns: 1fr;
+    }
+
+    .billboard-months {
+        gap: 14px 20px;
+        width: min(100%, 620px);
+    }
+
+    .billboard-closing {
+        width: min(100%, 620px);
+    }
+
+    .hero__ornaments {
+        height: 270px;
+    }
+
+    .hero__ornament--left {
+        width: 120px;
+        height: 120px;
+    }
+
+    .hero__ornament--right {
+        width: 136px;
+        height: 136px;
+    }
+
+    .screen__panel {
+        border-radius: 30px;
+    }
+
+    .footer-brand {
+        max-width: 880px;
+        gap: 28px;
+        margin-top: 50px;
+        margin-bottom: 30px;
+    }
+
+    .footer-brand__logos {
+        gap: 20px 30px;
+    }
+
+    .footer-brand__logo--state {
+        width: 120px;
+        min-height: 120px;
+    }
+
+    .footer-brand__logo--brand {
+        min-width: 156px;
+    }
+
+    .footer-brand__mark {
+        width: 76px;
+        height: 76px;
+    }
+
+    .footer-brand__label {
+        font-size: 0.96rem;
+    }
+}
+
+@container kiosk (max-width: 430px) {
+    .event-list {
+        grid-template-columns: 1fr;
+        gap: 0;
+        width: min(100%, 430px);
+    }
+}
+
+@container kiosk (max-width: 640px) {
+    .page-content {
+        --content-padding-inline: 12px;
+        --content-padding-top: 14px;
+        --content-padding-bottom: 12px;
+    }
+
+    /* --- Cabecera y Navegación (Una Sola Línea) --- */
+    .totem-header {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 16px;
+        padding: 8px 6px 0;
+        position: sticky;
+        top: 0;
+        width: 100%;
+    }
+
+    .totem-brand {
+        flex: 0 0 auto;
+    }
+
+    .totem-brand__mark {
+        width: 52px;
+        height: 52px;
+        border-width: 2px;
+        box-shadow: 0 4px 10px rgba(52, 34, 14, 0.12);
+    }
+
+    .totem-header__actions {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 6px;
+        margin: 0;
+        width: auto;
+        flex: 0 1 auto;
+        overflow: visible;
+    }
+
+    .pill-button {
+        min-height: 46px;
+        padding: 0 12px;
+        font-size: 0.78rem;
+        gap: 5px;
+        border-radius: 22px;
+    }
+
+    .pill-button__icon {
+        font-size: 0.95rem;
+    }
+
+    /* --- Tipografías Fluidas (Límites en Móviles) --- */
+    .splash-eyebrow {
+        font-size: clamp(1.1rem, 4cqi, 1.5rem);
+    }
+
+    .splash-title {
+        font-size: clamp(1.7rem, 9cqi, 3.0rem);
+    }
+
+    .splash-cta {
+        min-height: 64px;
+        padding: 0 24px;
+        font-size: clamp(1.2rem, 4cqi, 1.6rem);
+        border-radius: 32px;
+        box-shadow: 0 4px 0 #b94805;
+    }
+
+    .splash-copy {
+        width: min(calc(100% - 36px), 860px);
+        margin-top: clamp(118px, 14vh, 180px);
+        gap: 36px;
+        z-index: 5;
+    }
+
+    .splash-scene {
+        padding: 20px 0 0;
+    }
+
+    .splash-scene .splash-collage {
+        width: 100%;
+        max-width: none;
+        padding-top: 0;
+        margin-top: 0;
+        pointer-events: none;
+    }
+
+    .splash-scene .splash-collage__img {
+        height: auto;
+        max-height: none;
+    }
+
+    .menu-title__heading {
+        max-width: var(--page-title-max-width, 12ch);
+    }
+
+    .menu-title__heading--compact {
+        max-width: var(--page-title-max-width, 10ch);
+    }
+
+    .hero__title {
+        font-size: clamp(1.8rem, 7cqi, 3.0rem);
+    }
+
+    .section-hero__title {
+        font-size: clamp(1.6rem, 6cqi, 2.6rem);
+    }
+
+    .content-panel__title {
+        font-size: clamp(1.4rem, 5cqi, 2.0rem);
+    }
+
+    /* --- Rejilla de Idiomas --- */
+    .language-layout {
+        padding: 14px 12px 12px;
+    }
+
+    .language-card--floating {
+        width: 100%;
+        padding: 22px 18px 20px;
+        border-radius: 32px;
+    }
+
+    .language-card__chrome {
+        margin-bottom: 18px;
+    }
+
+    .language-grid,
+    .language-grid--spacious {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 0;
+    }
+
+    .language-card--panel .pill-button--language {
+        min-height: 64px;
+        font-size: 1.05rem;
+    }
+
+    .language-instructions-container {
+        margin-bottom: 24px;
+        gap: 8px;
+    }
+
+    .language-instruction {
+        gap: 10px;
+    }
+
+    .language-instruction__text {
+        font-size: clamp(1.1rem, 3.8cqi, 1.45rem);
+        letter-spacing: 0.04em;
+    }
+
+    .language-instruction__decorator {
+        width: 7px;
+        height: 7px;
+    }
+
+    .language-card__close {
+        width: 50px;
+        min-height: 50px;
+    }
+
+    .language-card__close .pill-button__icon {
+        font-size: 1.7rem;
+    }
+
+    /* --- Rejilla de Menú y Tarjetas --- */
+    .menu-grid {
+        --menu-grid-column-gap: 24px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 30px 24px;
+        padding: 8px 24px 0;
+    }
+
+    .menu-card__title {
+        font-size: clamp(0.95rem, 2.2cqi, 1.15rem);
+    }
+
+    .section-hero__visual {
+        min-height: 0;
+        aspect-ratio: 16 / 10;
+    }
+
+    .billboard-detail__show-title {
+        font-size: clamp(1.8rem, 6.8cqi, 2.6rem);
+    }
+
+    .billboard-detail__meta {
+        font-size: 0.96rem;
+    }
+
+    .billboard-detail__lead {
+        font-size: 1rem;
+    }
+
+    .billboard-detail__nav-btn {
+        width: 48px;
+        height: 48px;
+    }
+
+    .billboard-detail__qr-image {
+        width: 100px;
+    }
+
+    .collection-grid--exhibit {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .collection-grid--techniques {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .collection-detail__facts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .hero__ornament--stage {
+        width: 100%;
+    }
+
+    /* --- Tarjetas de Cursos (Teatro Escuela) --- */
+    .course-card {
+        grid-template-columns: 64px 1fr;
+        gap: 12px;
+        padding: 12px;
+        border-radius: 20px;
+        align-items: center;
+    }
+
+    .course-card__thumb {
+        min-height: 64px;
+        height: 64px;
+        width: 64px;
+        border-radius: 12px;
+    }
+
+    .course-card__qr {
+        display: none;
+    }
+
+    .school-page {
+        gap: 22px;
+        padding-bottom: 24px;
+    }
+
+    .school-page__hero-actions {
+        gap: 8px;
+    }
+
+    .school-page__title {
+        font-size: clamp(2.2rem, 8.6cqi, 3.3rem);
+    }
+
+    .school-video {
+        width: 100%;
+        aspect-ratio: 1.36 / 1;
+        border-radius: 0;
+    }
+
+    .school-page__intro {
+        width: min(100%, 780px);
+        font-size: 1rem;
+        padding-inline: 14px;
+    }
+
+    .school-stats {
+        width: 100%;
+        gap: 10px;
+    }
+
+    .school-stat {
+        gap: 10px;
+    }
+
+    .school-stat__value {
+        font-size: clamp(2.6rem, 8.2cqi, 4rem);
+    }
+
+    .school-stat__divider {
+        height: 58px;
+    }
+
+    .school-teacher-grid {
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px 10px;
+    }
+
+    .teacher-card__name {
+        font-size: 0.78rem;
+    }
+
+    .teacher-card__role,
+    .teacher-card__country {
+        font-size: 0.7rem;
+    }
+
+    .school-people-rail {
+        width: 100%;
+        grid-auto-columns: 148px;
+        gap: 10px;
+        padding-inline: 2px;
+    }
+
+    .school-people-rail .teacher-card {
+        padding: 10px;
+        border-radius: 20px;
+    }
+
+    .school-people-rail .teacher-card__name {
+        font-size: 0.9rem;
+    }
+
+    .school-people-rail .teacher-card__role {
+        font-size: 0.72rem;
+    }
+
+    .school-people-rail .teacher-card__country {
+        font-size: 0.64rem;
+    }
+
+    .collection-grid-layout__title,
+    .collection-detail-stage__title {
+        font-size: clamp(2rem, 7.2cqi, 3.4rem);
+    }
+
+    .collection-grid--exhibit {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .collection-grid--techniques {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .collection-detail__facts {
+        grid-template-columns: 1fr;
+    }
+
+    .collection-detail-stage__nav-btn {
+        width: 46px;
+        height: 46px;
+    }
+
+    .collection-detail-stage__nav-btn img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .school-person-modal {
+        padding: 12px;
+    }
+
+    .school-dossier {
+        gap: 16px;
+        padding-bottom: 24px;
+    }
+
+    .school-dossier__hero,
+    .school-dossier__closing {
+        grid-template-columns: 1fr;
+    }
+
+    .school-dossier__media {
+        min-height: 0;
+        aspect-ratio: 4 / 3;
+        padding: 12px;
+        border-radius: 28px;
+    }
+
+    .school-dossier__badge {
+        top: 16px;
+        left: 16px;
+    }
+
+    .school-dossier__ribbon {
+        right: 16px;
+        bottom: 16px;
+    }
+
+    .school-dossier__intro,
+    .school-dossier__panel,
+    .school-dossier__closing {
+        padding: 18px;
+        border-radius: 28px;
+    }
+
+    .school-dossier__title {
+        font-size: clamp(2rem, 7cqi, 3rem);
+    }
+
+    .school-people {
+        grid-template-columns: 1fr;
+    }
+
+    .teacher-card {
+        padding: 16px;
+    }
+
+    .course-card--dossier {
+        grid-template-columns: 64px 1fr;
+        gap: 12px;
+        padding: 12px;
+        border-radius: 22px;
+        align-items: center;
+    }
+
+    .course-card--dossier .course-card__thumb {
+        min-height: 64px;
+        height: 64px;
+        width: 64px;
+    }
+
+    .course-card--dossier .course-card__qr {
+        display: none;
+    }
+
+    .school-dossier__closing {
+        gap: 14px;
+    }
+
+    .school-dossier__qr-box {
+        width: 132px;
+    }
+
+    .billboard-detail__poster-frame {
+        aspect-ratio: 4 / 3;
+    }
+
+    .splash-scene .splash-collage {
+        width: min(100%, 760px);
+        max-width: 760px;
+        margin-top: auto;
+        padding-top: 10px;
+        pointer-events: none;
+    }
+
+    .splash-scene .splash-collage__img {
+    }
+
+    .footer-ornament {
+        display: none;
+    }
+
+    .menu-layout {
+        gap: 14px;
+        padding: 0 0 8px;
+    }
+
+    .menu-title {
+        padding-inline: 10px;
+    }
+
+    .menu-grid {
+        gap: 12px;
+        padding-inline: 10px;
+    }
+
+    .menu-card {
+        padding: 0;
+        border-radius: 0;
+        background: transparent;
+    }
+
+    .menu-card__art {
+        aspect-ratio: 1.16;
+    }
+
+    .menu-card__copywrap {
+        min-height: 0;
+    }
+
+    .menu-card__title {
+        font-size: clamp(1.65rem, 4.7cqi, 2.3rem);
+    }
+
+    .menu-card__copy {
+        max-width: 18ch;
+        font-size: 0.82rem;
+    }
+
+    .menu-grid.menu-grid--history,
+    .menu-grid.menu-grid--museum-info {
+        grid-template-columns: 1fr;
+        width: min(100%, 440px);
+        gap: 22px;
+        padding-inline: 10px;
+    }
+
+    .menu-grid--history .menu-card,
+    .menu-grid--museum-info .menu-card {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        align-items: center;
+        justify-items: center;
+        gap: 8px;
+        width: min(100%, 320px);
+        justify-self: center;
+        text-align: center;
+    }
+
+    .menu-grid--history .menu-card__art,
+    .menu-grid--museum-info .menu-card__art {
+        width: min(100%, 260px);
+        aspect-ratio: 1.16;
+    }
+
+    .menu-grid--history .menu-card__copywrap,
+    .menu-grid--museum-info .menu-card__copywrap {
+        justify-items: center;
+        text-align: center;
+    }
+
+    .menu-grid--history .menu-card__title,
+    .menu-grid--museum-info .menu-card__title {
+        min-height: 40px;
+        padding: 0 16px;
+        text-align: center;
+        font-size: 0.72rem;
+    }
+
+    .menu-card:nth-child(5) {
+        width: 100%;
+    }
+
+    .menu-coda {
+        padding-inline: 10px;
+    }
+
+    .footer-brand {
+        gap: 18px;
+        margin-top: 36px;
+        margin-bottom: 24px;
+        padding-top: 8px;
+    }
+
+    .footer-brand__logos {
+        gap: 14px 18px;
+    }
+
+    .footer-brand__logo--state {
+        width: 96px;
+        min-height: 96px;
+    }
+
+    .footer-brand__logo--brand {
+        min-width: 124px;
+    }
+
+    .footer-brand__mark {
+        width: 60px;
+        height: 60px;
+    }
+
+    .footer-brand__label {
+        font-size: 0.8rem;
+        letter-spacing: 0.12em;
+    }
+}
+
+@container kiosk (max-width: 480px) {
+    .collection-grid--exhibit,
+    .collection-grid--techniques {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .school-person-modal {
+        padding: 12px;
+    }
+
+    .school-person-modal__panel {
+        grid-template-columns: 1fr;
+        width: min(94vw, 620px);
+        max-height: 88vh;
+        gap: 14px;
+        padding: 16px;
+        border-radius: 28px;
+    }
+
+    .school-person-modal__media {
+        aspect-ratio: 4 / 3;
+    }
+
+    .school-person-modal__content {
+        gap: 10px;
+        padding: 4px 2px 6px;
+    }
+
+    .school-person-modal__name {
+        font-size: clamp(1.8rem, 7cqi, 2.6rem);
+    }
+
+    .school-course {
+        width: 100%;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 14px;
+        justify-items: center;
+    }
+
+    .school-course__poster {
+        width: min(100%, 320px);
+        aspect-ratio: 4 / 3;
+        border-radius: 16px;
+    }
+
+    .school-course__body {
+        width: 100%;
+        padding-top: 0;
+    }
+
+    .school-course__qr {
+        justify-self: start;
+    }
+
+    .school-course__contact {
+        width: 100%;
+    }
+
+    .school-course__qr-box {
+        width: 64px;
+        height: 64px;
+    }
+
+    .billboard-detail {
+        gap: 20px;
+        padding-bottom: 36px;
+    }
+
+    .billboard-detail__intro {
+        gap: 8px;
+    }
+
+    .billboard-detail__show-title {
+        font-size: clamp(1.65rem, 8.4cqi, 2.3rem);
+        line-height: 0.98;
+    }
+
+    .billboard-detail__meta {
+        font-size: 0.94rem;
+    }
+
+    .billboard-detail__body,
+    .billboard-detail__closing {
+        gap: 18px;
+        grid-template-columns: 1fr;
+    }
+
+    .billboard-detail__copy {
+        padding-left: 0;
+    }
+
+    .billboard-detail__sidebar {
+        padding-top: 0;
+    }
+
+    .billboard-detail__lead,
+    .billboard-detail__note,
+    .billboard-detail__contact-copy {
+        max-width: 100%;
+    }
+
+    .billboard-detail__closing {
+        justify-items: center;
+    }
+
+    .billboard-detail__collage-image {
+        max-height: 240px;
+        object-position: center;
+    }
+
+    .billboard-detail__contact {
+        width: min(100%, 360px);
+        padding-top: 0;
+    }
+
+    .billboard-detail__logos {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+@container kiosk (max-width: 380px) {
+    .totem-header {
+        gap: 6px;
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+
+    .totem-brand__mark {
+        width: 44px;
+        height: 44px;
+    }
+
+    .totem-header__actions {
+        gap: 4px;
+    }
+
+    .pill-button {
+        min-height: 40px;
+        padding: 0 8px;
+        font-size: 0.70rem;
+        gap: 4px;
+        border-radius: 18px;
+    }
+
+    .pill-button__icon {
+        font-size: 0.85rem;
+    }
+}

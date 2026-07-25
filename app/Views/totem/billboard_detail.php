@@ -1,0 +1,165 @@
+<?php
+/**
+ * @var array{tags?:array, title:string, company:string, image?:string, ...} $detail
+ * @var array $nav
+ */
+?>
+<?= $this->extend('layouts/MainLayout') ?>
+
+<?= $this->section('content') ?>
+    <?php ob_start(); ?>
+        <div class="screen-page__body billboard-detail">
+            <section class="billboard-detail__intro" aria-label="<?= esc(lang('Billboard.editorial_intro_label'), 'attr') ?>">
+                <div class="billboard-detail__tags">
+                    <?php foreach (($detail['tags'] ?? []) as $tag): ?>
+                        <span class="billboard-detail__tag chip"><?= esc($tag) ?></span>
+                    <?php endforeach; ?>
+                </div>
+
+                <h2 class="billboard-detail__show-title"><?= esc($detail['title'] ?? '') ?></h2>
+
+                <p class="billboard-detail__meta">
+                    <span class="billboard-detail__meta-label">Compañía</span>
+                    <strong class="billboard-detail__meta-value"><?= esc($detail['company'] ?? '') ?></strong>
+                </p>
+            </section>
+
+            <section class="billboard-detail__media" aria-label="<?= esc(lang('Billboard.media_label'), 'attr') ?>">
+                <figure class="billboard-detail__poster-frame" aria-label="<?= esc($detail['title'] ?? lang('Billboard.default_title'), 'attr') ?>" data-billboard-slider>
+                    <?php if (!empty($detail['images']) && is_array($detail['images'])): ?>
+                        <?php foreach ($detail['images'] as $index => $img): ?>
+                            <img
+                                class="billboard-detail__poster"
+                                src="<?= esc(base_url($img), 'attr') ?>"
+                                alt="<?= esc($detail['title'] ?? lang('Billboard.default_title'), 'attr') ?>"
+                                data-slide-index="<?= $index ?>"
+                                style="display: <?= $index === 0 ? 'block' : 'none' ?>;"
+                            >
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <img
+                            class="billboard-detail__poster"
+                            src="<?= esc(base_url($detail['image'] ?? 'assets/img/menu/menu_programacion.webp'), 'attr') ?>"
+                            alt="<?= esc($detail['title'] ?? lang('Billboard.default_title'), 'attr') ?>"
+                            data-slide-index="0"
+                        >
+                    <?php endif; ?>
+                </figure>
+
+                <?php 
+                $hasMultiple = !empty($detail['images']) && is_array($detail['images']) && count($detail['images']) > 1;
+                ?>
+                <div class="billboard-detail__nav" aria-label="<?= esc(lang('Billboard.image_nav_label'), 'attr') ?>"<?= $hasMultiple ? '' : ' style="display: none;"' ?>>
+                    <button type="button" class="billboard-detail__nav-btn" data-slide-prev aria-label="<?= esc(lang('Billboard.previous_image'), 'attr') ?>">
+                        <img src="<?= esc(base_url('assets/img/ui/slider_left.webp'), 'attr') ?>" alt="" aria-hidden="true">
+                    </button>
+                    <button type="button" class="billboard-detail__nav-btn" data-slide-next aria-label="<?= esc(lang('Billboard.next_image'), 'attr') ?>">
+                        <img src="<?= esc(base_url('assets/img/ui/slider_right.webp'), 'attr') ?>" alt="" aria-hidden="true">
+                    </button>
+                </div>
+            </section>
+
+            <section class="billboard-detail__body">
+                <div class="billboard-detail__copy">
+                    <p class="billboard-detail__lead">
+                        <?= esc($detail['copy'] ?? '') ?>
+                    </p>
+                    <?php if (!empty($detail['secondaryCopy'])): ?>
+                        <p class="billboard-detail__lead billboard-detail__lead--secondary">
+                            <?= esc($detail['secondaryCopy']) ?>
+                        </p>
+                    <?php endif; ?>
+                </div>
+
+                <aside class="billboard-detail__sidebar" aria-label="<?= esc(lang('Billboard.quick_sheet_label'), 'attr') ?>">
+                    <div class="billboard-detail__schedule">
+                        <span class="billboard-detail__date"><?= esc($detail['date'] ?? '') ?></span>
+                        <span class="billboard-detail__time"><?= esc($detail['time'] ?? '') ?></span>
+                    </div>
+
+                    <span class="billboard-detail__rule" aria-hidden="true"></span>
+
+                    <div class="billboard-detail__price-block">
+                        <div class="billboard-detail__metric">
+                            <img
+                                class="billboard-detail__metric-icon"
+                                src="<?= esc(base_url('assets/img/ui/icon_ticket.webp'), 'attr') ?>"
+                                alt=""
+                                aria-hidden="true"
+                            >
+                            <div class="billboard-detail__metric-content">
+                                <span class="billboard-detail__metric-label billboard-detail__metric-label--strong">Entradas</span>
+                                <strong class="billboard-detail__metric-value"><?= esc($detail['priceGeneral'] ?? '') ?></strong>
+                                <p class="billboard-detail__note"><?= esc($detail['priceReduced'] ?? '') ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </section>
+
+            <section class="billboard-detail__closing" aria-label="<?= esc(lang('Billboard.closing_label'), 'attr') ?>">
+                <div class="billboard-detail__collage">
+                    <img
+                        class="billboard-detail__collage-image"
+                        src="<?= esc(base_url($detail['closingImage'] ?? 'assets/img/splash/collage-inicio.webp'), 'attr') ?>"
+                        alt=""
+                        aria-hidden="true"
+                    >
+                </div>
+
+                <div class="billboard-detail__contact">
+                    <img
+                        class="billboard-detail__qr-image"
+                        src="<?= esc(base_url($detail['qrImage'] ?? 'assets/img/school/teatroescuela-qr.webp'), 'attr') ?>"
+                        alt=""
+                        aria-hidden="true"
+                    >
+                    <p class="billboard-detail__contact-copy"><?= esc($detail['closingNote'] ?? lang('Billboard.default_closing_note')) ?></p>
+                </div>
+
+            </section>
+        </div>
+    <?php $content = ob_get_clean(); ?>
+
+    <?= view('totem/partials/page_shell', [
+        'title' => lang('Menu.programming'),
+        'content' => $content,
+        'nav' => $nav ?? []
+    ]) ?>
+
+<script>
+(function() {
+    const slider = document.querySelector('[data-billboard-slider]');
+    const nav = document.querySelector('.billboard-detail__nav');
+    if (!slider || !nav) return;
+
+    const prevBtn = nav.querySelector('[data-slide-prev]');
+    const nextBtn = nav.querySelector('[data-slide-next]');
+    const slides = slider.querySelectorAll('[data-slide-index]');
+    const totalSlides = slides.length;
+    if (totalSlides <= 1) return;
+
+    let currentIndex = 0;
+
+    function showSlide(index) {
+        slides.forEach(slide => {
+            const slideIdx = parseInt(slide.getAttribute('data-slide-index'), 10);
+            slide.style.display = slideIdx === index ? 'block' : 'none';
+        });
+        currentIndex = index;
+    }
+
+    prevBtn.addEventListener('click', () => {
+        let nextIndex = currentIndex - 1;
+        if (nextIndex < 0) nextIndex = totalSlides - 1;
+        showSlide(nextIndex);
+    });
+
+    nextBtn.addEventListener('click', () => {
+        let nextIndex = currentIndex + 1;
+        if (nextIndex >= totalSlides) nextIndex = 0;
+        showSlide(nextIndex);
+    });
+})();
+</script>
+<?= $this->endSection() ?>

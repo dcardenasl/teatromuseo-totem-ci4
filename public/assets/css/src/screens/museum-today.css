@@ -1,0 +1,321 @@
+.museum-info-story {
+    display: grid;
+    gap: 26px;
+    justify-items: center;
+    padding-bottom: 36px;
+}
+
+.museum-info-story__hero {
+    display: grid;
+    gap: 14px;
+    justify-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.museum-info-story__eyebrow {
+    margin: 0;
+    color: rgba(53, 52, 48, 0.58);
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-size: 1rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.museum-info-story__title {
+    margin: 0;
+    max-width: 11ch;
+    color: var(--ink);
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-size: clamp(2.9rem, 7cqi, 5.2rem);
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    line-height: 0.92;
+    text-transform: uppercase;
+}
+
+.museum-info-story__collage {
+    display: grid;
+    justify-items: center;
+    margin: 4px 0 0;
+    width: 100%;
+}
+
+.museum-info-story__collage img {
+    display: block;
+    width: min(100%, 620px);
+    max-height: 560px;
+    object-fit: contain;
+    filter: drop-shadow(0 18px 22px rgba(74, 50, 24, 0.12));
+}
+
+.museum-info-story__media {
+    width: min(100%, 880px);
+}
+
+.museum-info-story__media-viewport {
+    overflow: hidden;
+    border-radius: 34px;
+}
+
+.museum-info-story__media-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.museum-info-story__media-track::-webkit-scrollbar {
+    display: none;
+}
+
+.museum-info-story__media-slide {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    scroll-snap-align: start;
+}
+
+.museum-info-story__media-frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+}
+
+.museum-info-story__media-frame-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.museum-info-story__media-asset {
+    position: absolute;
+    inset: 18px 22px 20px;
+    z-index: 2;
+    overflow: hidden;
+    border-radius: 18px;
+    background: rgba(255, 250, 241, 0.48);
+}
+
+.museum-info-story__media-image,
+.museum-info-story__media-video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.museum-info-story__media-caption {
+    margin: 0;
+    color: rgba(53, 52, 48, 0.68);
+    font-size: 0.84rem;
+    text-align: center;
+}
+
+.museum-info-story__media-controls {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+}
+
+.museum-info-story__media-nav {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #34312d;
+    box-shadow: 0 6px 14px rgba(56, 44, 30, 0.16);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.museum-info-story__media-nav:disabled {
+    opacity: 0.34;
+    box-shadow: none;
+}
+
+.museum-info-story__media-nav img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.museum-info-story__content {
+    display: grid;
+    gap: 26px;
+    width: min(100%, 720px);
+}
+
+.museum-info-story__stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.museum-info-story__stat {
+    padding: 12px 14px 10px;
+    border-radius: 20px;
+    background: rgba(255, 250, 241, 0.82);
+    box-shadow: none;
+}
+
+.museum-info-story__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+.museum-info-story__closing {
+    display: grid;
+    gap: 10px;
+}
+
+.museum-info-story__entries {
+    display: grid;
+    gap: 16px;
+}
+
+.museum-info-story__entries-head {
+    display: grid;
+    gap: 8px;
+}
+
+.museum-info-story__entries-copy {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.65;
+    font-size: 0.96rem;
+}
+
+.museum-info-story__entry-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.museum-info-story__entry-card {
+    display: grid;
+    gap: 0;
+    color: var(--ink);
+    text-decoration: none;
+    border-radius: 24px;
+    overflow: hidden;
+    background: rgba(255, 250, 241, 0.84);
+    border: 1px solid rgba(92, 70, 43, 0.12);
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.museum-info-story__entry-card:hover,
+.museum-info-story__entry-card:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 36px rgba(74, 50, 24, 0.12);
+}
+
+.museum-info-story__entry-media {
+    margin: 0;
+    aspect-ratio: 1.25;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 22%, rgba(255, 255, 255, 0.18), transparent 24%),
+        linear-gradient(180deg, rgba(33, 24, 18, 0.16), rgba(33, 24, 18, 0.36));
+}
+
+.museum-info-story__entry-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+
+.museum-info-story__entry-body {
+    display: grid;
+    gap: 8px;
+    padding: 16px 16px 18px;
+}
+
+.museum-info-story__entry-title {
+    margin: 0;
+    color: inherit;
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-size: 1.7rem;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    line-height: 0.98;
+    text-transform: uppercase;
+}
+
+.museum-info-story__entry-copy {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.55;
+    font-size: 0.92rem;
+}
+
+.museum-info-story__intro,
+.museum-info-story__section-copy {
+    margin: 0;
+    color: var(--ink);
+    font-size: clamp(1rem, 2.2cqi, 1.16rem);
+    line-height: 1.55;
+}
+
+.museum-info-story__section {
+    display: grid;
+    gap: 10px;
+}
+
+.museum-info-story__section-title {
+    margin: 0;
+    color: var(--ink);
+    font-family: "Corporate A", Georgia, "Times New Roman", serif;
+    font-size: clamp(2.2rem, 5.6cqi, 3.9rem);
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    line-height: 0.95;
+    text-transform: uppercase;
+}
+
+@container kiosk (max-width: 640px) {
+    .museum-info-story {
+        gap: 22px;
+    }
+
+    .museum-info-story__media {
+        width: 100%;
+    }
+
+    .museum-info-story__title {
+        font-size: clamp(2.25rem, 9cqi, 3.5rem);
+    }
+
+    .museum-info-story__collage img {
+        width: min(100%, 330px);
+        max-height: 340px;
+    }
+
+    .museum-info-story__entry-grid,
+    .museum-info-story__stats {
+        grid-template-columns: 1fr;
+    }
+
+    .museum-info-story__content {
+        gap: 22px;
+        padding-inline: 14px;
+    }
+
+    .museum-info-story__intro,
+    .museum-info-story__section-copy {
+        font-size: 1rem;
+    }
+}
