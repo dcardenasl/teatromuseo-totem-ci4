@@ -34,12 +34,13 @@ final class SchoolPresenter
         $courses       = $this->presentCourses($apiCourses, $locale, $fallbackStart);
 
         return [
-            'nav'        => [], // populated by the controller
-            'section'    => $this->fallback->section($fallbackStart),
-            'courses'    => $courses,
-            'teachers'   => $this->fallback->teachers(),
-            'students'   => $this->fallback->students(),
-            'personPhoto' => 'assets/img/teatro-escuela/collage.webp',
+            'nav'            => [], // populated by the controller
+            'section'        => $this->fallback->section($fallbackStart),
+            'courses'        => $courses,
+            'featuredCourse' => $courses[0] ?? null,
+            'teachers'       => $this->fallback->teachers(),
+            'students'       => $this->fallback->students(),
+            'personPhoto'    => 'assets/img/teatro-escuela/collage.webp',
         ];
     }
 
