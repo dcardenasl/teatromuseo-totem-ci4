@@ -17,7 +17,7 @@
 #--------------------------------------------------------------------
 
 # Base URL of your application (with trailing slash)
-# app.baseURL = 'http://localhost:8080/'
+# app.baseURL = 'http://localhost:8186/'
 # app.baseURL = 'https://teatromuseo.example.com/'
 
 # Force HTTPS in production
@@ -81,7 +81,7 @@
 # Base URL and API key for the museum backend API.
 # TOTEM_API_KEY must match the value configured in the API backend.
 
-# TOTEM_API_URL = 'http://localhost:8080/api/v1/totem'
+# TOTEM_API_URL = 'http://localhost:8180/api/v1/totem'
 # TOTEM_API_KEY = 'your-api-key-here'
 
 #--------------------------------------------------------------------
