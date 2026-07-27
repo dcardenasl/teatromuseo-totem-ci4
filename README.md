@@ -65,10 +65,10 @@ cp env .env
 composer build:css
 
 # 6. Iniciar servidor de desarrollo
-php spark serve --port 8086
+php spark serve --port 8186
 ```
 
-Acceder en: `http://localhost:8086`
+Acceder en: `http://localhost:8186`
 
 ---
 
@@ -76,7 +76,7 @@ Acceder en: `http://localhost:8086`
 
 ```bash
 # Conexión API (obligatorio)
-TOTEM_API_URL=http://localhost:8080/api/v1/totem
+TOTEM_API_URL=http://localhost:8180/api/v1/totem
 TOTEM_API_KEY=your-api-key-here
 
 # Feature flags
@@ -88,7 +88,7 @@ TOTEM_ENABLE_FILE_CACHE=true
 TOTEM_CACHE_TTL_SECONDS=60
 
 # App
-app.baseURL=http://localhost:8086/
+app.baseURL=http://localhost:8186/
 app.appTimezone=America/Santiago
 CI_ENVIRONMENT=development
 ```
@@ -154,17 +154,21 @@ composer test        # PHPUnit
 composer lint        # PHP-CS-Fixer (dry-run)
 composer format      # PHP-CS-Fixer (fix)
 composer analyse     # PHPStan nivel 8
+composer quality      # format:check + analyse + test
 
 # CSS
 composer build:css   # Compilar CSS con PostCSS
 ```
+
+Los hooks de git (`pre-commit`, `pre-push`) se instalan automáticamente al correr
+`composer install`/`composer update`.
 
 ---
 
 ## Health Check
 
 ```bash
-curl http://localhost:8086/health
+curl http://localhost:8186/health
 ```
 
 Respuesta:

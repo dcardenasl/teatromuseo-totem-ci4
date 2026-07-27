@@ -39,8 +39,8 @@ Tótem interactivo del Teatro Museo. Aplicación CodeIgniter 4 diseñada para pa
                                 │
                                 ▼
                   ┌─────────────────────────┐
-                  │  teatromuseo-api-ci4    │
-                  │      (:8080)            │
+                  │   teatromuseo-api       │
+                  │   (Hub, :8180)          │
                   └─────────────────────────┘
 ```
 
@@ -173,23 +173,30 @@ public/assets/css/
 
 ```bash
 # Servidor de desarrollo
-php spark serve --port 8086
+php spark serve --port 8192
 
 # Tests y calidad
 composer test      # PHPUnit (49 tests)
-composer lint      # PHP-CS-Fixer (dry-run)
-composer analyse   # PHPStan nivel 8
-composer format    # PHP-CS-Fixer (fix)
+composer lint      # PHP-CS-Fixer (dry-run), alias: composer cs-check / format:check
+composer analyse   # PHPStan nivel 8, alias: composer phpstan
+composer format    # PHP-CS-Fixer (fix), alias: composer cs-fix
+composer quality   # format:check + analyse + test — igual al resto de apps del workspace
 
 # CSS
 composer build:css # Compila style.css
 ```
 
+Los hooks `pre-commit`/`pre-push` se instalan automáticamente en `.git/hooks/` vía
+`composer install`/`composer update` (scripts `post-install-cmd`/`post-update-cmd`),
+igual que en el resto de apps del workspace. `Dockerfile` existe para paridad local
+con las demás apps — la app no se despliega vía Docker en producción, sino por FTP
+(ver `RELEASE.md`).
+
 Variables necesarias en `.env`:
 ```bash
 CI_ENVIRONMENT = development
-app.baseURL    = 'http://localhost:8086/'
-TOTEM_API_URL  = 'http://localhost:8080/api/v1/totem'
+app.baseURL    = 'http://localhost:8192/'
+TOTEM_API_URL  = 'http://localhost:8180/api/v1/totem'
 TOTEM_API_KEY  = '<clave configurada en el API>'
 
 # Feature flags

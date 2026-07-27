@@ -1,6 +1,6 @@
 # Roadmap de Implementación — Tótem Interactivo (TASKS.md)
 
-Backlog técnico activo para `teatromuseo-totem-ci4`. Las tareas completadas se archivan en [TASKS-ARCHIVES.md](TASKS-ARCHIVES.md).
+Backlog técnico activo para `teatromuseo-totem-ci4`. Las tareas completadas se archivan en [TASKS_ARCHIVE.md](TASKS_ARCHIVE.md).
 
 **Estado actual (2026-06-15):** 23 pantallas navegables, 4 idiomas, contenido real hardcoded. Marcha blanca activa. Conexión a BD desde el miércoles 18/6.
 

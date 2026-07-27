@@ -47,7 +47,7 @@ Los logs se escriben en `writable/logs/log-YYYY-MM-DD.log`.
 Endpoint `/health` para monitoreo:
 
 ```bash
-curl http://localhost:8086/health
+curl http://localhost:8186/health
 # {"status":"ok","api":"reachable","timestamp":"..."}
 ```
 
