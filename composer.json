@@ -40,12 +40,34 @@
         "sort-packages": true
     },
     "scripts": {
+        "post-install-cmd": [
+            "chmod +x pre-commit",
+            "cp pre-commit .git/hooks/pre-commit",
+            "chmod +x pre-push",
+            "cp pre-push .git/hooks/pre-push"
+        ],
+        "post-update-cmd": [
+            "chmod +x pre-commit",
+            "cp pre-commit .git/hooks/pre-commit",
+            "chmod +x pre-push",
+            "cp pre-push .git/hooks/pre-push"
+        ],
         "test": "phpunit --no-coverage",
         "test:coverage": "phpunit",
+        "test:unit": "phpunit tests/unit --no-coverage",
         "lint": "php-cs-fixer fix --dry-run --diff",
         "format": "php-cs-fixer fix",
+        "format:check": "@lint",
         "analyse": "phpstan analyse --no-progress",
         "analyse:baseline": "phpstan analyse --generate-baseline",
+        "quality": [
+            "@format:check",
+            "@analyse",
+            "@test"
+        ],
+        "cs-fix": "@format",
+        "cs-check": "@format:check",
+        "phpstan": "@analyse",
         "build:css": "npm run build:css"
     }
 }

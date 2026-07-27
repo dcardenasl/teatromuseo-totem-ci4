@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+# Non-blocking reminder hook, not a gate — always exits 0. Reserved for
+# future pre-push checks specific to this app (e.g. reminding to run
+# .deploy/deploy.py after a push to main). Installed by composer's
+# post-install-cmd/post-update-cmd, same mechanism as pre-commit.
+
+exit 0
