@@ -1,0 +1,17 @@
+.git
+.github
+.env
+.env.deploy
+.deploy
+.last_ftp_deploy
+.php-cs-fixer.cache
+node_modules
+vendor
+writable/cache/*
+writable/debugbar/*
+writable/logs/*
+writable/session/*
+writable/uploads/*
+tests
+builds
+build
