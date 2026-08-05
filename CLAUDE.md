@@ -173,7 +173,7 @@ public/assets/css/
 
 ```bash
 # Servidor de desarrollo
-php spark serve --port 8192
+php spark serve --port 8186
 
 # Tests y calidad
 composer test      # PHPUnit (49 tests)
@@ -195,7 +195,7 @@ con las demás apps — la app no se despliega vía Docker en producción, sino 
 Variables necesarias en `.env`:
 ```bash
 CI_ENVIRONMENT = development
-app.baseURL    = 'http://localhost:8192/'
+app.baseURL    = 'http://localhost:8186/'
 TOTEM_API_URL  = 'http://localhost:8180/api/v1/totem'
 TOTEM_API_KEY  = '<clave configurada en el API>'
 
