@@ -1,11 +1,85 @@
 # Roadmap de Implementación — Tótem Interactivo (TASKS.md)
 
 Backlog técnico activo para `teatromuseo-totem-ci4`. Las tareas completadas se archivan en [TASKS_ARCHIVE.md](TASKS_ARCHIVE.md).
+Seguimiento cross-repo: [`../TASKS.md`](../TASKS.md).
 
-**Estado actual (2026-06-15):** 23 pantallas navegables, 4 idiomas, contenido real hardcoded. Marcha blanca activa. Conexión a BD desde el miércoles 18/6.
+**Estado (2026-08-05):** 23 pantallas navegables, 4 idiomas. Conectado al hub vía `/api/v1/totem/*`.
+La marcha blanca y el hito de "conexión a BD desde el 18/6" quedaron atrás — este encabezado estuvo
+~7 semanas obsoleto hasta la auditoría del 2026-08-05.
 
 > **Nota arquitectural — Oleadas 2 y 3:**
 > Las rutas `/museo/coleccion/titeres`, `/museo/coleccion/mascaras` y `/museo/coleccion/payasos` están **activas con contenido real** y son el flujo de navegación principal a partir del sprint 13-15/6. La nota anterior de "OBSOLETA" en el plan de colección dejó de ser válida: la decisión de consolidar en `collection_main` queda **aplazada hasta que lleguen los assets definitivos de Coni**. No eliminar estas rutas ni vistas mientras eso no ocurra.
+
+---
+
+## 🟡 Saneamiento arquitectónico (auditoría 2026-08-05)
+
+> **Contexto, evidencia y rutas exactas:** [`../docs/plan/2026-08-05-saneamiento-arquitectonico.md`](../docs/plan/2026-08-05-saneamiento-arquitectonico.md)
+>
+> **Decisión tomada: alineación completa con la flota** (manteniendo el despliegue FTP).
+> Esta app quedó fuera de línea respecto de las otras siete en casi todos los ejes de tooling.
+> Empezar por `TOT-02`, que es el único bug funcional.
+
+### TOT-02 — Puerto obsoleto (bug funcional)
+
+- [ ] **El fallback apunta al puerto 8080; el hub corre en 8180.** Duplicado en dos archivos:
+  `app/Services/TotemApiService.php:25` y `app/Helpers/title_helper.php:42`, ambos con el literal
+  `http://localhost:8080/api/v1/totem`. Es un resto del stack legacy y es silenciosamente incorrecto
+  si `TOTEM_API_URL` no está definida. El `CLAUDE.md` de este repo ya documenta el valor correcto
+  (8180) — solo el código está desactualizado.
+  El helper además deriva una segunda URL base con `str_replace('/totem','',...)` sobre el valor de
+  configuración: cirugía de cadenas sobre config. Centralizar en un único punto.
+- [ ] **Crear el `.env.example` que falta.** Es la única app de la flota sin uno, y su archivo `env`
+  está **100 % comentado** (cero variables activas). Las cuatro variables que la app realmente
+  necesita — `TOTEM_API_URL`, `TOTEM_API_KEY`, `TOTEM_CACHE_TTL_SECONDS`, `TOTEM_ENABLE_FILE_CACHE`
+  — no están documentadas en ningún archivo de ejemplo. Un clon nuevo no se puede configurar.
+
+### TOT-01 — Alineación con la flota
+
+- [ ] **Subir a PHPUnit 11.** Hoy `^10.5.16` (resuelto 10.5.63) mientras las otras siete están en
+  `^11.0`/`^11.5`. Actualizar también `phpunit.xml.dist`, que declara el esquema
+  `schema.phpunit.de/10.5/phpunit.xsd`. Mientras la brecha exista, ningún helper ni aserción es
+  portable entre este repo y el resto.
+- [ ] **Vaciar el `phpstan-baseline.neon` (20 errores en 115 líneas).** Alinear además la
+  configuración: es la única app que analiza `tests/` y la única sin `phpstan-bootstrap.php` propio
+  (usa el bootstrap del framework vendorizado).
+- [ ] **Añadir `test:feature`** (falta) y unificar los alias de scripts: aquí son `lint`/`analyse`,
+  en la familia API son `cs-check`/`phpstan`.
+- [ ] **Completar el CI:** faltan `release.yml`, `security.yml` y `dependabot.yml`, y no hay matriz
+  de PHP (una sola versión, declarando `"php": "^8.2"`). Tampoco hay `composer audit`. Es la app que
+  se despliega a producción y tiene el CI más débil de la flota.
+- [ ] **Añadir `docker-compose.yml`.** Hay `Dockerfile` pero no compose: se puede construir pero no
+  levantar en el stack local documentado.
+- [ ] **Incorporar a la cadena de build compartida:** hoy sin Tailwind, sin build de JS, sin husky,
+  sin `engines` ni `packageManager` fijados — a diferencia de admin y web.
+- [ ] **Unificar la capa HTTP.** Hay **dos modismos distintos dentro de la misma app**:
+  `Services::curlrequest()` en `app/Services/TotemApiService.php:42` y `curl_init` crudo en
+  `app/Controllers/HealthController.php:57`. Faltan además: reintentos en 5xx (el admin reintenta
+  los GET dos veces con backoff), propagación de `X-Request-ID`, y — lo más grave — **todos los
+  caminos de error devuelven `[]`** (no-2xx, JSON inválido, excepción, y hasta el fallo al construir
+  el cliente), así que una caída total del upstream es **indistinguible de contenido vacío**.
+- [ ] **Colapsar el triple decorador manual de `TotemApiInterface`.**
+  `TotemApiService` (256 l) + `CachedTotemApiService` (154 l) + `FileCachedTotemApiService` (220 l):
+  cada método de la interfaz está reescrito tres veces a mano. Añadir un endpoint obliga a tocar
+  cuatro archivos.
+- [ ] **Registrar los repositorios de respaldo en `Config/Services`** en vez de instanciarlos en
+  línea como valores por defecto de constructor. `app/Controllers/BillboardController.php:37` hace
+  `new \App\Repositories\BillboardFallbackRepository()` **directamente**, además de usar el
+  presenter que ya lo tiene.
+- [ ] **Unificar el formateo de fecha localizada con `teatromuseo-web`.**
+  `app/Presenters/DatePresenter.php:19,36` usa `IntlDateFormatter` **sin la guarda `class_exists`**
+  que sí tiene `web/app/Common.php:309` (`format_localized_date()`), más patrones `sprintf` por
+  idioma escritos a mano (`Section.school_start_en|fr|pt|es`). Ambas apps renderizan los mismos
+  eventos y cursos para los mismos 4 idiomas.
+- [ ] **Blindar `app/Config/Database.php`.** Arrastra el grupo por defecto de CI4
+  (`'hostname' => 'localhost'`, `'DBDriver' => 'MySQLi'`) pese a que la app es stateless. Adoptar el
+  patrón del BFF (`:memory:` + SQLite3 + comentario explicando que no hay BD propia).
+- [ ] **Añadir el glob `.env.*` a `.gitignore`** (solo esta app y `teatromuseo-web` no lo tienen).
+- [ ] **`DEAD-02` — `app/Repositories/MuseumFallbackRepository.php` (28 líneas) no tiene ninguna
+  referencia** fuera de su propia declaración de clase. Eliminar.
+- [ ] **`DOC-01` — Migrar este tracker a la taxonomía del resto de la flota**
+  (`🔴 En progreso` / `🟡 Próximo` / `✅ Completadas`) en vez de "Pendientes técnicos inmediatos",
+  y triar las 45 casillas abiertas de abajo: varias pueden estar ya resueltas.
 
 ---
 
