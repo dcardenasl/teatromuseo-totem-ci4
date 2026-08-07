@@ -22,7 +22,7 @@ class TotemApiService implements TotemApiInterface
     {
         /** @var string|false|null $baseUrl */
         $baseUrl       = env('TOTEM_API_URL');
-        $this->baseUrl = ($baseUrl !== false && $baseUrl !== null && $baseUrl !== '') ? $baseUrl : 'http://localhost:8080/api/v1/totem';
+        $this->baseUrl = ($baseUrl !== false && $baseUrl !== null && $baseUrl !== '') ? $baseUrl : 'http://localhost:8180/api/v1/totem';
 
         /** @var string|false|null $apiKey */
         $apiKey       = env('TOTEM_API_KEY');
@@ -124,6 +124,7 @@ class TotemApiService implements TotemApiInterface
      * Logs non-2xx status codes and invalid JSON, but still returns an empty
      * array so the kiosk UI can fall back gracefully.
      *
+     * @param array<string, mixed> $params
      * @return list<array<string, mixed>>|array<string, mixed>
      */
     private function get(string $path, array $params = []): array
