@@ -20,29 +20,25 @@ La marcha blanca y el hito de "conexión a BD desde el 18/6" quedaron atrás —
 > Esta app quedó fuera de línea respecto de las otras siete en casi todos los ejes de tooling.
 > Empezar por `TOT-02`, que es el único bug funcional.
 
-### TOT-02 — Puerto obsoleto (bug funcional)
+### TOT-02 — Puerto obsoleto (bug funcional) — ✅ COMPLETADA (verificado 2026-08-07)
 
-- [ ] **El fallback apunta al puerto 8080; el hub corre en 8180.** Duplicado en dos archivos:
-  `app/Services/TotemApiService.php:25` y `app/Helpers/title_helper.php:42`, ambos con el literal
-  `http://localhost:8080/api/v1/totem`. Es un resto del stack legacy y es silenciosamente incorrecto
-  si `TOTEM_API_URL` no está definida. El `CLAUDE.md` de este repo ya documenta el valor correcto
-  (8180) — solo el código está desactualizado.
-  El helper además deriva una segunda URL base con `str_replace('/totem','',...)` sobre el valor de
-  configuración: cirugía de cadenas sobre config. Centralizar en un único punto.
-- [ ] **Crear el `.env.example` que falta.** Es la única app de la flota sin uno, y su archivo `env`
-  está **100 % comentado** (cero variables activas). Las cuatro variables que la app realmente
-  necesita — `TOTEM_API_URL`, `TOTEM_API_KEY`, `TOTEM_CACHE_TTL_SECONDS`, `TOTEM_ENABLE_FILE_CACHE`
-  — no están documentadas en ningún archivo de ejemplo. Un clon nuevo no se puede configurar.
+- [x] **El fallback apuntaba al puerto 8080; el hub corre en 8180.** Corregido en
+  `app/Services/TotemApiService.php:24` y `app/Helpers/title_helper.php:42` — ambos ahora
+  usan `http://localhost:8180/api/v1/totem` por defecto (commit `31e0513`). Grep de `8080` en
+  todo `*.php` solo devuelve una línea comentada de ejemplo en `Config/Cors.php`, inerte.
+- [x] **`.env.example` creado** (commit `766006c`, 42 líneas) documentando las 6 variables
+  `TOTEM_*` realmente leídas por la app (`TOTEM_API_URL`, `TOTEM_API_KEY`,
+  `TOTEM_ENABLE_FILE_CACHE`, `TOTEM_CACHE_TTL_SECONDS`, `TOTEM_ENABLE_TRANSITIONS`,
+  `TOTEM_ENABLE_ANIMATIONS`) — más completo que las 4 originalmente pedidas aquí.
 
-### TOT-01 — Alineación con la flota
+### TOT-01 — Alineación con la flota (parcial — ver ítems marcados)
 
-- [ ] **Subir a PHPUnit 11.** Hoy `^10.5.16` (resuelto 10.5.63) mientras las otras siete están en
-  `^11.0`/`^11.5`. Actualizar también `phpunit.xml.dist`, que declara el esquema
-  `schema.phpunit.de/10.5/phpunit.xsd`. Mientras la brecha exista, ningún helper ni aserción es
-  portable entre este repo y el resto.
-- [ ] **Vaciar el `phpstan-baseline.neon` (20 errores en 115 líneas).** Alinear además la
-  configuración: es la única app que analiza `tests/` y la única sin `phpstan-bootstrap.php` propio
-  (usa el bootstrap del framework vendorizado).
+- [x] **Subida a PHPUnit 11** (`^11.0` en `composer.json`, resuelto 11.5.56) y PHPStan
+  `^2.1.56` (resuelto 2.2.8) — verificado en vivo: 66 tests / 251 assertions, todos ✅
+  (commits `6657897`/`271b886`).
+- [x] **`phpstan-baseline.neon` vaciado** (`ignoreErrors: []`, confirmado con
+  `vendor/bin/phpstan analyse` → "No errors") y `app/Config` excluido, alineado con el resto
+  de la flota (commit `4ed76c9`).
 - [ ] **Añadir `test:feature`** (falta) y unificar los alias de scripts: aquí son `lint`/`analyse`,
   en la familia API son `cs-check`/`phpstan`.
 - [ ] **Completar el CI:** faltan `release.yml`, `security.yml` y `dependabot.yml`, y no hay matriz
@@ -75,8 +71,8 @@ La marcha blanca y el hito de "conexión a BD desde el 18/6" quedaron atrás —
   (`'hostname' => 'localhost'`, `'DBDriver' => 'MySQLi'`) pese a que la app es stateless. Adoptar el
   patrón del BFF (`:memory:` + SQLite3 + comentario explicando que no hay BD propia).
 - [ ] **Añadir el glob `.env.*` a `.gitignore`** (solo esta app y `teatromuseo-web` no lo tienen).
-- [ ] **`DEAD-02` — `app/Repositories/MuseumFallbackRepository.php` (28 líneas) no tiene ninguna
-  referencia** fuera de su propia declaración de clase. Eliminar.
+- [x] **`DEAD-02` — `app/Repositories/MuseumFallbackRepository.php` eliminado** (commit
+  `ff7db92`); confirmado sin referencias remanentes en `app/`/`tests/`.
 - [ ] **`DOC-01` — Migrar este tracker a la taxonomía del resto de la flota**
   (`🔴 En progreso` / `🟡 Próximo` / `✅ Completadas`) en vez de "Pendientes técnicos inmediatos",
   y triar las 45 casillas abiertas de abajo: varias pueden estar ya resueltas.
