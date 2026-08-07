@@ -1,6 +1,7 @@
 <?php
 
 use CodeIgniter\Test\CIUnitTestCase;
+use CodeIgniter\Validation\Validation;
 use Config\App;
 use Tests\Support\Libraries\ConfigReader;
 
@@ -11,18 +12,23 @@ final class HealthTest extends CIUnitTestCase
 {
     public function testIsDefinedAppPath(): void
     {
+        // @phpstan-ignore method.alreadyNarrowedType (APPPATH is always defined in test bootstrap)
         $this->assertTrue(defined('APPPATH'));
     }
 
     public function testBaseUrlHasBeenSet(): void
     {
         $validation = service('validation');
+        $this->assertInstanceOf(Validation::class, $validation);
 
         $env = false;
 
         // Check the baseURL in .env
         if (is_file(HOMEPATH . '.env')) {
-            $env = preg_grep('/^app\.baseURL = ./', file(HOMEPATH . '.env')) !== false;
+            $lines = file(HOMEPATH . '.env');
+            if (is_array($lines)) {
+                $env = preg_grep('/^app\.baseURL = ./', $lines) !== false;
+            }
         }
 
         if ($env) {

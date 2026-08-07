@@ -8,8 +8,7 @@ parameters:
         - tests
     excludePaths:
         - app/Views
-        - app/Config/Routes.php
-        - app/Config/Boot
+        - app/Config
         - tests/_support
     bootstrapFiles:
         - vendor/codeigniter4/framework/system/Test/bootstrap.php

@@ -18,7 +18,7 @@ class TotemApiServiceTest extends TestCase
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param array<mixed> $data
      */
     private function json(array $data): string
     {
