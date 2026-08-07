@@ -42,7 +42,10 @@ $RECYCLE.BIN/
 # These should never be under version control,
 # as it poses a security risk.
 .env
+.env.*
+!.env.example
 .env.deploy
+!.env.deploy.example
 .last_ftp_deploy
 /totem-prod.zip
 .deploy/
