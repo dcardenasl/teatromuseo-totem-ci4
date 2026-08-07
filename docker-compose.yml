@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ci4-totem-app
+    restart: unless-stopped
+    ports:
+      - "8186:80"
+    environment:
+      - CI_ENVIRONMENT=${CI_ENVIRONMENT:-development}
+      - TOTEM_API_URL=${TOTEM_API_URL:-http://host.docker.internal:8180/api/v1/totem}
+      - TOTEM_API_KEY=${TOTEM_API_KEY}
+      - TOTEM_CACHE_TTL_SECONDS=${TOTEM_CACHE_TTL_SECONDS:-300}
+      - TOTEM_ENABLE_FILE_CACHE=${TOTEM_ENABLE_FILE_CACHE:-true}
+    volumes:
+      - ./writable:/var/www/html/writable
+    networks:
+      - ci4-totem-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 20s
+
+networks:
+  ci4-totem-network:
+    driver: bridge
+    name: ci4-totem-network
