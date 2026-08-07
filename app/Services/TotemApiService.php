@@ -6,7 +6,6 @@ namespace App\Services;
 
 use CodeIgniter\Config\Services as CIBaseServices;
 use CodeIgniter\HTTP\CURLRequest;
-use Exception;
 
 /**
  * Servicio consumidor de la API REST del Teatro Museo para el Tótem Interactivo.
@@ -132,60 +131,98 @@ class TotemApiService implements TotemApiInterface
         $startTime = microtime(true);
         $endpoint  = ltrim($path, '/');
 
+        $headers = [
+            'Accept' => 'application/json',
+        ];
+
+        if ($this->apiKey !== '') {
+            $headers['X-Totem-Key'] = $this->apiKey;
+        }
+
+        // Propagate X-Request-ID if present in incoming request
         try {
-            $client = $this->getClient();
-            if ($client === null) {
-                return [];
+            $request = service('request');
+            if ($request instanceof \CodeIgniter\HTTP\IncomingRequest) {
+                $incoming = trim($request->getHeaderLine('X-Request-ID'));
+                if ($incoming !== '') {
+                    $headers['X-Request-ID'] = $incoming;
+                }
+            }
+        } catch (\Throwable $e) {
+            // Ignore if request service is not available
+        }
+
+        $options = [
+            'headers' => $headers,
+        ];
+
+        if ($params !== []) {
+            $options['query'] = $params;
+        }
+
+        $maxRetries = 2;
+        $attempt    = 0;
+        $status     = 0;
+        $lastException = null;
+        $response   = null;
+
+        do {
+            if ($attempt > 0) {
+                // Exponential backoff: 250ms, 500ms
+                usleep((int) (250000 * (2 ** ($attempt - 1))));
             }
 
-            $headers = [
-                'Accept' => 'application/json',
-            ];
+            try {
+                $client = $this->getClient();
+                if ($client === null) {
+                    throw new \RuntimeException('Failed to initialize HTTP client');
+                }
 
-            if ($this->apiKey !== '') {
-                $headers['X-Totem-Key'] = $this->apiKey;
+                $response = $client->get($endpoint, $options);
+                $status   = $response->getStatusCode();
+                $lastException = null;
+            } catch (\Throwable $e) {
+                $status = 0;
+                $lastException = $e;
             }
 
-            $options = [
-                'headers' => $headers,
-            ];
+            $attempt++;
+        } while (($status === 0 || $status >= 500) && $attempt <= $maxRetries);
 
-            if ($params !== []) {
-                $options['query'] = $params;
-            }
+        $durationMs = (int) ((microtime(true) - $startTime) * 1000);
 
-            $response   = $client->get($endpoint, $options);
-            $status     = $response->getStatusCode();
-            $durationMs = (int) ((microtime(true) - $startTime) * 1000);
-
-            if ($status !== 200) {
-                $this->logApiCall($endpoint, $durationMs, $status, 'non_2xx_response');
-
-                return [];
-            }
-
-            $raw  = (string) $response->getBody();
-            $body = json_decode($raw, true);
-
-            if (!is_array($body)) {
-                $this->logApiCall($endpoint, $durationMs, $status, 'invalid_json');
-
-                return [];
-            }
-
-            $this->logApiCall($endpoint, $durationMs, $status, null);
-
-            if (isset($body['data']) && is_array($body['data'])) {
-                return $body['data'];
-            }
-
-            return $body;
-        } catch (Exception $e) {
-            $durationMs = (int) ((microtime(true) - $startTime) * 1000);
-            $this->logApiCall($endpoint, $durationMs, 0, $e->getMessage());
+        if ($lastException !== null) {
+            $this->logApiCall($endpoint, $durationMs, 0, $lastException->getMessage());
 
             return [];
         }
+
+        if ($status !== 200) {
+            $this->logApiCall($endpoint, $durationMs, $status, 'non_2xx_response');
+
+            return [];
+        }
+
+        if ($response === null) {
+            return [];
+        }
+
+        $raw  = (string) $response->getBody();
+        $body = json_decode($raw, true);
+
+        if (!is_array($body)) {
+            $this->logApiCall($endpoint, $durationMs, $status, 'invalid_json');
+
+            return [];
+        }
+
+        $this->logApiCall($endpoint, $durationMs, $status, null);
+
+        if (isset($body['data']) && is_array($body['data'])) {
+            return $body['data'];
+        }
+
+        return $body;
     }
 
     /**

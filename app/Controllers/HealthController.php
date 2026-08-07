@@ -53,20 +53,18 @@ final class HealthController extends Controller
                 return 'unreachable';
             }
 
-            // Try to make a simple HTTP request
-            $ch = curl_init($apiUrl . '/courses');
-            if ($ch === false) {
-                return 'unreachable';
-            }
+            // Try to make a simple HTTP request using the framework's native client
+            $client = \Config\Services::curlrequest([
+                'base_URI' => $apiUrl,
+                'timeout'  => 5,
+            ]);
 
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-            curl_setopt($ch, CURLOPT_HEADER, false);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept: application/json']);
-
-            $response = curl_exec($ch);
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            curl_close($ch);
+            $response = $client->get('courses', [
+                'headers' => [
+                    'Accept' => 'application/json',
+                ],
+            ]);
+            $httpCode = $response->getStatusCode();
 
             // If we got any response (even 404), the API is reachable
             return $httpCode >= 200 && $httpCode < 600 ? 'reachable' : 'unreachable';
