@@ -22,7 +22,7 @@ class Cache extends BaseConfig
      * The name of the preferred handler that should be used. If for some reason
      * it is not available, the $backupHandler will be used in its place.
      */
-    public string $handler = 'file';
+    public string $handler = 'apcu';
 
     /**
      * --------------------------------------------------------------------------
@@ -33,7 +33,7 @@ class Cache extends BaseConfig
      * unreachable. Often, 'file' is used here since the filesystem is
      * always available, though that's not always practical for the app.
      */
-    public string $backupHandler = 'dummy';
+    public string $backupHandler = 'file';
 
     /**
      * --------------------------------------------------------------------------
@@ -43,7 +43,7 @@ class Cache extends BaseConfig
      * This string is added to all cache item names to help avoid collisions
      * if you run multiple applications with the same cache engine.
      */
-    public string $prefix = '';
+    public string $prefix = 'tm_totem_';
 
     /**
      * --------------------------------------------------------------------------
