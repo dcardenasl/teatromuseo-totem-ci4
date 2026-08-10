@@ -60,7 +60,7 @@
         "lint": "php-cs-fixer fix --dry-run --diff",
         "format": "php-cs-fixer fix",
         "format:check": "@lint",
-        "analyse": "phpstan analyse --no-progress",
+        "analyse": "phpstan analyse --no-progress --memory-limit=512M",
         "analyse:baseline": "phpstan analyse --generate-baseline",
         "quality": [
             "@format:check",
