@@ -190,3 +190,16 @@ Fecha de corte: `2026-06-14`.
 ## Nota
 
 Las tareas nuevas o pendientes deben seguir registrándose en [TASKS.md](/Users/davidcardenas/Developer/PHP/teatromuseo/teatromuseo-totem-ci4/TASKS.md).
+
+---
+
+## ✅ Saneamiento 2026-08-05..07 — cierres archivados
+
+- `TOT-02`: fallback actualizado de 8080 a 8180 y `.env.example` creado con las
+  seis variables `TOTEM_*` reales.
+- `TOT-01` parcial: PHPUnit 11, PHPStan 2.1.56 y baseline vacío verificados.
+- `DEAD-02`: `MuseumFallbackRepository.php` eliminado y referencias remanentes
+  comprobadas.
+
+La alineación restante de tooling, HTTP, caché, fallbacks y contenido queda en
+el tracker activo como prioridad secundaria.

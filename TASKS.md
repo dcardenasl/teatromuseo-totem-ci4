@@ -3,7 +3,7 @@
 Backlog técnico activo para `teatromuseo-totem-ci4`. Las tareas completadas se archivan en [TASKS_ARCHIVE.md](TASKS_ARCHIVE.md).
 Seguimiento cross-repo: [`../TASKS.md`](../TASKS.md).
 
-**Estado (2026-08-05):** 23 pantallas navegables, 4 idiomas. Conectado al hub vía `/api/v1/totem/*`.
+**Estado (2026-08-10):** 23 pantallas navegables, 4 idiomas. Conectado al hub vía `/api/v1/totem/*`.
 La marcha blanca y el hito de "conexión a BD desde el 18/6" quedaron atrás — este encabezado estuvo
 ~7 semanas obsoleto hasta la auditoría del 2026-08-05.
 
@@ -20,25 +20,8 @@ La marcha blanca y el hito de "conexión a BD desde el 18/6" quedaron atrás —
 > Esta app quedó fuera de línea respecto de las otras siete en casi todos los ejes de tooling.
 > Empezar por `TOT-02`, que es el único bug funcional.
 
-### TOT-02 — Puerto obsoleto (bug funcional) — ✅ COMPLETADA (verificado 2026-08-07)
-
-- [x] **El fallback apuntaba al puerto 8080; el hub corre en 8180.** Corregido en
-  `app/Services/TotemApiService.php:24` y `app/Helpers/title_helper.php:42` — ambos ahora
-  usan `http://localhost:8180/api/v1/totem` por defecto (commit `31e0513`). Grep de `8080` en
-  todo `*.php` solo devuelve una línea comentada de ejemplo en `Config/Cors.php`, inerte.
-- [x] **`.env.example` creado** (commit `766006c`, 42 líneas) documentando las 6 variables
-  `TOTEM_*` realmente leídas por la app (`TOTEM_API_URL`, `TOTEM_API_KEY`,
-  `TOTEM_ENABLE_FILE_CACHE`, `TOTEM_CACHE_TTL_SECONDS`, `TOTEM_ENABLE_TRANSITIONS`,
-  `TOTEM_ENABLE_ANIMATIONS`) — más completo que las 4 originalmente pedidas aquí.
-
 ### TOT-01 — Alineación con la flota (parcial — ver ítems marcados)
 
-- [x] **Subida a PHPUnit 11** (`^11.0` en `composer.json`, resuelto 11.5.56) y PHPStan
-  `^2.1.56` (resuelto 2.2.8) — verificado en vivo: 66 tests / 251 assertions, todos ✅
-  (commits `6657897`/`271b886`).
-- [x] **`phpstan-baseline.neon` vaciado** (`ignoreErrors: []`, confirmado con
-  `vendor/bin/phpstan analyse` → "No errors") y `app/Config` excluido, alineado con el resto
-  de la flota (commit `4ed76c9`).
 - [ ] **Añadir `test:feature`** (falta) y unificar los alias de scripts: aquí son `lint`/`analyse`,
   en la familia API son `cs-check`/`phpstan`.
 - [ ] **Completar el CI:** faltan `release.yml`, `security.yml` y `dependabot.yml`, y no hay matriz
@@ -71,16 +54,18 @@ La marcha blanca y el hito de "conexión a BD desde el 18/6" quedaron atrás —
   (`'hostname' => 'localhost'`, `'DBDriver' => 'MySQLi'`) pese a que la app es stateless. Adoptar el
   patrón del BFF (`:memory:` + SQLite3 + comentario explicando que no hay BD propia).
 - [ ] **Añadir el glob `.env.*` a `.gitignore`** (solo esta app y `teatromuseo-web` no lo tienen).
-- [x] **`DEAD-02` — `app/Repositories/MuseumFallbackRepository.php` eliminado** (commit
-  `ff7db92`); confirmado sin referencias remanentes en `app/`/`tests/`.
 - [ ] **`DOC-01` — Migrar este tracker a la taxonomía del resto de la flota**
   (`🔴 En progreso` / `🟡 Próximo` / `✅ Completadas`) en vez de "Pendientes técnicos inmediatos",
   y triar las 45 casillas abiertas de abajo: varias pueden estar ya resueltas.
 
 ---
 
-## 🔴 Pendientes técnicos inmediatos
+## 🟡 Pendientes técnicos inmediatos — prioridad 2
 > David puede hacer estas tareas sin esperar a nadie.
+
+> El plan PublicRead/PageDelivery/Snapshots es prioritario. Este backlog no debe
+> cambiar contratos del Hub ni del camino público mientras `QA-01..04` y el
+> cutover estén en curso.
 
 ### Bug: navegación Payasos → Historia
 - [ ] Al ir `Colección → Payasos → Historia` y presionar Atrás, el stack de historial lleva a un lugar incorrecto (no vuelve a Payasos sino a otro punto).
