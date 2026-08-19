@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Billboard interactions** — added day filter chips and a multi-image slider to billboard views.
 - **Deployment and environment tooling** — added non-interactive environment initialization,
   production Docker parity, and deployment-oriented project setup.
+- **Favicon and app-icon set** — added a full favicon/manifest set (SVG, ICO, PNG sizes,
+  apple-touch-icon, web app manifest) with cache-busted asset URLs and long-lived
+  Cache-Control headers.
 
 ### Changed
 
