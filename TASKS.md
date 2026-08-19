@@ -373,7 +373,66 @@ proactivo y verificación e2e real, no un rediseño.
     sub-secciones con fetch propio. Prioridad baja, se abre como oportunidad
     de seguimiento si se vuelve a auditar Colección, no bloquea nada de lo
     anterior.
-  ejecuta en `TOTEM-BFF-13` para no expandir su alcance sin confirmación.
+
+### TOTEM-BFF-17 — Hidratación progresiva en Cartelera (detalle) ✅ Cerrada 2026-08-19
+
+- [x] Corrección de alcance: el plan original (`TOTEM-BFF-11`) descartó
+  paralelismo servidor→BFF citando ADR-010, pero conflacionó eso con
+  "hidratación progresiva vía AJAX desde el navegador" — que ADR-010 **no**
+  prohíbe (prohíbe `curl_multi`/paralelismo del proceso PHP hacia el BFF, no
+  que el navegador haga una segunda request al propio tótem después del
+  primer render). A pedido explícito de David, corregido e implementado
+  para `cartelera/detalle/{slug}` — la pantalla de detalle que el warm-up
+  (`TOTEM-BFF-10`) deliberadamente no cubre (por slug, no acotable), y por
+  lo tanto la única realmente "fría" en cada primera visita.
+- [x] `BffTotemClient::show()` gana `bool $cacheOnly = false` — cuando es
+  `true`, `cached()` nunca hace una llamada de red: revisa fresh, si no hay
+  cae a `fallbackToStale()` (stale o `unavailable`), instantáneo siempre.
+- [x] `BillboardController::billboardDetail()` ahora llama
+  `show(..., cacheOnly: true)`. Con caché (caso común, dado el warm-up de
+  listados) renderiza el contenido real de inmediato, sin cambios de
+  comportamiento. Sin caché (primera vista de un slug) renderiza el shell
+  con un esqueleto de carga (`Common.content_loading_label`, agregado en
+  los 4 idiomas) en vez de bloquear la respuesta esperando al BFF.
+- [x] Nueva acción `billboardDetailData()` + ruta
+  `cartelera/detalle/(:any)/data` (registrada **antes** de la ruta general
+  `(:any)` — el placeholder greedy la interceptaba, bug encontrado y
+  corregido durante la implementación) — hace el fetch real (con
+  reintentos, igual que siempre) y devuelve JSON `{state, html}` con el
+  mismo partial (`billboard_detail_content.php`, extraído del contenido que
+  antes vivía inline en `billboard_detail.php`) que usa el camino síncrono
+  — el markup vive una sola vez.
+- [x] Un slug confirmado-inexistente ya no puede ser un 404 HTTP real en
+  este camino (el shell ya respondió 200) — se reporta `state: 'not_found'`
+  y el navegador renderiza el mismo copy de "página no encontrada" inline
+  (`totem/partials/content_not_found.php`, nuevo partial dedicado).
+- [x] **Bug encontrado y corregido durante la implementación:** un primer
+  intento parametrizó `content_unavailable.php` con `$title`/`$copy`
+  opcionales — CI4 persiste los datos de `view()` entre llamadas del mismo
+  request (`Config\View::$saveData`), así que ese partial heredaba
+  silenciosamente un `$title` de una vista *anterior* no relacionada en vez
+  de usar su copy por defecto (confirmado con un test aislado). Corregido
+  creando `content_not_found.php` como partial separado, sin parámetros —
+  mismo principio que ya usaba `content_unavailable.php` antes del intento
+  fallido.
+- [x] Verificación e2e real (no solo tests): con BFF/Tótem reales
+  levantados, primera visita a un slug real nunca visitado
+  (`cartelera/detalle/pionero`) confirmó el esqueleto de carga y
+  `data-async-detail-url` correcto, sin el título real aún visible;
+  `GET .../data` devolvió el JSON real con el contenido completo; la
+  segunda visita al mismo slug ya renderizó todo de forma síncrona (caché
+  calentado por la llamada async previa).
+- [x] Tests nuevos/corregidos: `BffTotemClientTest` (cacheOnly),
+  `BillboardControllerTest` (síncrono con caché tibia, diferido con caché
+  fría, `/data` con show real/confirmado-inexistente/inalcanzable). Un test
+  de `TotemRoutesTest` corregido por depender implícitamente de "no hay BFF
+  alcanzable" — asunción inválida ahora que hay un BFF real corriendo en
+  `tmux` junto a la suite. `composer quality`: 107 tests, 444 assertions.
+- [x] **Conscientemente fuera de este cierre:** el mismo patrón para las
+  fichas de detalle de Colección (`collectionItem`/`collectionTechnique`,
+  también excluidas del warm-up) — implementado solo en Cartelera como
+  referencia; aplicar el mismo patrón ahí es la continuación natural, no
+  bloquea nada de lo anterior.
 
 ---
 

@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Progressive hydration for cold billboard detail loads (TOTEM-BFF-17)** — `cartelera/detalle/{slug}`
+  no longer blocks the page render on a cold-cache BFF round-trip (per-slug detail pages are
+  deliberately excluded from the background warm-up). The shell renders immediately with a loading
+  placeholder and a new `GET cartelera/detalle/{slug}/data` endpoint delivers the real content via
+  `fetch()` right after paint. Cache hits (the common case) still render synchronously, unchanged.
 - **Honest unavailable state for Colección screens (TOTEM-BFF-16)** — `collectionPuppetsExhibit`,
   `collectionMasksExhibit`, `collectionClownsExhibit` and `collectionTechniques` now distinguish
   a genuinely unreachable BFF from a confirmed-empty category, matching the pattern Cartelera and
