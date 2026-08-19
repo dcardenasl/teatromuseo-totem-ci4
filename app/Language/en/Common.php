@@ -22,4 +22,8 @@ return [
     'error_404_label' => 'Page not found',
     'error_404_title' => 'Page not found',
     'error_404_copy' => 'The screen you are looking for is not available. Return home to continue.',
+    'content_unavailable_label' => 'Content unavailable',
+    'content_unavailable_title' => 'Content unavailable',
+    'content_unavailable_copy' => 'We could not refresh this information right now. Please try again in a few minutes.',
+    'content_stale_note' => 'Showing the latest information available.',
 ];

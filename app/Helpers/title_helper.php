@@ -29,19 +29,35 @@ if (!function_exists('safe_title')) {
     }
 }
 
-if (!function_exists('api_file_url')) {
+if (!function_exists('media_url')) {
     /**
-     * Returns the URL to serve a public file from the API.
+     * Resolves an image/media path for output, whichever source it came
+     * from: a BFF-hydrated file URL (already absolute — `http(s)://…`) is
+     * returned as-is, a local static asset path (`assets/img/…`) is run
+     * through `base_url()` as usual. Wrapping an already-absolute URL in
+     * `base_url()` would double-prefix it into a broken link.
      */
-    function api_file_url(int|string|null $fileId): string
+    function media_url(string $path): string
     {
-        if ($fileId === null || $fileId === '' || $fileId === 0) {
+        if ($path === '') {
             return '';
         }
 
-        $apiUrl = is_string(env('TOTEM_API_URL')) ? env('TOTEM_API_URL') : 'http://localhost:8180/api/v1/totem';
-        $base = str_replace('/totem', '', $apiUrl);
+        return preg_match('#^https?://#i', $path) === 1 ? $path : base_url($path);
+    }
+}
 
-        return $base . '/files/public/' . $fileId;
+if (!function_exists('lang_str')) {
+    /**
+     * Resolves a translation line as a plain string. `lang()` can return
+     * `list<string>` for lines with plural forms — this joins that case
+     * instead of letting a caller either crash on `(string)` casting an
+     * array or leak the wrong type into a string-typed context.
+     */
+    function lang_str(string $line): string
+    {
+        $value = lang($line);
+
+        return is_array($value) ? implode(' ', $value) : $value;
     }
 }

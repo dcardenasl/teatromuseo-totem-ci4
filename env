@@ -76,13 +76,13 @@
 # logger.threshold = 4
 
 #--------------------------------------------------------------------
-# TOTEM API CONNECTION
+# TOTEM BFF CONNECTION
 #--------------------------------------------------------------------
-# Base URL and API key for the museum backend API.
-# TOTEM_API_KEY must match the value configured in the API backend.
+# Base URL and app key for teatromuseo-bff's public-read seam.
+# TOTEM_BFF_API_KEY must match TOTEM_BFF_API_KEY configured on the BFF.
 
-# TOTEM_API_URL = 'http://localhost:8180/api/v1/totem'
-# TOTEM_API_KEY = 'your-api-key-here'
+# TOTEM_BFF_BASE_URL = 'http://localhost:8188'
+# TOTEM_BFF_API_KEY = 'your-app-key-here'
 
 #--------------------------------------------------------------------
 # TOTEM FEATURE FLAGS
@@ -95,11 +95,12 @@
 # Enable/disable non-essential animations
 # TOTEM_ENABLE_ANIMATIONS = true
 
-# Enable/disable file-based API caching (default: true)
-# TOTEM_ENABLE_FILE_CACHE = true
-
-# Cache TTL in seconds for API responses (default: 60)
+# Fresh cache TTL in seconds for BFF responses (default: 60)
 # TOTEM_CACHE_TTL_SECONDS = 60
+
+# Stale cache TTL in seconds — the last real response, served only when the
+# BFF is unreachable (default: 86400)
+# TOTEM_STALE_TTL_SECONDS = 86400
 
 #--------------------------------------------------------------------
 # SECURITY

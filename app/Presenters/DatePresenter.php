@@ -12,11 +12,27 @@ use IntlDateFormatter;
  */
 final class DatePresenter
 {
+    /** @var array<string, list<string>> */
+    private const MONTH_NAMES_FALLBACK = [
+        'es' => ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+        'en' => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        'fr' => ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
+        'pt' => ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'],
+    ];
+
     /**
      * Get the full month name for a given month number and locale.
      */
     public function monthName(int $month, string $locale): string
     {
+        if ($month < 1 || $month > 12) {
+            return '';
+        }
+
+        if (! class_exists(IntlDateFormatter::class)) {
+            return self::MONTH_NAMES_FALLBACK[$locale][$month - 1] ?? self::MONTH_NAMES_FALLBACK['es'][$month - 1];
+        }
+
         $formatter = new IntlDateFormatter(
             $locale,
             IntlDateFormatter::LONG,
@@ -78,10 +94,22 @@ final class DatePresenter
     /**
      * Format a weekday name from a date string.
      */
+    /** @var array<string, list<string>> */
+    private const WEEKDAY_NAMES_FALLBACK = [
+        'es' => ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'],
+        'en' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        'fr' => ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'],
+        'pt' => ['segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado', 'domingo'],
+    ];
+
     public function weekdayName(int $weekday, string $locale): string
     {
         if ($weekday < 1 || $weekday > 7) {
             return '';
+        }
+
+        if (! class_exists(IntlDateFormatter::class)) {
+            return self::WEEKDAY_NAMES_FALLBACK[$locale][$weekday - 1] ?? self::WEEKDAY_NAMES_FALLBACK['es'][$weekday - 1];
         }
 
         $formatter = new IntlDateFormatter(

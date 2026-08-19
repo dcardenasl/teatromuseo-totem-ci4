@@ -1,7 +1,9 @@
 <?php
 /**
- * @var array{tags?:array, title:string, company:string, image?:string, ...} $detail
+ * @var array{tags?:array, title:string, venue?:string, image?:string, ...}|null $detail
  * @var array $nav
+ * @var bool $unavailable
+ * @var bool $stale
  */
 ?>
 <?= $this->extend('layouts/MainLayout') ?>
@@ -9,6 +11,12 @@
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
         <div class="screen-page__body billboard-detail">
+        <?php if ($unavailable || $detail === null): ?>
+            <?= view('totem/partials/content_unavailable') ?>
+        <?php else: ?>
+            <?php if (!empty($stale)): ?>
+                <p class="content-stale-note"><?= esc(lang('Common.content_stale_note')) ?></p>
+            <?php endif; ?>
             <section class="billboard-detail__intro" aria-label="<?= esc(lang('Billboard.editorial_intro_label'), 'attr') ?>">
                 <div class="billboard-detail__tags">
                     <?php foreach (($detail['tags'] ?? []) as $tag): ?>
@@ -18,10 +26,12 @@
 
                 <h2 class="billboard-detail__show-title"><?= esc($detail['title'] ?? '') ?></h2>
 
+                <?php if (!empty($detail['venue'])): ?>
                 <p class="billboard-detail__meta">
-                    <span class="billboard-detail__meta-label">Compañía</span>
-                    <strong class="billboard-detail__meta-value"><?= esc($detail['company'] ?? '') ?></strong>
+                    <span class="billboard-detail__meta-label"><?= esc(lang('Billboard.venue_label')) ?></span>
+                    <strong class="billboard-detail__meta-value"><?= esc($detail['venue']) ?></strong>
                 </p>
+                <?php endif; ?>
             </section>
 
             <section class="billboard-detail__media" aria-label="<?= esc(lang('Billboard.media_label'), 'attr') ?>">
@@ -30,7 +40,7 @@
                         <?php foreach ($detail['images'] as $index => $img): ?>
                             <img
                                 class="billboard-detail__poster"
-                                src="<?= esc(base_url($img), 'attr') ?>"
+                                src="<?= esc($img, 'attr') ?>"
                                 alt="<?= esc($detail['title'] ?? lang('Billboard.default_title'), 'attr') ?>"
                                 data-slide-index="<?= $index ?>"
                                 style="display: <?= $index === 0 ? 'block' : 'none' ?>;"
@@ -39,7 +49,7 @@
                     <?php else: ?>
                         <img
                             class="billboard-detail__poster"
-                            src="<?= esc(base_url($detail['image'] ?? 'assets/img/menu/menu_programacion.webp'), 'attr') ?>"
+                            src="<?= esc(base_url('assets/img/menu/menu_programacion.webp'), 'attr') ?>"
                             alt="<?= esc($detail['title'] ?? lang('Billboard.default_title'), 'attr') ?>"
                             data-slide-index="0"
                         >
@@ -77,23 +87,6 @@
                         <span class="billboard-detail__time"><?= esc($detail['time'] ?? '') ?></span>
                     </div>
 
-                    <span class="billboard-detail__rule" aria-hidden="true"></span>
-
-                    <div class="billboard-detail__price-block">
-                        <div class="billboard-detail__metric">
-                            <img
-                                class="billboard-detail__metric-icon"
-                                src="<?= esc(base_url('assets/img/ui/icon_ticket.webp'), 'attr') ?>"
-                                alt=""
-                                aria-hidden="true"
-                            >
-                            <div class="billboard-detail__metric-content">
-                                <span class="billboard-detail__metric-label billboard-detail__metric-label--strong">Entradas</span>
-                                <strong class="billboard-detail__metric-value"><?= esc($detail['priceGeneral'] ?? '') ?></strong>
-                                <p class="billboard-detail__note"><?= esc($detail['priceReduced'] ?? '') ?></p>
-                            </div>
-                        </div>
-                    </div>
                 </aside>
             </section>
 
@@ -118,6 +111,7 @@
                 </div>
 
             </section>
+        <?php endif; ?>
         </div>
     <?php $content = ob_get_clean(); ?>
 

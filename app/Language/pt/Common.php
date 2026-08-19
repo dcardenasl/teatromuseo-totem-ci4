@@ -22,4 +22,8 @@ return [
     'error_404_label' => 'Página não encontrada',
     'error_404_title' => 'Página não encontrada',
     'error_404_copy' => 'A tela que você procura não está disponível. Volte ao início para continuar.',
+    'content_unavailable_label' => 'Conteúdo indisponível',
+    'content_unavailable_title' => 'Conteúdo indisponível',
+    'content_unavailable_copy' => 'Não conseguimos atualizar esta informação agora. Tente novamente em alguns minutos.',
+    'content_stale_note' => 'Mostrando a última informação disponível.',
 ];

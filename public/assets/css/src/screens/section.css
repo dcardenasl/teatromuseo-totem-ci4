@@ -40,11 +40,7 @@
 }
 
 .content-panel--soft {
-    padding: 18px 20px;
-    background: var(--panel-bg);
-    border: 1px solid var(--panel-border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow);
+    /* Inherits background, border, border-radius, and box-shadow from .content-panel */
 }
 
 .section-hero__visual {
