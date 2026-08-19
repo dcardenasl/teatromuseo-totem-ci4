@@ -12,16 +12,12 @@ use ReflectionClass;
 use Tests\Support\FakeBffCurlRequest;
 
 /**
- * `TOTEM-BFF-13`: fills the STALE-path gap for Colección the same way as
- * Cartelera/TeatroEscuela. Also documents, as a passing regression guard
- * rather than a silent gap, the real behavior found while writing this:
- * unlike Cartelera/TeatroEscuela/`collectionMain()`, the exhibit screens
- * never call `TotemApiResult::isAvailable()` — a fully unreachable BFF with
- * no stale copy renders the same empty grid as a genuinely empty category,
- * not `content_unavailable.php`. Tracked as a design decision to make in
- * `TOTEM-BFF-16` (TASKS.md) — this test asserts what the code does today so
- * a future fix is a deliberate, visible change to this test, not a silent
- * behavior shift.
+ * `TOTEM-BFF-13`/`TOTEM-BFF-16`: fills the STALE-path gap for Colección the
+ * same way as Cartelera/TeatroEscuela, and guards the fix landed for the
+ * gap found while writing this — the exhibit screens now call
+ * `TotemApiResult::isAvailable()` just like Cartelera/TeatroEscuela, so a
+ * fully unreachable BFF with no stale copy renders `content_unavailable.php`
+ * instead of silently looking identical to a genuinely empty category.
  *
  * @internal
  */
@@ -54,7 +50,7 @@ final class CollectionBffResilienceTest extends CIUnitTestCase
         $result->assertSee('Juan el titiritero (stale)');
     }
 
-    public function testPuppetsExhibitRendersAnEmptyGridRatherThanAnExplicitUnavailableStateOnceTheStaleCopyIsGone(): void
+    public function testPuppetsExhibitFallsBackToTheHonestUnavailableStateOnceTheStaleCopyIsGone(): void
     {
         $this->warmRealItemIntoCache();
         $this->deleteStaleCache();
@@ -65,8 +61,19 @@ final class CollectionBffResilienceTest extends CIUnitTestCase
 
         $result->assertStatus(200);
         $result->assertDontSee('Juan el titiritero');
-        // Documents today's real behavior (see class docblock / TOTEM-BFF-16):
-        // no distinct "unavailable" message here, unlike Cartelera/TeatroEscuela.
+        $result->assertSee(lang_str('Common.content_unavailable_title'));
+    }
+
+    public function testPuppetsExhibitShowsTheHonestEmptyStateWhenTheCategoryIsGenuinelyEmpty(): void
+    {
+        Services::injectMock('totemApi', new BffTotemClient(Services::cache(), new FakeBffCurlRequest([
+            'public-read/es/collection-items' => FakeBffCurlRequest::envelope([]),
+        ])));
+
+        $result = $this->get('museo/coleccion/titeres/exhibicion');
+
+        $result->assertStatus(200);
+        $result->assertSee(lang_str('Collection.no_items_title'));
         $result->assertDontSee(lang_str('Common.content_unavailable_title'));
     }
 

@@ -169,28 +169,27 @@ final class TotemRoutesTest extends CIUnitTestCase
     public function testPuppetsExhibitRoute(): void
     {
         // No BFF is running in this test environment, so this is really
-        // exercising the "source unavailable" path end-to-end: the screen
-        // must render 200 with an honest empty grid, never invented pieces.
+        // exercising the "source unavailable" path end-to-end (TOTEM-BFF-16):
+        // the screen must render 200 with the honest content_unavailable
+        // partial, never invented pieces or a silently-empty grid.
         $result = $this->get('museo/coleccion/titeres/exhibicion');
 
         $result->assertStatus(200);
-        $result->assertSee('collection-grid--exhibit');
         $result->assertSee('Títeres en exhibición');
-        $result->assertSee('Técnicas');
+        $result->assertSee(lang_str('Common.content_unavailable_title'));
     }
 
     public function testMasksExhibitRoute(): void
     {
+        // Same "source unavailable" path as above (TOTEM-BFF-16) — this
+        // screen has its own curated hero fallback for the genuinely-empty
+        // case, but an unreachable BFF must still show the honest
+        // content_unavailable state, not that curated fallback.
         $result = $this->get('museo/coleccion/mascaras/exhibicion');
 
         $result->assertStatus(200);
         $result->assertSee('Máscaras en exhibición');
-        $result->assertSee('Tradiciones');
-        $result->assertDontSee('content-panel');
-        $result->assertDontSee('En armado');
-        $result->assertDontSee('Foco');
-        $result->assertDontSee('Ruta');
-        $result->assertDontSee('Mismo patrón');
+        $result->assertSee(lang_str('Common.content_unavailable_title'));
     }
 
     public function testMasksTraditionsRoute(): void

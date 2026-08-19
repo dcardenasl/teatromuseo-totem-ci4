@@ -3,13 +3,17 @@
  * @var array<int, array<string, mixed>> $items
  * @var array<int, array{label:string, href:string, active?:bool, disabled?:bool}> $tabs
  * @var array $nav
+ * @var bool $unavailable
  */
+$unavailable = $unavailable ?? false;
 ?>
 <?= $this->extend('layouts/MainLayout') ?>
 
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
-        <?php if (!empty($items)): ?>
+        <?php if ($unavailable): ?>
+            <?= view('totem/partials/content_unavailable') ?>
+        <?php elseif (!empty($items)): ?>
             <?= view('totem/partials/collection_grid', [
                 'title'     => lang('Collection.clowns_title'),
                 'intro'     => lang('Collection.section_copy'),

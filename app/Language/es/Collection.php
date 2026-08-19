@@ -86,4 +86,8 @@ return [
     'tradition_comedia_andes_section_copy_2'   => 'En Chile, la tradición andina de máscaras tiene su expresión más conocida en La Tirana, fiesta religiosa de la región de Tarapacá que convoca a más de 250.000 personas cada julio. Diabladas, morenadas, caporales y tinkus llenan de máscaras las calles del pueblo en un sincretismo que mezcla la cosmovisión aymara con la devoción a la Virgen del Carmen. Para el Teatromuseo, estas tradiciones representan la dimensión latinoamericana del oficio de la máscara: no como disfraz, sino como lenguaje.',
 
     'clown_placeholder' => 'Payaso histórico #%d',
+
+    // Estado honesto de vacío confirmado (distinto de "no disponible")
+    'no_items_title' => 'Sin piezas para mostrar',
+    'no_items_copy'  => 'Por ahora no hay piezas publicadas en esta categoría. Vuelve a revisar más adelante.',
 ];

@@ -72,6 +72,32 @@ final class CollectionControllerTest extends CIUnitTestCase
         $result->assertSee('Títeres de Hilo');
     }
 
+    public function testCollectionTechniquesRouteShowsAnHonestUnavailableStateWhenTheBffIsUnreachable(): void
+    {
+        // TOTEM-BFF-16: this screen used to render the same empty grid for
+        // "BFF down" and "genuinely no techniques" — now it matches
+        // Cartelera/TeatroEscuela and shows the honest unavailable state.
+        Services::injectMock('totemApi', new BffTotemClient(Services::cache(), new FakeBffCurlRequest(failTransport: true)));
+
+        $result = $this->get('museo/coleccion/titeres/tecnicas');
+
+        $result->assertStatus(200);
+        $result->assertSee(lang_str('Common.content_unavailable_title'));
+    }
+
+    public function testCollectionTechniquesRouteShowsAnHonestEmptyStateWhenThereAreNoTechniques(): void
+    {
+        Services::injectMock('totemApi', new BffTotemClient(Services::cache(), new FakeBffCurlRequest([
+            'public/catalog/techniques' => FakeBffCurlRequest::facet([]),
+        ])));
+
+        $result = $this->get('museo/coleccion/titeres/tecnicas');
+
+        $result->assertStatus(200);
+        $result->assertSee(lang_str('Collection.no_items_title'));
+        $result->assertDontSee(lang_str('Common.content_unavailable_title'));
+    }
+
     public function testCollectionPuppetsExhibitRendersRealItems(): void
     {
         Services::injectMock('totemApi', new BffTotemClient(Services::cache(), new FakeBffCurlRequest([
@@ -84,6 +110,32 @@ final class CollectionControllerTest extends CIUnitTestCase
 
         $result->assertStatus(200);
         $result->assertSee('Juan el titiritero');
+    }
+
+    public function testCollectionClownsExhibitShowsAnHonestUnavailableStateWhenTheBffIsUnreachable(): void
+    {
+        // TOTEM-BFF-16: this screen's own curated hero fallback is meant for
+        // a genuinely empty category, not a BFF outage — an unreachable BFF
+        // must show the honest unavailable state instead.
+        Services::injectMock('totemApi', new BffTotemClient(Services::cache(), new FakeBffCurlRequest(failTransport: true)));
+
+        $result = $this->get('museo/coleccion/payasos/exhibicion');
+
+        $result->assertStatus(200);
+        $result->assertSee(lang_str('Common.content_unavailable_title'));
+    }
+
+    public function testCollectionClownsExhibitShowsTheCuratedFallbackWhenGenuinelyEmpty(): void
+    {
+        Services::injectMock('totemApi', new BffTotemClient(Services::cache(), new FakeBffCurlRequest([
+            'public-read/es/collection-items' => FakeBffCurlRequest::envelope([]),
+        ])));
+
+        $result = $this->get('museo/coleccion/payasos/exhibicion');
+
+        $result->assertStatus(200);
+        $result->assertSee(lang_str('Collection.collection_history'));
+        $result->assertDontSee(lang_str('Common.content_unavailable_title'));
     }
 
     public function testCollectionItemRouteRendersRealItemFields(): void

@@ -6,6 +6,9 @@
  * @var array<int, array{title:string, href:string, image:string, copy?:string, tone?:string}> $items
  * @var array<int, array{label:string, href:string, active?:bool, disabled?:bool}> $tabs
  * @var string $footer
+ * @var bool $unavailable whether the BFF source for $items is confirmed unreachable
+ *     (as opposed to $items being genuinely empty) — only the grid itself
+ *     degrades; header/intro/tabs above always render.
  */
 
 $title = $title ?? '';
@@ -14,6 +17,7 @@ $gridClass = trim('collection-grid ' . ($gridClass ?? ''));
 $items = $items ?? [];
 $tabs = $tabs ?? [];
 $footer = $footer ?? '';
+$unavailable = $unavailable ?? false;
 ?>
 
 <section class="collection-grid-layout">
@@ -25,11 +29,19 @@ $footer = $footer ?? '';
         <?= view('totem/partials/collection_section_nav', ['tabs' => $tabs]) ?>
     </header>
 
+    <?php if ($unavailable): ?>
+        <?= view('totem/partials/content_unavailable') ?>
+    <?php elseif ($items === []): ?>
+        <section class="content-panel content-panel--soft" aria-label="<?= esc(lang('Collection.no_items_title'), 'attr') ?>">
+            <h2 class="content-panel__title"><?= esc(lang('Collection.no_items_title')) ?></h2>
+            <p class="content-panel__text"><?= esc(lang('Collection.no_items_copy')) ?></p>
+        </section>
+    <?php else: ?>
     <div class="<?= esc($gridClass) ?>" data-collection-grid>
         <?php foreach ($items as $index => $item): ?>
-            <?php 
-            $pageNum = (int) floor($index / 8); 
-            $tone = trim('collection-card--' . ($item['tone'] ?? 'coral')); 
+            <?php
+            $pageNum = (int) floor($index / 8);
+            $tone = trim('collection-card--' . ($item['tone'] ?? 'coral'));
             ?>
             <a class="collection-card <?= esc($tone) ?>" href="<?= esc(base_url($item['href'] ?? '#'), 'attr') ?>" data-page="<?= $pageNum ?>" style="display: <?= $pageNum === 0 ? 'grid' : 'none' ?>;">
                 <div class="collection-card__media" aria-hidden="true">
@@ -51,9 +63,9 @@ $footer = $footer ?? '';
         <?php endforeach; ?>
     </div>
 
-    <?php 
+    <?php
     $totalPages = (int) ceil(count($items) / 8);
-    if ($totalPages > 1): 
+    if ($totalPages > 1):
     ?>
         <div class="collection-grid-pagination" data-total-pages="<?= $totalPages ?>" data-current-page="0">
             <button type="button" class="pill-button pill-button--secondary" data-page-prev disabled>
@@ -68,6 +80,7 @@ $footer = $footer ?? '';
 
     <?php if ($footer !== ''): ?>
         <p class="collection-grid-layout__footer"><?= esc($footer) ?></p>
+    <?php endif; ?>
     <?php endif; ?>
 </section>
 

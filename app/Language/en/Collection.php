@@ -86,4 +86,8 @@ return [
     'tradition_comedia_andes_section_copy_2'   => 'In Chile, the Andean mask tradition finds its best-known expression in La Tirana, a religious festival in the Tarapacá region that draws more than 250,000 people each July. Diabladas, morenadas, caporales and tinkus fill the streets of the village with masks in a syncretism that blends Aymara cosmovision with devotion to the Virgin of Carmen. For Teatromuseo, these traditions represent the Latin American dimension of the mask-maker\'s craft: not as disguise, but as language.',
 
     'clown_placeholder' => 'Historic clown #%d',
+
+    // Honest confirmed-empty state (distinct from "unavailable")
+    'no_items_title' => 'No pieces to show',
+    'no_items_copy'  => 'There are no published pieces in this category right now. Check back later.',
 ];

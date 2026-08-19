@@ -89,6 +89,7 @@ final class CollectionController extends BaseTotemController
                 'nav'        => $this->shellNav(base_url('museo/coleccion')),
                 'tabs'       => $this->collectionTabs('techniques'),
                 'techniques' => (new CollectionPresenter())->techniqueCards($result),
+                'unavailable' => ! $result->isAvailable(),
             ]
         ));
     }
@@ -104,6 +105,7 @@ final class CollectionController extends BaseTotemController
                 'nav'   => $this->shellNav(base_url('museo/coleccion')),
                 'tabs'  => $this->collectionTabs('exhibit'),
                 'items' => (new CollectionPresenter())->exhibitCards($result),
+                'unavailable' => ! $result->isAvailable(),
             ]
         ));
     }
@@ -167,6 +169,7 @@ final class CollectionController extends BaseTotemController
                 'nav'   => $this->shellNav(base_url('museo/coleccion')),
                 'tabs'  => $tabs,
                 'items' => $items,
+                'unavailable' => ! $result->isAvailable(),
             ]
         ));
     }
@@ -196,6 +199,7 @@ final class CollectionController extends BaseTotemController
                 'nav'   => $this->shellNav(base_url('museo/coleccion')),
                 'tabs'  => $tabs,
                 'items' => $items,
+                'unavailable' => ! $result->isAvailable(),
             ]
         ));
     }

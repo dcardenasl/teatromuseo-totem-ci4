@@ -86,4 +86,8 @@ return [
     'tradition_comedia_andes_section_copy_2'   => 'Au Chili, la tradition andine des masques trouve son expression la plus connue à La Tirana, fête religieuse de la région de Tarapacá qui rassemble plus de 250 000 personnes chaque juillet. Diabladas, morenadas, caporales et tinkus emplissent les rues du village de masques dans un syncrétisme qui mêle la cosmovision aymara à la dévotion envers la Vierge du Carmen. Pour le Teatromuseo, ces traditions représentent la dimension latino-américaine du métier du masque : non comme déguisement, mais comme langage.',
 
     'clown_placeholder' => 'Clown historique n°%d',
+
+    // État honnête de vide confirmé (distinct de « indisponible »)
+    'no_items_title' => 'Aucune pièce à afficher',
+    'no_items_copy'  => "Il n'y a pas de pièces publiées dans cette catégorie pour le moment. Revenez plus tard.",
 ];
