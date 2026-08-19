@@ -3,6 +3,14 @@ $cssPath = FCPATH . 'assets/css/style.css';
 $cssVersion = file_exists($cssPath) ? filemtime($cssPath) : '1.0.0';
 $jsPath = FCPATH . 'assets/js/app.js';
 $jsVersion = file_exists($jsPath) ? filemtime($jsPath) : '1.0.0';
+$iconAsset = static function (string $path): string {
+    $path = ltrim($path, '/');
+    $url = base_url($path);
+    $absolutePath = FCPATH . $path;
+    $version = is_file($absolutePath) ? (string) (filemtime($absolutePath) ?: '') : '';
+
+    return $version === '' ? $url : $url . '?v=' . rawurlencode($version);
+};
 $totemConfig = config('Totem');
 $transitionsEnabled = (bool) $totemConfig->enableTransitions;
 $animationsEnabled = (bool) $totemConfig->enableAnimations;
@@ -35,6 +43,11 @@ foreach (totem_locales() as $locale) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#de5928">
+    <link rel="icon" type="image/svg+xml" href="<?= esc($iconAsset('favicon.svg')) ?>">
+    <link rel="icon" type="image/x-icon" href="<?= esc($iconAsset('favicon.ico')) ?>">
+    <link rel="icon" type="image/png" sizes="96x96" href="<?= esc($iconAsset('favicon-96x96.png')) ?>">
+    <link rel="apple-touch-icon" href="<?= esc($iconAsset('apple-touch-icon.png')) ?>">
+    <link rel="manifest" href="<?= esc($iconAsset('site.webmanifest')) ?>">
     
     <title><?= esc($pageTitle ?? lang('Meta.default_title')) ?></title>
     <meta name="description" content="<?= esc($pageDescription ?? lang('Meta.default_description')) ?>">
