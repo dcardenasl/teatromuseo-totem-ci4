@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Background BFF cache warm-up (TOTEM-BFF-10)** — new `php spark totem:warm-cache`
+  command proactively refreshes the fresh/stale cache for every kiosk screen across all
+  4 locales, instead of relying solely on visitor traffic to populate it. Meant to run on
+  a ~5 min cron (see `RELEASE.md`).
 - **Interactive museum collection content** — connected collection pages to the Totem API and
   added the clowns exhibit content.
 - **Billboard interactions** — added day filter chips and a multi-image slider to billboard views.

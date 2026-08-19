@@ -63,3 +63,12 @@ Before deploying, every item below must be true. Treat any "no" as a blocker.
 - `FTP_*` variables in `.env` (root) are never read by CodeIgniter; only `.deploy/.env.deploy` matters to the deploy helper.
 - `--prune` is an explicit reconciliation operation and should only be used
   after reviewing its dry-run output. It requires FTP `MLSD` support.
+- **BFF cache warm-up cron (`TOTEM-BFF-10`):** register on the production
+  host so the offline "stale" cache is refreshed proactively instead of
+  relying purely on visitor traffic:
+  ```cron
+  */5 * * * * cd /path/to/totem && php spark totem:warm-cache >> writable/logs/warm-cache.log 2>&1
+  ```
+  This CI4 install has no native task scheduler (`vendor/codeigniter4/framework`
+  4.7.3 ships no `Tasks`/`Scheduler` namespace) — a plain crontab entry is
+  the correct mechanism here, not a workaround.

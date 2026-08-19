@@ -195,19 +195,30 @@ proactivo y verificación e2e real, no un rediseño.
   `courses()`, etc.) solo incluyen columnas ya públicas para el sitio web —
   sin datos sensibles. `composer quality` verde (90 tests, 317 assertions).
 
-### TOTEM-BFF-10 — Calentamiento de caché en background
+### TOTEM-BFF-10 — Calentamiento de caché en background ✅ Cerrada 2026-08-19
 
-- [ ] Nuevo `app/Commands/WarmBffCache.php` (comando Spark, `app/Commands/`
-  no existe aún) — llama secuencialmente `shows()`, `courses()`,
-  `collectionItems()` por categoría, `techniques(true)`,
-  `catalogCategories(true)` en los 4 locales. Sin métodos de detalle (evita
-  fan-out no acotado). Estrictamente secuencial (ADR-010).
-- [ ] Registro del cron (scheduler nativo de CI4 si la versión instalada lo
-  soporta, o crontab documentado en el runbook de despliegue) cada ~5 min.
-- [ ] Delay fijo (200-300ms) entre llamadas — mitigación contra el throttle
-  de 60 req/60s del BFF.
-- [ ] Nuevo test `tests/unit/Commands/WarmBffCacheTest.php` con
-  `FakeBffCurlRequest`.
+- [x] Nuevo `app/Commands/WarmBffCache.php` (`php spark totem:warm-cache`)
+  — llama secuencialmente `shows()`, `courses()`, `collectionItems()` por
+  categoría (titeres/mascaras/payasos), `techniques(true)`,
+  `catalogCategories(true)` en los 4 locales (22 llamadas por corrida). Sin
+  métodos de detalle — evita fan-out no acotado.
+- [x] Registro del cron: confirmado que `codeigniter4/framework` 4.7.3 (la
+  versión instalada) no trae scheduler nativo (`Tasks`/`Scheduler`) —
+  documentada la línea de crontab exacta en `RELEASE.md` y
+  `docs/ops/offline-fallback-strategy.md`, cada 5 min.
+- [x] Delay de 250ms entre llamadas (`WarmBffCache::DELAY_MICROSECONDS`) —
+  mitigación contra el throttle de 60 req/60s del BFF. Estrictamente
+  secuencial, sin `curl_multi` (ADR-010).
+- [x] Nuevo test `tests/unit/Commands/WarmBffCacheTest.php` con
+  `FakeBffCurlRequest`: cubre las 22 llamadas exactas por corrida, que
+  nunca se llaman métodos de detalle, y que el comando no lanza excepción
+  cuando el BFF está completamente inalcanzable. `composer quality` verde
+  (93 tests, 399 assertions).
+- [x] Documentación actualizada: `README.md` (variables de entorno,
+  estructura del proyecto, sección "Resiliencia offline" reescrita —
+  describía repositorios de fallback y `TOTEM_API_URL`/`X-Totem-Key` que ya
+  no existen) y `docs/ops/offline-fallback-strategy.md` reescrito por
+  completo con el mismo hallazgo.
 
 ### TOTEM-BFF-11 — Evaluación de endpoint compuesto BFF (evaluar antes de construir)
 
