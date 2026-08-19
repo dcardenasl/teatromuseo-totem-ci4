@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Commands;
 
+use App\Presenters\BillboardPresenter;
 use App\Services\TotemApiResult;
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
@@ -21,9 +22,20 @@ use Config\Totem;
  * request path.
  *
  * Only calls the listing/facet methods every screen actually needs on cold
- * load — never per-slug detail methods, which are unbounded and would turn
- * this into an item-by-item fan-out (ADR-010 forbids that shape regardless
- * of whether it's client-parallel or just unbounded-sequential).
+ * load — never per-slug detail methods for the *whole* catalog, which would
+ * be unbounded and turn this into an item-by-item fan-out (ADR-010 forbids
+ * that shape regardless of whether it's client-parallel or just
+ * unbounded-sequential). The one deliberate exception (`TOTEM-BFF-18`) is
+ * Cartelera's own detail pages: the listing itself is already capped to the
+ * same 5 events the screen displays (`BillboardPresenter::presentList()`),
+ * so warming exactly those 5 slugs' detail pages is still bounded — and it
+ * is exactly what protects a visitor tapping into a displayed event from a
+ * bad-connectivity moment at the kiosk's physical location. TeatroEscuela
+ * has no equivalent: its 3 featured courses have no separate detail screen
+ * to warm (`BffTotemClient::course()` is unused dead capability, not a gap
+ * here), and Catálogo's categories are not capped the way Cartelera/
+ * TeatroEscuela are, so warming "every displayed piece's detail" there
+ * would not be bounded the same way — left out on purpose.
  */
 final class WarmBffCache extends BaseCommand
 {
@@ -49,15 +61,22 @@ final class WarmBffCache extends BaseCommand
         $counts  = ['fresh' => 0, 'stale' => 0, 'unavailable' => 0];
 
         foreach ($locales as $locale) {
-            $counts[$this->warm(fn (): TotemApiResult => $client->shows($locale), "shows/{$locale}")]++;
-            $counts[$this->warm(fn (): TotemApiResult => $client->courses($locale), "courses/{$locale}")]++;
-            $counts[$this->warm(fn (): TotemApiResult => $client->collectionItems($locale, category: 'titeres'), "collection-items/{$locale}/titeres")]++;
-            $counts[$this->warm(fn (): TotemApiResult => $client->collectionItems($locale, category: 'mascaras'), "collection-items/{$locale}/mascaras")]++;
-            $counts[$this->warm(fn (): TotemApiResult => $client->collectionItems($locale, category: 'payasos'), "collection-items/{$locale}/payasos")]++;
+            $showsResult = $this->warm(fn (): TotemApiResult => $client->shows($locale), "shows/{$locale}");
+            $counts[$showsResult->state]++;
+
+            foreach ($this->featuredEventSlugs($showsResult, $locale) as $slug) {
+                $detailResult = $this->warm(fn (): TotemApiResult => $client->show($locale, $slug), "shows/{$locale}/{$slug}");
+                $counts[$detailResult->state]++;
+            }
+
+            $counts[$this->warm(fn (): TotemApiResult => $client->courses($locale), "courses/{$locale}")->state]++;
+            $counts[$this->warm(fn (): TotemApiResult => $client->collectionItems($locale, category: 'titeres'), "collection-items/{$locale}/titeres")->state]++;
+            $counts[$this->warm(fn (): TotemApiResult => $client->collectionItems($locale, category: 'mascaras'), "collection-items/{$locale}/mascaras")->state]++;
+            $counts[$this->warm(fn (): TotemApiResult => $client->collectionItems($locale, category: 'payasos'), "collection-items/{$locale}/payasos")->state]++;
         }
 
-        $counts[$this->warm(fn (): TotemApiResult => $client->techniques(withCounts: true), 'techniques')]++;
-        $counts[$this->warm(fn (): TotemApiResult => $client->catalogCategories(withCounts: true), 'catalog-categories')]++;
+        $counts[$this->warm(fn (): TotemApiResult => $client->techniques(withCounts: true), 'techniques')->state]++;
+        $counts[$this->warm(fn (): TotemApiResult => $client->catalogCategories(withCounts: true), 'catalog-categories')->state]++;
 
         $line = sprintf(
             'fresh=%d stale=%d unavailable=%d',
@@ -70,12 +89,29 @@ final class WarmBffCache extends BaseCommand
     }
 
     /**
+     * The same up-to-5 slugs `billboard.php` actually links to — reusing
+     * the presenter's own selection (upcoming-first, filled from the most
+     * recent past) instead of re-implementing that rule here.
+     *
+     * @return list<string>
+     */
+    private function featuredEventSlugs(TotemApiResult $showsResult, string $locale): array
+    {
+        $slugs = [];
+        foreach ((new BillboardPresenter())->presentList($showsResult, $locale)['events'] as $event) {
+            if (is_string($event['slug'] ?? null) && $event['slug'] !== '') {
+                $slugs[] = $event['slug'];
+            }
+        }
+
+        return $slugs;
+    }
+
+    /**
      * Runs one warm-up call, reports it, and pauses before returning — the
      * pause lives here so every call site pays it uniformly.
-     *
-     * @return 'fresh'|'stale'|'unavailable'
      */
-    private function warm(callable $call, string $label): string
+    private function warm(callable $call, string $label): TotemApiResult
     {
         $result = $call();
 
@@ -91,6 +127,6 @@ final class WarmBffCache extends BaseCommand
         // not a workaround for anything broken.
         usleep($this->delayMicroseconds);
 
-        return $result->state;
+        return $result;
     }
 }

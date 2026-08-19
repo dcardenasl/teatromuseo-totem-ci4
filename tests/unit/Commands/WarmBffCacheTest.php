@@ -11,11 +11,15 @@ use Config\Services;
 use Tests\Support\FakeBffCurlRequest;
 
 /**
- * `TOTEM-BFF-10`: guards the background cache warm-up command against two
- * regressions — calling something other than the exact listing/facet
- * methods the screens use (which would either warm the wrong keys or start
- * an unbounded per-item fan-out ADR-010 forbids), and losing its strictly
- * sequential execution order (no `curl_multi`, no concurrency primitives).
+ * `TOTEM-BFF-10`/`TOTEM-BFF-18`: guards the background cache warm-up command
+ * against regressions — calling something other than the exact listing/
+ * facet methods the screens use (which would either warm the wrong keys or
+ * start an unbounded per-item fan-out ADR-010 forbids), losing its strictly
+ * sequential execution order (no `curl_multi`, no concurrency primitives),
+ * and — the one deliberate, still-bounded exception — not warming the
+ * individual detail pages for Cartelera's own up-to-5 featured events, so a
+ * visitor tapping into a displayed event is protected from a bad-connectivity
+ * moment at the kiosk's physical location.
  *
  * @internal
  */
@@ -54,7 +58,7 @@ final class WarmBffCacheTest extends CIUnitTestCase
         $this->assertCount(22, $fake->requests());
     }
 
-    public function testNeverCallsPerSlugDetailMethods(): void
+    public function testNeverCallsPerSlugDetailMethodsBeyondTheFeaturedEvents(): void
     {
         $fake = new FakeBffCurlRequest($this->responsesForEveryExpectedCall());
         Services::injectMock('totemApi', new BffTotemClient(Services::cache(), $fake));
@@ -62,17 +66,37 @@ final class WarmBffCacheTest extends CIUnitTestCase
         $this->runCommand();
 
         foreach ($fake->requests() as $request) {
-            $this->assertStringNotContainsString(
-                '/events/',
-                $request['url'],
-                'warm-up must never call a detail endpoint — only bounded listing/facet calls',
-            );
             $this->assertStringNotContainsString('/entries/teatroescuela/', $request['url']);
             $this->assertMatchesRegularExpression(
-                '#^(public-read/[a-z]{2}/(events|entries/teatroescuela|collection-items)|public/catalog/(techniques|categories))$#',
+                '#^(public-read/[a-z]{2}/(events(/[\w-]+)?|entries/teatroescuela|collection-items)|public/catalog/(techniques|categories))$#',
                 $request['url'],
+                'warm-up may only hit event detail endpoints (bounded to the featured events) or listing/facet calls',
             );
         }
+    }
+
+    public function testWarmsDetailPagesForCartelerasFeaturedEventsOnly(): void
+    {
+        $responses = $this->responsesForEveryExpectedCall();
+        foreach (['es', 'en', 'fr', 'pt'] as $locale) {
+            $responses["public-read/{$locale}/events"] = FakeBffCurlRequest::envelope([
+                ['id' => 1, 'slug' => "evento-1-{$locale}", 'title' => 'Evento uno'],
+                ['id' => 2, 'slug' => "evento-2-{$locale}", 'title' => 'Evento dos'],
+            ]);
+            $responses["public-read/{$locale}/events/evento-1-{$locale}"] = FakeBffCurlRequest::envelope(['title' => 'Evento uno']);
+            $responses["public-read/{$locale}/events/evento-2-{$locale}"] = FakeBffCurlRequest::envelope(['title' => 'Evento dos']);
+        }
+        $fake = new FakeBffCurlRequest($responses);
+        Services::injectMock('totemApi', new BffTotemClient(Services::cache(), $fake));
+
+        $this->runCommand();
+
+        foreach (['es', 'en', 'fr', 'pt'] as $locale) {
+            $this->assertSame(1, $fake->callCount("public-read/{$locale}/events/evento-1-{$locale}"));
+            $this->assertSame(1, $fake->callCount("public-read/{$locale}/events/evento-2-{$locale}"));
+        }
+        // 22 listing/facet calls (see the count assertion above) + 4 locales x 2 featured events.
+        $this->assertCount(30, $fake->requests());
     }
 
     public function testStaysAvailableWhenTheBffIsPartiallyUnreachable(): void
