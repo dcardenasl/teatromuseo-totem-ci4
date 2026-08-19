@@ -336,23 +336,43 @@ proactivo y verificación e2e real, no un rediseño.
   (`public-read/{locale}/pages/...`, mismo patrón que Web). Trabajo de
   contenido nuevo, no de resiliencia/caché — no mezclar con `TOTEM-BFF-09..13`.
 
-### TOTEM-BFF-16 — Colección: distinguir `unavailable` de vacío confirmado (hallazgo, no iniciar sin autorización explícita)
+### TOTEM-BFF-16 — Colección: distinguir `unavailable` de vacío confirmado ✅ Cerrada 2026-08-19
 
-- [ ] Hallazgo de `TOTEM-BFF-13`: a diferencia de Cartelera/TeatroEscuela/
-  `collectionMain()` (que sí llaman `TotemApiResult::isAvailable()`),
-  `collectionPuppetsExhibit()`/`collectionMasksExhibit()`/
-  `collectionClownsExhibit()`/`collectionTechniques()`/las "piezas
-  relacionadas" de `collectionTechnique()` y `collectionItem()` pasan
-  directo por `CollectionPresenter::exhibitCards()`/`techniqueCards()`, que
-  solo usan `$result->list()` — nunca comprueban el estado. Con el BFF
-  caído y sin caché, estas pantallas muestran la misma grilla vacía que
-  cuando genuinamente no hay piezas publicadas, en vez del
-  `content_unavailable.php` explícito que sí usan Cartelera/TeatroEscuela.
-  No es contenido inventado (la grilla vacía es honesta), pero sí es una
-  degradación silenciosa que un visitante no puede distinguir de "no hay
-  piezas en esta categoría". Requiere decisión de diseño (¿agregar el
-  mismo patrón `unavailable`/`content_unavailable` a cada pantalla de
-  exhibición?) antes de tocar controladores/presenters/vistas — no se
+- [x] Hallazgo de `TOTEM-BFF-13`, corregido a pedido explícito de David: a
+  diferencia de Cartelera/TeatroEscuela/`collectionMain()` (que sí llaman
+  `TotemApiResult::isAvailable()`), `collectionPuppetsExhibit()`/
+  `collectionMasksExhibit()`/`collectionClownsExhibit()`/
+  `collectionTechniques()` no distinguían "BFF caído" de "categoría
+  genuinamente vacía" — ambas mostraban la misma grilla vacía (o, en
+  máscaras/payasos, el mismo fallback curado con CTA). Alineado al mismo
+  patrón que ya usan Cartelera/TeatroEscuela:
+  - `CollectionController`: las 4 acciones ahora calculan
+    `'unavailable' => ! $result->isAvailable()` y lo pasan a la vista.
+  - `totem/partials/collection_grid.php`: nuevo parámetro `$unavailable` —
+    si es `true`, renderiza `content_unavailable.php`; si la lista está
+    genuinamente vacía, renderiza un panel honesto nuevo
+    (`Collection.no_items_title`/`no_items_copy`, agregado en `es/en/fr/pt`)
+    que antes no existía en absoluto (la grilla vacía no mostraba ningún
+    mensaje). Solo el bloque de datos se gatea — header/intro/tabs siempre
+    se muestran, mismo principio que `theater_school.php`.
+  - `collection_masks_exhibit.php`/`collection_clowns_exhibit.php`: su
+    fallback curado con CTA (hero + botones) queda reservado exclusivamente
+    para el caso "genuinamente vacío"; un BFF caído ahora muestra
+    `content_unavailable.php` en su lugar.
+  - `TotemRoutesTest::testPuppetsExhibitRoute`/`testMasksExhibitRoute`
+    codificaban el comportamiento viejo (sin BFF) como esperado — corregidos
+    para afirmar el estado honesto. Nueva cobertura en
+    `CollectionControllerTest`/`CollectionBffResilienceTest` para las 4
+    pantallas: unavailable, vacío confirmado y contenido real.
+    `composer quality`: 104 tests, 429 assertions.
+  - **Conscientemente fuera de este cierre:** las secciones de "piezas
+    relacionadas" dentro de `collectionTechnique()`/`collectionItem()`
+    (fichas de detalle, ya correctas en su contenido principal) no
+    distinguen unavailable en su mini-listado secundario — degradan a lista
+    vacía sin mensaje propio, análogo a como Cartelera no tiene
+    sub-secciones con fetch propio. Prioridad baja, se abre como oportunidad
+    de seguimiento si se vuelve a auditar Colección, no bloquea nada de lo
+    anterior.
   ejecuta en `TOTEM-BFF-13` para no expandir su alcance sin confirmación.
 
 ---

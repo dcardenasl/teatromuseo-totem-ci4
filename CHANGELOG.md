@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Honest unavailable state for Colección screens (TOTEM-BFF-16)** — `collectionPuppetsExhibit`,
+  `collectionMasksExhibit`, `collectionClownsExhibit` and `collectionTechniques` now distinguish
+  a genuinely unreachable BFF from a confirmed-empty category, matching the pattern Cartelera and
+  TeatroEscuela already used. A fully unreachable BFF now shows `content_unavailable.php`; a
+  genuinely empty category shows a new honest empty-state message (`Collection.no_items_*`,
+  added in all 4 locales) instead of a silently empty grid.
 - **BFF disconnection resilience tests (TOTEM-BFF-13)** — new `tests/feature/*BffResilienceTest.php`
   suites cover the one path unit tests never exercised: a populated cache serving real stale
   content when the BFF goes down, and falling back to the honest "unavailable" state once the
