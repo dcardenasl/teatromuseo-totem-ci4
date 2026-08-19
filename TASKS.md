@@ -220,18 +220,24 @@ proactivo y verificación e2e real, no un rediseño.
   no existen) y `docs/ops/offline-fallback-strategy.md` reescrito por
   completo con el mismo hallazgo.
 
-### TOTEM-BFF-11 — Evaluación de endpoint compuesto BFF (evaluar antes de construir)
+### TOTEM-BFF-11 — Evaluación de endpoint compuesto BFF ✅ Cerrada 2026-08-19 (no-go, diferido)
 
-- [ ] Medición (sin código): tasa de acierto de caché fresh bajo tráfico real
-  del kiosco + costo real de una carga en frío por pantalla hoy, vía los
-  `log_message()` que ya existen en `BffTotemClient::log()`.
-- [ ] Criterio go/no-go documentado: construir `public-read/{locale}/totem/screen-resolve/{screen}`
-  (mismo patrón que `page-resolve`) solo si las cargas en frío son un caso
-  común en producción y el ahorro medido es significativo. Si no, diferir y
-  documentar por qué en este `TASKS.md` y en el de `teatromuseo-bff`.
-- [ ] Explícitamente descartado, sin excepción salvo nueva ADR: cualquier
-  fan-out paralelo cliente→BFF (`curl_multi`, promesas, workers) — ADR-010 lo
-  prohíbe; ADR-008 documenta que Web ya lo intentó y lo revirtió.
+- [x] Análisis documentado en
+  [`../docs/audits/2026-08-19-totem-composite-endpoint-evaluation.md`](../docs/audits/2026-08-19-totem-composite-endpoint-evaluation.md):
+  revisadas todas las acciones de `BillboardController`/`SchoolController`/
+  `CollectionController` — solo 2 de ~15 hacen 2 llamadas BFF (fichas de
+  pieza/técnica + "relacionadas", ambas `LIMIT`-acotadas y baratas), el
+  resto hace exactamente 1. Tras `TOTEM-BFF-10` (warm-up), las cargas en
+  frío de listados prácticamente no ocurren en operación normal.
+- [x] **Decisión: no construir** `public-read/{locale}/totem/screen-resolve/{screen}`
+  — no hay caso de uso real que lo justifique; el ahorro sería marginal (un
+  round-trip menos en 2 pantallas de detalle) frente al costo de mantener
+  un endpoint compuesto nuevo. Criterio de reapertura documentado en el
+  audit doc.
+- [x] Confirmado descartado, sin excepción: cualquier fan-out paralelo
+  cliente→BFF (`curl_multi`, promesas, workers) — ADR-010 lo prohíbe;
+  ADR-008 documenta que Web ya lo intentó y lo revirtió. No aplica de
+  todos modos: no hay múltiples llamadas por pantalla que paralelizar.
 
 ### TOTEM-BFF-12 — Seguridad y optimización de API clients
 
