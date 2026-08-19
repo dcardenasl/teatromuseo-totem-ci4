@@ -1,11 +1,12 @@
 <?php
 /**
- * @var array<int, array{title:string, tag?:string, start?:string, copy?:string}> $courses
- * @var array{title:string, heroImage?:string, heroVideo?:string, heroVideoType?:string, heroAlt?:string, introCopy?:string, stats?:array, teachersTitle?:string, studentsTitle?:string, courseImage?:string, courseTitle?:string, courseTag?:string, courseStart?:string, courseCopy?:string, courseContactLabel?:string, courseContact?:string, courseQrUrl?:string, courseQrImage?:string, courseQrLabel?:string} $section
- * @var array<int, array{name:string, role:string, description:string, tone?:string}> $teachers
- * @var array<int, array{name:string, role:string, description:string, tone?:string}> $students
+ * @var array<int, array{title:string, tag?:string, start?:string, copy?:string, image?:string}> $courses
+ * @var array{title:string, heroImage?:string, heroVideo?:string, heroVideoType?:string, heroAlt?:string, introCopy?:string, stats?:array, teachersTitle?:string, coursesTitle?:string, courseImage?:string, courseTag?:string, courseTitle?:string, courseStart?:string, courseCopy?:string, courseContactLabel?:string, courseContact?:string, courseQrUrl?:string, courseQrImage?:string, courseQrLabel?:string} $section
+ * @var array<int, array{name:string, role:string, description:string, photo?:string, tone?:string}> $teachers
  * @var string $personPhoto
  * @var array $nav
+ * @var bool $unavailable
+ * @var bool $stale
  */
 ?>
 <?= $this->extend('layouts/MainLayout') ?>
@@ -13,7 +14,9 @@
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
         <div class="screen-page__body">
-            <?php if (isset($courses)): ?>
+                <?php if (!empty($stale)): ?>
+                    <p class="content-stale-note"><?= esc(lang('Common.content_stale_note')) ?></p>
+                <?php endif; ?>
                 <section class="school-page" aria-label="<?= esc(lang('Section.school_aria_label'), 'attr') ?>">
                     <div class="school-page__hero">
                         <figure
@@ -51,11 +54,13 @@
                         </div>
                     </div>
 
+                    <?php if ($teachers !== []): ?>
                     <section class="school-people-section" aria-label="<?= esc(lang('Section.teachers_label'), 'attr') ?>">
                         <h2 class="school-section-title"><?= esc($section['teachersTitle'] ?? lang('Section.teachers_label')) ?></h2>
 
                         <div class="school-people-rail" role="list" aria-label="<?= esc(lang('Section.teachers_label'), 'attr') ?>">
                             <?php foreach ($teachers as $teacher): ?>
+                                <?php $teacherPhoto = !empty($teacher['photo']) ? $teacher['photo'] : base_url($personPhoto); ?>
                                 <button
                                     type="button"
                                     class="teacher-card teacher-card--interactive <?= esc($teacher['tone'] ?? '') ?>"
@@ -67,12 +72,12 @@
                                     data-person-name="<?= esc($teacher['name'], 'attr') ?>"
                                     data-person-role="<?= esc($teacher['role'], 'attr') ?>"
                                     data-person-description="<?= esc($teacher['description'], 'attr') ?>"
-                                    data-person-photo="<?= esc(base_url($personPhoto), 'attr') ?>"
+                                    data-person-photo="<?= esc($teacherPhoto, 'attr') ?>"
                                     data-person-alt="<?= esc($teacher['name'], 'attr') ?>"
                                 >
                                     <span class="teacher-card__media" aria-hidden="true">
                                         <img
-                                            src="<?= esc(base_url($personPhoto), 'attr') ?>"
+                                            src="<?= esc($teacherPhoto, 'attr') ?>"
                                             alt=""
                                         >
                                     </span>
@@ -110,16 +115,24 @@
                             </div>
                         </div>
                     </div>
+                    <?php endif; ?>
 
                     <section class="school-courses" aria-label="<?= esc(lang('Section.courses_label'), 'attr') ?>">
                         <h2 class="school-section-title school-section-title--course"><?= esc($section['coursesTitle'] ?? lang('Section.courses_label')) ?></h2>
 
+                        <?php if ($unavailable): ?>
+                            <?= view('totem/partials/content_unavailable') ?>
+                        <?php elseif ($courses === []): ?>
+                            <div class="content-panel content-panel--soft">
+                                <p class="content-panel__text"><?= esc(lang('Section.school_no_courses_copy')) ?></p>
+                            </div>
+                        <?php endif; ?>
                         <?php foreach ($courses as $course): ?>
                             <article class="school-course">
                                 <div class="school-course__poster">
                                     <img
-                                        src="<?= esc(base_url($section['courseImage'] ?? 'assets/img/menu/menu_programacion.webp'), 'attr') ?>"
-                                        alt="<?= esc($section['courseTitle'] ?? lang('Section.course_title_placeholder'), 'attr') ?>"
+                                        src="<?= esc(media_url($course['image'] ?? $section['courseImage'] ?? 'assets/img/menu/menu_programacion.webp'), 'attr') ?>"
+                                        alt="<?= esc($course['title'] ?? lang('Section.course_title_placeholder'), 'attr') ?>"
                                     >
                                 </div>
 
@@ -168,5 +181,4 @@
     ]) ?>
 
     <script src="<?= base_url('assets/js/school-modal.js') ?>"></script>
-<?php endif; ?>
 <?= $this->endSection() ?>
