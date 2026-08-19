@@ -239,17 +239,28 @@ proactivo y verificación e2e real, no un rediseño.
   ADR-008 documenta que Web ya lo intentó y lo revirtió. No aplica de
   todos modos: no hay múltiples llamadas por pantalla que paralelizar.
 
-### TOTEM-BFF-12 — Seguridad y optimización de API clients
+### TOTEM-BFF-12 — Seguridad y optimización de API clients ✅ Cerrada 2026-08-19
 
-- [ ] Confirmar `TOTEM_BFF_API_KEY` rotable independientemente de
-  `WEB_API_KEY`/`BFF_API_KEY` (ya es así por diseño — documentar como
-  verificado).
-- [ ] Abrir recomendación cross-repo en `teatromuseo-bff/TASKS.md`: soporte
-  de request condicional (`ETag`/`If-None-Match`) en `public-read`,
-  aprovechando `meta.source_revision` (hoy no conectado a ningún
-  short-circuit 304). No se ejecuta en este repo — afecta también a Web.
-- [ ] Documentar como decisión consciente de diferir (no omisión):
-  single-flight lock en el tótem — kiosco de sesión única, prioridad baja.
+- [x] Confirmado `TOTEM_BFF_API_KEY` rotable independientemente de
+  `WEB_API_KEY`/`BFF_API_KEY`: `teatromuseo-bff/app/Filters/WebAppKeyRequiredFilter.php`
+  mapea cada clave configurada a una identidad de llamador distinta
+  (`web`/`totem`) vía `hash_equals`; rotar `TOTEM_BFF_API_KEY` en ambos
+  `.env` no afecta al sitio público.
+- [x] Abierta recomendación cross-repo en `teatromuseo-bff/TASKS.md`
+  ("Soporte de request condicional (`ETag`/`If-None-Match`) en
+  `public-read`", 2026-08-19): `meta.source_revision` ya existe pero no
+  está conectado a ningún short-circuit 304 — afecta a Web también, no se
+  ejecuta desde este repo.
+- [x] Documentado como decisión consciente de diferir (no omisión):
+  single-flight lock en el tótem. A diferencia de `teatromuseo-web`
+  (tráfico orgánico concurrente, de ahí su `SingleFlightLock`), un kiosco
+  físico tiene una sola sesión de navegador activa — no hay carga
+  concurrente de visitantes que colapsar. Revisar solo si el warm-up
+  (`TOTEM-BFF-10`) y una visita real llegan a competir de forma observable
+  en producción.
+- [x] Staggering de requests ante resync post-apagón: ya cubierto por el
+  delay de 250ms entre llamadas de `WarmBffCache` (`TOTEM-BFF-10`) — sin
+  trabajo adicional.
 
 ### TOTEM-BFF-13 — Pruebas de desconexión y verificación (cierra TOTEM-BFF-06)
 
