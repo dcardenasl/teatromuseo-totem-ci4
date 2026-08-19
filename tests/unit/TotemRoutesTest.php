@@ -168,13 +168,15 @@ final class TotemRoutesTest extends CIUnitTestCase
 
     public function testPuppetsExhibitRoute(): void
     {
+        // No BFF is running in this test environment, so this is really
+        // exercising the "source unavailable" path end-to-end: the screen
+        // must render 200 with an honest empty grid, never invented pieces.
         $result = $this->get('museo/coleccion/titeres/exhibicion');
 
         $result->assertStatus(200);
         $result->assertSee('collection-grid--exhibit');
         $result->assertSee('Títeres en exhibición');
         $result->assertSee('Técnicas');
-        $result->assertSee('Mamulengo, Cholito.');
     }
 
     public function testMasksExhibitRoute(): void
@@ -203,21 +205,23 @@ final class TotemRoutesTest extends CIUnitTestCase
 
     public function testCollectionItemDetailRoute(): void
     {
+        // No BFF is running here either — the source-unavailable path must
+        // render 200 with the honest "content unavailable" panel, not a 404
+        // (a 404 would wrongly claim the piece doesn't exist) and not any
+        // invented item content.
         $result = $this->get('museo/coleccion/fichas/tg1');
 
         $result->assertStatus(200);
-        $result->assertSee('Mamulengo, Cholito.');
-        $result->assertSee('Conocer técnica');
-        $result->assertSee('País de origen');
-        $result->assertSee('TG1');
+        $result->assertSee(lang_str('Common.content_unavailable_title'));
         $result->assertDontSee('collection-section-nav');
     }
 
     public function testTheaterSchoolRoute(): void
     {
+        // No BFF running: honest "unavailable" state, not fake course content.
         $result = $this->get('teatro-escuela');
         $result->assertStatus(200);
-        $result->assertSee('Teatro escuela');
+        $result->assertSee(lang_str('Common.content_unavailable_title'));
     }
 
     public function testBillboardRoute(): void

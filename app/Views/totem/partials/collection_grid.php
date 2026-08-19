@@ -35,7 +35,7 @@ $footer = $footer ?? '';
                 <div class="collection-card__media" aria-hidden="true">
                     <img
                         class="collection-card__image"
-                        src="<?= esc(base_url($item['image'] ?? ''), 'attr') ?>"
+                        src="<?= esc(media_url($item['image'] ?? ''), 'attr') ?>"
                         alt=""
                         loading="lazy"
                     >

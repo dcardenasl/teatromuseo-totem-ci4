@@ -1,7 +1,7 @@
 <?php
 /**
- * @var array<int, object> $sections Ítems de colección a renderear
- * @var array $nav                    Navegación shell
+ * @var array<int, array<string, mixed>> $sections Ítems de colección a renderear
+ * @var array $nav                                 Navegación shell
  */
 ?>
 <?= $this->extend('layouts/MainLayout') ?>

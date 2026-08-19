@@ -1,7 +1,8 @@
 <?php
 /**
- * @var array<string, mixed> $technique
+ * @var array<string, mixed>|null $technique
  * @var array $nav
+ * @var bool $unavailable
  */
 ?>
 <?= $this->extend('layouts/MainLayout') ?>
@@ -9,14 +10,17 @@
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
         <div class="collection-detail collection-detail--technique">
+        <?php if ($unavailable || $technique === null): ?>
+            <?= view('totem/partials/content_unavailable') ?>
+        <?php else: ?>
             <?= view('totem/partials/collection_detail_stage', [
                 'eyebrow'      => lang('Collection.technique_detail_eyebrow'),
                 'title'        => $technique['title'] ?? '',
                 'subtitle'     => $technique['subtitle'] ?? '',
                 'image'        => $technique['image'] ?? '',
                 'imageAlt'     => $technique['title'] ?? '',
-                'previousHref' => $technique['previousHref'] ?? 'museo/coleccion/titeres/tecnicas/titere-de-hilo',
-                'nextHref'     => $technique['nextHref'] ?? 'museo/coleccion/titeres/tecnicas/titere-de-guante',
+                'previousHref' => $technique['previousHref'] ?? 'museo/coleccion/titeres/tecnicas',
+                'nextHref'     => $technique['nextHref'] ?? 'museo/coleccion/titeres/tecnicas',
             ]) ?>
 
             <section class="collection-detail__body">
@@ -50,6 +54,7 @@
                     </a>
                 </div>
             </section>
+        <?php endif; ?>
         </div>
     <?php $content = ob_get_clean(); ?>
 
