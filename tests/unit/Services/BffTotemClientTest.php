@@ -95,11 +95,7 @@ final class BffTotemClientTest extends CIUnitTestCase
         ]));
         $successfulClient->shows('es');
 
-        $keyReflection = new ReflectionClass($successfulClient);
-        $cacheKeyMethod = $keyReflection->getMethod('cacheKey');
-        $cacheKeyMethod->setAccessible(true);
-        $freshKey = $cacheKeyMethod->invoke($successfulClient, $path, $query);
-        Services::cache()->delete($freshKey);
+        $this->deleteFreshCache($successfulClient, $path, $query);
 
         $failingClient = new BffTotemClient(Services::cache(), new FakeBffCurlRequest(failTransport: true));
         $result = $failingClient->shows('es');
@@ -147,5 +143,73 @@ final class BffTotemClientTest extends CIUnitTestCase
 
         putenv('TOTEM_BFF_API_KEY');
         unset($_ENV['TOTEM_BFF_API_KEY'], $_SERVER['TOTEM_BFF_API_KEY']);
+    }
+
+    public function testConfirmedNotFoundDoesNotFallBackToStaleContent(): void
+    {
+        $path = 'public-read/es/events';
+        $query = [
+            'sort' => 'agenda',
+            'per_page' => 100,
+            'fields' => 'id,title,localized,cover_image,slug,next_occurrence_at,last_occurrence_at',
+        ];
+
+        $successfulClient = new BffTotemClient(Services::cache(), new FakeBffCurlRequest([
+            $path => FakeBffCurlRequest::envelope([['id' => 4, 'title' => 'Removed show']]),
+        ]));
+        $successfulClient->shows('es');
+        $this->deleteFreshCache($successfulClient, $path, $query);
+
+        $missingClient = new BffTotemClient(Services::cache(), new FakeBffCurlRequest([
+            $path => FakeBffCurlRequest::notFound(),
+        ]));
+        $result = $missingClient->shows('es');
+
+        self::assertSame('fresh', $result->state);
+        self::assertSame([], $result->list());
+    }
+
+    public function testInvalidJsonFallsBackToTheLastSuccessfulResponse(): void
+    {
+        $path = 'public-read/es/events';
+        $query = [
+            'sort' => 'agenda',
+            'per_page' => 100,
+            'fields' => 'id,title,localized,cover_image,slug,next_occurrence_at,last_occurrence_at',
+        ];
+
+        $successfulClient = new BffTotemClient(Services::cache(), new FakeBffCurlRequest([
+            $path => FakeBffCurlRequest::envelope([['id' => 5, 'title' => 'Last valid show']]),
+        ]));
+        $successfulClient->shows('es');
+        $this->deleteFreshCache($successfulClient, $path, $query);
+
+        $invalidClient = new BffTotemClient(Services::cache(), new FakeBffCurlRequest([
+            $path => ['status' => 200, 'body' => 'not-an-envelope'],
+        ]));
+        $result = $invalidClient->shows('es');
+
+        self::assertSame('stale', $result->state);
+        self::assertSame([['id' => 5, 'title' => 'Last valid show']], $result->list());
+    }
+
+    public function testTransportFailureWithoutAStaleCopyIsExplicitlyUnavailable(): void
+    {
+        $client = new BffTotemClient(Services::cache(), new FakeBffCurlRequest(failTransport: true));
+
+        $result = $client->shows('es');
+
+        self::assertSame('unavailable', $result->state);
+        self::assertTrue($result->isEmpty());
+    }
+
+    /** @param array<string, mixed> $query */
+    private function deleteFreshCache(BffTotemClient $client, string $path, array $query): void
+    {
+        $keyReflection = new ReflectionClass($client);
+        $cacheKeyMethod = $keyReflection->getMethod('cacheKey');
+        $cacheKeyMethod->setAccessible(true);
+        $freshKey = $cacheKeyMethod->invoke($client, $path, $query);
+        Services::cache()->delete($freshKey);
     }
 }
