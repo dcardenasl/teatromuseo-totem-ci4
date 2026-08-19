@@ -313,15 +313,19 @@ proactivo y verificación e2e real, no un rediseño.
   "Oleada 3" ("simular desconexión total", "asegurar carga graceful desde
   caché"), citando los tests nuevos como evidencia.
 
-### TOTEM-BFF-14 — Re-triage de "Saneamiento arquitectónico" (fuera del roadmap principal)
+### TOTEM-BFF-14 — Re-triage de "Saneamiento arquitectónico" ✅ Cerrada 2026-08-19
 
-- [ ] Verificar item por item la sección histórica de abajo contra el código
-  real — ya se confirmó independientemente que al menos 2 ítems
-  (`HealthController`, `DatePresenter`) están resueltos pese a figurar como
-  pendientes. Cerrar lo ya hecho, descartar lo que describe la arquitectura
-  pre-migración, conservar solo lo genuinamente pendiente (candidatos:
-  `docker-compose.yml`, CI sin `release.yml`/`security.yml`/`dependabot.yml`/
-  matriz de PHP/`composer audit`).
+- [x] Verificados los 12 ítems de `TOT-01` uno por uno contra el código real
+  (ver la sección reescrita arriba, "Saneamiento arquitectónico — re-triado
+  2026-08-19"): **9 de 12 ya estaban resueltos** (test:feature, alias de
+  scripts, `docker-compose.yml`, matriz de PHP en CI, capa HTTP unificada,
+  triple decorador colapsado, repos de fallback ya inexistentes,
+  `DatePresenter` con guard, `Database.php` con SQLite `:memory:`,
+  `.gitignore` con `.env.*`, hooks de git vía composer). Quedan **2
+  genuinamente pendientes** (CI sin `release.yml`/`security.yml`/
+  `dependabot.yml`/`composer audit`; taxonomía de secciones históricas sin
+  migrar — bajo valor) y **1 sin confirmar** (Tailwind/JS build — puede ser
+  simplificación deliberada, no actuar sin confirmar con David).
 
 ### TOTEM-BFF-15 — Pantallas huérfanas (fuera del roadmap principal, no iniciar sin autorización explícita)
 
@@ -353,56 +357,64 @@ proactivo y verificación e2e real, no un rediseño.
 
 ---
 
-## 🟡 Saneamiento arquitectónico (auditoría 2026-08-05, histórico)
+## 🟡 Saneamiento arquitectónico (auditoría 2026-08-05, re-triado 2026-08-19 — `TOTEM-BFF-14`)
 
-> Los ítems de esta sección describen el estado pre-BFF y se conservan como
-> registro histórico. Para Cartelera, TeatroEscuela y Catálogo, la fuente de
-> verdad vigente es TOTEM-BFF-01..08; no reintroducir `TotemApiService`,
-> `X-Totem-Key`, fallbacks ni las rutas `/api/v1/totem/*` mencionadas abajo.
+> Los ítems de esta sección describían el estado pre-BFF (2026-08-05). Para
+> Cartelera, TeatroEscuela y Catálogo, la fuente de verdad vigente es
+> `TOTEM-BFF-01..13`; no reintroducir `TotemApiService`, `X-Totem-Key`,
+> fallbacks ni las rutas `/api/v1/totem/*` mencionadas en secciones
+> históricas más abajo.
 
-> **Contexto, evidencia y rutas exactas:** [`../docs/plan/2026-08-05-saneamiento-arquitectonico.md`](../docs/plan/2026-08-05-saneamiento-arquitectonico.md)
->
-> **Decisión tomada: alineación completa con la flota** (manteniendo el despliegue FTP).
-> Esta app quedó fuera de línea respecto de las otras siete en casi todos los ejes de tooling.
-> Empezar por `TOT-02`, que es el único bug funcional.
+> **Contexto, evidencia y rutas exactas (2026-08-05):** [`../docs/plan/2026-08-05-saneamiento-arquitectonico.md`](../docs/plan/2026-08-05-saneamiento-arquitectonico.md)
 
-### TOT-01 — Alineación con la flota (parcial — ver ítems marcados)
+### TOT-01 — Alineación con la flota — re-triado 2026-08-19
 
-- [ ] **Añadir `test:feature`** (falta) y unificar los alias de scripts: aquí son `lint`/`analyse`,
-  en la familia API son `cs-check`/`phpstan`.
-- [ ] **Completar el CI:** faltan `release.yml`, `security.yml` y `dependabot.yml`, y no hay matriz
-  de PHP (una sola versión, declarando `"php": "^8.2"`). Tampoco hay `composer audit`. Es la app que
-  se despliega a producción y tiene el CI más débil de la flota.
-- [ ] **Añadir `docker-compose.yml`.** Hay `Dockerfile` pero no compose: se puede construir pero no
-  levantar en el stack local documentado.
-- [ ] **Incorporar a la cadena de build compartida:** hoy sin Tailwind, sin build de JS, sin husky,
-  sin `engines` ni `packageManager` fijados — a diferencia de admin y web.
-- [ ] **Unificar la capa HTTP.** Hay **dos modismos distintos dentro de la misma app**:
-  `Services::curlrequest()` en `app/Services/TotemApiService.php:42` y `curl_init` crudo en
-  `app/Controllers/HealthController.php:57`. Faltan además: reintentos en 5xx (el admin reintenta
-  los GET dos veces con backoff), propagación de `X-Request-ID`, y — lo más grave — **todos los
-  caminos de error devuelven `[]`** (no-2xx, JSON inválido, excepción, y hasta el fallo al construir
-  el cliente), así que una caída total del upstream es **indistinguible de contenido vacío**.
-- [ ] **Colapsar el triple decorador manual de `TotemApiInterface`.**
-  `TotemApiService` (256 l) + `CachedTotemApiService` (154 l) + `FileCachedTotemApiService` (220 l):
-  cada método de la interfaz está reescrito tres veces a mano. Añadir un endpoint obliga a tocar
-  cuatro archivos.
-- [ ] **Registrar los repositorios de respaldo en `Config/Services`** en vez de instanciarlos en
-  línea como valores por defecto de constructor. `app/Controllers/BillboardController.php:37` hace
-  `new \App\Repositories\BillboardFallbackRepository()` **directamente**, además de usar el
-  presenter que ya lo tiene.
-- [ ] **Unificar el formateo de fecha localizada con `teatromuseo-web`.**
-  `app/Presenters/DatePresenter.php:19,36` usa `IntlDateFormatter` **sin la guarda `class_exists`**
-  que sí tiene `web/app/Common.php:309` (`format_localized_date()`), más patrones `sprintf` por
-  idioma escritos a mano (`Section.school_start_en|fr|pt|es`). Ambas apps renderizan los mismos
-  eventos y cursos para los mismos 4 idiomas.
-- [ ] **Blindar `app/Config/Database.php`.** Arrastra el grupo por defecto de CI4
-  (`'hostname' => 'localhost'`, `'DBDriver' => 'MySQLi'`) pese a que la app es stateless. Adoptar el
-  patrón del BFF (`:memory:` + SQLite3 + comentario explicando que no hay BD propia).
-- [ ] **Añadir el glob `.env.*` a `.gitignore`** (solo esta app y `teatromuseo-web` no lo tienen).
-- [ ] **`DOC-01` — Migrar este tracker a la taxonomía del resto de la flota**
-  (`🔴 En progreso` / `🟡 Próximo` / `✅ Completadas`) en vez de "Pendientes técnicos inmediatos",
-  y triar las 45 casillas abiertas de abajo: varias pueden estar ya resueltas.
+**Ya resueltos (verificado contra el código real, no contra la checklist vieja):**
+
+- [x] `composer test:feature` ya existe y ya no está vacío — `TOTEM-BFF-13`
+  agregó 3 suites reales en `tests/feature/`.
+- [x] Alias `cs-check`/`phpstan` ya coexisten con `lint`/`analyse`
+  (`composer.json:71-72`) — ambas convenciones disponibles.
+- [x] `docker-compose.yml` ya existe en la raíz del repo.
+- [x] Matriz de PHP en CI ya existe: `.github/workflows/ci.yml` corre
+  `php-version: ['8.2', '8.3', '8.4', '8.5']`.
+- [x] Capa HTTP ya unificada: un solo `BffTotemClient` (`Services::curlrequest()`
+  con `baseURI` correcto), `HealthController` también usa
+  `Services::curlrequest()` — cero `curl_init` crudo. Reintentos en 5xx con
+  backoff y propagación de `X-Request-ID` ya implementados
+  (`BffTotemClient::fetch()`). Todo camino de error devuelve un
+  `TotemApiResult` tipado, nunca un `[]` ambiguo.
+- [x] Triple decorador de `TotemApiInterface` ya colapsado en un único
+  `BffTotemClient` (`TOTEM-BFF-01`).
+- [x] Repositorios de fallback ya no existen (`app/Repositories/` eliminado
+  por completo en `TOTEM-BFF-05`) — el ítem sobre registrarlos en
+  `Config/Services` quedó sin objeto.
+- [x] `DatePresenter` ya usa la guarda `class_exists(IntlDateFormatter::class)`
+  antes de instanciar (líneas 32, 111) — verificado por lectura directa.
+- [x] `app/Config/Database.php` ya usa SQLite `:memory:` (verificado en
+  `TOTEM-BFF-05`, sin cambio necesario).
+- [x] `.gitignore` ya cubre `.env.*` (línea 45).
+- [x] Hooks de git (`pre-commit`/`pre-push`) ya se instalan automáticamente
+  vía `composer.json` (`post-install-cmd`/`post-update-cmd`) — no se
+  necesita husky para esto; es un mecanismo válido y ya funcional para una
+  app PHP sin framework JS.
+
+**Genuinamente pendientes (confirmado, no resuelto):**
+
+- [ ] CI todavía sin `release.yml`, `security.yml`, `dependabot.yml`, ni
+  `composer audit` (ni como script ni inline en `ci.yml`) — sigue siendo el
+  CI más débil de la flota en este eje específico, y es la app que se
+  despliega a producción.
+- [ ] Sin Tailwind/build de JS/`engines`/`packageManager` fijados en
+  `package.json` — **no confirmado que sea un gap real**: el tótem no tiene
+  framework JS (solo PostCSS para CSS) y puede ser una simplificación
+  deliberada dado que es un kiosko sin lógica de cliente compleja. No
+  actuar sin confirmar la intención con David.
+- [ ] La taxonomía `🔴 En progreso`/`🟡 Próximo`/`✅ Completadas` ya se usa
+  en los tracks nuevos (`TOTEM-BFF-*`, `DEPLOY-ALIGN-*`) pero las secciones
+  históricas de abajo (`🔌`, `⏳`, `🎨`, `📅`, `🌊`, `🗺️`) no se migraron —
+  de bajo valor reescribir retroactivamente contenido histórico ya
+  archivable; no se ejecuta aquí.
 
 ---
 
