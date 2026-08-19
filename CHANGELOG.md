@@ -20,6 +20,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Cache backend persistence (TOTEM-BFF-09)** — switched the primary cache handler from
+  `apcu` (in-process memory, wiped on PHP-FPM restart/deploy) to `file` (disk-backed), so the
+  fresh/stale BFF cache survives restarts and deploys instead of silently losing hours of
+  offline resilience. Added `TOTEM_BFF_TIMEOUT_SECONDS` env var so the BFF HTTP client timeout
+  is configurable instead of hardcoded.
 - **Fleet configuration** — aligned base URL and Totem API URL with the fleet port conventions.
 - **Quality workflow** — aligned Composer scripts and Git hooks with workspace conventions.
 - **Collection and school view contracts** — updated presenters and views to expose

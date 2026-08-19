@@ -165,6 +165,112 @@ Historia del museo y las tradiciones de máscaras quedan fuera de este plan.
 
 ---
 
+## 🟡 Endurecimiento post-BFF — Resiliencia offline y verificación (2026-08-19)
+
+Fuente de verdad:
+[`../docs/plan/2026-08-19-plan-totem-endurecimiento-post-bff.md`](../docs/plan/2026-08-19-plan-totem-endurecimiento-post-bff.md).
+Auditoría posterior a `TOTEM-BFF-01..08`: confirma que la migración al BFF ya
+quedó bien resuelta y acota el trabajo real pendiente frente al objetivo de
+resiliencia offline de "horas o días" — persistencia de caché, calentamiento
+proactivo y verificación e2e real, no un rediseño.
+
+### TOTEM-BFF-09 — Persistencia de caché, timeout configurable y pase de seguridad ✅ Cerrada 2026-08-19
+
+- [x] `app/Config/Cache.php`: `$handler = 'apcu'` (memoria, se pierde en cada
+  restart de PHP-FPM/deploy) → `$handler = 'file'` (disco, mismo patrón que
+  `teatromuseo-web`). Es la precondición real para que la caché "stale" de
+  24h sobreviva un reinicio — hoy no la sobrevive.
+- [x] `app/Services/BffTotemClient.php` y `app/Controllers/HealthController.php`:
+  timeout hardcodeado `5` → `getenv('TOTEM_BFF_TIMEOUT_SECONDS')` con guard
+  `is_numeric`, mismo patrón que `TOTEM_CACHE_TTL_SECONDS`/`TOTEM_STALE_TTL_SECONDS`.
+- [x] `env`/`.env`: agregado `TOTEM_BFF_TIMEOUT_SECONDS` (default 5).
+- [x] Pase de seguridad: `BffTotemClient::log()` solo registra
+  timestamp/path/duration/status/success/error, nunca la clave ni el header
+  `X-App-Key` (verificado leyendo el método `log()` completo). `.gitignore`
+  ya cubre `.env*` y `/writable/cache/*` (líneas 44-46, 59-60). El helper de
+  deploy (`scripts/deploy_ftp.py`) ya excluye `writable/` de cada subida — el
+  contenido de `writable/cache/` nunca viaja al hosting vía FTP y persiste
+  localmente entre deploys, reforzando por qué el cambio a `file` es
+  efectivo. `fields=` allowlists en `BffTotemClient` (`shows()`, `show()`,
+  `courses()`, etc.) solo incluyen columnas ya públicas para el sitio web —
+  sin datos sensibles. `composer quality` verde (90 tests, 317 assertions).
+
+### TOTEM-BFF-10 — Calentamiento de caché en background
+
+- [ ] Nuevo `app/Commands/WarmBffCache.php` (comando Spark, `app/Commands/`
+  no existe aún) — llama secuencialmente `shows()`, `courses()`,
+  `collectionItems()` por categoría, `techniques(true)`,
+  `catalogCategories(true)` en los 4 locales. Sin métodos de detalle (evita
+  fan-out no acotado). Estrictamente secuencial (ADR-010).
+- [ ] Registro del cron (scheduler nativo de CI4 si la versión instalada lo
+  soporta, o crontab documentado en el runbook de despliegue) cada ~5 min.
+- [ ] Delay fijo (200-300ms) entre llamadas — mitigación contra el throttle
+  de 60 req/60s del BFF.
+- [ ] Nuevo test `tests/unit/Commands/WarmBffCacheTest.php` con
+  `FakeBffCurlRequest`.
+
+### TOTEM-BFF-11 — Evaluación de endpoint compuesto BFF (evaluar antes de construir)
+
+- [ ] Medición (sin código): tasa de acierto de caché fresh bajo tráfico real
+  del kiosco + costo real de una carga en frío por pantalla hoy, vía los
+  `log_message()` que ya existen en `BffTotemClient::log()`.
+- [ ] Criterio go/no-go documentado: construir `public-read/{locale}/totem/screen-resolve/{screen}`
+  (mismo patrón que `page-resolve`) solo si las cargas en frío son un caso
+  común en producción y el ahorro medido es significativo. Si no, diferir y
+  documentar por qué en este `TASKS.md` y en el de `teatromuseo-bff`.
+- [ ] Explícitamente descartado, sin excepción salvo nueva ADR: cualquier
+  fan-out paralelo cliente→BFF (`curl_multi`, promesas, workers) — ADR-010 lo
+  prohíbe; ADR-008 documenta que Web ya lo intentó y lo revirtió.
+
+### TOTEM-BFF-12 — Seguridad y optimización de API clients
+
+- [ ] Confirmar `TOTEM_BFF_API_KEY` rotable independientemente de
+  `WEB_API_KEY`/`BFF_API_KEY` (ya es así por diseño — documentar como
+  verificado).
+- [ ] Abrir recomendación cross-repo en `teatromuseo-bff/TASKS.md`: soporte
+  de request condicional (`ETag`/`If-None-Match`) en `public-read`,
+  aprovechando `meta.source_revision` (hoy no conectado a ningún
+  short-circuit 304). No se ejecuta en este repo — afecta también a Web.
+- [ ] Documentar como decisión consciente de diferir (no omisión):
+  single-flight lock en el tótem — kiosco de sesión única, prioridad baja.
+
+### TOTEM-BFF-13 — Pruebas de desconexión y verificación (cierra TOTEM-BFF-06)
+
+- [ ] Pase manual único con BFF (:8188) y Tótem (:8186) reales: recorrer
+  Cartelera/TeatroEscuela/Catálogo en los 4 idiomas; confirmar
+  `show_in_totem=0` oculto en tótem pero visible en Web; matar el proceso
+  del BFF a mitad de sesión y confirmar contenido stale real (no error);
+  agotar el TTL stale con el BFF caído y confirmar `content_unavailable.php`.
+- [ ] Cobertura automatizada nueva en `tests/feature/` (hoy vacío salvo
+  `.gitkeep`): `BillboardBffResilienceTest.php`, `SchoolBffResilienceTest.php`,
+  `CollectionBffResilienceTest.php` con `FeatureTestTrait` +
+  `FakeBffCurlRequest`, cubriendo fresh/stale-acotado/unavailable-acotado a
+  nivel de HTML renderizado.
+- [ ] Cerrar `TOTEM-BFF-06` por completo y marcar los 2 checkboxes de
+  "Oleada 3" ("simular desconexión total", "asegurar carga graceful desde
+  caché"), citando los tests nuevos como evidencia.
+
+### TOTEM-BFF-14 — Re-triage de "Saneamiento arquitectónico" (fuera del roadmap principal)
+
+- [ ] Verificar item por item la sección histórica de abajo contra el código
+  real — ya se confirmó independientemente que al menos 2 ítems
+  (`HealthController`, `DatePresenter`) están resueltos pese a figurar como
+  pendientes. Cerrar lo ya hecho, descartar lo que describe la arquitectura
+  pre-migración, conservar solo lo genuinamente pendiente (candidatos:
+  `docker-compose.yml`, CI sin `release.yml`/`security.yml`/`dependabot.yml`/
+  matriz de PHP/`composer audit`).
+
+### TOTEM-BFF-15 — Pantallas huérfanas (fuera del roadmap principal, no iniciar sin autorización explícita)
+
+- [ ] `/museo/historia/:slug`, `/museo/el-museo/edificio`,
+  `/museo/el-museo/institucion`, `/extension` siguen con "Mock notice",
+  explícitamente fuera del alcance de `TOTEM-BFF-01..08`. "Historia del
+  museo" es candidato natural por ser ya una página CMS estándar
+  (`public-read/{locale}/pages/...`, mismo patrón que Web). Trabajo de
+  contenido nuevo, no de resiliencia/caché — no mezclar con `TOTEM-BFF-09..13`.
+
+---
+
 ## 🟡 Saneamiento arquitectónico (auditoría 2026-08-05, histórico)
 
 > Los ítems de esta sección describen el estado pre-BFF y se conservan como
