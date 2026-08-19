@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **BFF disconnection resilience tests (TOTEM-BFF-13)** — new `tests/feature/*BffResilienceTest.php`
+  suites cover the one path unit tests never exercised: a populated cache serving real stale
+  content when the BFF goes down, and falling back to the honest "unavailable" state once the
+  stale copy is also gone. Verified live against real `teatromuseo-bff`/`teatromuseo-totem-ci4`
+  servers, not just test doubles.
 - **Background BFF cache warm-up (TOTEM-BFF-10)** — new `php spark totem:warm-cache`
   command proactively refreshes the fresh/stale cache for every kiosk screen across all
   4 locales, instead of relying solely on visitor traffic to populate it. Meant to run on

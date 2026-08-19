@@ -145,17 +145,23 @@ Historia del museo y las tradiciones de máscaras quedan fuera de este plan.
   (Tótem → BFF `public-read`, `TOTEM_BFF_API_KEY`). Documentación raíz del
   monorepo pendiente — ver TOTEM-BFF-07 abajo.
 
-### TOTEM-BFF-06 — Verificación local y e2e pendiente
+### TOTEM-BFF-06 — Verificación local y e2e ✅ Cerrada 2026-08-19 (ver evidencia en `TOTEM-BFF-13`)
 
 - [x] `composer quality` verde en Tótem: 90 tests y 317 assertions.
 - [x] El cliente real se construye con `baseURI` y una base `/api/v1/`; el
   health check consulta `/ready` con la misma convención.
 - [x] Hay cobertura de caché fresh/stale, 404 confirmado, JSON inválido,
   reintentos ante 5xx, cabeceras y fallos de transporte.
-- [ ] Ejecutar smoke HTTP contra el stack local completo y verificar Cartelera,
-  TeatroEscuela, Catálogo, la curación `show_in_totem` y el camino stale con
-  el BFF detenido. No se marca como hecho porque los servidores no estaban
-  levantados durante esta sesión.
+- [x] Smoke HTTP ejecutado contra el stack local real (`TOTEM-BFF-13`,
+  2026-08-19): Cartelera y TeatroEscuela verificados con datos reales,
+  camino stale confirmado matando el BFF real y borrando solo la entrada
+  fresh en disco. Catálogo y la curación `show_in_totem` **no verificables
+  en este entorno** — `catalog-domain` no tiene filas sembradas en
+  `collection_items` en este sandbox (confirmado con `GET collection-items`
+  directo, con y sin curación); queda cubierto solo por el test dedicado
+  del lado BFF (`TotemCurationTest.php`). No es un bloqueante de código —
+  es una limitación de datos de este entorno local, ya documentada desde
+  la sesión 2026-08-18/19 anterior.
 
 ### TOTEM-BFF-07 — Documentación cross-repo ✅ Cerrada 2026-08-18
 
@@ -262,19 +268,48 @@ proactivo y verificación e2e real, no un rediseño.
   delay de 250ms entre llamadas de `WarmBffCache` (`TOTEM-BFF-10`) — sin
   trabajo adicional.
 
-### TOTEM-BFF-13 — Pruebas de desconexión y verificación (cierra TOTEM-BFF-06)
+### TOTEM-BFF-13 — Pruebas de desconexión y verificación ✅ Cerrada 2026-08-19 (cierra TOTEM-BFF-06)
 
-- [ ] Pase manual único con BFF (:8188) y Tótem (:8186) reales: recorrer
-  Cartelera/TeatroEscuela/Catálogo en los 4 idiomas; confirmar
-  `show_in_totem=0` oculto en tótem pero visible en Web; matar el proceso
-  del BFF a mitad de sesión y confirmar contenido stale real (no error);
-  agotar el TTL stale con el BFF caído y confirmar `content_unavailable.php`.
-- [ ] Cobertura automatizada nueva en `tests/feature/` (hoy vacío salvo
+- [x] **Pase manual real ejecutado** contra BFF (:8188) y Tótem (:8186)
+  levantados de verdad (MySQL real vía Docker, datos reales sembrados):
+  - Cartelera: `curl http://localhost:8186/cartelera` renderiza "Un buen
+    cuento maléfico" (evento real del BFF).
+  - TeatroEscuela: renderiza cursos reales (`school-course` presente).
+  - Se borró solo la entrada **fresh** en disco
+    (`writable/cache/tm_totem_totem_bff_*`) de Cartelera/TeatroEscuela, se
+    mató el proceso del BFF real, y se confirmó que ambas pantallas siguen
+    sirviendo el contenido real cacheado (HTTP 200, nota
+    `Common.content_stale_note` visible) — nunca un error ni una pantalla en
+    blanco.
+  - Se borró también la entrada **stale** de Cartelera con el BFF aún
+    caído: confirmado el estado honesto `content_unavailable.php` (HTTP
+    200, "Contenido no disponible"), sin datos inventados.
+  - `php spark totem:warm-cache` ejecutado contra el BFF real tras
+    restaurarlo: 22/22 llamadas `fresh`, confirmando `TOTEM-BFF-10` funciona
+    end-to-end, no solo contra el doble de test.
+  - **Catálogo: no verificable con datos reales en este entorno** —
+    `catalog-domain` tiene 0 filas en `collection_items` en el sandbox local
+    (confirmado con `GET collection-items` directo al BFF, con y sin
+    curación `show_in_totem`), igual que documentó la sesión del
+    2026-08-18/19 anterior. La curación `show_in_totem=0` tampoco es
+    verificable en vivo por la misma razón — cubierta solo por los tests
+    unitarios del lado BFF (`teatromuseo-bff/tests/Unit/PublicRead/TotemCurationTest.php`).
+  - Entorno restaurado al estado original tras la prueba: se limpiaron
+    procesos `spark serve` huérfanos que quedaron reintentando puertos
+    (efecto colateral de la sesión de pruebas, no de los cambios de código)
+    y se relanzaron `totem`/`bff` en sus paneles `tmux` originales
+    (`teatromuseo-dev`), puertos 8186/8188 confirmados sanos.
+- [x] Cobertura automatizada nueva en `tests/feature/` (antes vacío salvo
   `.gitkeep`): `BillboardBffResilienceTest.php`, `SchoolBffResilienceTest.php`,
   `CollectionBffResilienceTest.php` con `FeatureTestTrait` +
-  `FakeBffCurlRequest`, cubriendo fresh/stale-acotado/unavailable-acotado a
-  nivel de HTML renderizado.
-- [ ] Cerrar `TOTEM-BFF-06` por completo y marcar los 2 checkboxes de
+  `FakeBffCurlRequest`, cubriendo el camino stale (el único no cubierto por
+  los tests unitarios existentes de controladores) a nivel de HTML
+  renderizado. Hallazgo documentado en `CollectionBffResilienceTest`: a
+  diferencia de Cartelera/TeatroEscuela, las pantallas de exhibición de
+  Colección no distinguen `unavailable` de vacío confirmado — ver
+  `TOTEM-BFF-16`. `composer test:feature`: 6 tests, 23 assertions.
+  `composer quality` completo: 99 tests, 422 assertions.
+- [x] `TOTEM-BFF-06` cerrada por completo y los 2 checkboxes de
   "Oleada 3" ("simular desconexión total", "asegurar carga graceful desde
   caché"), citando los tests nuevos como evidencia.
 
@@ -296,6 +331,25 @@ proactivo y verificación e2e real, no un rediseño.
   museo" es candidato natural por ser ya una página CMS estándar
   (`public-read/{locale}/pages/...`, mismo patrón que Web). Trabajo de
   contenido nuevo, no de resiliencia/caché — no mezclar con `TOTEM-BFF-09..13`.
+
+### TOTEM-BFF-16 — Colección: distinguir `unavailable` de vacío confirmado (hallazgo, no iniciar sin autorización explícita)
+
+- [ ] Hallazgo de `TOTEM-BFF-13`: a diferencia de Cartelera/TeatroEscuela/
+  `collectionMain()` (que sí llaman `TotemApiResult::isAvailable()`),
+  `collectionPuppetsExhibit()`/`collectionMasksExhibit()`/
+  `collectionClownsExhibit()`/`collectionTechniques()`/las "piezas
+  relacionadas" de `collectionTechnique()` y `collectionItem()` pasan
+  directo por `CollectionPresenter::exhibitCards()`/`techniqueCards()`, que
+  solo usan `$result->list()` — nunca comprueban el estado. Con el BFF
+  caído y sin caché, estas pantallas muestran la misma grilla vacía que
+  cuando genuinamente no hay piezas publicadas, en vez del
+  `content_unavailable.php` explícito que sí usan Cartelera/TeatroEscuela.
+  No es contenido inventado (la grilla vacía es honesta), pero sí es una
+  degradación silenciosa que un visitante no puede distinguir de "no hay
+  piezas en esta categoría". Requiere decisión de diseño (¿agregar el
+  mismo patrón `unavailable`/`content_unavailable` a cada pantalla de
+  exhibición?) antes de tocar controladores/presenters/vistas — no se
+  ejecuta en `TOTEM-BFF-13` para no expandir su alcance sin confirmación.
 
 ---
 
@@ -503,8 +557,13 @@ Catálogo fue reemplazado por lecturas reales del BFF en TOTEM-BFF-02..04.
 - [ ] Optimizar imágenes `.webp` si la carga genera latencia perceptible.
 
 ### Estabilidad técnica & BFF offline
-- [ ] Simular desconexión total a internet y verificar que el tótem no quede "colgado" ni muestre errores técnicos.
-- [ ] Asegurar carga graceful desde caché o pantalla de error amigable multiidioma.
+- [x] ✅ 2026-08-19 (`TOTEM-BFF-13`): simulado matando el proceso real del
+  BFF con el Tótem real levantado — no queda "colgado", sirve HTML 200 con
+  contenido stale o el estado honesto `content_unavailable`, nunca un error
+  técnico.
+- [x] ✅ 2026-08-19 (`TOTEM-BFF-13`): confirmada carga graceful desde caché
+  (contenido real stale) y, al agotarla, la pantalla amigable
+  `content_unavailable.php` (multiidioma vía `Common.content_unavailable_*`).
 
 ### Assets de Coni (cuando lleguen)
 - [ ] Colocar GIFs/Lotties en sus carpetas correspondientes.
