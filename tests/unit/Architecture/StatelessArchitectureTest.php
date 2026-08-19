@@ -77,4 +77,51 @@ final class StatelessArchitectureTest extends CIUnitTestCase
             'The Totem app must remain completely database-free and model-free. All content must be fetched via the Totem API Service.'
         );
     }
+
+    /**
+     * Guards against the totem's original architecture bug quietly coming
+     * back: it used to call `/api/v1/totem/*` on the Hub — routes that were
+     * never actually implemented there — via a static `X-Totem-Key` header.
+     * Every screen now goes through `App\Services\BffTotemClient` against
+     * `teatromuseo-bff`'s `public-read` seam instead (see ADR-010). None of
+     * these retired identifiers should exist anywhere in the app again.
+     */
+    public function testNoResidualHubTotemProxyReferencesRemain(): void
+    {
+        /** @var list<string> */
+        $forbiddenStrings = ['TOTEM_API_URL', 'TOTEM_API_KEY', 'X-Totem-Key', 'TotemApiInterface', 'TotemApiService'];
+
+        $root = rtrim((string) ROOTPATH, DIRECTORY_SEPARATOR);
+        $appDir = $root . DIRECTORY_SEPARATOR . 'app';
+
+        $violations = [];
+        $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($appDir));
+
+        foreach ($iterator as $file) {
+            if (!$file instanceof \SplFileInfo || !$file->isFile() || !str_ends_with($file->getFilename(), '.php')) {
+                continue;
+            }
+
+            $path = $file->getPathname();
+            $relative = str_replace('\\', '/', ltrim(str_replace($root, '', $path), DIRECTORY_SEPARATOR));
+            $source = file_get_contents($path);
+            if (!is_string($source) || $source === '') {
+                continue;
+            }
+
+            foreach ($forbiddenStrings as $needle) {
+                if (str_contains($source, $needle)) {
+                    $violations[] = "{$relative}: contains retired identifier '{$needle}'";
+                }
+            }
+        }
+
+        $this->assertSame(
+            [],
+            $violations,
+            "Retired Hub-totem-proxy references found:\n- " . implode("\n- ", $violations) . "\n\n" .
+            'These identifiers belong to the pre-BFF architecture (Hub routes that were never implemented). ' .
+            'Use App\\Services\\BffTotemClient (teatromuseo-bff public-read seam) instead.'
+        );
+    }
 }
