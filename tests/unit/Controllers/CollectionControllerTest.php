@@ -47,6 +47,16 @@ final class CollectionControllerTest extends CIUnitTestCase
         $result->assertDontSee('museo/coleccion/mascaras/exhibicion');
     }
 
+    public function testCollectionMainRouteShowsAnUnavailableStateWhenTheCatalogBffIsUnreachable(): void
+    {
+        Services::injectMock('totemApi', new BffTotemClient(Services::cache(), new FakeBffCurlRequest(failTransport: true)));
+
+        $result = $this->get('museo/coleccion');
+
+        $result->assertStatus(200);
+        $result->assertSee(lang_str('Common.content_unavailable_title'));
+    }
+
     public function testCollectionTechniquesRouteRendersRealTechniques(): void
     {
         Services::injectMock('totemApi', new BffTotemClient(Services::cache(), new FakeBffCurlRequest([

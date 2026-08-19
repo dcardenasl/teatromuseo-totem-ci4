@@ -23,6 +23,7 @@ final class CollectionController extends BaseTotemController
         $availability = (new CollectionPresenter())->categoryAvailability($categories);
         $hasClowns = $availability['hasClowns'];
         $hasMasks = $availability['hasMasks'];
+        $catalogUnavailable = ! $categories->isAvailable();
 
         $sections = [
             [
@@ -73,6 +74,7 @@ final class CollectionController extends BaseTotemController
             [
                 'nav'      => $this->shellNav(base_url('museo')),
                 'sections' => $sections,
+                'catalogUnavailable' => $catalogUnavailable,
             ]
         ));
     }

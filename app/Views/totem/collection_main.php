@@ -2,6 +2,7 @@
 /**
  * @var array<int, array<string, mixed>> $sections Ítems de colección a renderear
  * @var array $nav                                 Navegación shell
+ * @var bool $catalogUnavailable                   BFF catalog availability
  */
 ?>
 <?= $this->extend('layouts/MainLayout') ?>
@@ -9,6 +10,10 @@
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
     <div class="collection-page">
+        <?php if (!empty($catalogUnavailable)): ?>
+            <?= view('totem/partials/content_unavailable') ?>
+        <?php endif; ?>
+
         <?php foreach ($sections as $section): ?>
             <?= view('totem/partials/collection_band', ['item' => $section]) ?>
         <?php endforeach; ?>
