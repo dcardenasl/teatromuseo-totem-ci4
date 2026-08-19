@@ -1,13 +1,10 @@
 # Release procedure — teatromuseo-totem-ci4
 
-This app does **not** ship via a GitHub Actions release pipeline like the other
-apps in this workspace. It is a kiosk build deployed straight to a cPanel
-shared-hosting subdomain over FTP, driven by the scripts in `.deploy/`
-(hidden, gitignored, and excluded from what actually gets uploaded — see
-`BLACKLIST_DIRS`/`BLACKLIST_FILES` in `.deploy/deploy.py`). Treat this
-document as the authoritative "how do I ship a change" for this app; do not
-add a `.github/workflows/release.yml` here unless the deploy mechanism itself
-changes.
+This app is a kiosk build deployed to a cPanel shared-hosting subdomain through
+the same versioned helper used by the other applications. Production transport
+is FTPS by default; plain FTP requires an explicit temporary opt-in. The
+helper, wrapper, template and operator notes live under `.deploy/`; only
+credentials, state and rollback backups are ignored.
 
 ## Pre-flight checklist
 
@@ -21,7 +18,10 @@ Before deploying, every item below must be true. Treat any "no" as a blocker.
    npm run build:css  # CSS compiles cleanly from public/assets/css/src/
    ```
 4. **`CHANGELOG.md` has a dated `## [X.Y.Z]` section** at the top (under `## [Unreleased]`, which should be empty afterward), matching the version you're about to tag.
-5. **`.deploy/.env.deploy` exists locally** with real cPanel FTP credentials (copied from `.env.deploy.example`, `chmod 600`, never committed).
+5. **`.deploy/.env.deploy` exists locally** with real cPanel credentials
+   (copied from `.deploy/.env.deploy.example`, `chmod 600`, never committed).
+6. **`DEPLOY_HEALTHCHECK_URL` is configured** to the kiosk HTTPS `/health`
+   endpoint so a failed release can be rolled back automatically.
 
 ## Release steps
 
@@ -41,15 +41,25 @@ Before deploying, every item below must be true. Treat any "no" as a blocker.
    git tag vX.Y.Z
    git push origin vX.Y.Z
    ```
-4. **Deploy the CSS/asset build, then the full app:**
+4. **Build and deploy the app:**
    ```bash
-   python3 .deploy/sync-css.py   # fast path: only compiled stylesheets, ~1s
-   python3 .deploy/deploy.py     # full sync: everything except the blacklist above
+   composer build:css
+   python3 .deploy/deploy.py --dry-run
+   python3 .deploy/deploy.py --yes
    ```
-   Both scripts read credentials from `.deploy/.env.deploy` and write a timestamp to `.last_ftp_deploy` so the next `deploy.py` run only uploads what changed since.
-5. **Smoke-test in production:** load the kiosk URL, confirm the splash screen and `curl https://<prod-host>/health` return healthy, and spot-check one screen per domain controller (Colección, Museo, Escuela, Cartelera, Amigos).
+   The helper uploads only changed runtime files, saves a rollback release ID,
+   and runs the configured health check before committing the local state.
+5. **Rollback if needed:** use the release ID printed by the deploy:
+   ```bash
+   python3 .deploy/deploy.py --rollback <release-id>
+   ```
+6. **Smoke-test in production:** load the kiosk URL, confirm the splash screen
+   and `curl https://<prod-host>/health` return healthy, and spot-check one
+   screen per domain controller (Colección, Museo, Escuela, Cartelera, Amigos).
 
 ## Notes
 
 - There is deliberately no Docker-based release path in production for this app — the `Dockerfile` in this repo exists for local parity/testing with the rest of the workspace, not for how this app is actually deployed today.
-- `FTP_*` variables in `.env` (root) are never read by CodeIgniter; only `.deploy/.env.deploy` matters to the deploy scripts.
+- `FTP_*` variables in `.env` (root) are never read by CodeIgniter; only `.deploy/.env.deploy` matters to the deploy helper.
+- `--prune` is an explicit reconciliation operation and should only be used
+  after reviewing its dry-run output. It requires FTP `MLSD` support.

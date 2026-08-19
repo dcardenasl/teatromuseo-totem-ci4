@@ -200,11 +200,15 @@ Ver: `docs/ops/offline-fallback-strategy.md`
 ### FTP/FTPS (actual)
 
 ```bash
-# Configurar credenciales en .deploy/.env.deploy
-# FTP_HOST, FTP_USER, FTP_PASS, FTP_REMOTE_PATH
+# Configurar credenciales en .deploy/.env.deploy (chmod 600)
+# FTP_PROTOCOL=ftps, FTP_HOST, FTP_USER, FTP_PASS, FTP_REMOTE_DIR
 
-# Ejecutar despliegue
-python3 .deploy/deploy.py
+# Revisar y ejecutar despliegue
+python3 .deploy/deploy.py --dry-run
+python3 .deploy/deploy.py --yes
+
+# Restaurar un release guardado
+python3 .deploy/deploy.py --rollback <release-id>
 ```
 
 ### CI/CD (recomendado)

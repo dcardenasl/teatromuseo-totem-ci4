@@ -212,11 +212,14 @@ TOTEM_ENABLE_ANIMATIONS  = true   # animaciones no esenciales
 # Compilar CSS antes de deploy
 composer build:css
 
-# Deploy FTP incremental (requiere .deploy/.env.deploy)
-python3 .deploy/deploy.py
+# Deploy FTPS incremental (requiere .deploy/.env.deploy con permisos 600)
+python3 .deploy/deploy.py --dry-run
+python3 .deploy/deploy.py --yes
 ```
 
-Archivos excluidos: `.env`, `vendor/`, `tests/`, `composer.*`, `.git/`, `writable/`.
+El helper común excluye `.env*`, `vendor/`, `tests/`, `docs/`, `scripts/`,
+`.git/`, `writable/`, caches y documentación interna. `composer.*` solo se
+incluye con `--bootstrap`.
 
 ## Controladores de dominio
 

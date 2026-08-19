@@ -12,7 +12,7 @@ dedicada `TOTEM_BFF_API_KEY` enviada como `X-App-Key`.
 - La API se consume server-side; nunca desde las vistas con JavaScript.
 - El cliente conserva respuestas fresh y stale para tolerar caídas del BFF,
   pero no inventa contenido: una fuente no disponible se muestra como tal.
-- La producción se despliega por FTP con los scripts de `.deploy/`; no usar
+- La producción se despliega por FTPS con los scripts de `.deploy/`; no usar
   Docker como mecanismo de despliegue de producción.
 
 Lee `CLAUDE.md` y `TASKS.md` antes de modificar código. Revisa primero
@@ -126,9 +126,13 @@ composer format           # aplica PHP-CS-Fixer
 composer quality
 
 composer build:css
-python3 .deploy/sync-css.py
-python3 .deploy/deploy.py
+python3 .deploy/deploy.py --dry-run
+python3 .deploy/deploy.py --yes
 ```
+
+The shared deploy helper defaults to verified FTPS. Use `--rollback
+<release-id>` to restore the backup created before a failed or unhealthy
+release; use `--prune` only after reviewing its explicit dry-run output.
 
 La configuración local mínima es:
 

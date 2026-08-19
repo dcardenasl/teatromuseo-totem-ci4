@@ -140,9 +140,11 @@
 #--------------------------------------------------------------------
 # DEPLOYMENT (CI/CD)
 #--------------------------------------------------------------------
-# These are used by .deploy/deploy.py - not loaded by CodeIgniter
-
+# These are used by .deploy/deploy.py - not loaded by CodeIgniter.
+# Prefer configuring the real values in .deploy/.env.deploy instead.
+# FTP_PROTOCOL = 'ftps'
+# FTP_TLS_VERIFY = true
 # FTP_HOST = 'ftp.example.com'
 # FTP_USER = 'username'
 # FTP_PASS = 'password'
-# FTP_REMOTE_PATH = '/public_html/'
+# FTP_REMOTE_DIR = '/public_html/'

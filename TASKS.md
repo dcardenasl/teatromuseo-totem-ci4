@@ -9,6 +9,14 @@ mantiene una base de datos propia.
 La conexión histórica al Hub vía `/api/v1/totem/*` queda superseded y no debe
 reimplementarse.
 
+## ✅ DEPLOY-ALIGN-01 — Helper de deploy común (2026-08-19)
+
+Cerrada. El Tótem comparte el helper versionado de la flota en
+`scripts/deploy_ftp.py` y el wrapper `.deploy/deploy.py`. Se corrigieron los
+retornos de error, se añadieron FTPS verificado, health check, backups de
+rollback, `--dry-run`, `--yes`, `--only`, `--bootstrap` y `--prune`. Las
+credenciales, el estado incremental y los backups quedan fuera de Git.
+
 > **Nota arquitectural — Oleadas 2 y 3:**
 > Las rutas `/museo/coleccion/titeres`, `/museo/coleccion/mascaras` y `/museo/coleccion/payasos` están **activas con contenido real** y son el flujo de navegación principal a partir del sprint 13-15/6. La nota anterior de "OBSOLETA" en el plan de colección dejó de ser válida: la decisión de consolidar en `collection_main` queda **aplazada hasta que lleguen los assets definitivos de Coni**. No eliminar estas rutas ni vistas mientras eso no ocurra.
 
@@ -383,7 +391,7 @@ Catálogo fue reemplazado por lecturas reales del BFF en TOTEM-BFF-02..04.
 | CSS parciales | `public/assets/css/src/` (modificar aquí + `composer build:css`) |
 | JS principal | `public/assets/js/app.js` (idle timer, navegación, handlers táctiles) |
 | Traducciones i18n | `app/Language/{es\|en\|fr\|pt}/` |
-| Scripts de despliegue | `.deploy/` (ignorado por git) |
+| Scripts de despliegue | `scripts/deploy_ftp.py` + `.deploy/deploy.py` (versionados) |
 | Referencias visuales de Coni | `assets/design-refs/` |
 
 ### Vistas activas por ruta
