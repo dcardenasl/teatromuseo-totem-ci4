@@ -27,6 +27,7 @@ final class BffTotemClient
     private string $apiKey;
     private int $freshTtl;
     private int $staleTtl;
+    private int $timeoutSeconds;
     private ?CURLRequest $client = null;
 
     public function __construct(
@@ -44,6 +45,9 @@ final class BffTotemClient
 
         $staleTtl = getenv('TOTEM_STALE_TTL_SECONDS');
         $this->staleTtl = is_numeric($staleTtl) ? (int) $staleTtl : 86400;
+
+        $timeoutSeconds = getenv('TOTEM_BFF_TIMEOUT_SECONDS');
+        $this->timeoutSeconds = is_numeric($timeoutSeconds) ? (int) $timeoutSeconds : 5;
 
         $this->client = $client;
     }
@@ -280,7 +284,7 @@ final class BffTotemClient
                 // `get('public-read/...')` call gets misresolved as if
                 // "public-read" were the hostname (curl error 6).
                 'baseURI' => rtrim($this->baseUrl, '/') . '/api/v1/',
-                'timeout' => 5,
+                'timeout' => $this->timeoutSeconds,
             ], null, null, false);
         } catch (Throwable) {
             return null;

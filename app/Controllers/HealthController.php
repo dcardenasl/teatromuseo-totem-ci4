@@ -53,9 +53,11 @@ final class HealthController extends Controller
                 return 'unreachable';
             }
 
+            $timeout = getenv('TOTEM_BFF_TIMEOUT_SECONDS');
+
             $client = \Config\Services::curlrequest([
                 'baseURI' => rtrim($bffBaseUrl, '/') . '/',
-                'timeout'  => 5,
+                'timeout'  => is_numeric($timeout) ? (int) $timeout : 5,
             ]);
 
             $response = $client->get('ready', [
