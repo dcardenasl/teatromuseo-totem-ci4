@@ -26,4 +26,5 @@ return [
     'content_unavailable_title' => 'Conteúdo indisponível',
     'content_unavailable_copy' => 'Não conseguimos atualizar esta informação agora. Tente novamente em alguns minutos.',
     'content_stale_note' => 'Mostrando a última informação disponível.',
+    'content_loading_label' => 'Carregando…',
 ];

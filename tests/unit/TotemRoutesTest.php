@@ -19,6 +19,7 @@ final class TotemRoutesTest extends CIUnitTestCase
 
     protected function tearDown(): void
     {
+        \Config\Services::reset(true);
         parent::tearDown();
     }
 
@@ -204,10 +205,17 @@ final class TotemRoutesTest extends CIUnitTestCase
 
     public function testCollectionItemDetailRoute(): void
     {
-        // No BFF is running here either — the source-unavailable path must
-        // render 200 with the honest "content unavailable" panel, not a 404
-        // (a 404 would wrongly claim the piece doesn't exist) and not any
-        // invented item content.
+        // Explicitly mocked (rather than relying on no BFF being reachable
+        // in this environment — a real BFF may legitimately be running
+        // alongside the test suite in local dev, see TOTEM-BFF-17): a
+        // transport failure must render 200 with the honest "content
+        // unavailable" panel, not a 404 (a 404 would wrongly claim the
+        // piece doesn't exist) and not any invented item content.
+        \Config\Services::injectMock('totemApi', new \App\Services\BffTotemClient(
+            \Config\Services::cache(),
+            new \Tests\Support\FakeBffCurlRequest(failTransport: true),
+        ));
+
         $result = $this->get('museo/coleccion/fichas/tg1');
 
         $result->assertStatus(200);

@@ -70,11 +70,20 @@ final class BffTotemClient
         ], list: true);
     }
 
-    public function show(string $locale, string $idOrSlug): TotemApiResult
+    /**
+     * @param bool $cacheOnly when true, never makes a network call — returns
+     *     whatever is already cached (fresh or stale) or `unavailable` on a
+     *     cold cache, instantly. Used to decide, before rendering, whether a
+     *     detail page can render its real content synchronously or must
+     *     defer to an async fetch so the page shell isn't blocked on a cold
+     *     BFF round-trip (see `BillboardController::billboardDetail()`).
+     */
+    public function show(string $locale, string $idOrSlug, bool $cacheOnly = false): TotemApiResult
     {
         return $this->cached(
             "public-read/{$locale}/events/" . rawurlencode($idOrSlug),
             ['fields' => 'id,title,description,cover_image,gallery_images,slug,occurrences'],
+            cacheOnly: $cacheOnly,
         );
     }
 
@@ -149,7 +158,7 @@ final class BffTotemClient
      *
      * @param array<string, mixed> $query
      */
-    private function cached(string $path, array $query = [], bool $list = false): TotemApiResult
+    private function cached(string $path, array $query = [], bool $list = false, bool $cacheOnly = false): TotemApiResult
     {
         $cacheKey = $this->cacheKey($path, $query);
 
@@ -157,6 +166,10 @@ final class BffTotemClient
         $freshEntry = $this->cache->get($cacheKey);
         if ($freshEntry !== null) {
             return TotemApiResult::fresh($freshEntry['data']);
+        }
+
+        if ($cacheOnly) {
+            return $this->fallbackToStale($cacheKey);
         }
 
         $response = $this->fetch($path, $query);
