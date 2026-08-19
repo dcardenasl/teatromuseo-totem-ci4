@@ -4,14 +4,14 @@
 
 El tótem es una aplicación CodeIgniter 4 stateless para una pantalla táctil
 vertical de 1080×1920. Se ejecuta localmente en el puerto `8186` y consume el
-Hub `teatromuseo-api` (`8180`) mediante `/api/v1/totem/*` y el header
-`X-Totem-Key`.
+BFF `teatromuseo-bff` (`8188`) mediante su seam `public-read` y una clave
+dedicada `TOTEM_BFF_API_KEY` enviada como `X-App-Key`.
 
 - No tiene base de datos propia.
 - No emite ni valida JWTs.
 - La API se consume server-side; nunca desde las vistas con JavaScript.
-- La caché y los datos de fallback son parte del funcionamiento offline y no
-  deben eliminarse al refactorizar.
+- El cliente conserva respuestas fresh y stale para tolerar caídas del BFF,
+  pero no inventa contenido: una fuente no disponible se muestra como tal.
 - La producción se despliega por FTP con los scripts de `.deploy/`; no usar
   Docker como mecanismo de despliegue de producción.
 
@@ -21,26 +21,24 @@ Lee `CLAUDE.md` y `TASKS.md` antes de modificar código. Revisa primero
 ## Arquitectura
 
 ```text
-Routes → Controllers → TotemApiInterface → TotemApiService
-                         ↓
-              CachedTotemApiService → FileCachedTotemApiService (opcional)
+Routes → Controllers → BffTotemClient → BFF public-read
 Controllers → Presenters → Views
-                       ↘ Repositories de fallback
+                       ↘ TotemApiResult (fresh/stale/unavailable)
 ```
 
 ### Ubicaciones importantes
 
 - `app/Controllers/BaseTotemController.php` — helpers comunes de renderizado,
-  navegación y acceso al servicio API.
+  navegación y acceso al cliente BFF.
 - `app/Controllers/` — `Main`, `Collection`, `Museum`, `School`, `Billboard`,
   `Friends` y `Health`.
-- `app/Services/TotemApiInterface.php` — contrato del cliente API.
-- `app/Services/TotemApiService.php` — CURL, header `X-Totem-Key`, normalización,
-  logs estructurados y manejo seguro de errores.
-- `app/Services/CachedTotemApiService.php` — memoización por request.
-- `app/Services/FileCachedTotemApiService.php` — caché persistente opcional.
+- `app/Services/BffTotemClient.php` — CURL server-side, `X-App-Key`,
+  normalización, logs estructurados, reintentos y caché fresh/stale.
+- `app/Services/TotemApiResult.php` — resultado tipado con estados
+  `fresh`, `stale` y `unavailable`.
 - `app/Presenters/` — transformación de datos para las vistas.
-- `app/Repositories/*FallbackRepository.php` — datos de contingencia.
+- No hay `app/Repositories/` ni `app/Data/*.json`: no agregar mocks ni
+  repositorios de contenido inventado.
 - `app/Config/Routes.php` — rutas del tótem y `/health`.
 - `app/Config/Totem.php` — feature flags y TTL de caché.
 
@@ -57,14 +55,14 @@ Controllers → Presenters → Views
 
 ### Servicios y presenters
 
-- Si se agrega un endpoint, agregar primero el método a
-  `TotemApiInterface` y luego implementarlo en `TotemApiService`; los
-  decoradores deben seguir funcionando.
-- Mantener el logging de API: timestamp, endpoint, duración en milisegundos,
+- Si se agrega una lectura, agregar un método explícito a
+  `BffTotemClient` y devolver `TotemApiResult`; distinguir una respuesta
+  vacía confirmada de una fuente no disponible.
+- Mantener el logging de BFF: timestamp, endpoint, duración en milisegundos,
   status, `success` y error cuando corresponda.
 - Usar un Presenter cuando exista transformación no trivial para la vista.
-- Mantener los fallback de `School`, `Billboard` y `Museum` funcionando cuando
-  la API devuelve error o datos vacíos.
+- No introducir fallback de contenido: los estados `unavailable` y `stale`
+  deben llegar a la vista de forma explícita.
 - No colocar reglas de negocio en las vistas.
 
 ### Vistas
@@ -136,20 +134,20 @@ La configuración local mínima es:
 
 ```dotenv
 app.baseURL = 'http://localhost:8186/'
-TOTEM_API_URL = 'http://localhost:8180/api/v1/totem'
-TOTEM_API_KEY = '<clave configurada en el Hub>'
-TOTEM_ENABLE_FILE_CACHE = true
+TOTEM_BFF_BASE_URL = 'http://localhost:8188'
+TOTEM_BFF_API_KEY = '<clave dedicada configurada en el BFF>'
 TOTEM_CACHE_TTL_SECONDS = 60
+TOTEM_STALE_TTL_SECONDS = 86400
 ```
 
-El endpoint `/health` devuelve JSON y `503` cuando la API no es alcanzable.
-La caché persistente vive en `writable/cache/totem/`; para limpiarla, usar
-`rm writable/cache/totem/*.cache` únicamente dentro de ese directorio.
+El endpoint `/health` consulta `/ready` del BFF, devuelve JSON y `503` cuando
+el BFF no es alcanzable. La caché se gestiona mediante el servicio de caché de
+CI4; no crear una segunda caché de archivos para este flujo.
 
 ## Checklist antes de cerrar un cambio
 
 - [ ] El controlador conserva la separación Controller → Service → Presenter → View.
-- [ ] La API tiene contrato en `TotemApiInterface` y fallback cuando aplica.
+- [ ] El cliente usa `BffTotemClient` y propaga `fresh`, `stale` o `unavailable`.
 - [ ] Los textos nuevos existen en `es`, `en`, `fr` y `pt`.
 - [ ] Los enlaces usan `base_url()` y el output dinámico usa `esc()`.
 - [ ] CSS fuente compilado con `composer build:css` si hubo cambios visuales.
@@ -161,6 +159,6 @@ La caché persistente vive en `writable/cache/totem/`; para limpiarla, usar
 1. Crear modelos, migraciones o una base de datos local para el tótem.
 2. Emitir/validar JWTs o duplicar la autenticación del Hub.
 3. Acceder directamente a la API desde vistas o JavaScript.
-4. Eliminar la caché o el fallback como "simplificación".
+4. Ocultar una caída del BFF simulando contenido o convirtiéndola en un vacío confirmado.
 5. Editar `style.css` compilado o hardcodear español.
 6. Omitir `declare(strict_types=1)` en código nuevo.

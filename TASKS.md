@@ -3,16 +3,166 @@
 Backlog técnico activo para `teatromuseo-totem-ci4`. Las tareas completadas se archivan en [TASKS_ARCHIVE.md](TASKS_ARCHIVE.md).
 Seguimiento cross-repo: [`../TASKS.md`](../TASKS.md).
 
-**Estado (2026-08-10):** 23 pantallas navegables, 4 idiomas. Conectado al hub vía `/api/v1/totem/*`.
-La marcha blanca y el hito de "conexión a BD desde el 18/6" quedaron atrás — este encabezado estuvo
-~7 semanas obsoleto hasta la auditoría del 2026-08-05.
+**Estado (2026-08-19):** 23 pantallas navegables, 4 idiomas. Cartelera,
+TeatroEscuela y Catálogo consumen el BFF mediante `public-read`; el tótem no
+mantiene una base de datos propia.
+La conexión histórica al Hub vía `/api/v1/totem/*` queda superseded y no debe
+reimplementarse.
 
 > **Nota arquitectural — Oleadas 2 y 3:**
 > Las rutas `/museo/coleccion/titeres`, `/museo/coleccion/mascaras` y `/museo/coleccion/payasos` están **activas con contenido real** y son el flujo de navegación principal a partir del sprint 13-15/6. La nota anterior de "OBSOLETA" en el plan de colección dejó de ser válida: la decisión de consolidar en `collection_main` queda **aplazada hasta que lleguen los assets definitivos de Coni**. No eliminar estas rutas ni vistas mientras eso no ocurra.
 
 ---
 
-## 🟡 Saneamiento arquitectónico (auditoría 2026-08-05)
+## ✅ TOTEM-BFF-08 — Corrección de conectividad y refinamiento de reglas (2026-08-19)
+
+Cerrada el 2026-08-19. `BffTotemClient` construye una `CURLRequest` no
+compartida con `baseURI` (camelCase), y el health check usa la misma clave al
+consultar `/ready`. La prueba de construcción del cliente confirma que la
+base resultante incluye `/api/v1/`.
+
+También quedaron cubiertas por tests las siguientes reglas:
+
+- **Cartelera**: máximo 5 funciones, próximas primero en orden ascendente
+  (prioridad a la más inmediata; la función de hoy queda primera de forma
+  natural por ser la más próxima), y si faltan para completar 5, se rellena
+  con las más recientes ya pasadas en orden descendente.
+  `BillboardPresenter::presentList()` confía en `sort=agenda` del BFF (que ya
+  ordena exactamente así) y solo aplica el tope de 5 —
+  `BffTotemClient::shows()` pide además `last_occurrence_at`
+  (`BFF-TOTEM-02` en `teatromuseo-bff/TASKS.md`, antes no expuesto en el
+  listado) para poder mostrar la fecha real de los eventos de relleno.
+- **TeatroEscuela**: cada tarjeta de curso usa su propia imagen real
+  (`entry.featured_image.url`, ya hidratada por el BFF) en vez de repetir
+  la misma imagen estática en todos los cursos; solo cae al póster genérico
+  si un curso realmente no tiene portada cargada.
+
+`composer quality` queda verde en Tótem: 90 tests y 317 assertions. La
+verificación HTTP/e2e contra servidores reales queda pendiente hasta iniciar
+el stack local; no se registra aquí como validada.
+
+---
+
+## 🟡 Tótem vía BFF — Cartelera / TeatroEscuela / Catálogo (2026-08-18)
+
+Fuente de verdad:
+[`../docs/plan/2026-08-18-plan-totem-via-bff.md`](../docs/plan/2026-08-18-plan-totem-via-bff.md).
+La auditoría confirmó que `/api/v1/totem/*` nunca existió en el Hub: el
+cliente actual convierte sus 404 y fallos en `[]`, por lo que las pantallas
+pueden mostrar contenido hardcodeado como si fuera real. Este track migra
+solo Cartelera, TeatroEscuela y Catálogo a los `public-read` del BFF con una
+clave dedicada `TOTEM_BFF_API_KEY`; no se implementan rutas nuevas en el Hub.
+
+Las tareas siguientes reemplazan, para estas tres pantallas, las casillas
+históricas de “Conexión a BD vía API” que todavía mencionan `/api/v1/totem/*`.
+Historia del museo y las tradiciones de máscaras quedan fuera de este plan.
+
+### TOTEM-BFF-01 — Cliente BFF, configuración y resiliencia ✅ Cerrada 2026-08-18
+
+- [x] Implementado `app/Services/BffTotemClient.php`, cableado desde
+  `Config/Services.php` con métodos por pantalla: `shows`/`show`,
+  `courses`/`course`, `collectionItems`/`collectionItem`, `techniques`/
+  `technique`, `catalogCategories`.
+- [x] Usa `TOTEM_BFF_BASE_URL`, header `X-App-Key: TOTEM_BFF_API_KEY`;
+  `TOTEM_API_URL`/`TOTEM_API_KEY`/`X-Totem-Key` retirados de `.env`,
+  `.env.example`, `env` y todo `app/`.
+- [x] `TotemApiInterface`/`TotemApiService`/`CachedTotemApiService`/
+  `FileCachedTotemApiService` eliminados; una sola clase con
+  `TotemApiResult` (`fresh`/`stale`/`unavailable`, `isEmpty()`).
+- [x] Caché fresh/stale vía `Config\Services::cache()`, TTLs
+  `TOTEM_CACHE_TTL_SECONDS`/`TOTEM_STALE_TTL_SECONDS`; el stale solo avanza
+  tras una respuesta 200 real, nunca tras una excepción.
+- [x] Pruebas: `BillboardControllerTest`/`SchoolControllerTest`/
+  `CollectionControllerTest` cubren fresh, vacío honesto, 404-confirmado y
+  fallo de transporte (`FakeBffCurlRequest`, `tests/_support/`).
+
+### TOTEM-BFF-02 — Cartelera dinámica ✅ Cerrada 2026-08-18
+
+- [x] Listado y detalle migrados a `public-read/{locale}/events` y
+  `.../events/{idOrSlug}`.
+- [x] `BillboardController::billboardDetail()` ya no instancia
+  `BillboardFallbackRepository` (eliminado) — consulta el BFF.
+- [x] `BillboardPresenter` reescrito: contenido real, vacío honesto
+  (`Billboard.no_shows_*`) y `content_unavailable` explícito; detalle por
+  slug conservado.
+
+### TOTEM-BFF-03 — TeatroEscuela desde CMS ✅ Cerrada 2026-08-18 (corregida el mismo día — ver nota)
+
+- [x] Listado/detalle migrados a `entries/teatroescuela`
+  (`order_by=field:start_date&order_direction=upcoming`), leyendo el bloque
+  `teatroescuela_ficha` de cada entry. Cursos limitados a **máximo 3**,
+  soonest-first, excluyendo historial (curso "terminado" si su
+  `end_date`/`start_date` ya pasó).
+- [x] Maestros reconstruidos desde `instructors` (referencias a la colección
+  `personas`) de cursos publicados reales — cero nombres inventados. La
+  sección se oculta por completo si no hay instructores reales resueltos
+  (en vez de mostrar un rail vacío o nombres falsos).
+- [x] **Corrección post-cierre (mismo día, feedback de David):** la primera
+  versión (a) escondía TODA la pantalla (hero/intro/cifras) detrás del
+  estado `unavailable` en vez de solo el bloque de cursos, y (b) convirtió
+  las 3 cifras clave estáticas (Cursos/Maestros/Alumnos = 50/20/1000) en
+  solo 2 cifras calculadas — rompiendo el grid de 3 columnas fijo en CSS.
+  Ninguna de las dos cifras fue nunca dato vivo (venían de
+  `SchoolFallbackRepository::section()` sin condicionar al éxito de la API),
+  así que restaurarlas como copy editorial estático no reintroduce el
+  problema de "maestros inventados" (personas con nombre y biografía
+  fabricados) — son categorías distintas. La regresión queda cubierta por
+  `SchoolControllerTest` y `SchoolPresenterTest`.
+  Ahora solo el bloque `.school-courses` reacciona a `unavailable`; hero,
+  intro y las 3 cifras se muestran siempre.
+
+### TOTEM-BFF-04 — Catálogo, técnicas y categorías ✅ Cerrada 2026-08-18
+
+- [x] Piezas, fichas, técnicas y categorías migradas a `public-read`/`public`
+  del BFF con locale y slugs reales.
+- [x] `with_counts=1` alimenta los toggles `hasClowns`/`hasMasks`; curación
+  `show_in_totem` aplicada server-side en el BFF (no por parámetro del
+  cliente).
+- [x] `CollectionPresenter` creado; shapeo inline y mapas slug↔lang-key
+  manuales retirados de `CollectionController`.
+- [x] `app/Data/titeres_mock.json`/`tecnicas_mock.json` eliminados junto con
+  `app/Data/`; ya no hay lookup "mock primero".
+
+### TOTEM-BFF-05 — Limpieza arquitectónica y documentación ✅ Cerrada 2026-08-18
+
+- [x] `BillboardFallbackRepository`/`SchoolFallbackRepository` eliminados
+  (con ellos, `teachers()`/`students()` inventados); `app/Repositories/`
+  ya no existe.
+- [x] `app/Config/Database.php` ya usaba SQLite `:memory:` (verificado, no
+  necesitaba cambio). Test de arquitectura extendido
+  (`StatelessArchitectureTest::testNoResidualHubTotemProxyReferencesRemain`)
+  prohíbe `TOTEM_API_URL`/`TOTEM_API_KEY`/`X-Totem-Key`/`TotemApiInterface`/
+  `TotemApiService` en todo `app/`.
+- [x] `.env`/`.env.example`/`env`, `CLAUDE.md` del Tótem actualizados
+  (Tótem → BFF `public-read`, `TOTEM_BFF_API_KEY`). Documentación raíz del
+  monorepo pendiente — ver TOTEM-BFF-07 abajo.
+
+### TOTEM-BFF-06 — Verificación local y e2e pendiente
+
+- [x] `composer quality` verde en Tótem: 90 tests y 317 assertions.
+- [x] El cliente real se construye con `baseURI` y una base `/api/v1/`; el
+  health check consulta `/ready` con la misma convención.
+- [x] Hay cobertura de caché fresh/stale, 404 confirmado, JSON inválido,
+  reintentos ante 5xx, cabeceras y fallos de transporte.
+- [ ] Ejecutar smoke HTTP contra el stack local completo y verificar Cartelera,
+  TeatroEscuela, Catálogo, la curación `show_in_totem` y el camino stale con
+  el BFF detenido. No se marca como hecho porque los servidores no estaban
+  levantados durante esta sesión.
+
+### TOTEM-BFF-07 — Documentación cross-repo ✅ Cerrada 2026-08-18
+
+- [x] `../CLAUDE.md` (raíz de `teatromuseo/`) actualizado: diagrama, tabla de
+  apps y sección de auth ahora dicen "Totem → BFF (`public-read`)",
+  `X-App-Key: TOTEM_BFF_API_KEY` en vez de Hub directo/`X-Totem-Key`.
+
+---
+
+## 🟡 Saneamiento arquitectónico (auditoría 2026-08-05, histórico)
+
+> Los ítems de esta sección describen el estado pre-BFF y se conservan como
+> registro histórico. Para Cartelera, TeatroEscuela y Catálogo, la fuente de
+> verdad vigente es TOTEM-BFF-01..08; no reintroducir `TotemApiService`,
+> `X-Totem-Key`, fallbacks ni las rutas `/api/v1/totem/*` mencionadas abajo.
 
 > **Contexto, evidencia y rutas exactas:** [`../docs/plan/2026-08-05-saneamiento-arquitectonico.md`](../docs/plan/2026-08-05-saneamiento-arquitectonico.md)
 >
@@ -73,16 +223,19 @@ La marcha blanca y el hito de "conexión a BD desde el 18/6" quedaron atrás —
   - **Criterio:** Atrás desde Historia vuelve siempre al origen correcto según la ruta de entrada.
 
 ### Exhibición de Máscaras — implementar sistema ahora
-- [ ] Implementar estructura completa de Exhibición para Máscaras (listado + ficha detalle), idéntica a la de Títeres. El botón queda desactivado/oculto hasta que existan fichas — pero el sistema debe estar listo para activarse automáticamente cuando lleguen.
-  - **Archivos:** `app/Controllers/TotemController.php`, `app/Views/totem/collection_masks.php`, nueva vista `collection_masks_exhibit.php` (o reutilizar `collection_masks_exhibit.php` si ya existe)
-  - **API:** `GET /api/v1/totem/collection?group=mascaras`
-  - **Criterio:** Cuando haya fichas en la BD con `group=mascaras`, el botón se habilita y la pantalla muestra el listado sin cambios en el código.
+- [x] Sistema de listado y ficha migrado al BFF en TOTEM-BFF-04. El botón se
+  habilita automáticamente cuando el facet `mascaras.item_count` es mayor que
+  cero; una fuente no disponible muestra el estado honesto correspondiente.
+  - **Archivos:** `app/Controllers/CollectionController.php`,
+    `app/Views/totem/collection_masks_exhibit.php`
+  - **Fuente:** `public-read/{locale}/collection-items?category=mascaras`
 
 ### Exhibición de Payasos — implementar sistema ahora
-- [ ] Ídem que Máscaras. Botón desactivado hasta que existan fichas, sistema listo para activarse.
-  - **Archivos:** `app/Controllers/TotemController.php`, `app/Views/totem/collection_clowns.php`
-  - **API:** `GET /api/v1/totem/collection?group=payasos`
-  - **Criterio:** Misma lógica que Títeres y Máscaras.
+- [x] Sistema de listado migrado al BFF en TOTEM-BFF-04. El botón se habilita
+  automáticamente cuando el facet `payasos.item_count` es mayor que cero.
+  - **Archivos:** `app/Controllers/CollectionController.php`,
+    `app/Views/totem/collection_clowns_exhibit.php`
+  - **Fuente:** `public-read/{locale}/collection-items?category=payasos`
 
 ### Imágenes clicables en Tradiciones de Máscaras
 - [ ] Las imágenes de Comedia del Arte y Comedia de los Andes deben ser clicables, no solo los botones de texto.
@@ -108,16 +261,22 @@ La marcha blanca y el hito de "conexión a BD desde el 18/6" quedaron atrás —
 
 ## 🔌 Conexión a BD vía API — miércoles 18/6
 > Todo el contenido actual es real pero hardcoded. A partir del 18/6 se conecta al panel de administración.
+>
+> ⚠️ Para Cartelera, TeatroEscuela, piezas de colección y técnicas, estas
+> casillas son históricas y quedan reemplazadas por `TOTEM-BFF-02..04` del
+> plan [`2026-08-18-plan-totem-via-bff.md`](../docs/plan/2026-08-18-plan-totem-via-bff.md).
+> No implementar las rutas `/api/v1/totem/*` que aparecen abajo.
 
-- [ ] **Cartelera** → `GET /api/v1/totem/shows` (reemplazar array hardcoded en controlador)
-- [ ] **Teatro Escuela — Cursos** → `GET /api/v1/totem/courses`
-- [ ] **Colección Títeres — Exhibición** → `GET /api/v1/totem/collection?group=titeres` + `GET /api/v1/totem/collection/{id}`
-- [ ] **Técnicas de Títeres** → `GET /api/v1/totem/techniques` + `GET /api/v1/totem/technique/{id}`
+- [ ] **Histórica / superseded — Cartelera** → `GET /api/v1/totem/shows` (ver `TOTEM-BFF-02`)
+- [ ] **Histórica / superseded — Teatro Escuela — Cursos** → `GET /api/v1/totem/courses` (ver `TOTEM-BFF-03`)
+- [ ] **Histórica / superseded — Colección Títeres — Exhibición** → `GET /api/v1/totem/collection?group=titeres` + `GET /api/v1/totem/collection/{id}` (ver `TOTEM-BFF-04`)
+- [ ] **Histórica / superseded — Técnicas de Títeres** → `GET /api/v1/totem/techniques` + `GET /api/v1/totem/technique/{id}` (ver `TOTEM-BFF-04`)
 - [ ] **Historia (posts editoriales)** → endpoint de posts / historia del API (confirmar ruta exacta)
 - [ ] **Explora el Museo** → `GET /api/v1/totem/museum` + `GET /api/v1/totem/museum-history/{slug}`
 - [ ] **Visitas Guiadas** → `GET /api/v1/totem/guided-visits` (cuando el contenido exista)
 
-**Nota:** Después de conectar la API, el contenido hardcoded que hoy existe (cartelera real, cursos reales, fichas de Javi, textos editoriales en 4 idiomas) debe seguir apareciendo — ahora sirviéndose desde la BD.
+**Nota histórica:** El contenido hardcoded de Cartelera, TeatroEscuela y
+Catálogo fue reemplazado por lecturas reales del BFF en TOTEM-BFF-02..04.
 
 ---
 
@@ -201,7 +360,7 @@ La marcha blanca y el hito de "conexión a BD desde el 18/6" quedaron atrás —
 - [ ] Validar áreas táctiles ≥ 48×48px. Ajustar tipografía si hay dificultad de lectura a distancia.
 - [ ] Optimizar imágenes `.webp` si la carga genera latencia perceptible.
 
-### Estabilidad técnica & fallback offline
+### Estabilidad técnica & BFF offline
 - [ ] Simular desconexión total a internet y verificar que el tótem no quede "colgado" ni muestre errores técnicos.
 - [ ] Asegurar carga graceful desde caché o pantalla de error amigable multiidioma.
 
@@ -216,14 +375,14 @@ La marcha blanca y el hito de "conexión a BD desde el 18/6" quedaron atrás —
 | Componente | Ruta |
 |---|---|
 | Rutas del Tótem | `app/Config/Routes.php` |
-| Controlador Principal | `app/Controllers/TotemController.php` |
+| Controlador Principal | `app/Controllers/MainController.php` |
 | Vistas de Pantalla | `app/Views/totem/` |
 | Layout Base | `app/Views/layouts/MainLayout.php` |
-| Servicio API | `app/Services/TotemApiService.php` ✅ |
+| Servicio BFF | `app/Services/BffTotemClient.php` ✅ |
 | CSS compilado | `public/assets/css/style.css` |
 | CSS parciales | `public/assets/css/src/` (modificar aquí + `composer build:css`) |
 | JS principal | `public/assets/js/app.js` (idle timer, navegación, handlers táctiles) |
-| Traducciones i18n | `app/Language/{es\|en\|fr\|pt}/Totem.php` |
+| Traducciones i18n | `app/Language/{es\|en\|fr\|pt}/` |
 | Scripts de despliegue | `.deploy/` (ignorado por git) |
 | Referencias visuales de Coni | `assets/design-refs/` |
 
