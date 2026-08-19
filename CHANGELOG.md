@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Warm cache for Cartelera's featured event details (TOTEM-BFF-18)** — `totem:warm-cache` now
+  also pre-fetches the detail page for each of the up-to-5 events currently shown in Cartelera
+  (reusing `BillboardPresenter`'s own selection, still bounded), so tapping any displayed event is
+  instant and resilient to a bad connection at the kiosk's location — not just protected by the
+  progressive-hydration fallback from `TOTEM-BFF-17`.
 - **Progressive hydration for cold billboard detail loads (TOTEM-BFF-17)** — `cartelera/detalle/{slug}`
   no longer blocks the page render on a cold-cache BFF round-trip (per-slug detail pages are
   deliberately excluded from the background warm-up). The shell renders immediately with a loading

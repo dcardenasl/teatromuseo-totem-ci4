@@ -434,6 +434,42 @@ proactivo y verificación e2e real, no un rediseño.
   referencia; aplicar el mismo patrón ahí es la continuación natural, no
   bloquea nada de lo anterior.
 
+### TOTEM-BFF-18 — Calentar el detalle de los ítems mostrados en Cartelera ✅ Cerrada 2026-08-19
+
+- [x] A pedido explícito de David: "la cartelera son 5 items y teatroescuela
+  3 items, ¿por qué no los cargas en caché?" — protección concreta ante una
+  mala señal de internet en el sitio físico del tótem: si los 5 eventos que
+  ya se muestran en la grilla de Cartelera también tienen su ficha de
+  detalle precalentada, tocar cualquiera de ellos es instantáneo y
+  resiliente incluso si el BFF está inalcanzable en ese momento — no solo
+  la primera visita "en frío" de `TOTEM-BFF-17` que ya se resolvía con
+  hidratación progresiva, sino que ya ni siquiera necesita esa hidratación.
+- [x] Investigado primero: **TeatroEscuela no tiene pantalla de detalle**
+  — los 3 cursos destacados muestran toda su información inline en la
+  grilla (`theater_school.php`); `BffTotemClient::course()` existe pero
+  ninguna ruta/controlador lo llama. No hay nada que calentar ahí — no es
+  una omisión, es que no existe el caso.
+  Catálogo queda fuera a propósito: sus categorías no están acotadas a un
+  número fijo como Cartelera/TeatroEscuela, así que calentar "cada pieza
+  mostrada" ahí no sería acotado de la misma forma.
+- [x] `WarmBffCache::run()`: tras calentar `shows($locale)`, reutiliza
+  `BillboardPresenter::presentList()` (la misma lógica de selección que ya
+  usa la pantalla — próximos primero, relleno con los más recientes,
+  tope de 5) para extraer exactamente los slugs mostrados, y calienta el
+  detalle de cada uno (`show($locale, $slug)`). Sigue estrictamente
+  secuencial (ADR-010), sigue acotado (5 × 4 idiomas = 20 llamadas
+  adicionales, no cientos), sin reimplementar la regla de selección.
+- [x] Tests: nuevo test cubre que se calienta exactamente el detalle de los
+  eventos destacados (y solo esos); test existente de "nunca detalle por
+  slug" ajustado para permitir esta única excepción acotada, documentado en
+  su propio docblock. `composer quality`: 108 tests, 431 assertions.
+- [x] Verificado en vivo contra BFF/Tótem reales: `php spark totem:warm-cache`
+  calentó 42 entradas (22 base + 4 idiomas × 5 eventos reales de Cartelera,
+  incluyendo `un-buen-cuento-malefico`, `pionero`, etc.); visitar
+  inmediatamente después cualquiera de esos eventos renderizó el contenido
+  real de forma 100% síncrona, sin esqueleto de carga — la protección
+  funciona de punta a punta.
+
 ---
 
 ## 🟡 Saneamiento arquitectónico (auditoría 2026-08-05, re-triado 2026-08-19 — `TOTEM-BFF-14`)
