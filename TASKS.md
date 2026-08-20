@@ -470,6 +470,78 @@ proactivo y verificación e2e real, no un rediseño.
   real de forma 100% síncrona, sin esqueleto de carga — la protección
   funciona de punta a punta.
 
+### TOTEM-BFF-19 — Catálogo completo precalentado (piezas + técnicas) ✅ Cerrada 2026-08-19*
+
+*Cerrada en el sentido de "código completo, verificado hasta donde el
+entorno lo permitió" — ver la verificación e2e pendiente al final, bloqueada
+por una caída de MySQL/Docker ajena a este trabajo.
+
+- [x] A pedido explícito de David: "el catálogo de elementos del museo creo
+  que es fundamental que se encuentre. ¿No podemos dejarlos todos cargados?
+  ¿Con un JSON o algo así?" — corrige la exclusión de Catálogo que
+  `TOTEM-BFF-18` había dejado fuera por asumir que calentar "cada pieza"
+  significaba una llamada HTTP por pieza (genuinamente no acotado a medida
+  que crece el catálogo). La solución real no necesitó esa disyuntiva.
+- [x] **Hallazgo clave en el BFF**: `CatalogPublicReadController::index()`
+  (listado) y `::item()` (detalle) ya comparten el mismo mecanismo de
+  `?fields=` con un allowlist propio; `DETAIL_FIELDS` es un superconjunto
+  estricto de `LIST_FIELDS`. Bastó con ampliar el allowlist del listado a
+  `DETAIL_FIELDS` (el default sigue siendo `LIST_FIELDS` — cero cambio de
+  comportamiento para Web u otro llamador que no pida más campos
+  explícitamente) para poder pedir, en una sola llamada por categoría, todo
+  lo que la ficha de detalle de cada pieza necesita.
+  Para técnicas, mejor aún: `CatalogFacetReader::techniques()` (listado) y
+  `::technique()` (detalle) ya seleccionan exactamente las mismas columnas
+  — el listado *ya es* el detalle completo de cada técnica, sin tocar el
+  BFF en absoluto.
+- [x] `teatromuseo-bff`: `CatalogPublicReadController::index()` ahora acepta
+  `DETAIL_FIELDS` vía `fields=`. Tests nuevos en
+  `PublicReadValidationTest.php`: confirma que un campo solo-detalle
+  (`gallery_images`, `contenido`) ya no es rechazado en el listado, y que
+  el proyecto por defecto (sin `fields=`) sigue siendo exactamente
+  `LIST_FIELDS` — sin regresión para Web.
+- [x] `teatromuseo-totem-ci4`:
+  - `BffTotemClient::collectionItemsDetailed($locale, $category)` — la
+    misma llamada de listado que `collectionItems()`, pidiendo el campo
+    set de detalle (`CATALOG_DETAIL_FIELDS`, espejo manual de
+    `DETAIL_FIELDS` del BFF — duplicación deliberada, aceptada por
+    ADR-010, entre un único consumidor acotado y su fuente).
+  - `BffTotemClient::seedCollectionItemDetails($locale, $items)` — escribe
+    la entrada de caché fresh+stale de cada pieza directamente desde datos
+    ya en mano (misma clave que usaría `collectionItem($locale, $idOrSlug)`
+    en una visita real), **sin ninguna llamada HTTP adicional por pieza**.
+  - `BffTotemClient::seedTechniqueDetails($techniques)` — mismo mecanismo
+    para técnicas, sembrado directo desde la respuesta ya obtenida de
+    `techniques()` (cero llamadas nuevas, ni siquiera una por categoría).
+  - `WarmBffCache::run()`: por cada categoría (titeres/mascaras/payasos) ×
+    4 idiomas, agrega la llamada detallada + sembrado; agrega el sembrado
+    de técnicas tras la llamada a `techniques()` que ya existía. Sigue
+    estrictamente secuencial (ADR-010) — 12 llamadas HTTP adicionales
+    (3 categorías × 4 idiomas), acotadas sin importar cuántas piezas tenga
+    el museo, exactamente el efecto de un "JSON completo" sin necesitar
+    construir uno nuevo.
+- [x] Tests: `WarmBffCacheTest` actualizado (34 llamadas base, antes 22 —
+  cada categoría ahora se pide dos veces, lean + detallada) más un test
+  nuevo que verifica que el detalle de una pieza y una técnica quedan
+  cacheados tras el warm-up **sin que se haya hecho ninguna llamada extra**
+  para sembrarlos. `composer quality`: 109 tests, 466 assertions, verde.
+  BFF: `composer analyse` y `tests/Unit` (213 tests) verdes; el nuevo test
+  de `PublicReadValidationTest.php` (Feature, requiere MySQL real) **no se
+  pudo ejecutar** — ver siguiente punto.
+- [ ] **Verificación e2e pendiente, bloqueada por infraestructura ajena a
+  este trabajo**: al intentar verificar en vivo (como en `TOTEM-BFF-13`/
+  `-17`/`-18`), se encontró que el contenedor Docker de MySQL de este
+  entorno dejó de responder — el puerto 3306 acepta la conexión TCP pero el
+  handshake de MySQL nunca completa (confirmado con un `mysqli_connect`
+  directo en PHP, sin pasar por el BFF; también confirmado que el propio
+  CLI de `docker` está sin responder). No es un problema introducido por
+  este cambio — el mismo síntoma bloqueó el test Feature del BFF. No se
+  intentó reiniciar Docker/MySQL del usuario (fuera de alcance, riesgo de
+  tocar infraestructura que no es mía). Pendiente: re-ejecutar
+  `php spark totem:warm-cache` contra BFF/MySQL reales y confirmar que
+  tocar una pieza de Catálogo tras el warm-up es instantáneo, igual que ya
+  se demostró para Cartelera en `TOTEM-BFF-18`.
+
 ---
 
 ## 🟡 Saneamiento arquitectónico (auditoría 2026-08-05, re-triado 2026-08-19 — `TOTEM-BFF-14`)

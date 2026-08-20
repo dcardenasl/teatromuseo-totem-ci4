@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Full museum catalog pre-warmed, pieces and techniques (TOTEM-BFF-19)** — `totem:warm-cache`
+  now seeds every collection item's and every technique's own detail cache directly from a single
+  bounded bulk listing call per category (BFF's listing endpoint now accepts the detail field set
+  via `fields=`), instead of one HTTP call per piece. Tapping any piece in Catálogo is instant and
+  resilient to a bad connection at the kiosk's location, regardless of how large the museum's
+  catalog grows — no per-item network fan-out either way.
 - **Warm cache for Cartelera's featured event details (TOTEM-BFF-18)** — `totem:warm-cache` now
   also pre-fetches the detail page for each of the up-to-5 events currently shown in Cartelera
   (reusing `BillboardPresenter`'s own selection, still bounded), so tapping any displayed event is
