@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Commands;
 
+use App\Libraries\CommandLock;
 use App\Presenters\BillboardPresenter;
 use App\Services\TotemApiResult;
 use CodeIgniter\CLI\BaseCommand;
@@ -69,6 +70,22 @@ final class WarmBffCache extends BaseCommand
     }
 
     public function run(array $params): void
+    {
+        $lock = new CommandLock(WRITEPATH . 'cache/locks/totem-warm-cache.lock');
+        if (! $lock->acquire()) {
+            CLI::write('Totem BFF cache warm-up is already running; this invocation was skipped.', 'yellow');
+
+            return;
+        }
+
+        try {
+            $this->runLocked();
+        } finally {
+            $lock->release();
+        }
+    }
+
+    private function runLocked(): void
     {
         $client  = Services::totemApi();
         $locales = (new Totem())->supportedLocales;
