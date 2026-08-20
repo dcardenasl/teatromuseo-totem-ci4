@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`totem:warm-cache` guarded against overlapping runs** — the command now acquires a
+  non-blocking file lock (`App\Libraries\CommandLock`) before warming the BFF cache and skips
+  the run if another invocation already holds it, instead of letting two overlapping cron
+  invocations race against the same cache.
 - **Full museum catalog pre-warmed, pieces and techniques (TOTEM-BFF-19)** — `totem:warm-cache`
   now seeds every collection item's and every technique's own detail cache directly from a single
   bounded bulk listing call per category (BFF's listing endpoint now accepts the detail field set
