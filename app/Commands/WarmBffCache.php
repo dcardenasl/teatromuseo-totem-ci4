@@ -21,27 +21,41 @@ use Config\Totem;
  * (see TASKS.md `TOTEM-BFF-10` for the crontab line), never on-demand from a
  * request path.
  *
- * Only calls the listing/facet methods every screen actually needs on cold
- * load — never per-slug detail methods for the *whole* catalog, which would
- * be unbounded and turn this into an item-by-item fan-out (ADR-010 forbids
- * that shape regardless of whether it's client-parallel or just
- * unbounded-sequential). The one deliberate exception (`TOTEM-BFF-18`) is
- * Cartelera's own detail pages: the listing itself is already capped to the
- * same 5 events the screen displays (`BillboardPresenter::presentList()`),
- * so warming exactly those 5 slugs' detail pages is still bounded — and it
- * is exactly what protects a visitor tapping into a displayed event from a
- * bad-connectivity moment at the kiosk's physical location. TeatroEscuela
- * has no equivalent: its 3 featured courses have no separate detail screen
- * to warm (`BffTotemClient::course()` is unused dead capability, not a gap
- * here), and Catálogo's categories are not capped the way Cartelera/
- * TeatroEscuela are, so warming "every displayed piece's detail" there
- * would not be bounded the same way — left out on purpose.
+ * Never fetches per-slug detail methods across an *unbounded* catalog —
+ * ADR-010 forbids that shape regardless of whether it's client-parallel or
+ * just unbounded-sequential fan-out. Two deliberate, still-bounded
+ * exceptions:
+ *
+ * - Cartelera's own detail pages (`TOTEM-BFF-18`): the listing is already
+ *   capped to the same 5 events the screen displays
+ *   (`BillboardPresenter::presentList()`), so warming those 5 slugs' detail
+ *   pages stays bounded.
+ * - Catálogo's collection items (`TOTEM-BFF-19`): rather than one HTTP call
+ *   per piece (which *would* be unbounded as the museum's catalog grows),
+ *   each category is fetched once with the BFF's DETAIL field set
+ *   (`BffTotemClient::collectionItemsDetailed()`) — everything every
+ *   piece's own detail page needs, for the whole category, in one call —
+ *   and every item's detail cache entry is seeded locally from that single
+ *   response (`BffTotemClient::seedCollectionItemDetails()`). Técnicas get
+ *   the same treatment for free: its listing and detail queries already
+ *   project the identical columns, so `techniques()`'s response alone is
+ *   enough to seed every technique's detail entry too
+ *   (`seedTechniqueDetails()`) — this repo's most "fundamental" content
+ *   (David's words) ends up fully warmed with a bounded number of calls
+ *   regardless of catalog size, exactly like a static JSON dump would be,
+ *   without actually needing one.
+ *
+ * TeatroEscuela has no detail screen to warm at all
+ * (`BffTotemClient::course()` is unused dead capability, not a gap here).
  */
 final class WarmBffCache extends BaseCommand
 {
     protected $group       = 'totem';
     protected $name        = 'totem:warm-cache';
     protected $description = 'Proactively refreshes the BFF fresh/stale cache for every kiosk screen, across all locales.';
+
+    /** @var list<string> */
+    private const CATALOG_CATEGORIES = ['titeres', 'mascaras', 'payasos'];
 
     /** Fixed delay between calls, cheap insurance against the BFF's per-IP throttle. */
     private const DELAY_MICROSECONDS = 250_000;
@@ -59,6 +73,7 @@ final class WarmBffCache extends BaseCommand
         $client  = Services::totemApi();
         $locales = (new Totem())->supportedLocales;
         $counts  = ['fresh' => 0, 'stale' => 0, 'unavailable' => 0];
+        $itemsSeeded = 0;
 
         foreach ($locales as $locale) {
             $showsResult = $this->warm(fn (): TotemApiResult => $client->shows($locale), "shows/{$locale}");
@@ -70,19 +85,32 @@ final class WarmBffCache extends BaseCommand
             }
 
             $counts[$this->warm(fn (): TotemApiResult => $client->courses($locale), "courses/{$locale}")->state]++;
-            $counts[$this->warm(fn (): TotemApiResult => $client->collectionItems($locale, category: 'titeres'), "collection-items/{$locale}/titeres")->state]++;
-            $counts[$this->warm(fn (): TotemApiResult => $client->collectionItems($locale, category: 'mascaras'), "collection-items/{$locale}/mascaras")->state]++;
-            $counts[$this->warm(fn (): TotemApiResult => $client->collectionItems($locale, category: 'payasos'), "collection-items/{$locale}/payasos")->state]++;
+
+            foreach (self::CATALOG_CATEGORIES as $category) {
+                $counts[$this->warm(fn (): TotemApiResult => $client->collectionItems($locale, category: $category), "collection-items/{$locale}/{$category}")->state]++;
+
+                $detailedResult = $this->warm(fn (): TotemApiResult => $client->collectionItemsDetailed($locale, $category), "collection-items-detailed/{$locale}/{$category}");
+                $counts[$detailedResult->state]++;
+                if ($detailedResult->state !== 'unavailable') {
+                    $itemsSeeded += $client->seedCollectionItemDetails($locale, $detailedResult->list());
+                }
+            }
         }
 
-        $counts[$this->warm(fn (): TotemApiResult => $client->techniques(withCounts: true), 'techniques')->state]++;
+        $techniquesResult = $this->warm(fn (): TotemApiResult => $client->techniques(withCounts: true), 'techniques');
+        $counts[$techniquesResult->state]++;
+        if ($techniquesResult->state !== 'unavailable') {
+            $itemsSeeded += $client->seedTechniqueDetails($techniquesResult->list());
+        }
+
         $counts[$this->warm(fn (): TotemApiResult => $client->catalogCategories(withCounts: true), 'catalog-categories')->state]++;
 
         $line = sprintf(
-            'fresh=%d stale=%d unavailable=%d',
+            'fresh=%d stale=%d unavailable=%d, catalog detail entries seeded=%d',
             $counts['fresh'],
             $counts['stale'],
             $counts['unavailable'],
+            $itemsSeeded,
         );
         log_message('info', '[totem:warm-cache] ' . $line);
         CLI::write('Cache warm-up complete: ' . $line, 'green');

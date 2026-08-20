@@ -23,6 +23,18 @@ use Throwable;
  */
 final class BffTotemClient
 {
+    /**
+     * Mirrors `CatalogPublicReadController::DETAIL_FIELDS` on the BFF —
+     * kept in sync manually (duplication accepted per ADR-010: a bounded,
+     * single-consumer read shape, not a shared contract). If the BFF adds a
+     * field there, `collectionItemsDetailed()` simply won't request it
+     * until this list is updated too; nothing breaks either way.
+     */
+    private const CATALOG_DETAIL_FIELDS = 'id,name,category_id,inventory_code,status,summary,curiosidad,contenido,'
+        . 'origin,period,creator,ubicacion,materials,cover_file_id,cover_image,gallery_file_ids,gallery_images,'
+        . 'collection_number,collection_group,physical_description,dimensions,ingress_type,donated_by,tags,links,'
+        . 'company_history,localized,translations,slug,slugs,category,techniques,created_at,updated_at';
+
     private string $baseUrl;
     private string $apiKey;
     private int $freshTtl;
@@ -123,6 +135,76 @@ final class BffTotemClient
     public function collectionItem(string $locale, string $idOrSlug): TotemApiResult
     {
         return $this->cached("public-read/{$locale}/collection-items/" . rawurlencode($idOrSlug));
+    }
+
+    /**
+     * `TOTEM-BFF-19`: the same category listing `collectionItems()` makes,
+     * but requesting the BFF's DETAIL field set instead of the lean listing
+     * one — everything a piece's own detail page needs, for every piece in
+     * the category, in one call. Used only by the cache warm-up
+     * (`WarmBffCache::seedCollectionItemDetails()`) to populate every
+     * item's detail cache entry without an HTTP call per item; real screens
+     * keep using the lean `collectionItems()` they already do, unchanged.
+     */
+    public function collectionItemsDetailed(string $locale, string $category): TotemApiResult
+    {
+        return $this->cached("public-read/{$locale}/collection-items", [
+            'per_page' => 100,
+            'category' => $category,
+            'fields' => self::CATALOG_DETAIL_FIELDS,
+        ], list: true);
+    }
+
+    /**
+     * Writes each item's own detail cache entry (fresh+stale) directly from
+     * data already fetched in bulk (`collectionItemsDetailed()`) — no
+     * network call per item. Keyed the same way a real visit to
+     * `collectionItem($locale, $idOrSlug)` would key it, so the very next
+     * tap on a displayed piece hits this seeded entry.
+     *
+     * @param list<array<string, mixed>> $items
+     */
+    public function seedCollectionItemDetails(string $locale, array $items): int
+    {
+        $seeded = 0;
+        foreach ($items as $item) {
+            $idOrSlug = $this->slugOrId($item);
+            if ($idOrSlug === '') {
+                continue;
+            }
+
+            $cacheKey = $this->cacheKey("public-read/{$locale}/collection-items/" . rawurlencode($idOrSlug), []);
+            $this->remember($cacheKey, $item);
+            $seeded++;
+        }
+
+        return $seeded;
+    }
+
+    /**
+     * `technique()`'s detail query and `techniques()`'s listing query
+     * project the exact same columns (see `CatalogFacetReader`) — the
+     * listing already *is* full detail data for every technique, so this
+     * just redistributes an already-fetched `techniques()` response into
+     * each technique's own detail cache slot, with zero extra calls.
+     *
+     * @param list<array<string, mixed>> $techniques
+     */
+    public function seedTechniqueDetails(array $techniques): int
+    {
+        $seeded = 0;
+        foreach ($techniques as $technique) {
+            $slug = is_string($technique['slug'] ?? null) ? $technique['slug'] : '';
+            if ($slug === '') {
+                continue;
+            }
+
+            $cacheKey = $this->cacheKey('public/catalog/techniques/' . rawurlencode($slug), []);
+            $this->remember($cacheKey, $technique);
+            $seeded++;
+        }
+
+        return $seeded;
     }
 
     /**
@@ -331,6 +413,22 @@ final class BffTotemClient
     private function staleCacheKey(string $cacheKey): string
     {
         return $cacheKey . '_stale';
+    }
+
+    /**
+     * Same rule `CollectionPresenter::slugOrId()` uses to build a piece's
+     * detail link — kept independent (not shared) since it's three lines
+     * and this class must never depend on a Presenter.
+     *
+     * @param array<string, mixed> $item
+     */
+    private function slugOrId(array $item): string
+    {
+        if (is_string($item['slug'] ?? null) && $item['slug'] !== '') {
+            return $item['slug'];
+        }
+
+        return isset($item['id']) ? (string) $item['id'] : '';
     }
 
     private function log(string $path, int $durationMs, int $status, ?string $error): void
