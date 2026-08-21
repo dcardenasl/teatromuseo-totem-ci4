@@ -40,9 +40,11 @@ abstract class BaseTotemController extends BaseController
     protected function pageMeta(string|array $title): array
     {
         $title = is_string($title) ? $title : '';
+        $this->response->setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive');
 
         return [
             'pageTitle' => 'Teatromuseo - ' . $title,
+            'metaRobots' => 'noindex, nofollow, noarchive',
             'bodyClass' => 'totem-app',
             'htmlLang'  => $this->request->getLocale(),
         ];

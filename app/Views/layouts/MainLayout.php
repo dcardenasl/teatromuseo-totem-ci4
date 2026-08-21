@@ -51,6 +51,7 @@ foreach (totem_locales() as $locale) {
     
     <title><?= esc($pageTitle ?? lang('Meta.default_title')) ?></title>
     <meta name="description" content="<?= esc($pageDescription ?? lang('Meta.default_description')) ?>">
+    <meta name="robots" content="<?= esc($metaRobots ?? 'noindex, nofollow, noarchive') ?>">
 
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website">
