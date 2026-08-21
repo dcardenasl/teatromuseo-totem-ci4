@@ -67,6 +67,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Kiosk pages could be indexed by search engines** — `BaseTotemController::pageMeta()` now
+  sets the `X-Robots-Tag: noindex, nofollow, noarchive` response header and a matching
+  `metaRobots` value, rendered by `MainLayout` as `<meta name="robots">`; `public/robots.txt`
+  disallows all crawling. The totem is a physical kiosk, never a search destination.
+
 - **Collection and Totem PHPStan issues** — resolved pre-existing type errors in collection,
   story, and Totem API helpers.
 - **Totem cache placeholder** — restored the missing writable cache index placeholder.
