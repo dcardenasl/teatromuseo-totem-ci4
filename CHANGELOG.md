@@ -64,6 +64,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Quality workflow** — aligned Composer scripts and Git hooks with workspace conventions.
 - **Collection and school view contracts** — updated presenters and views to expose
   `featuredCourse` and prevent request-to-request view context leakage.
+- **Animated logo asset** — `MainLayout`'s social-sharing meta tags and the header/billboard/
+  footer-ornament/section CSS now point at `LogoTeatroMuseoAnimadoLQ.gif` instead of the
+  placeholder `logo.gif`.
 
 ### Fixed
 
