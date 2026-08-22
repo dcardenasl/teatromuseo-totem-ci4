@@ -75,9 +75,9 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result->assertSee('Historia de Teatromuseo');
         $result->assertSee('Historia de la Iglesia');
         $result->assertSee('Teatromuseo Hoy');
-        $result->assertSee('assets/img/museo/el-museo/collage-nuestra-historia.webp');
-        $result->assertSee('assets/img/museo/el-museo/collage-san-judas.webp');
-        $result->assertSee('assets/img/museo/el-museo/collage-historia-actual.webp');
+        $result->assertSee('assets/animations/historia.webp');
+        $result->assertSee('assets/animations/san-judas.webp');
+        $result->assertSee('assets/animations/main-menu.webp');
     }
 
     public function testMuseumInfoDetailRoutesUseCorrectCollages(): void
