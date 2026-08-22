@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Animated collage assets across kiosk closing sections** — Cartelera (main and detail),
+  TeatroEscuela, the main menu coda, the museum info topics, and the splash screen now show
+  a lightweight animated collage instead of a static image. The Cartelera and TeatroEscuela
+  closing sections were also restructured into a shared, full-bleed stacked layout (QR/contact
+  above the collage) instead of the previous side-by-side grid.
 - **`totem:warm-cache` guarded against overlapping runs** — the command now acquires a
   non-blocking file lock (`App\Libraries\CommandLock`) before warming the BFF cache and skips
   the run if another invocation already holds it, instead of letting two overlapping cron
