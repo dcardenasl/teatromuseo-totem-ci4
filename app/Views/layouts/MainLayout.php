@@ -58,7 +58,7 @@ foreach (totem_locales() as $locale) {
     <meta property="og:url" content="<?= esc(current_url()) ?>">
     <meta property="og:title" content="<?= esc($pageTitle ?? lang('Meta.default_title')) ?>">
     <meta property="og:description" content="<?= esc($pageDescription ?? lang('Meta.default_description')) ?>">
-    <meta property="og:image" content="<?= esc(base_url('assets/animations/logo.gif')) ?>">
+    <meta property="og:image" content="<?= esc(base_url('assets/animations/LogoTeatroMuseoAnimadoLQ.gif')) ?>">
     <meta property="og:image:type" content="image/gif">
     <meta property="og:image:width" content="250">
     <meta property="og:image:height" content="250">
@@ -68,7 +68,7 @@ foreach (totem_locales() as $locale) {
     <meta name="twitter:url" content="<?= esc(current_url()) ?>">
     <meta name="twitter:title" content="<?= esc($pageTitle ?? lang('Meta.default_title')) ?>">
     <meta name="twitter:description" content="<?= esc($pageDescription ?? lang('Meta.default_description')) ?>">
-    <meta name="twitter:image" content="<?= esc(base_url('assets/animations/logo.gif')) ?>">
+    <meta name="twitter:image" content="<?= esc(base_url('assets/animations/LogoTeatroMuseoAnimadoLQ.gif')) ?>">
 
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>?v=<?= $cssVersion ?>">
     <script>
