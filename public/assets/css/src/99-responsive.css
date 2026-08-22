@@ -692,7 +692,7 @@
     .school-course {
         width: 100%;
         grid-template-columns: 1fr;
-        gap: 12px;
+        gap: 16px;
         padding: 14px;
         justify-items: center;
     }
@@ -705,20 +705,12 @@
 
     .school-course__body {
         width: 100%;
+        gap: 10px;
         padding-top: 0;
-    }
-
-    .school-course__qr {
-        justify-self: start;
     }
 
     .school-course__contact {
         width: 100%;
-    }
-
-    .school-course__qr-box {
-        width: 64px;
-        height: 64px;
     }
 
     .billboard-detail {

@@ -1,7 +1,7 @@
 <?php
 /**
  * @var array<int, array{title:string, tag?:string, start?:string, copy?:string, image?:string}> $courses
- * @var array{title:string, heroImage?:string, heroVideo?:string, heroVideoType?:string, heroAlt?:string, introCopy?:string, stats?:array, teachersTitle?:string, coursesTitle?:string, courseImage?:string, courseTag?:string, courseTitle?:string, courseStart?:string, courseCopy?:string, courseContactLabel?:string, courseContact?:string, courseQrUrl?:string, courseQrImage?:string, courseQrLabel?:string} $section
+ * @var array{title:string, heroImage?:string, heroVideo?:string, heroVideoType?:string, heroAlt?:string, introCopy?:string, stats?:array, teachersTitle?:string, coursesTitle?:string, courseImage?:string, courseTag?:string, courseTitle?:string, courseStart?:string, courseCopy?:string, courseContactLabel?:string, courseContact?:string, courseQrUrl?:string, courseQrImage?:string, courseQrLabel?:string, closingImage?:string} $section
  * @var array<int, array{name:string, role:string, description:string, photo?:string, tone?:string}> $teachers
  * @var string $personPhoto
  * @var array $nav
@@ -147,25 +147,35 @@
                                             <span class="school-course__contact-label"><?= esc($section['courseContactLabel'] ?? lang('Section.course_contact_label')) ?></span>
                                             <span class="school-course__contact-value"><?= esc($section['courseContact'] ?? '') ?></span>
                                         </div>
-
-                                        <div class="school-course__qr">
-                                            <a
-                                                class="school-course__qr-link"
-                                                data-qr-url="<?= esc($section['courseQrUrl'] ?? '#', 'attr') ?>"
-                                                aria-label="<?= esc(lang('Section.course_qr_action_label'), 'attr') ?>"
-                                            >
-                                                <img
-                                                    class="school-course__qr-box"
-                                                    src="<?= esc(base_url($section['courseQrImage'] ?? 'assets/img/school/teatroescuela-qr.webp'), 'attr') ?>"
-                                                    alt="<?= esc(lang('Section.course_qr_alt'), 'attr') ?>"
-                                                >
-                                            </a>
-                                            <span class="school-course__qr-label"><?= esc($section['courseQrLabel'] ?? lang('Section.course_qr_label')) ?></span>
-                                        </div>
                                     </div>
                                 </div>
                             </article>
                         <?php endforeach; ?>
+
+                        <section class="school-courses__closing" aria-label="<?= esc(lang('Section.course_qr_action_label'), 'attr') ?>">
+                            <div class="school-courses__contact">
+                                <a
+                                    class="school-course__qr-link school-courses__qr-link"
+                                    data-qr-url="<?= esc($section['courseQrUrl'] ?? '#', 'attr') ?>"
+                                    aria-label="<?= esc(lang('Section.course_qr_action_label'), 'attr') ?>"
+                                >
+                                    <img
+                                        class="school-courses__qr-box"
+                                        src="<?= esc(base_url($section['courseQrImage'] ?? 'assets/img/school/teatroescuela-qr.webp'), 'attr') ?>"
+                                        alt="<?= esc(lang('Section.course_qr_alt'), 'attr') ?>"
+                                    >
+                                </a>
+                                <span class="school-courses__qr-label"><?= esc($section['courseQrLabel'] ?? lang('Section.course_qr_label')) ?></span>
+                            </div>
+
+                            <figure class="school-courses__collage" aria-hidden="true">
+                                <img
+                                    class="school-courses__collage-image"
+                                    src="<?= esc(base_url($section['closingImage'] ?? 'assets/animations/teatroescuela.webp'), 'attr') ?>"
+                                    alt=""
+                                >
+                            </figure>
+                        </section>
                     </section>
 
                 </section>

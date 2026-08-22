@@ -159,7 +159,7 @@ final class SchoolPresenter
             'courseQrLabel' => lang('Section.school_course_qr_label'),
             'courseQrImage' => 'assets/img/school/teatroescuela-qr.webp',
             'courseQrUrl' => 'https://teatromuseo.cl/teatro-escuela?utm_source=totem',
-            'closingImage' => 'assets/img/teatro-escuela/collage.webp',
+            'closingImage' => 'assets/animations/teatroescuela.webp',
             'logoPrimary' => 'assets/img/logos/ministerio_culturas_chile.webp',
             'logoSecondary' => 'assets/img/menu/menu_escuela.webp',
         ];
