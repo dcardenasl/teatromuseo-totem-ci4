@@ -12,17 +12,17 @@
                 [
                     'title' => lang('MuseumInfo.teatromuseo_history'),
                     'href'  => base_url('museo/el-museo/historia'),
-                    'img'   => 'assets/img/museo/el-museo/collage-nuestra-historia.webp',
+                    'img'   => 'assets/animations/historia.webp',
                 ],
                 [
                     'title' => lang('MuseumInfo.church_history'),
                     'href'  => base_url('museo/el-museo/iglesia'),
-                    'img'   => 'assets/img/museo/el-museo/collage-san-judas.webp',
+                    'img'   => 'assets/animations/san-judas.webp',
                 ],
                 [
                     'title' => lang('MuseumInfo.teatromuseo_today'),
                     'href'  => base_url('museo/el-museo/hoy'),
-                    'img'   => 'assets/img/museo/el-museo/collage-historia-actual.webp',
+                    'img'   => 'assets/animations/main-menu.webp',
                 ],
             ],
             'gridClass' => 'menu-grid--museum-info',
