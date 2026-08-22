@@ -30,6 +30,10 @@ final class BillboardPresenter
      */
     private const MAX_FEATURED_EVENTS = 5;
 
+    private const CLOSING_QR_IMAGE = 'assets/img/school/teatroescuela-qr.webp';
+
+    private const CLOSING_COLLAGE_IMAGE = 'assets/animations/billboard.webp';
+
     public function __construct(private readonly DatePresenter $dates = new DatePresenter())
     {
     }
@@ -157,8 +161,8 @@ final class BillboardPresenter
             'time' => $timeLabel,
             'copy' => $this->description($show),
             'secondaryCopy' => null,
-            'closingImage' => 'assets/img/billboard/billboard-collage.webp',
-            'qrImage' => 'assets/img/school/teatroescuela-qr.webp',
+            'closingImage' => self::CLOSING_COLLAGE_IMAGE,
+            'qrImage' => self::CLOSING_QR_IMAGE,
             'closingNote' => lang('Billboard.default_closing_note'),
         ];
     }

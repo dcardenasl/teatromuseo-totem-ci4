@@ -129,5 +129,7 @@ final class BillboardPresenterTest extends TestCase
         self::assertSame(['https://files.example/juan.webp', 'https://files.example/juan-2.webp'], $detail['images']);
         self::assertNotSame('', $detail['date']);
         self::assertNotSame('', $detail['time']);
+        self::assertSame('assets/img/school/teatroescuela-qr.webp', $detail['qrImage']);
+        self::assertSame('assets/animations/billboard.webp', $detail['closingImage']);
     }
 }

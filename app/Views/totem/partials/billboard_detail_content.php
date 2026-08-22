@@ -86,15 +86,6 @@ $stale = $stale ?? false;
 </section>
 
 <section class="billboard-detail__closing" aria-label="<?= esc(lang('Billboard.closing_label'), 'attr') ?>">
-    <div class="billboard-detail__collage">
-        <img
-            class="billboard-detail__collage-image"
-            src="<?= esc(base_url($detail['closingImage'] ?? 'assets/img/splash/collage-inicio.webp'), 'attr') ?>"
-            alt=""
-            aria-hidden="true"
-        >
-    </div>
-
     <div class="billboard-detail__contact">
         <img
             class="billboard-detail__qr-image"
@@ -105,4 +96,12 @@ $stale = $stale ?? false;
         <p class="billboard-detail__contact-copy"><?= esc($detail['closingNote'] ?? lang('Billboard.default_closing_note')) ?></p>
     </div>
 
+    <div class="billboard-detail__collage">
+        <img
+            class="billboard-detail__collage-image"
+            src="<?= esc(base_url($detail['closingImage'] ?? 'assets/animations/billboard.webp'), 'attr') ?>"
+            alt=""
+            aria-hidden="true"
+        >
+    </div>
 </section>

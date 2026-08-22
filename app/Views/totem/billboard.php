@@ -70,14 +70,6 @@
 
             <section class="billboard-closing" aria-label="<?= esc(lang('Billboard.closing_label'), 'attr') ?>">
                 <div class="billboard-closing__layout">
-                    <figure class="billboard-closing__collage" aria-hidden="true">
-                        <img
-                            class="billboard-closing__collage-image"
-                            src="<?= esc(base_url('assets/img/billboard/billboard-collage.webp'), 'attr') ?>"
-                            alt=""
-                        >
-                    </figure>
-
                     <div class="billboard-closing__contact">
                         <img
                             class="billboard-closing__qr-image"
@@ -87,6 +79,14 @@
                         >
                         <p class="billboard-closing__note"><?= esc(lang('Billboard.default_closing_note')) ?></p>
                     </div>
+
+                    <figure class="billboard-closing__collage" aria-hidden="true">
+                        <img
+                            class="billboard-closing__collage-image"
+                            src="<?= esc(base_url('assets/animations/billboard.webp'), 'attr') ?>"
+                            alt=""
+                        >
+                    </figure>
                 </div>
             </section>
         </div>

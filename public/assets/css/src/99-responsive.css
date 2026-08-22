@@ -32,7 +32,7 @@
     }
 
     .billboard-closing {
-        width: min(100%, 620px);
+        width: 100%;
     }
 
     .hero__ornaments {
@@ -739,10 +739,13 @@
         font-size: 0.94rem;
     }
 
-    .billboard-detail__body,
-    .billboard-detail__closing {
+    .billboard-detail__body {
         gap: 18px;
         grid-template-columns: 1fr;
+    }
+
+    .billboard-detail__closing {
+        gap: 18px;
     }
 
     .billboard-detail__copy {
@@ -753,18 +756,16 @@
         padding-top: 0;
     }
 
-    .billboard-detail__lead,
-    .billboard-detail__note,
-    .billboard-detail__contact-copy {
+    .billboard-detail__lead {
         max-width: 100%;
     }
 
     .billboard-detail__closing {
-        justify-items: center;
+        align-items: center;
     }
 
     .billboard-detail__collage-image {
-        max-height: 240px;
+        max-height: none;
         object-position: center;
     }
 
