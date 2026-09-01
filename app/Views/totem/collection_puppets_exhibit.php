@@ -3,6 +3,7 @@
  * @var array<int, array<string, mixed>> $items
  * @var array<int, array{label:string, href:string, active?:bool, disabled?:bool}> $tabs
  * @var array $nav
+ * @var bool $unavailable
  */
 ?>
 <?= $this->extend('layouts/MainLayout') ?>
@@ -16,6 +17,7 @@
             'items'     => $items ?? [],
             'tabs'      => $tabs ?? [],
             'footer'    => lang('Collection.exhibit_pager'),
+            'unavailable' => $unavailable ?? false,
         ]) ?>
     <?php $content = ob_get_clean(); ?>
 

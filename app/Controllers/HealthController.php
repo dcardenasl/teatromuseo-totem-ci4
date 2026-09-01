@@ -39,36 +39,32 @@ final class HealthController extends Controller
     }
 
     /**
-     * Check if the API is reachable by making a lightweight call.
+     * Check if the BFF is reachable via its own `/ready` probe (unauthenticated,
+     * excluded from its throttle bucket by design — see its `Config\Filters`).
      *
      * @return string 'reachable' or 'unreachable'
      */
     private function checkApiStatus(): string
     {
         try {
-            // Simple HTTP check to API endpoint
-            /** @var string|false $apiUrl */
-            $apiUrl = env('TOTEM_API_URL');
-            if ($apiUrl === false || $apiUrl === '' || !is_string($apiUrl)) {
+            /** @var string|false $bffBaseUrl */
+            $bffBaseUrl = env('TOTEM_BFF_BASE_URL');
+            if ($bffBaseUrl === false || $bffBaseUrl === '' || !is_string($bffBaseUrl)) {
                 return 'unreachable';
             }
 
-            // Try to make a simple HTTP request
-            $ch = curl_init($apiUrl . '/courses');
-            if ($ch === false) {
-                return 'unreachable';
-            }
+            $timeout = getenv('TOTEM_BFF_TIMEOUT_SECONDS');
 
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-            curl_setopt($ch, CURLOPT_HEADER, false);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept: application/json']);
+            $client = \Config\Services::curlrequest([
+                'baseURI' => rtrim($bffBaseUrl, '/') . '/',
+                'timeout'  => is_numeric($timeout) ? (int) $timeout : 5,
+            ]);
 
-            $response = curl_exec($ch);
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            curl_close($ch);
+            $response = $client->get('ready', [
+                'headers' => ['Accept' => 'application/json'],
+            ]);
+            $httpCode = $response->getStatusCode();
 
-            // If we got any response (even 404), the API is reachable
             return $httpCode >= 200 && $httpCode < 600 ? 'reachable' : 'unreachable';
         } catch (\Exception $e) {
             return 'unreachable';

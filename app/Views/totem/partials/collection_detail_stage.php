@@ -34,7 +34,7 @@ $nextHref = $nextHref ?? '';
     <figure class="collection-detail-stage__media">
         <img
             class="collection-detail-stage__image"
-            src="<?= esc(base_url($image), 'attr') ?>"
+            src="<?= esc(media_url($image), 'attr') ?>"
             alt="<?= esc($imageAlt, 'attr') ?>"
         >
     </figure>

@@ -22,4 +22,9 @@ return [
     'error_404_label' => 'Page non trouvée',
     'error_404_title' => 'Page non trouvée',
     'error_404_copy' => 'L’écran que vous cherchez n’est pas disponible. Retournez à l’accueil pour continuer.',
+    'content_unavailable_label' => 'Contenu indisponible',
+    'content_unavailable_title' => 'Contenu indisponible',
+    'content_unavailable_copy' => 'Nous n’avons pas pu actualiser cette information pour le moment. Réessayez dans quelques minutes.',
+    'content_stale_note' => 'Affichage des dernières informations disponibles.',
+    'content_loading_label' => 'Chargement…',
 ];

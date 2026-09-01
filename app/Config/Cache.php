@@ -21,6 +21,16 @@ class Cache extends BaseConfig
      *
      * The name of the preferred handler that should be used. If for some reason
      * it is not available, the $backupHandler will be used in its place.
+     *
+     * Disk-backed on purpose (matches `teatromuseo-web`'s default): the totem's
+     * `BffTotemClient` relies on the "stale" cache entry surviving hours/days
+     * of BFF outage, including across a PHP-FPM restart or a deploy. `apcu` is
+     * per-process shared memory — it is wiped by any of those events, which
+     * would silently turn a real outage into an empty "unavailable" screen for
+     * the next visitor even though a perfectly good stale answer existed
+     * seconds earlier. A local file stat+read is negligible next to the
+     * network round-trip it replaces, so there is no real latency cost to
+     * paying for that durability. See TOTEM-BFF-09.
      */
     public string $handler = 'file';
 
@@ -33,7 +43,7 @@ class Cache extends BaseConfig
      * unreachable. Often, 'file' is used here since the filesystem is
      * always available, though that's not always practical for the app.
      */
-    public string $backupHandler = 'dummy';
+    public string $backupHandler = 'file';
 
     /**
      * --------------------------------------------------------------------------
@@ -43,7 +53,7 @@ class Cache extends BaseConfig
      * This string is added to all cache item names to help avoid collisions
      * if you run multiple applications with the same cache engine.
      */
-    public string $prefix = '';
+    public string $prefix = 'tm_totem_';
 
     /**
      * --------------------------------------------------------------------------

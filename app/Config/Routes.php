@@ -49,6 +49,7 @@ $routes->addRedirect('visitas-guiadas', 'extension');
 
 // Otros
 $routes->get('cartelera', 'BillboardController::billboard');
+$routes->get('cartelera/detalle/(:any)/data', 'BillboardController::billboardDetailData/$1');
 $routes->get('cartelera/detalle/(:any)', 'BillboardController::billboardDetail/$1');
 $routes->get('amigos-de-teatromuseo', 'FriendsController::friends');
 

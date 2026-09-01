@@ -7,9 +7,9 @@
     'nav' => $nav ?? [],
     'chromeHidden' => false,
     'content' => view('totem/partials/menu_grid', [
-        'items' => $items,
+        'items' => $items ?? [],
         'showCoda' => true,
-        'codaImage' => 'assets/img/menu/collage_referencia.webp',
+        'codaImage' => 'assets/animations/main-menu.webp',
         'codaAlt' => lang('Splash.collage_alt'),
     ])
 ]) ?>

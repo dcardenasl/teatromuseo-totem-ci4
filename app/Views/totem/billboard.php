@@ -6,6 +6,8 @@
  * @var string $titleClass
  * @var string $titleWidth
  * @var string $footerVariant
+ * @var bool $unavailable
+ * @var bool $stale
  */
 ?>
 <?= $this->extend('layouts/MainLayout') ?>
@@ -13,6 +15,17 @@
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
         <div class="screen-page__body billboard-page">
+            <?php if ($unavailable): ?>
+                <?= view('totem/partials/content_unavailable') ?>
+            <?php elseif ($events === []): ?>
+                <section class="content-panel content-panel--soft" aria-label="<?= esc(lang('Billboard.no_shows_title'), 'attr') ?>">
+                    <h2 class="content-panel__title"><?= esc(lang('Billboard.no_shows_title')) ?></h2>
+                    <p class="content-panel__text"><?= esc(lang('Billboard.no_shows_copy')) ?></p>
+                </section>
+            <?php else: ?>
+            <?php if ($stale): ?>
+                <p class="content-stale-note"><?= esc(lang('Common.content_stale_note')) ?></p>
+            <?php endif; ?>
             <section class="billboard-months" aria-label="<?= esc(lang('Billboard.available_dates_label'), 'attr') ?>">
                 <?php foreach ($months as $month): ?>
                     <div class="month-group">
@@ -33,7 +46,7 @@
                             <?php if (!empty($event['image'])): ?>
                                 <img
                                     class="event-card__image"
-                                    src="<?= esc(base_url($event['image']), 'attr') ?>"
+                                    src="<?= esc($event['image'], 'attr') ?>"
                                     alt="<?= esc($event['title'] ?? lang('Billboard.default_title'), 'attr') ?>"
                                 >
                             <?php endif; ?>
@@ -53,17 +66,10 @@
                     </a>
                 <?php endforeach; ?>
             </section>
+            <?php endif; ?>
 
             <section class="billboard-closing" aria-label="<?= esc(lang('Billboard.closing_label'), 'attr') ?>">
                 <div class="billboard-closing__layout">
-                    <figure class="billboard-closing__collage" aria-hidden="true">
-                        <img
-                            class="billboard-closing__collage-image"
-                            src="<?= esc(base_url('assets/img/billboard/billboard-collage.webp'), 'attr') ?>"
-                            alt=""
-                        >
-                    </figure>
-
                     <div class="billboard-closing__contact">
                         <img
                             class="billboard-closing__qr-image"
@@ -73,6 +79,14 @@
                         >
                         <p class="billboard-closing__note"><?= esc(lang('Billboard.default_closing_note')) ?></p>
                     </div>
+
+                    <figure class="billboard-closing__collage" aria-hidden="true">
+                        <img
+                            class="billboard-closing__collage-image"
+                            src="<?= esc(base_url('assets/animations/billboard.webp'), 'attr') ?>"
+                            alt=""
+                        >
+                    </figure>
                 </div>
             </section>
         </div>

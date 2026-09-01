@@ -310,7 +310,7 @@
 #### Despliegue
 - [ ] Evaluar migración de FTP a SFTP/FTPS o pipeline CI/CD con secretos.
 - [ ] Automatizar compilación de CSS en el pipeline.
-- [ ] Eliminar `sync-css.py` si es legacy.
+- [x] Eliminar `sync-css.py` y centralizar el deploy en el helper común (2026-08-19).
 - [ ] Limpiar `totem-prod.zip` del workspace.
 
 #### Tests finales

@@ -1,6 +1,6 @@
 # Evaluación de Despliegue — Tótem Interactivo
 
-> Análisis del proceso actual de despliegue y recomendaciones para mejoras.
+> Estado actualizado después de implementar la normalización del helper.
 
 ---
 
@@ -10,140 +10,50 @@
 
 | Script | Propósito | Estado |
 |--------|-----------|--------|
-| `.deploy/deploy.py` | Despliegue FTP incremental | ✅ Activo |
-| `.deploy/sync-css.py` | Sincronización rápida de CSS | ⚠️ Legacy (opcional) |
+| `scripts/deploy_ftp.py` | Helper común FTPS/FTP, health check, rollback y prune | ✅ Activo |
+| `.deploy/deploy.py` | Wrapper versionado compatible | ✅ Activo |
 
 ### Características de seguridad actuales
 
 ✅ **Protección de credenciales:**
 - Archivo `.deploy/.env.deploy` con permisos 600
 - Validación de permisos en `deploy.py` (rechaza si no es 600)
-- `.env.deploy` en `.gitignore` (no se commitea)
+- Solo credenciales, estado y backups quedan en `.gitignore`
 
 ✅ **Exclusiones de despliegue:**
-- `.env`, vendor/, tests/, writable/
-- Archivos de desarrollo y configuración local
+- `.env*`, `vendor/`, `tests/`, `writable/`, `docs/`, `scripts/`
+- Documentación, caches, tooling y configuración local
 
-⚠️ **Limitaciones:**
-- Usa FTP (puerto 21) sin cifrado
-- No hay rollback automático
-- Sin verificación post-despliegue
-
----
-
-## Recomendaciones
-
-### Opción 1: SFTP/FTPS (corto plazo)
-
-**Ventajas:**
-- Mínimos cambios en el proceso actual
-- Tráfico cifrado
-- Mayoría de hosting soporta SFTP
-
-**Implementación:**
-```python
-# Reemplazar ftplib.FTP por paramiko.SFTPClient
-import paramiko
-
-transport = paramiko.Transport((host, 22))
-transport.connect(username=user, password=passw)
-sftp = paramiko.SFTPClient.from_transport(transport)
-```
-
-**Cambios necesarios:**
-1. Instalar `paramiko`: `pip install paramiko`
-2. Cambiar puerto default a 22
-3. Actualizar script para usar SFTP
-
-### Opción 2: CI/CD con GitHub Actions (recomendado)
-
-**Ventajas:**
-- Despliegue automatizado desde GitHub
-- Secrets encriptados en GitHub
-- Tests automáticos antes de desplegar
-- Rollback fácil (revertir commit)
-
-**Implementación:**
-
-1. **Agregar secrets al repositorio:**
-   - `DEPLOY_HOST`
-   - `DEPLOY_USER`
-   - `DEPLOY_KEY` (clave SSH privada)
-   - `DEPLOY_PATH`
-
-2. **Workflow de despliegue** (`.github/workflows/deploy.yml`):
-
-```yaml
-name: Deploy
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-      
-      - name: Install dependencies
-        run: composer install --no-dev --optimize-autoloader
-      
-      - name: Build CSS
-        run: npm ci && npm run build:css
-      
-      - name: Deploy via SSH
-        uses: easingthemes/ssh-deploy@v2
-        with:
-          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-          REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
-          REMOTE_USER: ${{ secrets.DEPLOY_USER }}
-          TARGET: ${{ secrets.DEPLOY_PATH }}
-          EXCLUDE: ".git/, .env, tests/, writable/"
-```
-
-### Opción 3: Docker + Orquestador (largo plazo)
-
-**Ventajas:**
-- Ambientes idénticos (dev/prod)
-- Escalabilidad
-- Rollback instantáneo
-
-**Implementación:**
-```dockerfile
-FROM php:8.2-apache
-COPY . /var/www/html
-RUN composer install --no-dev
-EXPOSE 80
-```
+✅ **Controles implementados:**
+- FTPS verificado por defecto; FTP plano solo con opt-in explícito
+- Backup local por release y rollback manual/automático
+- Health check configurable antes de confirmar el estado incremental
+- Reconciliación remota explícita mediante `--prune`
 
 ---
 
-## Plan de migración propuesto
+## Operación recomendada
 
-### Fase 1: Inmediata (ahora)
+```bash
+cp .deploy/.env.deploy.example .deploy/.env.deploy
+chmod 600 .deploy/.env.deploy
+python3 .deploy/deploy.py --dry-run
+python3 .deploy/deploy.py --yes
+python3 .deploy/deploy.py --rollback <release-id>
+```
 
-1. ✅ Eliminar archivos legacy (`totem-prod.zip`)
-2. ✅ Documentar proceso actual
-3. ⚠️ Mantener `sync-css.py` como opción de desarrollo
+Configure `DEPLOY_HEALTHCHECK_URL=https://<prod-host>/health`. Use
+`--prune` only when the remote listing is understood and the deletion list has
+been reviewed.
 
-### Fase 2: Corto plazo (1-2 semanas)
+---
 
-1. Evaluar soporte SFTP en hosting actual
-2. Si es posible: migrar `deploy.py` a SFTP
-3. Crear cuenta de deploy con permisos limitados
+## Pending infrastructure work
 
-### Fase 3: Mediano plazo (1 mes)
-
-1. Configurar GitHub Actions para CI/CD
-2. Migrar secrets a GitHub
-3. Probar despliegue automático en staging
-4. Desactivar despliegue manual una vez validado
+- Confirm that the cPanel account supports verified FTPS and has a dedicated
+  least-privilege deploy user.
+- Add a GitHub Actions deploy workflow only after the manual FTPS flow is
+  validated against staging and its secrets can be managed safely.
 
 ---
 
@@ -163,10 +73,10 @@ Antes de cada despliegue, verificar:
 
 ## Acciones realizadas en F4-T8
 
-1. ✅ Documentado proceso actual
-2. ✅ Eliminado `totem-prod.zip` (legacy)
-3. ✅ Evaluadas opciones de mejora
-4. ✅ Propuesto plan de migración a CI/CD
+1. ✅ Unified the deploy helper with the other applications.
+2. ✅ Removed the duplicate CSS sync and cleanup scripts.
+3. ✅ Added FTPS, health-check, rollback and explicit prune support.
+4. ✅ Versioned the tooling while keeping credentials/state ignored.
 
 ---
 

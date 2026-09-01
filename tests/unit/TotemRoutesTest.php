@@ -19,6 +19,7 @@ final class TotemRoutesTest extends CIUnitTestCase
 
     protected function tearDown(): void
     {
+        \Config\Services::reset(true);
         parent::tearDown();
     }
 
@@ -74,9 +75,9 @@ final class TotemRoutesTest extends CIUnitTestCase
         $result->assertSee('Historia de Teatromuseo');
         $result->assertSee('Historia de la Iglesia');
         $result->assertSee('Teatromuseo Hoy');
-        $result->assertSee('assets/img/museo/el-museo/collage-nuestra-historia.webp');
-        $result->assertSee('assets/img/museo/el-museo/collage-san-judas.webp');
-        $result->assertSee('assets/img/museo/el-museo/collage-historia-actual.webp');
+        $result->assertSee('assets/animations/historia.webp');
+        $result->assertSee('assets/animations/san-judas.webp');
+        $result->assertSee('assets/animations/main-menu.webp');
     }
 
     public function testMuseumInfoDetailRoutesUseCorrectCollages(): void
@@ -168,27 +169,28 @@ final class TotemRoutesTest extends CIUnitTestCase
 
     public function testPuppetsExhibitRoute(): void
     {
+        // No BFF is running in this test environment, so this is really
+        // exercising the "source unavailable" path end-to-end (TOTEM-BFF-16):
+        // the screen must render 200 with the honest content_unavailable
+        // partial, never invented pieces or a silently-empty grid.
         $result = $this->get('museo/coleccion/titeres/exhibicion');
 
         $result->assertStatus(200);
-        $result->assertSee('collection-grid--exhibit');
         $result->assertSee('Títeres en exhibición');
-        $result->assertSee('Técnicas');
-        $result->assertSee('Mamulengo, Cholito.');
+        $result->assertSee(lang_str('Common.content_unavailable_title'));
     }
 
     public function testMasksExhibitRoute(): void
     {
+        // Same "source unavailable" path as above (TOTEM-BFF-16) — this
+        // screen has its own curated hero fallback for the genuinely-empty
+        // case, but an unreachable BFF must still show the honest
+        // content_unavailable state, not that curated fallback.
         $result = $this->get('museo/coleccion/mascaras/exhibicion');
 
         $result->assertStatus(200);
         $result->assertSee('Máscaras en exhibición');
-        $result->assertSee('Tradiciones');
-        $result->assertDontSee('content-panel');
-        $result->assertDontSee('En armado');
-        $result->assertDontSee('Foco');
-        $result->assertDontSee('Ruta');
-        $result->assertDontSee('Mismo patrón');
+        $result->assertSee(lang_str('Common.content_unavailable_title'));
     }
 
     public function testMasksTraditionsRoute(): void
@@ -203,21 +205,30 @@ final class TotemRoutesTest extends CIUnitTestCase
 
     public function testCollectionItemDetailRoute(): void
     {
+        // Explicitly mocked (rather than relying on no BFF being reachable
+        // in this environment — a real BFF may legitimately be running
+        // alongside the test suite in local dev, see TOTEM-BFF-17): a
+        // transport failure must render 200 with the honest "content
+        // unavailable" panel, not a 404 (a 404 would wrongly claim the
+        // piece doesn't exist) and not any invented item content.
+        \Config\Services::injectMock('totemApi', new \App\Services\BffTotemClient(
+            \Config\Services::cache(),
+            new \Tests\Support\FakeBffCurlRequest(failTransport: true),
+        ));
+
         $result = $this->get('museo/coleccion/fichas/tg1');
 
         $result->assertStatus(200);
-        $result->assertSee('Mamulengo, Cholito.');
-        $result->assertSee('Conocer técnica');
-        $result->assertSee('País de origen');
-        $result->assertSee('TG1');
+        $result->assertSee(lang_str('Common.content_unavailable_title'));
         $result->assertDontSee('collection-section-nav');
     }
 
     public function testTheaterSchoolRoute(): void
     {
+        // No BFF running: honest "unavailable" state, not fake course content.
         $result = $this->get('teatro-escuela');
         $result->assertStatus(200);
-        $result->assertSee('Teatro escuela');
+        $result->assertSee(lang_str('Common.content_unavailable_title'));
     }
 
     public function testBillboardRoute(): void

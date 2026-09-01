@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Services\BffTotemClient;
 use App\Services\MenuBuilder;
 use App\Services\NavBuilder;
-use App\Services\TotemApiInterface;
 use Config\Services;
 
 /**
@@ -17,12 +17,12 @@ use Config\Services;
  */
 abstract class BaseTotemController extends BaseController
 {
-    private ?TotemApiInterface $apiService = null;
+    private ?BffTotemClient $apiService = null;
 
     /**
-     * Get the shared Tótem API service.
+     * Get the shared Tótem BFF client.
      */
-    protected function totemApi(): TotemApiInterface
+    protected function totemApi(): BffTotemClient
     {
         if ($this->apiService === null) {
             $this->apiService = Services::totemApi();
@@ -40,9 +40,11 @@ abstract class BaseTotemController extends BaseController
     protected function pageMeta(string|array $title): array
     {
         $title = is_string($title) ? $title : '';
+        $this->response->setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive');
 
         return [
             'pageTitle' => 'Teatromuseo - ' . $title,
+            'metaRobots' => 'noindex, nofollow, noarchive',
             'bodyClass' => 'totem-app',
             'htmlLang'  => $this->request->getLocale(),
         ];

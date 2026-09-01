@@ -13,20 +13,19 @@ final class SchoolController extends BaseTotemController
 {
     public function theaterSchool(): string
     {
-        $presenter = new SchoolPresenter();
-        $context   = $presenter->present(
-            $this->totemApi()->courses(),
-            $this->request->getLocale(),
-        );
+        $locale = $this->request->getLocale();
+        $result = $this->totemApi()->courses($locale);
+        $context = (new SchoolPresenter())->present($result, $locale);
 
         return view('totem/theater_school', array_merge(
             $this->pageMeta(lang('Menu.school')),
             [
                 'nav' => $this->shellNav(),
+                'unavailable' => $context['state'] === 'unavailable',
+                'stale' => $context['state'] === 'stale',
                 'section' => $context['section'],
                 'courses' => $context['courses'],
                 'teachers' => $context['teachers'],
-                'students' => $context['students'],
                 'personPhoto' => $context['personPhoto'],
             ]
         ));

@@ -42,10 +42,15 @@ $RECYCLE.BIN/
 # These should never be under version control,
 # as it poses a security risk.
 .env
-.env.deploy
-.last_ftp_deploy
+.env.*
+!.env.example
 /totem-prod.zip
-.deploy/
+!.deploy/.env.deploy.example
+.deploy/.env.deploy
+.deploy/.last_ftp_deploy
+.deploy/.rollback/
+__pycache__/
+*.pyc
 .vagrant
 Vagrantfile
 

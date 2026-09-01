@@ -428,14 +428,23 @@
 .menu-coda {
     display: flex;
     justify-content: center;
-    padding: 0 12px 12px;
+    width: calc(100% + (2 * var(--content-padding-inline)));
+    margin-inline: calc(-1 * var(--content-padding-inline));
+    padding: 0 0 12px;
 }
 
 .menu-coda .splash-collage {
-    width: min(100%, 960px);
+    width: 100%;
     margin-top: 0;
 }
 
 .menu-coda .splash-collage__img {
-    max-height: 320px;
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    max-height: none;
+    margin-inline: 0;
+    object-fit: contain;
+    object-position: center;
 }

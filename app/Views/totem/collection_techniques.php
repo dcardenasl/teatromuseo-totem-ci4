@@ -3,6 +3,7 @@
  * @var array<int, array<string, mixed>> $techniques
  * @var array<int, array{label:string, href:string, active?:bool, disabled?:bool}> $tabs
  * @var array $nav
+ * @var bool $unavailable
  */
 ?>
 <?= $this->extend('layouts/MainLayout') ?>
@@ -15,6 +16,7 @@
             'gridClass' => 'collection-grid--techniques',
             'items'     => $techniques ?? [],
             'tabs'      => $tabs ?? [],
+            'unavailable' => $unavailable ?? false,
         ]) ?>
     <?php $content = ob_get_clean(); ?>
 

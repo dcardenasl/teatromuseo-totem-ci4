@@ -1,8 +1,9 @@
 <?php
 /**
  * @var string $title
- * @var array<string, mixed> $item
+ * @var array<string, mixed>|null $item
  * @var array $nav
+ * @var bool $unavailable
  */
 ?>
 <?= $this->extend('layouts/MainLayout') ?>
@@ -10,6 +11,9 @@
 <?= $this->section('content') ?>
     <?php ob_start(); ?>
         <div class="collection-detail">
+        <?php if ($unavailable || $item === null): ?>
+            <?= view('totem/partials/content_unavailable') ?>
+        <?php else: ?>
             <?= view('totem/partials/collection_detail_stage', [
                 'eyebrow'     => lang('Collection.item_detail_eyebrow'),
                 'title'       => $item['title'] ?? '',
@@ -65,6 +69,7 @@
                     </a>
                 </div>
             </section>
+        <?php endif; ?>
         </div>
     <?php $content = ob_get_clean(); ?>
 

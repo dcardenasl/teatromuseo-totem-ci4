@@ -3,6 +3,14 @@ $cssPath = FCPATH . 'assets/css/style.css';
 $cssVersion = file_exists($cssPath) ? filemtime($cssPath) : '1.0.0';
 $jsPath = FCPATH . 'assets/js/app.js';
 $jsVersion = file_exists($jsPath) ? filemtime($jsPath) : '1.0.0';
+$iconAsset = static function (string $path): string {
+    $path = ltrim($path, '/');
+    $url = base_url($path);
+    $absolutePath = FCPATH . $path;
+    $version = is_file($absolutePath) ? (string) (filemtime($absolutePath) ?: '') : '';
+
+    return $version === '' ? $url : $url . '?v=' . rawurlencode($version);
+};
 $totemConfig = config('Totem');
 $transitionsEnabled = (bool) $totemConfig->enableTransitions;
 $animationsEnabled = (bool) $totemConfig->enableAnimations;
@@ -35,16 +43,22 @@ foreach (totem_locales() as $locale) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#de5928">
+    <link rel="icon" type="image/svg+xml" href="<?= esc($iconAsset('favicon.svg')) ?>">
+    <link rel="icon" type="image/x-icon" href="<?= esc($iconAsset('favicon.ico')) ?>">
+    <link rel="icon" type="image/png" sizes="96x96" href="<?= esc($iconAsset('favicon-96x96.png')) ?>">
+    <link rel="apple-touch-icon" href="<?= esc($iconAsset('apple-touch-icon.png')) ?>">
+    <link rel="manifest" href="<?= esc($iconAsset('site.webmanifest')) ?>">
     
     <title><?= esc($pageTitle ?? lang('Meta.default_title')) ?></title>
     <meta name="description" content="<?= esc($pageDescription ?? lang('Meta.default_description')) ?>">
+    <meta name="robots" content="<?= esc($metaRobots ?? 'noindex, nofollow, noarchive') ?>">
 
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="<?= esc(current_url()) ?>">
     <meta property="og:title" content="<?= esc($pageTitle ?? lang('Meta.default_title')) ?>">
     <meta property="og:description" content="<?= esc($pageDescription ?? lang('Meta.default_description')) ?>">
-    <meta property="og:image" content="<?= esc(base_url('assets/animations/logo.gif')) ?>">
+    <meta property="og:image" content="<?= esc(base_url('assets/animations/LogoTeatroMuseoAnimadoLQ.gif')) ?>">
     <meta property="og:image:type" content="image/gif">
     <meta property="og:image:width" content="250">
     <meta property="og:image:height" content="250">
@@ -54,7 +68,7 @@ foreach (totem_locales() as $locale) {
     <meta name="twitter:url" content="<?= esc(current_url()) ?>">
     <meta name="twitter:title" content="<?= esc($pageTitle ?? lang('Meta.default_title')) ?>">
     <meta name="twitter:description" content="<?= esc($pageDescription ?? lang('Meta.default_description')) ?>">
-    <meta name="twitter:image" content="<?= esc(base_url('assets/animations/logo.gif')) ?>">
+    <meta name="twitter:image" content="<?= esc(base_url('assets/animations/LogoTeatroMuseoAnimadoLQ.gif')) ?>">
 
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>?v=<?= $cssVersion ?>">
     <script>
